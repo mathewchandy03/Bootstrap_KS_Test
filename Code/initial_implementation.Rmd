@@ -1,0 +1,47 @@
+```{r}
+set.seed(1234)
+mystat <- function(x) {
+    c(c(x),  # Bootstrap will return actual pseudo-sample, mean, and standard deviation
+      mean(x),
+      sd(x))
+}
+```
+
+```{r}
+n <- 100
+phi <- 0.5
+blksize <- 6
+B = 100
+
+mysim <- function(n, phi, blksize, B) {
+  if (phi == 0) {
+    x <- rnorm(n)
+  } else {
+    x <- arima.sim(list(ar = phi), n = n) * sqrt(1 - phi^2)
+  }
+  bts <- boot::tsboot(x, mystat, l = blksize, sim = "fixed", R = B)
+  list_cdf <- matrix(, nrow = 0, ncol = n)
+  list_theta <- matrix(, nrow = 0, ncol = 2)
+  sum_theta <- 0
+  for (i in 1:B) {
+    list_cdf <- rbind(list_cdf, c(ecdf(bts$t[i, (1:n)])(sort(bts$t0[1:n]))))
+    list_theta <- rbind(list_theta, c(bts$t[i, -(1:n)]))
+  }
+  exp_cdf <- colMeans(list_cdf)
+  exp_theta <- colMeans(list_theta)
+  ks_values <- c()
+  for (i in 1:B) {
+    ks_values <- c(ks_values, max(abs(sqrt(n) * (list_cdf[i,] - exp_cdf - pnorm(sort(bts$t0[1:n]), list_theta[i, 1], list_theta[i, 2]) + pnorm(sort(bts$t0[1:n]), exp_theta[1], exp_theta[2])))))
+  }
+  c(ks_values)
+}
+
+
+
+```
+
+```{r}
+print(mysim(n, phi, blksize, B))
+```
+
+
