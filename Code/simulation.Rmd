@@ -1,0 +1,199 @@
+```{r}
+set.seed(1234)
+mystat <- function(x, dist) {
+    c(c(x),  # Bootstrap will return actual pseudo-sample, mean, and standard deviation
+      MASS::fitdistr(x, dist)$estimate)
+}
+```
+
+```{r}
+mysim <- function(n, blksize, B, dist, f, phi = 0, theta = 0) {
+  if (mean(phi == 0)) {
+      x <- arima.sim(list(ma = theta), n = n) / sqrt(1 + sum(theta^2))
+  } else {
+      x <- arima.sim(list(ar = phi, ma = theta), n = n) * sqrt(1 - sum(phi^2) / 1 + sum(theta^2))
+  }
+  emp <- ecdf(x)(sort(x)) # observed empirical distribution
+  fit_theta <- MASS::fitdistr(x, dist)$estimate # observed fitted values
+  fit <- do.call(f, c(list(sort(x)), as.list(fit_theta))) # observed fitted distribution
+  obsv_ks <- sqrt(n) * max(abs(emp - fit)) # observed ks statistic
+  bts <- boot::tsboot(x, mystat, l = blksize, sim = "fixed", R = B, dist = dist)
+  list_cdf <- matrix(, nrow = 0, ncol = n) 
+  # initialize list of each pseudo-sample's ecdf applied to original sample values
+  list_theta <- matrix(, nrow = 0, ncol = 2) 
+  # initialize list of each pseudo-sample's fitted theta
+  # bts$t[i, (1:n)] : values of bootstrap sample
+  # bts$t[i, -(1:n)] : theta (mu, and sigma)
+  sum_theta <- 0
+  for (i in 1:B) {
+    list_cdf <- rbind(list_cdf, c(ecdf(bts$t[i, (1:n)])(sort(x))))
+    list_theta <- rbind(list_theta, c(bts$t[i, -(1:n)]))
+  }
+  exp_emp_cdf <- colMeans(list_cdf)
+  exp_theta <- colMeans(list_theta)
+  exp_fit_cdf <- do.call(f, c(list(sort(x)), as.list(exp_theta)))
+  bias_term <- exp_emp_cdf - exp_fit_cdf
+  ks_values <- c()
+  for (i in 1:B) {
+    emp_cdf <- list_cdf[i,]
+    fit_cdf <- do.call(f, c(list(sort(x)), as.list(list_theta[i, ])))
+    ks_values <- c(ks_values, sqrt(n) * max(abs((emp_cdf - fit_cdf - bias_term))))
+  }
+  c(mean(ks_values > obsv_ks))
+}
+
+```
+
+```{r ar = -0.3}
+nrep = 1000
+n = 100
+blksize = 5
+B = 1000
+dist = 'normal'
+f = pnorm
+phi <- -0.3
+theta <- 0
+sim_ar1_n.3 <- replicate(nrep, mysim(n, blksize, B, dist, f, phi, theta))
+write.csv(sim_ar1_n.3, "../Data/sim_ar1_n.3.csv", row.names = FALSE)
+hist(sim_ar1_n.3)
+```
+
+```{r ar = -0.2}
+nrep = 1000
+n = 100
+blksize = 5
+B = 1000
+dist = 'normal'
+f = pnorm
+phi <- -0.2
+theta <- 0
+sim_ar1_n.2 <- replicate(nrep, mysim(n, blksize, B, dist, f, phi, theta))
+write.csv(sim_ar1_n.2, "../Data/sim_ar1_n.2.csv", row.names = FALSE)
+hist(sim_ar1_n.2)
+```
+
+```{r ar = -0.1}
+nrep = 1000
+n = 100
+blksize = 5
+B = 1000
+dist = 'normal'
+f = pnorm
+phi <- -0.1
+theta <- 0
+sim_ar1_n.1 <- replicate(nrep, mysim(n, blksize, B, dist, f, phi, theta))
+write.csv(sim_ar1_n.1, "../Data/sim_ar1_n.1.csv", row.names = FALSE)
+hist(sim_ar1_n.1)
+```
+
+```{r ar = 0}
+nrep = 1000
+n = 100
+blksize = 5
+B = 1000
+dist = 'normal'
+f = pnorm
+phi <- 0
+theta <- 0
+sim_ar1_0 <- replicate(nrep, mysim(n, blksize, B, dist, f, phi, theta))
+write.csv(sim_ar1_0, "../Data/sim_ar1_0.csv", row.names = FALSE)
+hist(sim_ar1_0)
+```
+
+```{r ar = .1}
+nrep = 1000
+n = 100
+blksize = 5
+B = 1000
+dist = 'normal'
+f = pnorm
+phi <- .1
+theta <- 0
+sim_ar1_.1 <- replicate(nrep, mysim(n, blksize, B, dist, f, phi, theta))
+write.csv(sim_ar1_.1, "../Data/sim_ar1_.1.csv", row.names = FALSE)
+hist(sim_ar1_.1)
+```
+
+```{r ar = .2}
+nrep = 1000
+n = 100
+blksize = 5
+B = 1000
+dist = 'normal'
+f = pnorm
+phi <- .2
+theta <- 0
+sim_ar1_.2 <- replicate(nrep, mysim(n, blksize, B, dist, f, phi, theta))
+write.csv(sim_ar1_.2, "../Data/sim_ar1_.2.csv", row.names = FALSE)
+hist(sim_ar1_.2)
+```
+
+```{r ar = .3}
+nrep = 1000
+n = 100
+blksize = 5
+B = 1000
+dist = 'normal'
+f = pnorm
+phi <- .3
+theta <- 0
+sim_ar1_.3 <- replicate(nrep, mysim(n, blksize, B, dist, f, phi, theta))
+write.csv(sim_ar1_.3, "../Data/sim_ar1_.3.csv", row.names = FALSE)
+hist(sim_ar1_.3)
+```
+
+```{r ar = .5}
+nrep = 1000
+n = 100
+blksize = 5
+B = 1000
+dist = 'normal'
+f = pnorm
+phi <- .5
+theta <- 0
+sim_ar1_.5 <- replicate(nrep, mysim(n, blksize, B, dist, f, phi, theta))
+write.csv(sim_ar1_.5, "../Data/sim_ar1_.5.csv", row.names = FALSE)
+hist(sim_ar1_.5)
+```
+
+```{r ma = .5}
+nrep = 1000
+n = 100
+blksize = 5
+B = 1000
+dist = 'normal'
+f = pnorm
+phi <- 0
+theta <- .5
+sim_ma1_.5 <- replicate(nrep, mysim(n, blksize, B, dist, f, phi, theta))
+write.csv(sim_ma1_.5, "../Data/sim_ma1_.5.csv", row.names = FALSE)
+hist(sim_ma1_.5)
+```
+
+```{r ar = .5, ma = .3}
+nrep = 1000
+n = 100
+blksize = 5
+B = 1000
+dist = 'normal'
+f = pnorm
+phi <- .5
+theta <- .3
+sim_arma <- replicate(nrep, mysim(n, blksize, B, dist, f, phi, theta))
+write.csv(sim_arma, "../Data/sim_arma.csv", row.names = FALSE)
+hist(sim_arma)
+```
+
+```{r ar = (.5, .3)}
+nrep = 1000
+n = 100
+blksize = 5
+B = 1000
+dist = 'normal'
+f = pnorm
+phi <- c(.5, .3)
+theta <- 0
+sim_ar2 <- replicate(nrep, mysim(n, blksize, B, dist, f, phi, theta))
+write.csv(sim_ar2, "../Data/sim_ar2.csv", row.names = FALSE)
+hist(sim_ar2)
+```
