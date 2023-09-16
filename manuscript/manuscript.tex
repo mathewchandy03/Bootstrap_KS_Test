@@ -1,0 +1,117 @@
+\documentclass[12pt, letterpaper]{article}
+%\documentclass[12pt, letterpaper, titlepage]{article}
+
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{colorlinks = true, linkcolor = blue, citecolor=blue, urlcolor = blue}
+\usepackage{natbib}
+\usepackage{enumitem}
+\usepackage{setspace}
+
+\usepackage[]{lineno}
+\linenumbers*[1]
+% %% patches to make lineno work better with amsmath
+\newcommand*\patchAmsMathEnvironmentForLineno[1]{%
+ \expandafter\let\csname old#1\expandafter\endcsname\csname #1\endcsname
+ \expandafter\let\csname oldend#1\expandafter\endcsname\csname end#1\endcsname
+ \renewenvironment{#1}%
+ {\linenomath\csname old#1\endcsname}%
+ {\csname oldend#1\endcsname\endlinenomath}}%
+\newcommand*\patchBothAmsMathEnvironmentsForLineno[1]{%
+ \patchAmsMathEnvironmentForLineno{#1}%
+ \patchAmsMathEnvironmentForLineno{#1*}}%
+
+\AtBeginDocument{%
+ \patchBothAmsMathEnvironmentsForLineno{equation}%
+ \patchBothAmsMathEnvironmentsForLineno{align}%
+ \patchBothAmsMathEnvironmentsForLineno{flalign}%
+ \patchBothAmsMathEnvironmentsForLineno{alignat}%
+ \patchBothAmsMathEnvironmentsForLineno{gather}%
+ \patchBothAmsMathEnvironmentsForLineno{multline}%
+}
+
+% control floats
+\renewcommand\floatpagefraction{.9}
+\renewcommand\topfraction{.9}
+\renewcommand\bottomfraction{.9}
+\renewcommand\textfraction{.1}
+\setcounter{totalnumber}{50}
+\setcounter{topnumber}{50}
+\setcounter{bottomnumber}{50}
+
+\newcommand{\jy}[1]{\textcolor{blue}{JY: #1}}
+\newcommand{\eds}[1]{\textcolor{red}{EDS: (#1)}}
+
+% NOTE: To produce blinded version, replace "0" with "1" below.
+\newcommand{\blind}{0}
+
+\begin{document}
+%\maketitle
+
+\if0\blind
+{
+  \title{\bf Nonparametric Bootstrap KS Test with Stationary Time Series}
+  \author{Mathew Chandy, %\\
+%   \href{mailto:mathew.chandy@uconn.edu}
+% {\nolinkurl{mathew.chandy@uconn.edu}}\\
+  Jun Yan, %\\
+  Xianyang Zhang\\
+}
+\date{}
+  \maketitle
+} \fi
+
+\if1\blind
+{
+  \bigskip
+  \bigskip
+  \bigskip
+  \begin{center}
+    {\LARGE\bf Nonparametric Bootstrap KS Test with Stationary Time Series}
+\end{center}
+  \bigskip
+} \fi
+
+
+\doublespace
+
+\begin{abstract}
+
+
+\bigskip
+\noindent{\sc Keywords}:
+\end{abstract}
+
+%\doublespace
+
+\section{Introduction}
+\label{sec:intro}
+
+
+
+
+
+\section{Concluding Remarks}
+\label{sec:conclusion}
+
+
+
+
+
+\bibliographystyle{chicago}
+\bibliography{citations}
+
+
+\end{document}
+%%% LocalWords: nonparametric semiparametric autocorrelation ARMA
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% ispell-personal-dictionary: ".aspell.en.pws"
+%%% fill-column: 80
+%%% eval: (auto-fill-mode 1)
+%%% End:

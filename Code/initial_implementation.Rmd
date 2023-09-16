@@ -40,43 +40,43 @@ mysim <- function(n, phi, blksize, B, dist, f) {
     fit_cdf <- do.call(f, c(list(sort(x)), as.list(list_theta[i, ])))
     ks_values <- c(ks_values, sqrt(n) * max(abs((emp_cdf - fit_cdf - bias_term))))
   }
-  c(length(which(ks_values > obsv_ks)) / n)
+  c(mean(ks_values > obsv_ks))
 }
 
 ```
 
 ```{r}
-n <- 100
+n <- 200
 phi <- -0.4
 blksize <- 6
-B = 100
+B = 1000
 dist = 'normal'
 f = pnorm
 print(mysim(n, phi, blksize, B, dist, f))
 ```
 ```{r}
 phi <- -0.4
-(d_n_0.4 <- replicate(100, mysim(n, phi, blksize, B, dist, f)))
+d_n_0.4 <- replicate(1000, mysim(n, phi, blksize, B, dist, f))
 hist(d_n_0.4)
 ```
 ```{r}
 phi <- -0.2
-(d_n_0.2 <- replicate(100, mysim(n, phi, blksize, B, dist, f)))
+d_n_0.2 <- replicate(1000, mysim(n, phi, blksize, B, dist, f))
 hist(d_n_0.2)
 ```
 ```{r}
 phi <- 0
-(d_n_0 <- replicate(100, mysim(n, phi, blksize, B, dist, f)))
+(d_n_0 <- replicate(1000, mysim(n, phi, blksize, B, dist, f)))
 hist(d_n_0)
 ```
 ```{r}
 phi <- 0.2
-(d_0.2 <- replicate(100, mysim(n, phi, blksize, B, dist, f)))
+(d_0.2 <- replicate(1000, mysim(n, phi, blksize, B, dist, f)))
 hist(d_0.2)
 ```
 ```{r}
 phi <- 0.4
-(d_0.4 <- replicate(100, mysim(n, phi, blksize, B, dist, f)))
+(d_0.4 <- replicate(1000, mysim(n, phi, blksize, B, dist, f)))
 hist(d_0.4)
 ```
 
