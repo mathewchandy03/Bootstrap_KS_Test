@@ -1,0 +1,3 @@
+9/27 Notes
+- Make sure that method works under null hypothesis
+- Add manuscript introduction, method with equations
