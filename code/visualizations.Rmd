@@ -1,5 +1,0 @@
-```{r}
-sim_ar1_n.3 <- read.csv("../Data/sim_ar1_n.3.csv")
-sim_ar1_n.3$
-```
-
