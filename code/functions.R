@@ -44,3 +44,24 @@ mysim <- function(n, blksize, B, dist, f, phi = 0, theta = 0) {
   }
   c(mean(ks_values > obsv_ks)) # Which are greater than the observed ks statistic
 }
+
+plot_p_vals <- function(n, blksize, B, dist, f, phi, theta, nrep = 1000) {
+  df <- data.frame(matrix(NA,    # Create empty data frame
+                          nrow = nrep,
+                          ncol = 1))
+  p <- replicate(nrep, mysim(n, blksize, B, dist, f, phi, theta))
+  df$p <- p
+  ## Section 2: Fitted parameters
+  gg.f <- ggplot(data = df, mapping = aes(sample = p)) +
+    scale_x_continuous(breaks=c(0, 1)) +
+    scale_y_continuous(breaks=c(0, 1)) + 
+    stat_pp_band(distribution = "unif") +
+    stat_pp_line() +
+    stat_pp_point(distribution = "unif", cex = .1) +
+    labs(x = "Probability Points", y = "Cumulative Probability") +
+    coord_fixed() # theme(aspect.ratio=1)
+  ggsave(filename = paste("sim_", n, '_norm_', 
+                          phi, '_', 
+                          theta, ".pdf", sep = ''), plot = gg.f, 
+         path = "../manuscript", height = 4, width = 4)
+}
