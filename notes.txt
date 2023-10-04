@@ -1,3 +1,8 @@
 9/27 Notes
 - Make sure that method works under null hypothesis
 - Add manuscript introduction, method with equations
+
+10/4 Notes
+- Follow Anthony's procedure with block bootstrap
+- Review Babu and Rao
+- May need large sample size
