@@ -1,20 +1,22 @@
+library(tidyverse)
+library(qqplotr)
 mystat <- function(x, dist) {
   # Bootstrap will return actual pseudo-sample, mean, and standard deviation
   c(c(x),  
     MASS::fitdistr(x, dist)$estimate)
 }
 
-mysim <- function(n, blksize, B, dist, f0, f = qnorm, phi = 0, theta = 0) {
-  # phi cannot be set to 0, but theta can
+mysim <- function(n, blksize, B, dist, f0, f, theta, phi, rho) {
+  # phi cannot be set to 0, but rho can
   if (mean(phi == 0)) {
-    y <- arima.sim(list(ma = theta), n = n) / sqrt(1 + sum(theta^2))
+    y <- arima.sim(list(ma = rho), n = n) / sqrt(1 + sum(rho^2))
   } else {
-    y <- arima.sim(list(ar = phi, ma = theta), n = n) * sqrt(1 - sum(phi^2) / 1 + sum(theta^2))
+    y <- arima.sim(list(ar = phi, ma = rho), n = n) * sqrt(1 - sum(phi^2) / 1 + sum(rho^2))
   }
-  y <- f(pnorm(y))
+  y <- do.call(f, c(list(pnorm(y)), as.list(theta)))
   emp <- ecdf(y)(sort(y)) # observed empirical distribution
   fit_theta <- MASS::fitdistr(y, dist)$estimate # observed fitted values
-  fit <- do.call(f0, c(list(sort(y)), as.list(theta))) # observed fitted distribution
+  fit <- do.call(f0, c(list(sort(y)), as.list(fit_theta))) # observed fitted distribution
   obsv_ks <- sqrt(n) * max(abs(emp - fit)) # observed ks statistic
   
   # Block Bootstrap
@@ -45,11 +47,11 @@ mysim <- function(n, blksize, B, dist, f0, f = qnorm, phi = 0, theta = 0) {
   c(mean(ks_values > obsv_ks)) # Which are greater than the observed ks statistic
 }
 
-plot_p_vals <- function(n, blksize, B, dist, f0, f = qnorm, phi, theta, nrep = 1000) {
+plot_p_vals <- function(n, blksize, B, dist, f0, f, theta, phi, rho, nrep = 1000) {
   df <- data.frame(matrix(NA,    # Create empty data frame
                           nrow = nrep,
                           ncol = 1))
-  p <- replicate(nrep, mysim(n, blksize, B, dist, f0, f, phi, theta))
+  p <- replicate(nrep, mysim(n, blksize, B, dist, f0, f, theta, phi, rho))
   df$p <- p
   ## Section 2: Fitted parameters
   gg.f <- ggplot(data = df, mapping = aes(sample = p)) +
@@ -60,8 +62,8 @@ plot_p_vals <- function(n, blksize, B, dist, f0, f = qnorm, phi, theta, nrep = 1
     stat_pp_point(distribution = "unif", cex = .1) +
     labs(x = "Probability Points", y = "Cumulative Probability") +
     coord_fixed() # theme(aspect.ratio=1)
-  ggsave(filename = paste("sim_", n, '_norm_', 
+  ggsave(filename = paste("sim_", n, "_", dist, "_",
                           phi, '_', 
-                          theta, ".pdf", sep = ''), plot = gg.f, 
-         path = "../manuscript", height = 4, width = 4)
+                          rho, ".pdf", sep = ''), plot = gg.f, 
+         path = "../figures/manuscript", height = 4, width = 4)
 }

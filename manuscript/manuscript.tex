@@ -81,6 +81,9 @@
 
 \begin{abstract}
 
+The Kolmogorov-Smirnov (KS) statistic is widely used to test if a sample is
+from a given distribution.
+
 
 \bigskip
 \noindent{\sc Keywords}:
@@ -91,8 +94,42 @@
 \section{Introduction}
 \label{sec:intro}
 
-The Kolgomorov-Smirnov (KS) test is a popular goodness-of-fit statistic that can
-be used to assess how well a sample fits a given distribution.
+The Kolmogorov-Smirnov (KS) test is a useful goodness-of-fit statistic. It 
+can be used to see if a population follows a hypothesized distribution and has 
+and can be applied to a variety of fields. It has
+been used to analyze the random distribution of cosmic microwave background 
+radiation \citep{naess2012application}. A common misuse of the KS test is when
+the hypothesized distribution has unspecified parameters. 
+\citet{babu2004goodness} approaches this scenario using basic 
+non-parametric bootstrap. There is also the scenario where both the hypothesized 
+distribution has unspecified parameters and additionally the data are 
+serially dependent. \citet{zeimbekakis2022misuses} demonstrates a remedy for
+this scenario using semi-parametric bootstrap. This study aims to address this
+scenario with non-parametric block bootstrap.
+
+The rest of the paper is outlined as follows: in the first 
+section, we assess whether the KS
+test holds its size; that is, does the test fail to reject the null hypothesis
+when it is true. In the second section, we evaluate the 
+test's power; that is, does the test reject the null hypothesis when it is 
+false.
+Finally, we end with 
+concluding remarks in the third section.
+
+\section{Methods}
+\label{sec:methods}
+
+Consider a stationary time series $\{X_t: t = 1, \ldots, n\}$ with length~$n$. 
+Our goal is to see if the data generating model of the series matches a 
+hypothesized distribution. If the observations in the series were independent, a 
+standard
+nonparametric bootstrap KS test would draw a large number~$B$ bootstrap copies 
+of the observed data, and compute the empirical distribution and a
+fitted distribution from the fitted parameters
+$\hat\theta_n^{(b)}$ for each copy $b = 1, \ldots, B$. ____ When serial 
+dependence is present, the bootstrap procedure 
+needs to preserve the serial dependence. Block bootstrap was motivated for this 
+situation. 
 
 Consider the goodness of fit statistic:
 \begin{equation*}
@@ -181,12 +218,6 @@ Y^*_n(x) = \sqrt{n}(F^*_n(x) - E^*[F^*_n(x)]) -
 and $KS^*_n = \sup_x|Y^*_n(x)|$.
 
 
-The rest of the paper is outlined as follows: in the first 
-section, we assess whether the KS
-test works under the null hypothesis, in the second section, we evaluate the 
-test's 
-power when the null hypothesis is false, and in the third section, we end with 
-concluding remarks.
 
 \section{Null Hypothesis}
 \label{sec:null}
