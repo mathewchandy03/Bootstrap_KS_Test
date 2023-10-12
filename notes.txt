@@ -6,3 +6,9 @@
 - Follow Anthony's procedure with block bootstrap
 - Review Babu and Rao
 - May need large sample size
+
+10/11 Notes
+- Try larger sample size
+- Try with dependent data
+- Begin writing paper (review notes)
+- Methods
