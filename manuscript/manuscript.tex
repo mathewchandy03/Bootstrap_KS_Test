@@ -45,6 +45,7 @@
 
 \newcommand{\jy}[1]{\textcolor{blue}{JY: #1}}
 \newcommand{\eds}[1]{\textcolor{red}{EDS: (#1)}}
+\newcommand{\mc}[1]{\textcolor{green}{MC: (#1)}}
 
 % NOTE: To produce blinded version, replace "0" with "1" below.
 \newcommand{\blind}{0}
@@ -54,7 +55,8 @@
 
 \if0\blind
 {
-  \title{\bf Nonparametric Bootstrap KS Test with Stationary Time Series}
+  \title{\bf Nonparametric Bootstrap Kolmogorov-Smirnov Test with Stationary 
+  Time Series}
   \author{Mathew Chandy, %\\
 %   \href{mailto:mathew.chandy@uconn.edu}
 % {\nolinkurl{mathew.chandy@uconn.edu}}\\
@@ -71,7 +73,8 @@
   \bigskip
   \bigskip
   \begin{center}
-    {\LARGE\bf Nonparametric Bootstrap KS Test with Stationary Time Series}
+    {\LARGE\bf Nonparametric Bootstrap Kolmogorv-Smirnov Test with Stationary 
+    Time Series}
 \end{center}
   \bigskip
 } \fi
@@ -84,14 +87,12 @@
 The Kolmogorov-Smirnov (KS) statistic is widely used to test if a sample is
 from a given distribution.
 
-
 \bigskip
 \noindent{\sc Keywords}:
 \end{abstract}
 
 %\doublespace
 
-\jy{double blank liines to better separate paragraphs}
 
 \section{Introduction}
 \label{sec:intro}
@@ -109,6 +110,7 @@ serially dependent. \citet{zeimbekakis2022misuses} demonstrates a remedy for
 this scenario using semi-parametric bootstrap. This study aims to address this
 scenario with non-parametric block bootstrap.
 
+
 The rest of the paper is outlined as follows: in the first 
 section, we assess whether the KS
 test holds its size; that is, does the test fail to reject the null hypothesis
@@ -118,35 +120,34 @@ false.
 Finally, we end with 
 concluding remarks in the third section.
 
+
 \section{Methods}
 \label{sec:methods}
 
 Consider a stationary time series $\{X_t: t = 1, \ldots, n\}$ with length~$n$.
 \jy{state the null hypothesis explicitly; we are testing the marginal
   distribution. Point out the challenges.}
-Our goal is to see if the data generating model of the series matches a 
-hypothesized distribution.
+Let $H_0: X_t ~ F$, where if $F$ is a hypothesized distribution with unknown 
+parameters. Let $H_A$ be that $X_t$ does not follow $F$. This is challenging because we are
+dealing with a situation with both unknown parameters and temporal dependence.
+If $X_t ~ F$, the true marginal distribution of $X_t$ has some parameters 
+$\theta$.
 
 
 \jy{define $\hat\theta_n$}
-If the observations in the series were independent, a 
-standard
-nonparametric bootstrap KS test would draw a large number~$B$ bootstrap copies 
-of the observed data, and compute the empirical distribution and a
-fitted distribution from the fitted parameters
-$\hat\theta_n^{(b)}$ for each copy $b = 1, \ldots, B$. When serial 
-dependence is present, the bootstrap procedure 
-needs to preserve the serial dependence. Block bootstrap was motivated for this 
-situation.
+\mc{addressed}
 
 
 \jy{No double letter notations}
+\mc{addressed}
 Consider the goodness of fit statistic:
 \begin{equation*}
   T_n := \sup_x|Y_n(x; \hat\theta)|, 
 Y_n(x; \hat\theta) = \sqrt{n}(F_n(x) - F(x; \hat\theta_n)),
 \end{equation*}
-where $F_n$ denotes the empirical distribution function based on $X_1,...,X_n$.
+where $F_n$ denotes the empirical distribution function based on $X_1,...,X_n$,
+and $\hat\theta_n$ denotes the fitted parameters for the hypothesized 
+distribution fitted onto $X_t$.
 We note that
 \begin{equation*}
 Y_n(x; \hat\theta) = \sqrt{n}(F_n(x) - F(x)) - 
@@ -156,88 +157,100 @@ where $F(x)$ is the true cdf (under the null $F(x) = F(x, \theta_0)$ for some
 true parameter $\theta_0$).
 
 
-Let us first consider the case where $X_i$'s are i.i.d. Denote by $F^*_n$ the
-empirical distribution of the bootstrap sample $X^*_1,...,X^*_n$ and let
-$\hat\theta^*_n$ be the parameter estimate based on the bootstrap samples. 
+Let us first consider the case where $X_i$'s are i.i.d. Denote by $F^{(b)}_n$ the
+empirical distribution of the $b$th bootstrap sample and let
+$\hat\theta^{(b)}_n$ be the parameter estimate based on the bootstrap samples. 
 Using the bootstrap (asymptotic) theory, we can approximate the distribution of
 \jy{no need for so many in-display equations}
-\[
-\sqrt{n}(F_n(x) - F(x))
-\]
-by that of
-\[
-\sqrt{n}(F^*_n(x) - F_n(x))
-\]
+$\sqrt{n}(F_n(x) - F(x))$
+by that of $\sqrt{n}(F^{(b)}_n(x) - F_n(x))$
 and the distribution of
-\[
-\sqrt{n}(F(x; \hat\theta_n) - F(x))
-\]
+$\sqrt{n}(F(x; \hat\theta_n) - F(x))$
 by that of
-\[
-\sqrt{n}(F(x; \hat\theta^*_n) - F(x; \hat\theta_n)).
-\]
+$\sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; \hat\theta_n))$.
 Therefore, if we define
 \begin{equation*}
-Y^*_n(x) = \sqrt{n}(F^*_n(x) - F_n(x)) - 
-\sqrt{n}(F(x; \hat\theta^*_n) - F(x; \hat\theta_n)) 
-= \sqrt{n}(F^*_n(x) - F(x; \hat\theta^*_n)) - 
+Y^{(b)}_n(x) = \sqrt{n}(F^{(b)}_n(x) - F_n(x)) - 
+\sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; \hat\theta_n)) 
+= \sqrt{n}(F^{(b)}_n(x) - F(x; \hat\theta^{(b)}_n)) - 
 \sqrt{n}(F_n(x) - F(x; \hat\theta_n)),
 \end{equation*}
-then $KS^*_n := \sup_x|Y^*_n(x)|$ is the bootstrap statistic that is expected
-to approximate the distribution of $KS_n$. We note that the term
+then $T^{(b)}_n := \sup_x|Y^{(b)}_n(x)|$ is the bootstrap statistic that is expected
+to approximate the distribution of $T_n$. We note that the term
 $\sqrt{n}(F_n(x) - F(x; \hat\theta_n))$ is exactly the bias term considered in 
 Babu and Rao (2004).
 
 
 We now consider the case where $X_i$'s are realizations from a time series and
-$X^*_1,...,X^*_n$ are generated by block bootstrap. In this case, we can 
+$X^{(b)}_1,...,X^{(b)}_n$ are generated by block bootstrap for 
+$b \in \{1, \ldots, B\}$. Let $E^{b}$ refer to the expectation with respect to
+the bootstrap distribution
+In this case, we can 
 approximate the distribution of
-\jy{No need for in-display}
-\[
-\sqrt{n}(F_n(x) - F(x))
-\]
+$\sqrt{n}(F_n(x) - F(x))$
 by that of
-\[
-\sqrt{n}(F^*_n(x) - E^*[F^*_n(x)])
-\]
+$\sqrt{n}(F^{(b)}_n(x) - E^{(b)}[F^{(b)}_n(x)])$,
+where 
 \jy{change the languages to add variety}
-and the distribution of
-\[
-\sqrt{n}(F(x; \theta_n) - F(x))
-\]
-by that of
-\[
-\sqrt{n}(F(x; \hat\theta^*_n) - F(x; E^*[\hat\theta^*_n])).
-\]
+and the distribution of $\sqrt{n}(F(x; \theta_n) - F(x))$
+by that of $\sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; E^*[\hat\theta^{(b)}_n]))$.
 \jy{no closing a sentence before all the notations are introduced}
-Here $E^*$ denotes the expectation with respect to the bootstrap distribution
-(i.e., the randomness due to the resampling using block botostrap) conditional
-on the observations $X_1,...,X_n$. We can compute $E^*[F^*_n(x)]$ and 
-$E^*[\hat\theta^*_n]$ numerically (they can also be computed analytically, 
-depending on the types of block bootstrap we use). For example, let 
-$X^*_{1,b},...,X^*_{n,b}$ be the $b$th block bootstrap sample for 
-$1 \leq b \leq B$. One can compute $F^*_{n,b}$ and $\hat\theta^*_{n,b}$ based on
-$X^*_{1,b},...,X^*_{n,b}$. Then
-\begin{align*}
-E^*[F^*_n(x)] &\approx \frac{1}{B}\sum_{b = 1}^BF^*_{n, b}(x),\\
-E^*[\hat\theta^*_n] &\approx \frac{1}{B}\sum_{b = 1}^B\hat\theta^*_{n,b}.
-\end{align*}
+We can compute $E^{(b)}[F^{(b)}_n(x)]$ and 
+$E^{(b)}[\hat\theta^{(b)}_n]$ numerically (they can also be computed analytically, 
+depending on the types of block bootstrap we use). One can compute 
+$F^{(b)}_n$ 
+and $\hat\theta^{(b)}_n$ based on
+the $b$th bootstrap sample. Then
+$E^{(b)}[F^{(b)}_n(x)] \approx \frac{1}{B}\sum_{b = 1}^BF^{(b)}_n(x)$, and
+$E^{(b)}[\hat\theta^{(b)}_n] \approx \frac{1}{B}\sum_{b = 1}^B\hat\theta^{(b)}_n$.
 In this case, we can define
 \jy{too long}
-\begin{equation*}
-Y^*_n(x) = \sqrt{n}(F^*_n(x) - E^*[F^*_n(x)]) - 
-\sqrt{n}(F(x; \hat\theta^*_n) - F(x; E^*[\hat\theta^*_n)]) 
-= \sqrt{n}(F^*_n(x) - F(x; \hat\theta^*_n)) - 
-\sqrt{n}(E^*[F^*_n(x)] - F(x; E^*[\hat\theta^*_n])),
-\end{equation*}
-and $KS^*_n = \sup_x|Y^*_n(x)|$.
 
 
+$Y^*_n(x) = \sqrt{n}(F^{(b)}_n(x) - E^{(b)}[F^{(b)}_n(x)]) - 
+\sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; E^{(b)}[\hat\theta^{(b)}_n)]) \\
+= \sqrt{n}(F^{(b)}_n(x) - F(x; \hat\theta^{(b)}_n)) - 
+\sqrt{n}(E^{(b)}[F^{(b)}_n(x)] - F(x; E^{(b)}[\hat\theta^{(b)}_n]))$,
+
+
+and $T^{(b)}_n = \sup_x|Y^{(b)}_n(x)|$.
+
+The p-value of the block bootstrap KS test can be computed 
+as $p = \#\{T^{(b)}_n < T_n\} / B$ for 
+$b \in \{1, \ldots, B\}$.
 
 \section{Simulation Studies}
 \label{sec:simu}
 
 \jy{First size and then power}
+
+\paragraph{Size}
+We first must evaluate whether this method works when $H_0$ is true. To
+test this, we can
+generate a simulated sample $X_t$ from a certain distribution $F(\theta)$,
+and use the block bootstrap KS test to test if $X_t$ is generated from 
+distribution $F$ with some unknown $\theta$. If the test holds its size, the 
+p-value
+of the test should be uniformally distributed between 0 and 1. We must try the
+method with different marginal distributions to ensure that it is robust.
+The results of the method depend on the sample size, so we must find the minimum
+sample size required for the block bootstrap KS test to work.
+We can implement the procedure described in methods with the true distribution
+$F ~ N$, hypothesize distribution $F_0 ~ N$, and true $\mu = 8$ and 
+$\sigma = 8$.
+We replicate this procedure 1000 times to get the distribution of the p-values 
+for the test when applied to samples from the same data generating process.
+Then, we repeat the same procedure with $F ~ \Gamma$.
+
+
+\paragraph{Power}
+We must also evaluate if this method works when $H_0$ is false. We can use
+the block bootstrap KS test to test if $X_t$ is generated from some other 
+distribution $G$ with some unknown $\theta$. In this scenario, if the test is 
+indeed powerful,
+we would ideally want $\Beta$, or the probability of rejection to be 1, but we
+expect it to be generally high. Again, we must try the method with different
+marginal distributions to ensure that it is robust.
 
 
 \section{Real Data Analysis}

@@ -65,5 +65,5 @@ plot_p_vals <- function(n, blksize, B, dist, f0, f, theta, phi, rho, nrep = 1000
   ggsave(filename = paste("sim_", n, "_", dist, "_",
                           phi, '_', 
                           rho, ".pdf", sep = ''), plot = gg.f, 
-         path = "../figures/manuscript", height = 4, width = 4)
+         path = "../manuscript/figures", height = 4, width = 4)
 }
