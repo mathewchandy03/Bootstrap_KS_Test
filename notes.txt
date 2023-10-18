@@ -12,3 +12,12 @@
 - Try with dependent data
 - Begin writing paper (review notes)
 - Methods
+
+10/18 Notes
+- For different alphas, look at empirical level and nominal level
+- Zoomed in plot or histograms
+- Try 800
+- Look at annual precipitation in Mansfield
+- Financial time series data (Stock returns of Microsoft)
+- Daily closing price
+- tseries R package
