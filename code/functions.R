@@ -53,6 +53,9 @@ plot_p_vals <- function(n, blksize, B, dist, f0, f, theta, phi, rho, nrep = 1000
                           ncol = 1))
   p <- replicate(nrep, mysim(n, blksize, B, dist, f0, f, theta, phi, rho))
   df$p <- p
+  saveRDS(df, paste("../data/sim_", n, "_", dist, "_",
+                    phi, '_', 
+                    rho, ".RDS", sep = ''))
   ## Section 2: Fitted parameters
   gg.f <- ggplot(data = df, mapping = aes(sample = p)) +
     scale_x_continuous(breaks=c(0, 1)) +
@@ -63,6 +66,21 @@ plot_p_vals <- function(n, blksize, B, dist, f0, f, theta, phi, rho, nrep = 1000
     labs(x = "Probability Points", y = "Cumulative Probability") +
     coord_fixed() # theme(aspect.ratio=1)
   ggsave(filename = paste("sim_", n, "_", dist, "_",
+                          phi, '_', 
+                          rho, ".pdf", sep = ''), plot = gg.f, 
+         path = "../manuscript/figures", height = 4, width = 4)
+}
+
+zoomed_in <- function(df, n, dist, phi, rho) {
+  gg.f <- ggplot(data = df, mapping = aes(sample = p)) +
+    scale_x_continuous(breaks=c(0, 0.1)) +
+    scale_y_continuous(breaks=c(0, 0.1)) + 
+    stat_pp_band(distribution = "unif") +
+    stat_pp_line() +
+    stat_pp_point(distribution = "unif", cex = .1) +
+    labs(x = "Probability Points", y = "Cumulative Probability") +
+    coord_cartesian(ylim = c(0, 0.1), xlim = c(0, 0.1))
+  ggsave(filename = paste("zoom_", n, "_", dist, "_",
                           phi, '_', 
                           rho, ".pdf", sep = ''), plot = gg.f, 
          path = "../manuscript/figures", height = 4, width = 4)

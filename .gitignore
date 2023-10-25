@@ -33,5 +33,5 @@ code/*/*
 .Rapp.history
 .Rhistory
 *.rds
-
+*code/.RDataTmp
 Old_Files/
