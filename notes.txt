@@ -21,3 +21,10 @@
 - Financial time series data (Stock returns of Microsoft)
 - Daily closing price
 - tseries R package
+
+10/25 Notes
+- Confidence interval for rate of rejection
+- Try n = 3200
+- Test that it's from normal distribution (data is from t distribution with certain dfs)
+- hist.quote
+- Microsoft data has heavier tail than normal, so test that it is normal (which we expect to reject)
