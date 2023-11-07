@@ -1,5 +1,5 @@
 library(tidyverse)
-library(qqplotr)
+#library(qqplotr)
 mystat <- function(x, dist) {
   # Bootstrap will return actual pseudo-sample, mean, and standard deviation
   c(c(x),  
@@ -47,16 +47,13 @@ mysim <- function(n, blksize, B, dist, f0, f, theta, phi, rho) {
   c(mean(ks_values > obsv_ks)) # Which are greater than the observed ks statistic
 }
 
-plot_p_vals <- function(n, blksize, B, dist, f0, f, theta, phi, rho, nrep = 1000) {
+plot_p_vals <- function(filename) {
+  pvals <- readRDS(paste("../data/", filename, ".RDS", sep = ''))
+  nrep <- length(pvals)
   df <- data.frame(matrix(NA,    # Create empty data frame
                           nrow = nrep,
                           ncol = 1))
-  p <- replicate(nrep, mysim(n, blksize, B, dist, f0, f, theta, phi, rho))
-  df$p <- p
-  saveRDS(df, paste("../data/sim_", n, "_", dist, "_",
-                    phi, '_', 
-                    rho, ".RDS", sep = ''))
-  ## Section 2: Fitted parameters
+  df$p <- pvals
   gg.f <- ggplot(data = df, mapping = aes(sample = p)) +
     scale_x_continuous(breaks=c(0, 1)) +
     scale_y_continuous(breaks=c(0, 1)) + 
@@ -65,13 +62,8 @@ plot_p_vals <- function(n, blksize, B, dist, f0, f, theta, phi, rho, nrep = 1000
     stat_pp_point(distribution = "unif", cex = .1) +
     labs(x = "Probability Points", y = "Cumulative Probability") +
     coord_fixed() # theme(aspect.ratio=1)
-  ggsave(filename = paste("sim_", n, "_", dist, "_",
-                          phi, '_', 
-                          rho, ".pdf", sep = ''), plot = gg.f, 
+  ggsave(filename = paste(filename, ".pdf", sep = ''), plot = gg.f, 
          path = "../manuscript/figures", height = 4, width = 4)
-}
-
-zoomed_in <- function(df, n, dist, phi, rho) {
   gg.f <- ggplot(data = df, mapping = aes(sample = p)) +
     scale_x_continuous(breaks=c(0, 0.1)) +
     scale_y_continuous(breaks=c(0, 0.1)) + 
@@ -80,8 +72,18 @@ zoomed_in <- function(df, n, dist, phi, rho) {
     stat_pp_point(distribution = "unif", cex = .1) +
     labs(x = "Probability Points", y = "Cumulative Probability") +
     coord_cartesian(ylim = c(0, 0.1), xlim = c(0, 0.1))
-  ggsave(filename = paste("zoom_", n, "_", dist, "_",
-                          phi, '_', 
-                          rho, ".pdf", sep = ''), plot = gg.f, 
+  ggsave(filename = paste("zoom_", filename, ".pdf", sep = ''), plot = gg.f, 
+         path = "../manuscript/figures", height = 4, width = 4)
+  gg.f <- ggplot(data = df, mapping = aes(sample = p)) +
+    geom_histogram(aes(x = p), binwidth = .05) +
+    labs(x = "Probability Points", y = "Cumulative Probability")
+  ggsave(filename = paste("hist_", filename, ".pdf", sep = ''), plot = gg.f, 
+         path = "../manuscript/figures", height = 4, width = 4)
+  gg.f <- ggplot(data = df, mapping = aes(sample = p)) +
+    geom_histogram(aes(x = p), binwidth = .01) +
+    labs(x = "Probability Points", y = "Cumulative Probability") +
+    coord_cartesian(xlim = c(0, 0.1))
+  ggsave(filename = paste("zoom_hist_", filename, ".pdf", sep = ''), plot = gg.f, 
          path = "../manuscript/figures", height = 4, width = 4)
 }
+

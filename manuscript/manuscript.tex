@@ -242,6 +242,10 @@ We replicate this procedure 1000 times to get the distribution of the p-values
 for the test when applied to samples from the same data generating process.
 Then, we repeat the same procedure with $F ~ \Gamma$.
 
+We constructed Q-Q plots of the distribution of the p-values to see if they are
+normally distributed. A zoomed in plot for probabilities between 0 and 0.1, as
+that is the most common range for significance levels $\alpha$.
+
 \begin{figure}[tbp]
   \centering
   \includegraphics[width=\textwidth]{figures/sim_800_normal_-0.4_0}
@@ -281,6 +285,10 @@ National Oceanic and Atmospheric Administration.
 
 \mc{https://www.nasdaq.com/market-activity/stocks/msft/historical}
 
+We expect the distribution of Microsoft stock returns to have a slightly
+heavier tail than the normal distribution. We can test that it is normally
+distributed (which we expect to reject). Then we can try testing if it follows
+the $t$ distribution with different degrees of freedoms.
 
 
 \section{Concluding Remarks}
