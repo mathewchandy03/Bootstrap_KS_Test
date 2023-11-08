@@ -243,8 +243,14 @@ for the test when applied to samples from the same data generating process.
 Then, we repeat the same procedure with $F ~ \Gamma$.
 
 We constructed Q-Q plots of the distribution of the p-values to see if they are
-normally distributed. A zoomed in plot for probabilities between 0 and 0.1, as
-that is the most common range for significance levels $\alpha$.
+uniformly distributed. If the distribution of the p-values is uniform, this 
+indicates that the time series follows the null distribution. 
+A zoomed in plot for probabilities between 0 and 0.1 is
+also provided, as
+that is the most common range for significance levels $\alpha$. We can also
+compute the rate of rejection $\#P < \alpha$ for different values of
+$\alpha$, as well as a confidence interval
+for this proportion.
 
 \begin{figure}[tbp]
   \centering
@@ -266,9 +272,15 @@ We must also evaluate if this method works when $H_0$ is false. We can use
 the block bootstrap KS test to test if $X_t$ is generated from some other 
 distribution $G$ with some unknown $\theta$. In this scenario, if the test is 
 indeed powerful,
-we would ideally want $\Beta$, or the probability of rejection to be 1, but we
+we would ideally want $\beta$, or the probability of rejection to be 1, but we
 expect it to be generally high. Again, we must try the method with different
 marginal distributions to ensure that it is robust.
+We would then expect the distribution of p-values to be non-normal, and the rate
+of $\#P < \alpha$ to be high, meaning a higher density of low p-values.
+
+If we can show that the test correctly fails to reject $H_0$ under the null
+distribution, and correctly rejects $H_0$ for an alternate distribution, we can
+state tht the method works.
 
 
 \section{Real Data Analysis}
@@ -279,11 +291,11 @@ marginal distributions to ensure that it is robust.
 \subsection{Precipitation in Mansfield Connecticut}
 Precipitation annual maximum in inches series data was retrieved from the 
 National Oceanic and Atmospheric Administration.
-\mc{https://hdsc.nws.noaa.gov/pfds/pfds_map_cont.html?bkmrk=ct}
+%\mc{https://hdsc.nws.noaa.gov/pfds/pfds_map_cont.html?bkmrk=ct}
 
 \subsection{Microsoft Stock Returns}
 
-\mc{https://www.nasdaq.com/market-activity/stocks/msft/historical}
+%\mc{https://www.nasdaq.com/market-activity/stocks/msft/historical}
 
 We expect the distribution of Microsoft stock returns to have a slightly
 heavier tail than the normal distribution. We can test that it is normally
