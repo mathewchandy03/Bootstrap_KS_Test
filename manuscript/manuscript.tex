@@ -85,7 +85,13 @@
 \begin{abstract}
 
 The Kolmogorov-Smirnov (KS) statistic is widely used to test if a sample is
-from a given distribution.
+from a given distribution. This study demonstrates how block bootstrap can be 
+used to approximate the KS statistic in situations where parameters are 
+not specified and the data are serially dependent. We demonstrate the 
+theoretical justication for this method, then through simulation we verify that
+it holds it size under the null distribution and is powerful when the null 
+hypothesis is false. Finally, we demonstrate applications of the method to
+precipitation data from JFK airport and Microsoft stock returns.
 
 \bigskip
 \noindent{\sc Keywords}:
@@ -236,33 +242,53 @@ method with different marginal distributions to ensure that it is robust.
 The results of the method depend on the sample size, so we must find the minimum
 sample size required for the block bootstrap KS test to work.
 We can implement the procedure described in methods with the true distribution
-$F ~ N$, hypothesize distribution $F_0 ~ N$, and true $\mu = 8$ and 
-$\sigma = 8$.
+$F ~ N$, hypothesize distribution $F_0 ~ N$, and true mean $\mu = 8$ and 
+standard deviation $\sigma = \sqrt{8}$.
 We replicate this procedure 1000 times to get the distribution of the p-values 
 for the test when applied to samples from the same data generating process.
-Then, we repeat the same procedure with $F ~ \Gamma$.
+Then, we repeat the same procedure with $F ~ \Gamma$, and true shape $k = 8$ and
+scale $\theta = 1$.
 
 We constructed Q-Q plots of the distribution of the p-values to see if they are
 uniformly distributed. If the distribution of the p-values is uniform, this 
 indicates that the time series follows the null distribution. 
 A zoomed in plot for probabilities between 0 and 0.1 is
 also provided, as
-that is the most common range for significance levels $\alpha$. We can also
-compute the rate of rejection $\#P < \alpha$ for different values of
-$\alpha$, as well as a confidence interval
-for this proportion.
+that is the most common range for significance levels $\alpha$. 
+%We can also
+%compute the rate of rejection $\#P < \alpha$ for different values of
+%$\alpha$, as well as a confidence interval
+%for this proportion.
 
 \begin{figure}[tbp]
   \centering
-  \includegraphics[width=\textwidth]{figures/sim_800_normal_-0.4_0}
-  \caption{Q-Q p}
+  \includegraphics[scale=1]{figures/normal}
+  \caption{A Q-Q plot of the p-values testing that a distribution
+  generated from a $N(8,8)$ data generating process is normal.}
   \label{fig:mu}
 \end{figure}
 
 \begin{figure}[tbp]
   \centering
-  \includegraphics[width=\textwidth]{figures/zoom_800_normal_-0.4_0}
-  \caption{}
+  \includegraphics[scale=1]{figures/zoom_normal}
+  \caption{A version of the above plot zoomed in to probabilities between 0 and
+  0.1}
+  \label{fig:mu}
+\end{figure}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[scale=1]{figures/gamma}
+  \caption{A Q-Q plot of the p-values testing that a distribution
+  generated from a $\gamma(8,1)$ data generating process is gamma distributed.}
+  \label{fig:mu}
+\end{figure}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[scale=1]{figures/zoom_gamma}
+  \caption{A version of the above plot zoomed in to probabilities between 0 and
+  0.1}
   \label{fig:mu}
 \end{figure}
 
@@ -275,13 +301,23 @@ indeed powerful,
 we would ideally want $\beta$, or the probability of rejection to be 1, but we
 expect it to be generally high. Again, we must try the method with different
 marginal distributions to ensure that it is robust.
-We would then expect the distribution of p-values to be non-normal, and the rate
+We would then expect the distribution of p-values to be non-uniform, and the rate
 of $\#P < \alpha$ to be high, meaning a higher density of low p-values.
 
 If we can show that the test correctly fails to reject $H_0$ under the null
 distribution, and correctly rejects $H_0$ for an alternate distribution, we can
-state tht the method works.
+state that the method works.
 
+We can find the rate of rejection for  different values for the significance 
+level $\alpha$. Additionally, we can construct a 95\% confidence interval for 
+this rate. Below are rejection rates for $\phi = 0.2$ and $n = 800$, when
+applied to the normal and gamma distributions using $\alpha =$ 0.01, 0.05, and 
+0.10.
+
+\input{tables/rr}
+
+As shown in the above table, the rejection rates for these settings are very 
+high (almost 1), indicating that the test is very powerful for these settings.
 
 \section{Real Data Analysis}
 
@@ -289,7 +325,8 @@ state tht the method works.
   data, for example, temperatures or stock returns or ...}
 
 \subsection{Precipitation in Mansfield Connecticut}
-Precipitation annual maximum in inches series data was retrieved from the 
+Monthly maximums of daily precipiation in inches time series data was retrieved 
+from the John F. Kennedy (JFK) International Airport station from the 
 National Oceanic and Atmospheric Administration.
 %\mc{https://hdsc.nws.noaa.gov/pfds/pfds_map_cont.html?bkmrk=ct}
 
@@ -305,6 +342,11 @@ the $t$ distribution with different degrees of freedoms.
 
 \section{Concluding Remarks}
 \label{sec:conclusion}
+
+We have shown that given a large enough sample of a time series, the block 
+bootstrap KS test can appropriately fail to reject the null hypothesis when the
+series follows the null distribution. It requires a larger sample size than 
+basic bootstrap.
 
 
 
