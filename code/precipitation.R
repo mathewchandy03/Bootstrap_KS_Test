@@ -4,25 +4,40 @@ library(janitor)
 library(evd)
 precipitation <- read.csv("../data/precipitation.csv") %>% 
   clean_names() %>% 
-  filter(station_name == "JFK INTERNATIONAL AIRPORT NY US", hpcp != 999.99) %>% 
   mutate(date = strptime(date, format = "%Y%m%d %H:%M"))
 
-annual_max_hpcp <- precipitation %>% 
+mdw <- precipitation %>% 
+  filter(station == "COOP:111577", hpcp != 999.99) %>%
   group_by(year = as.numeric(format(date, "%Y"))) %>% 
   summarize(annual_max_hpcp = max(hpcp)) %>% 
   ungroup()
 
-monthly_max_dpcp <- precipitation %>%
-  group_by(year = as.numeric(format(date, "%Y")),
-           month = as.numeric(format(date, "%m")),
-           day = as.numeric(format(date, "%d"))) %>% 
-  summarize(dpcp = sum(hpcp)) %>% 
-  ungroup(day) %>% 
-  summarize(monthly_max_dpcp = max(dpcp)) %>% 
+set.seed(123)
+mdw_pvals <- myapp(mdw$annual_max_hpcp, 10000, 'gev', evd::pgev, df = NULL)
+
+
+lga <- precipitation %>% 
+  filter(station == "COOP:305811", hpcp != 999.99) %>%
+  group_by(year = as.numeric(format(date, "%Y"))) %>% 
+  summarize(annual_max_hpcp = max(hpcp)) %>% 
   ungroup()
 
 set.seed(123)
-nyc_pvals <- myapp(annual_max_hpcp$annual_max_hpcp, 10000, 'gev', pgev)
+lga_pvals <- myapp(lga$annual_max_hpcp, 10000, 'gev', evd::pgev)
 
-saveRDS(nyc_pvals, "../data/nyc_pvals.RDS")
+
+lax <- precipitation %>% 
+  filter(station == "COOP:045114", hpcp != 999.99) %>%
+  group_by(year = as.numeric(format(date, "%Y"))) %>% 
+  summarize(annual_max_hpcp = max(hpcp)) %>% 
+  ungroup()
+
+set.seed(123)
+lax_pvals <- myapp(lax$annual_max_hpcp, 10000, 'gev', evd::pgev)
+
+write(print(xtable(data.frame(MDW = mdw_pvals, LGA = lga_pvals, LAX =
+                                lax_pvals),
+                   caption = "P-values for testing that annual maximum of hourly 
+            precipitation from the three airports follows the GEV distribution.")), 
+        file = "../manuscript/tables/precipitation_pvals.tex")
 

@@ -47,9 +47,9 @@ for (phi in c(-.4, -.2, 0, .2, .4)) {
         R <- length(pvals)
         if (R <= 0) next
         x <- sum(pvals < alpha)
-        pt <- prop.test(x, R, correct=FALSE)
-        rr_lb <- pt$conf.int[1]
-        rr_ub <- pt$conf.int[2]
+        prop_test <- prop.test(x, R, correct=FALSE)
+        rr_lb <- prop_test$conf.int[1]
+        rr_ub <- prop_test$conf.int[2]
         rr <- mean(c(rr_lb, rr_ub))
         df <- rbind(df, c(phi, n, dist, alpha, rr_lb, rr, rr_ub, R))
       }

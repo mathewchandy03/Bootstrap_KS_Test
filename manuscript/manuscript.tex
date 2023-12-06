@@ -265,15 +265,16 @@ that is the most common range for significance levels $\alpha$.
   \includegraphics[scale=1]{figures/normal}
   \caption{A Q-Q plot of the p-values testing that a distribution
   generated from a $N(8,8)$ data generating process is normal.}
-  \label{fig:mu}
+  \label{fig:normal}
 \end{figure}
 
 \begin{figure}[tbp]
   \centering
   \includegraphics[scale=1]{figures/zoom_normal}
-  \caption{A version of the above plot zoomed in to probabilities between 0 and
+  \caption{A Q-Q plot of the p-values displayed in \ref{fig:normal} zoomed in to 
+  probabilities between 0 and
   0.1}
-  \label{fig:mu}
+  \label{fig:zoom_normal}
 \end{figure}
 
 \begin{figure}[tbp]
@@ -281,15 +282,16 @@ that is the most common range for significance levels $\alpha$.
   \includegraphics[scale=1]{figures/gamma}
   \caption{A Q-Q plot of the p-values testing that a distribution
   generated from a $\gamma(8,1)$ data generating process is gamma distributed.}
-  \label{fig:mu}
+  \label{fig:gamma}
 \end{figure}
 
 \begin{figure}[tbp]
   \centering
   \includegraphics[scale=1]{figures/zoom_gamma}
-  \caption{A version of the above plot zoomed in to probabilities between 0 and
+  \caption{A Q-Q plot of the p-values displayed in \ref{fig:gamma} zoomed in to 
+  probabilities between 0 and
   0.1}
-  \label{fig:mu}
+  \label{fig:zoom_gamma}
 \end{figure}
 
 
@@ -314,21 +316,62 @@ this rate. Below are rejection rates for $\phi = 0.2$ and $n = 800$, when
 applied to the normal and gamma distributions using $\alpha =$ 0.01, 0.05, and 
 0.10.
 
-\input{tables/rr}
+\input{tables/rr_100}
+
+From \ref{table:rr_100}, we can see that when $n = 100$, the rejection rate may 
+be quite low, especially for lower values of $\alpha$. From \ref{table:rr_200}, 
+the rejection rates are a little higher for $n = 200$, but they may still be 
+drop below 50\% is the $\alpha = 0.1$. Once $n$ reaches 400, we can observe 
+from \ref{table:rr_400} that the rejection rate
+is consistently above 50\%. For larger sample sizes, the rejection rate is 
+consistently above 90\%. We can also
+observe that the rejection rate is higher for the $\gamma(8, 1)$ sample than for 
+the $N(8, 8)$ As the strength of the temporal dependence increases, the 
+rejection rate decreases, and the rejection
+rate appears to be slightly higher for negative temporal dependence versus 
+positive temporal dependence values of the same strength.
+
+\input{tables/rr_200}
+
+
+\input{tables/rr_400}
+
+\input{tables/rr_800}
+
+\input{tables/rr_1600}
+
+\input{tables/rr_3200}
 
 As shown in the above table, the rejection rates for these settings are very 
 high (almost 1), indicating that the test is very powerful for these settings.
 
 \section{Real Data Analysis}
 
+
+
 \jy{Find some real time series to test for their marginal distributions. Open
   data, for example, temperatures or stock returns or ...}
 
 \subsection{Precipitation in Mansfield Connecticut}
-Monthly maximums of daily precipiation in inches time series data was retrieved 
-from the John F. Kennedy (JFK) International Airport station from the 
-National Oceanic and Atmospheric Administration.
+Annual maximums of hourly precipitation in inches time series data were 
+retrieved 
+from the Chicago Midway International Airport, New York LaGuardia International 
+Airport,
+and Los Angeles International Airport stations from the 
+National Oceanic and Atmospheric Administration. These stations were selected 
+from places of importance in the three largest American cities. LaGuardia and
+Midway were chosen over John F. Kennedy and O'Hare as more data was available
+from these stations. The data is from
+May 1st of 1948 to January 1st of 2014. To confirm that our method works, we 
+used it to test that
+the precipitation time series from each of these locations followed the 
+Generalized Extreme Value (GEV) distribution. 
+
+\input{tables/precipitation_pvals}
 %\mc{https://hdsc.nws.noaa.gov/pfds/pfds_map_cont.html?bkmrk=ct}
+
+Using a significance level as high as .10 still results in a failed rejection
+of the null hypothesis that all three time series follow the GEV distribution.
 
 \subsection{Microsoft Stock Returns}
 
@@ -336,17 +379,31 @@ National Oceanic and Atmospheric Administration.
 
 We expect the distribution of Microsoft stock returns to have a slightly
 heavier tail than the normal distribution. We can test that it is normally
-distributed (which we expect to reject). Then we can try testing if it follows
-the $t$ distribution with different degrees of freedoms.
+distributed (which we expect to reject).  While we 
+could choose to estimate a fited value of the degrees of freedom parameter as
+part of our method, it is very difficult to do so. Therefore, we can try testing 
+if it follows
+the $t$ distribution with increasingly smaller degrees of freedoms.
 
+\input{tables/mc_pvals}
+
+F
 
 \section{Concluding Remarks}
 \label{sec:conclusion}
 
-We have shown that given a large enough sample of a time series, the block 
+Using simulation, we have shown that given a large enough sample of a time 
+series, the block 
 bootstrap KS test can appropriately fail to reject the null hypothesis when the
-series follows the null distribution. It requires a larger sample size than 
-basic bootstrap.
+series follows the null distribution. In addition, when the marginal
+distribution is not
+the one hypothesized, the test is powerful. It requires a larger sample size 
+than basic bootstrap to avoid either type I or type II errors. Unsurprisingly,
+the method performs better as the temporal dependence gets weaker. We have also 
+demonstrated possible applications of this method to precipitation and 
+stock return data. This method can be used for any study where the goal is
+to see if a time series follows a hypothesized distribution and the parameters
+are unknown or unspecified. 
 
 
 

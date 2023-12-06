@@ -1,6 +1,75 @@
 library(xtable)
 df <- readRDS("../data/rejection_rates.RDS")
-df <- df %>% filter(phi == 0.2, n == 800) %>% select(-R) %>% 
+df_100 <- df %>% 
+  filter(n == 100) %>% 
+  select(-R) %>% 
   rename(distribution = dist, `lower bound` = rr_lb, `rejection rate` = rr, 
          `upper bound` = rr_ub)
-write(print(xtable(df)), file = "../manuscript/tables/rr.tex")      
+write(print(xtable(df_100, 
+                   caption = "Rejection rates for test when n = 100 for 
+                   different values of AR(1) coefficient and for different 
+                   significance levels. Lower and upper bounds are also 
+                   included.",
+                   label = "rr_100")), 
+      file = "../manuscript/tables/rr_100.tex")  
+
+df_200 <- df %>% 
+  filter(n == 200) %>% 
+  select(-R) %>% 
+  rename(distribution = dist, `lower bound` = rr_lb, `rejection rate` = rr, 
+         `upper bound` = rr_ub)
+write(print(xtable(df_200,
+                   caption = "Rejection rates for test when n = 200 for 
+                   different values of AR(1) coefficient and for different 
+                   significance levels. Lower and upper bounds are also 
+                   included.",
+                   label = "rr_200")), file = "../manuscript/tables/rr_200.tex")
+
+df_400 <- df %>% 
+  filter(n == 400) %>% 
+  select(-R) %>% 
+  rename(distribution = dist, `lower bound` = rr_lb, `rejection rate` = rr, 
+         `upper bound` = rr_ub)
+write(print(xtable(df_400,
+                   caption = "Rejection rates for test when n = 400 for 
+                   different values of AR(1) coefficient and for different 
+                   significance levels. Lower and upper bounds are also 
+                   included.",
+                   label = "rr_400")), file = "../manuscript/tables/rr_400.tex")
+
+df_800 <- df %>% 
+  filter(n == 800) %>% 
+  select(-R) %>% 
+  rename(distribution = dist, `lower bound` = rr_lb, `rejection rate` = rr, 
+         `upper bound` = rr_ub)
+write(print(xtable(df_800,
+                   caption = "Rejection rates for test when n = 800 for 
+                   different values of AR(1) coefficient and for different 
+                   significance levels. Lower and upper bounds are also 
+                   included.",
+                   label = "rr_800")), file = "../manuscript/tables/rr_800.tex")
+
+df_1600 <- df %>% 
+  filter(n == 1600) %>% 
+  select(-R) %>% 
+  rename(distribution = dist, `lower bound` = rr_lb, `rejection rate` = rr, 
+         `upper bound` = rr_ub)
+write(print(xtable(df_1600,
+                   caption = "Rejection rates for test when n = 1600 for 
+                   different values of AR(1) coefficient and for different 
+                   significance levels. Lower and upper bounds are also 
+                   included.",
+                   label = "rr_1600")), file = "../manuscript/tables/rr_1600.tex")
+
+df_3200 <- df %>% 
+  filter(n == 3200) %>% 
+  select(-R) %>% 
+  rename(distribution = dist, `lower bound` = rr_lb, `rejection rate` = rr, 
+         `upper bound` = rr_ub)
+write(print(xtable(df_3200,
+                   caption = "Rejection rates for test when n = 3200 for 
+                   different values of AR(1) coefficient and for different 
+                   significance levels. Lower and upper bounds are also 
+                   included.",
+                   label = "rr_3200")), file = "../manuscript/tables/rr_3200.tex")
+
