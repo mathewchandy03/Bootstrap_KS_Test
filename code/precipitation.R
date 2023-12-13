@@ -2,6 +2,7 @@ source('functions.R')
 library(tidyverse)
 library(janitor)
 library(evd)
+library(xtable)
 precipitation <- read.csv("../data/precipitation.csv") %>% 
   clean_names() %>% 
   mutate(date = strptime(date, format = "%Y%m%d %H:%M"))
@@ -37,7 +38,7 @@ lax_pvals <- myapp(lax$annual_max_hpcp, 10000, 'gev', evd::pgev)
 
 write(print(xtable(data.frame(MDW = mdw_pvals, LGA = lga_pvals, LAX =
                                 lax_pvals),
-                   caption = "P-values for testing that annual maximum of hourly 
+                   caption = "P-values for testing that annual maximums of hourly 
             precipitation from the three airports follows the GEV distribution.")), 
         file = "../manuscript/tables/precipitation_pvals.tex")
 

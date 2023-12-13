@@ -12,6 +12,7 @@
 \usepackage{enumitem}
 \usepackage{setspace}
 
+
 \usepackage[]{lineno}
 \linenumbers*[1]
 % %% patches to make lineno work better with amsmath
@@ -48,7 +49,7 @@
 \newcommand{\mc}[1]{\textcolor{green}{MC: (#1)}}
 
 % NOTE: To produce blinded version, replace "0" with "1" below.
-\newcommand{\blind}{0]}
+\newcommand{\blind}{1]}
 
 \begin{document}
 %\maketitle
@@ -63,7 +64,6 @@
   Elizabeth Schifano\\
   Jun Yan, %\\
   Xianyang Zhang\\
-}
 } \fi
 
 
@@ -73,16 +73,20 @@
 \begin{abstract}
 
 The Kolmogorov-Smirnov (KS) statistic is widely used to test if a sample is
-from a given distribution. This study demonstrates how block bootstrap can be 
+from a given distribution. This study demonstrates how non-parametric 
+block bootstrap can be 
 used to approximate the KS statistic in situations where parameters are 
 not specified and the data are serially dependent. We demonstrate the 
 theoretical justication for this method, then through simulation we verify that
 it holds it size under the null distribution and is powerful when the null 
 hypothesis is false. Finally, we demonstrate applications of the method to
-precipitation data from JFK airport and Microsoft stock returns.
+precipitation data from three airports and Microsoft stock returns.
 
 \bigskip
 \noindent{\sc Keywords}:
+bias-correction; 
+dependent data; 
+time series. 
 \end{abstract}
 
 \doublespace 
@@ -92,59 +96,96 @@ precipitation data from JFK airport and Microsoft stock returns.
 \label{sec:intro}
 
 
-\jy{Flow:
-  Review misuses of one-sample KS test; focus on serial dependence;
-  criticize Zeimbakakis; highlight contributions (connection to Babu and Rao).}
+The Kolmogorov-Smirnov (KS) test is a useful goodness-of-fit statistic. 
+Let $X_1, ..., X_n$ be a random sample of size~$n$ from some continuous
+distribution. The null hypothesis $H_0$ is that $X_i$'s follow the
+hypothesized distribution~$F$.
+Let $F_n(t) = \sum_{i=1}^n I(X_i \le t) / n$ be the empirical cumulative
+distribution function of the sample, where $I(\cdot)$ is the indicator
+function. The KS test statistic takes the form
+\begin{equation}
+  \label{eq:ks_standard}
+  D_n = \sqrt{n} \sup_x | F_{n}(x) - F(x) |.
+\end{equation}
 
-\jy{Borrow the introduction of Zeimbakakis and, of course, rephase them.}
 
-The Kolmogorov-Smirnov (KS) test is a useful goodness-of-fit statistic. It 
+The statistic 
 can be used to see if a population follows a hypothesized distribution and has 
 and can be applied to a variety of fields. It has
 been used to analyze the random distribution of cosmic microwave background 
-radiation \citep{naess2012application}. A common misuse of the KS test is when
+radiation \citep{naess2012application}. \citet{zeimbekakis2022misuses} reviews
+some of the common misuses of the one-sample KS test. One of the most common 
+misuses of the KS test is when
 the hypothesized distribution has unspecified parameters. 
 \citet{babu2004goodness} approaches this scenario using basic 
-non-parametric bootstrap. There is also the scenario where both the hypothesized 
-distribution has unspecified parameters and additionally the data are 
-serially dependent. \citet{zeimbekakis2022misuses} demonstrates a remedy for
-this scenario using semi-parametric bootstrap. This study aims to address this
-scenario with non-parametric block bootstrap.
+non-parametric bootstrap. There is also the scenario where the data are serially
+dependent, which \citet{zeimbekakis2022misuses} partially remedies with 
+semi-parametric
+bootstrap. The last scenario \citet{zeimbekakis2022misuses} discusses is that
+where both the hypothesized 
+distribution has unspecified parameters and the data are 
+serially dependent. \citet{zeimbekakis2022misuses}'s remedy for
+this scenario also uses semi-parametric bootstrap.
 
 
-The rest of the paper is outlined as follows: in the first 
-section, we assess whether the KS
+A complete remedy for KS tests with serially dependent data is
+a challenging task. The null distribution depends on the structure of the serial
+dependence, which can be arbitrary in practice. A parametric bootstrap procedure
+would demand a specification for a model for the dependence, whereas the primary 
+interest
+is to test the marginal distribution of the stationary series. A bias 
+correction
+for block bootstrap similar to what \citet{babu2004goodness} did for basic
+bootstrap had not yet been shown.  This study aims to resolve this gap by 
+demonstrating a bias 
+correction
+for non-parametric block bootstrap to use when the hypothesized distribution
+has unspecified parameters and the data are serially dependent.
+
+
+The rest of the paper is outlined as follows: Section~\ref{sec:methods} reviews
+block bootstrap procedure and demonstrates the basis for bias correction for
+the non-parametric block bootstrap KS test. In Section~\ref{sec:simu}, we first 
+assess whether the KS
 test holds its size; that is, does the test fail to reject the null hypothesis
-when it is true. In the second section, we evaluate the 
+when it is true. In the second part of Section~\ref{sec:simu}, we 
+evaluate the 
 test's power; that is, does the test reject the null hypothesis when it is 
-false.
+false. We show practical applications of this method in Section~\ref{sec:real}.
+First, we apply the method to test if annual maximums of hourly precipitation
+in three U.S. airports follows the GEV distribution in 
+Subsection~\ref{sec:precipitation}.
+Then, we test if Microsoft stock return data follows the Normal or the Student's
+$t$ distribution in Subsection~\ref{sec:microsoft}.
 Finally, we end with 
-concluding remarks in the third section.
+concluding remarks in Section~\ref{sec:conclusion}.
 
 
 \section{Methods}
 \label{sec:methods}
 
-\jy{Clarify the GoF test is for the marginal distribution of a statoinary
-  series.}
+
 Consider a stationary time series $\{X_t: t = 1, \ldots, n\}$ with length~$n$.
-\jy{state the null hypothesis explicitly; we are testing the marginal
-  distribution. Point out the challenges.}
-Let $H_0: X_t ~ F$, where if $F$ is a hypothesized distribution with unknown 
-parameters. Let $H_A$ be that $X_t$ does not follow $F$. This is challenging because we are
-dealing with a situation with both unknown parameters and temporal dependence.
-If $X_t ~ F$, the true marginal distribution of $X_t$ has some parameters 
-$\theta$.
+Let $H_0: X_t \sim F$, where $F$ is a hypothesized marginal distribution with 
+unknown 
+parameters. Let $H_A$ be that the marginal distribution of $X_t$ does not follow 
+$F$. This is challenging 
+because we are
+dealing with a situation with both unknown parameters and serial dependence.
+If $X_t \sim F$, the true marginal distribution of $X_t$ has some parameters 
+$\theta$. The KS goodness-of-fit statistic is to test for the marginal 
+distribution of a stationary series.
 
 
 
-\jy{No double letter notations}
-\mc{addressed}
-Consider the goodness of fit statistic:
-\jy{define $Y_n$ before introducing $T_n$}
+Let
 \begin{equation*}
-  T_n := \sup_x|Y_n(x; \hat\theta)|, 
-Y_n(x; \hat\theta) = \sqrt{n}(F_n(x) - F(x; \hat\theta_n)),
+Y_n(x; \hat\theta) = \sqrt{n}(F_n(x) - F(x; \hat\theta_n)).
+\end{equation*}
+Then, the
+goodness of fit statistic is 
+\begin{equation*}
+T_n := \sup_x|Y_n(x; \hat\theta)|.
 \end{equation*}
 where $F_n$ denotes the empirical distribution function based on $X_1,...,X_n$,
 and $\hat\theta_n$ denotes the fitted parameters for the hypothesized 
@@ -157,20 +198,17 @@ Y_n(x; \hat\theta) = \sqrt{n}(F_n(x) - F(x)) -
 where $F(x)$ is the true cdf (under the null $F(x) = F(x, \theta_0)$ for some
 true parameter $\theta_0$).
 
-\jy{respond to my comments}
 
-Let us first consider the case where $X_i$'s are i.i.d. Denote by $F^{(b)}_n$ the
+Let us first consider the case where $X_i$'s are i.i.d. Denote by $F^{(b)}_n$ 
+the
 empirical distribution of the $b$th bootstrap sample and let
-$\hat\theta^{(b)}_n$ be the parameter estimate based on the bootstrap samples. 
+$\hat\theta^{(b)}_n$ be the parameter estimate based on the $b$th bootstrap 
+sample. 
 Using the bootstrap (asymptotic) theory, we can approximate the distribution of
-\jy{Need rephrasing. The two terms are approximated altogether jointly not
-  separately.}
-$\sqrt{n}(F_n(x) - F(x))$
+$\sqrt{n}(F_n(x) - F(x))$ and $\sqrt{n}(F(x; \hat\theta_n) - F(x))$
 by that of $\sqrt{n}(F^{(b)}_n(x) - F_n(x))$
-and the distribution of
-$\sqrt{n}(F(x; \hat\theta_n) - F(x))$
-by that of
-$\sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; \hat\theta_n))$.
+and
+$\sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; \hat\theta_n))$, respectively.
 Therefore, if we define
 \begin{equation*}
 Y^{(b)}_n(x) = \sqrt{n}(F^{(b)}_n(x) - F_n(x)) - 
@@ -178,23 +216,45 @@ Y^{(b)}_n(x) = \sqrt{n}(F^{(b)}_n(x) - F_n(x)) -
 = \sqrt{n}(F^{(b)}_n(x) - F(x; \hat\theta^{(b)}_n)) - 
 \sqrt{n}(F_n(x) - F(x; \hat\theta_n)),
 \end{equation*}
-then $T^{(b)}_n := \sup_x|Y^{(b)}_n(x)|$ is the bootstrap statistic that is expected
+then $T^{(b)}_n := \sup_x|Y^{(b)}_n(x)|$ is the bootstrap statistic that is 
+expected
 to approximate the distribution of $T_n$. We note that the term
 $\sqrt{n}(F_n(x) - F(x; \hat\theta_n))$ is exactly the bias term considered in 
-Babu and Rao (2004).\jy{cite}
+\citet{babu2004goodness}.
 
 
 We now consider the case where $X_i$'s are realizations from a time series and
 $X^{(b)}_1,...,X^{(b)}_n$ are generated by block bootstrap for 
-$b \in \{1, \ldots, B\}$. Let $E^{(b)}$ refer to the expectation with respect to
+$b \in \{1, \ldots, B\}$. 
+
+
+Block-bootstrap can be done with overlapping or moving blocks.
+Define 
+moving blocks (assuming $l > 1$) as:
+\begin{equation*}
+Z_j =
+    \begin{cases}
+        \{X_j, \ldots, X_{j + l - 1}\}, & \text{if } j = 1, \dots, n - l + 1,\\
+        \{X_j, \ldots, X_n, X_1, \ldots, X_{j-n+l-1}\}, & \text{if } j = n - l
+        + 2 ,\dots, n.
+    \end{cases}
+\end{equation*}
+
+
+A common 
+function for block size that is considered optimal is 
+$l = \lceil n^{1/3} \rceil$, \citep{buhlmann1999block} 
+which was adopted in this study.
+
+
+Let $E^{(b)}$ refer to the expectation with respect to
 the bootstrap distribution. In this case, we can 
-approximate the distribution of
-$\sqrt{n}(F_n(x) - F(x))$
-by that of
-$\sqrt{n}(F^{(b)}_n(x) - E^{(b)}[F^{(b)}_n(x)])$,
-\jy{change the languages to add variety}
-and the distribution of $\sqrt{n}(F(x; \theta_n) - F(x))$
-by that of $\sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; E^*[\hat\theta^{(b)}_n]))$.
+use the distribution of $\sqrt{n}(F^{(b)}_n(x) - E^{(b)}[F^{(b)}_n(x)])$ 
+as an approximation of the distribution of
+$\sqrt{n}(F_n(x) - F(x))$,
+and the distribution of 
+$\sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; E^*[\hat\theta^{(b)}_n]))$ to 
+approximate $\sqrt{n}(F(x; \theta_n) - F(x))$'s distribution.
 
 
 We can compute $E^{(b)}[F^{(b)}_n(x)]$ and 
@@ -207,45 +267,82 @@ $E^{(b)}[F^{(b)}_n(x)] \approx \frac{1}{B}\sum_{b = 1}^BF^{(b)}_n(x)$, and
 $E^{(b)}[\hat\theta^{(b)}_n] \approx \frac{1}{B}\sum_{b = 1}^B\hat\theta^{(b)}_n$.
 In this case, we can define
 \begin{align*}
-  Y^*_n(x) &= \sqrt{n}(F^{(b)}_n(x) - E^{(b)}[F^{(b)}_n(x)]) - 
+  Y^{(b)}_n(x) &= \sqrt{n}(F^{(b)}_n(x) - E^{(b)}[F^{(b)}_n(x)]) - 
              \sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; E^{(b)}[\hat\theta^{(b)}_n)]) \\
            &= \sqrt{n}(F^{(b)}_n(x) - F(x; \hat\theta^{(b)}_n)) -
              \sqrt{n}(E^{(b)}[F^{(b)}_n(x)] - F(x; E^{(b)}[\hat\theta^{(b)}_n])),
 \end{align*}
 and $T^{(b)}_n = \sup_x|Y^{(b)}_n(x)|$.
 
-\jy{Summary the procedure in an algorithm.}
+
+In summary, the procedure of the nonparametric block bootstrap test is 
+summarized as follows.
+\begin{enumerate}
+\item
+  Draw a random sample $X^{(b)}_1,...,X^{(b)}_n$ from the empirical distribution 
+  $F_n$
+  with replacement.
+\item
+  Fit $F_\theta$ to $X^{(b)}_1,...,X^{(b)}_n$ and obtain estimate 
+	$\hat\theta^{(b)}_n$ of $\theta$.
+\item
+  Obtain the empirical distribution function $F^{(b)}_n$ of
+  $X^{(b)}_1,...,X^{(b)}_n$. 
+\item
+  Calculate bootstrap KS statistic
+  \[
+    T^{(b)}_n = \sup_x | \sqrt{n}\left(F^{(b)}_n(x) 
+    - F(x; \hat\theta^{(b)}_n)\right) - B_n(x) |.
+  \]
+  where 
+  $B_{n}(x) = \sqrt{n}(E^{(b)}[F^{(b)}_n(x)] - 
+  F(x; E^{(b)}[\hat\theta^{(b)}_n]))$ is the known
+  bias term.
+\item
+  Repeat the previous steps a large number $B$ times and use the empirical
+  distribution of $T^{(b)}_n$ to approximate the null distribution of the observed
+  statistic. 
+\end{enumerate}
 
 The p-value of the block bootstrap KS test can be computed
-\jy{not right}
-as $p = \#\{T^{(b)}_n < T_n\} / B$ for 
+as $p = \#\{T^{(b)}_n > T_n\} / B$ for 
 $b \in \{1, \ldots, B\}$.
 
 \section{Simulation Studies}
 \label{sec:simu}
 
+If we can show that the test correctly fails to reject $H_0$ under the null
+distribution, and correctly rejects $H_0$ for an alternate distribution, we can
+state that the method works.
+
 \paragraph{Size}
 We first must evaluate whether this method works when $H_0$ is true. To
 test this, we can
-generate a simulated sample $X_t$ from a certain distribution $F(\theta)$,
-and use the block bootstrap KS test to test if $X_t$ is generated from 
-distribution $F$ with some unknown $\theta$. If the test holds its size, the 
+generate a simulated sample $X_t$ with a certain marginal distribution 
+$F_\theta$,
+and use our method to test if $X_t$ indeed has the marginal distribution $F$ 
+with some unknown $\theta$. If the test holds its size, the 
 p-value
 of the test should be uniformally distributed between 0 and 1. We must try the
 method with different marginal distributions to ensure that it is robust.
-The results of the method depend on the sample size, so we must find the minimum
-sample size required for the block bootstrap KS test to work.
-We can implement the procedure described in methods with the true distribution
-$F ~ N$, hypothesize distribution $F_0 ~ N$, and true mean $\mu = 8$ and 
-standard deviation $\sigma = \sqrt{8}$.
-We replicate this procedure 1000 times to get the distribution of the p-values 
+In order for the method to work, a large sample size may be necessary. 
+
+
+We generated time series with marginal distributions $N(8, 8)$ and 
+$\Gamma(8, 1)$, lag-1 autocorrelation $\phi \in \{-.4, -.2, 0, .2, .4\}$, and
+sample size $n \in \{100, 200, 400, 600, 800, 1600, 3200\}$. For the purposes of 
+evaluating if the test holds it size, when $X_t \sim N(8, 8)$, we tested that the 
+marginal distribution family is normal, and when $X_t \sim \Gamma(8, 1)$, we tested
+that the marginal distribution family is gamma.
+For each setting for $F$, $\phi$, and $n$, we replicate the method 1000 times 
+to get the distribution of the p-values 
 for the test when applied to samples from the same data generating process.
-Then, we repeat the same procedure with $F ~ \Gamma$, and true shape $k = 8$ and
-scale $\theta = 1$.
+
 
 We constructed Q-Q plots of the distribution of the p-values to see if they are
 uniformly distributed. If the distribution of the p-values is uniform, this 
-indicates that the time series follows the null distribution. 
+indicates that under the null hypothesis, our method will only reject the $H_0$
+at a rate of $\alpha$.
 A zoomed in plot for probabilities between 0 and 0.1 is
 also provided, as
 that is the most common range for significance levels $\alpha$. 
@@ -265,7 +362,7 @@ that is the most common range for significance levels $\alpha$.
 \begin{figure}[tbp]
   \centering
   \includegraphics[scale=1]{figures/zoom_normal}
-  \caption{A Q-Q plot of the p-values displayed in \ref{fig:normal} zoomed in to 
+  \caption{A Q-Q plot of the p-values displayed in Figure~\ref{fig:normal} zoomed in to 
   probabilities between 0 and
   0.1}
   \label{fig:zoom_normal}
@@ -282,51 +379,57 @@ that is the most common range for significance levels $\alpha$.
 \begin{figure}[tbp]
   \centering
   \includegraphics[scale=1]{figures/zoom_gamma}
-  \caption{A Q-Q plot of the p-values displayed in \ref{fig:gamma} zoomed in to 
+  \caption{A Q-Q plot of the p-values displayed in Figure~\ref{fig:gamma} zoomed in to 
   probabilities between 0 and
   0.1}
   \label{fig:zoom_gamma}
 \end{figure}
 
+Although the p-values do not appear to be completely aligned with the line
+in the Q-Q plots for smaller sample sizes like $n = 100$ or $200$, they match
+the lines very closely for $n = 1600$ and $3200$. More importantly, almost
+all of the p-values appear to be within the confidence bands when looking at the
+plots zoomed in to probabilities between 0 and 0.1, and as stated before, 
+researchers are unlikely to choose significance levels above 0.1. 
+
+Under $H_0$, the p-values for the non-parametric block bootstrap KS test are
+uniformly distributed. This is an indication that our method 
+holds its size and that we can expect the probability
+of a type 1 error to be the significance level $\alpha$.
 
 \paragraph{Power}
 We must also evaluate if this method works when $H_0$ is false. We can use
-the block bootstrap KS test to test if $X_t$ is generated from some other 
+the block bootstrap KS test to test if some $X_t \sim F$ is generated from 
+some other 
 distribution $G$ with some unknown $\theta$. In this scenario, if the test is 
 indeed powerful,
-we would ideally want $\beta$, or the probability of rejection to be 1, but we
-expect it to be generally high. Again, we must try the method with different
+we would ideally want $\beta$ 
+(or the probability of failed rejection under $H_A$) 
+to be 0, but we
+expect it to be generally low. Again, we must try the method with different
 marginal distributions to ensure that it is robust.
-We would then expect the distribution of p-values to be non-uniform, and the rate
+We would then expect the distribution of p-values to be non-uniform, and the 
+rate
 of $\#P < \alpha$ to be high, meaning a higher density of low p-values.
 
-If we can show that the test correctly fails to reject $H_0$ under the null
-distribution, and correctly rejects $H_0$ for an alternate distribution, we can
-state that the method works.
+Like we did to see if the test holds its size, we generated time series with marginal distributions $N(8, 8)$ and 
+$\Gamma(8, 1)$, lag-1 autocorrelation $\phi \in \{-.4, -.2, 0, .2, .4\}$, and
+sample size $n \in \{100, 200, 400, 600, 800, 1600, 3200\}$. However, 
+to evaluate the test's power, when $X_t \sim N(8, 8)$, we tested that the 
+marginal distribution family is gamma, and when $X_t \sim \Gamma(8, 1)$, we tested
+that the marginal distribution family is normal.
+For each setting for $F$, $\phi$, and $n$, we replicate the method $R$ times 
+to obtain a p-value $p_r$ for each $r \in \{1, \ldots, R\}$.
 
-We can find the rate of rejection for  different values for the significance 
-level $\alpha$. Additionally, we can construct a 95\% confidence interval for 
-this rate. Below are rejection rates for $\phi = 0.2$ and $n = 800$, when
-applied to the normal and gamma distributions using $\alpha =$ 0.01, 0.05, and 
-0.10.
+Given some significance level $\alpha$, we can compute a rejection rate 
+$q = \#\{p_r < \alpha\} / R$ for $r \in \{1, \ldots, R\}$.
+Additionally, we can construct a 95\% confidence interval for 
+this rate. Below are tables containing rejection rates showcasing the 
+differences when simulation settings are changed.
 
 \input{tables/rr_100}
 
-From \ref{table:rr_100}, we can see that when $n = 100$, the rejection rate may 
-be quite low, especially for lower values of $\alpha$. From \ref{table:rr_200}, 
-the rejection rates are a little higher for $n = 200$, but they may still be 
-drop below 50\% is the $\alpha = 0.1$. Once $n$ reaches 400, we can observe 
-from \ref{table:rr_400} that the rejection rate
-is consistently above 50\%. For larger sample sizes, the rejection rate is 
-consistently above 90\%. We can also
-observe that the rejection rate is higher for the $\gamma(8, 1)$ sample than for 
-the $N(8, 8)$ As the strength of the temporal dependence increases, the 
-rejection rate decreases, and the rejection
-rate appears to be slightly higher for negative temporal dependence versus 
-positive temporal dependence values of the same strength.
-
 \input{tables/rr_200}
-
 
 \input{tables/rr_400}
 
@@ -336,52 +439,103 @@ positive temporal dependence values of the same strength.
 
 \input{tables/rr_3200}
 
-As shown in the above table, the rejection rates for these settings are very 
-high (almost 1), indicating that the test is very powerful for these settings.
+From Figure~\ref{table:rr_100}, we can see that when $n = 100$, the rejection rate may 
+be quite low, especially for lower values of $\alpha$. From Figure~\ref{table:rr_200}, 
+the rejection rates are a little higher for $n = 200$, but they may still be 
+drop below 50\% is the $\alpha = 0.1$. Once $n$ reaches 400, we can observe 
+from Figure~\ref{table:rr_400} that the rejection rate
+is consistently above 50\%. For larger sample sizes, the rejection rate is 
+consistently above 90\%. We can also
+observe that the rejection rate is slightly higher for the $\gamma(8, 1)$ sample 
+than for 
+the $N(8, 8)$. As the strength of the temporal dependence increases, the 
+rejection rate decreases, and the rejection
+rate appears to be slightly higher for negative temporal dependence versus 
+positive temporal dependence values of the same strength.
+
+
+As shown in Figures~\ref{table:rr_800}, \ref{table:rr_1600}, and 
+\ref{table:rr_3200}, the rejection rates for these settings are very 
+high (almost 1), indicating that under $H_A$, the test is very powerful 
+(low probability of failed rejection $\beta$) when a large enough
+sample size is used.
 
 \section{Real Data Analysis}
-
-
-
-\jy{Find some real time series to test for their marginal distributions. Open
-  data, for example, temperatures or stock returns or ...}
+\label{sec:real}
 
 \subsection{Precipitation in Mansfield Connecticut}
+\label{sec:precipitation}
 Annual maximums of hourly precipitation in inches time series data were 
 retrieved 
-from the Chicago Midway International Airport, New York LaGuardia International 
-Airport,
-and Los Angeles International Airport stations from the 
+from the Chicago Midway International Airport (MDW), New York LaGuardia 
+International 
+Airport (LGA),
+and Los Angeles International Airport (LAX) stations from the 
 National Oceanic and Atmospheric Administration. These stations were selected 
-from places of importance in the three largest American cities. LaGuardia and
-Midway were chosen over John F. Kennedy and O'Hare as more data was available
-from these stations. The data is from
-May 1st of 1948 to January 1st of 2014. To confirm that our method works, we 
-used it to test that
-the precipitation time series from each of these locations followed the 
-Generalized Extreme Value (GEV) distribution. 
+from places of importance in the three largest American cities. LGA and
+MDW were chosen over John F. Kennedy and O'Hare as more data was available
+from these stations. The data for MDW is from
+1948 to 2014, the data for LGA is from 1948 to 2013, and the
+data for LAX is also from 1948 to 2013. We can apply our method to
+the precipitation time series from each of these locations to test if they
+follow the
+Generalized Extreme Value (GEV) distribution. Precipitation maximum series 
+typically do follow the GEV distribution, so we expect to fail to reject the
+null hypothesis.
 
 \input{tables/precipitation_pvals}
 %\mc{https://hdsc.nws.noaa.gov/pfds/pfds_map_cont.html?bkmrk=ct}
 
 Using a significance level as high as .10 still results in a failed rejection
-of the null hypothesis that all three time series follow the GEV distribution.
+of the null hypothesis for each of the three tests that the respective 
+time series follow the GEV distribution.
 
 \subsection{Microsoft Stock Returns}
+\label{sec:microsoft}
 
 %\mc{https://www.nasdaq.com/market-activity/stocks/msft/historical}
 
-We expect the distribution of Microsoft stock returns to have a slightly
-heavier tail than the normal distribution. We can test that it is normally
-distributed (which we expect to reject).  While we 
-could choose to estimate a fited value of the degrees of freedom parameter as
+We expect the marginal distribution of Microsoft stock returns to have a 
+slightly
+heavier tail than the normal distribution. Using the \textsl{tseries} package, 
+\citet{tseries}
+we gathered closing stock prices from January 1st, 1998 to December 31st, 2022.
+Then we approximated stock returns by taking the difference in the logarithm 
+of the closing prices.
+We can test that the stock returns are normally
+distributed (which we expect to reject).  After that, we can test that the
+marginal distribution of the time series follows the Student's $t$ distribution.
+While we 
+could choose to estimate a fitted value of the degrees of freedom parameter $v$
+as
 part of our method, it is very difficult to do so. Therefore, we can try testing 
 if it follows
-the $t$ distribution with increasingly smaller degrees of freedoms.
+the $t$ distribution with increasingly smaller specified degrees of freedoms. We
+can also observe how the method performs using increasingly smaller durations of
+time. First, we try the entire data set which has a duration of 25 years. Then,
+we use the last 5 years of data: January 1st, 2018 to December 31st, 2022.
+Finally, we try the method only using the last year of data: January 1st, 2022
+to December 31st, 2022.
 
 \input{tables/mc_pvals}
 
-F
+We observe that when the duration of time is large, our method rejects the null
+hypothesis unless the degrees of freedom specified is very precise. When
+we use 25 years of data, the method
+only fails to reject the null hypothesis at $\alpha = .05$ when 
+the hypothesized $v = 2.2$, when 
+the precision
+is to the tenths place. For $\alpha = .10$, we only rail to reject the null 
+hypothesis when the hypothesized $v = 2.15$, when the precision is to the 
+hundredths place.
+When using only 5 years of data, the method reaches a p-value of 
+$0.05$ when the hypothesized $v = 2.5$, but the p-value is
+lower for $v = 2.2$ and $v = 2.15$.
+When we only use 1 year of data, the method fails to reject the null hypothesis
+even when the hypothesized distribution family is normal ($v \to \infty$). The
+p-value is maximized at 0.65 when we hypothesize that $v = 5$, but the p-value 
+is lower for smaller values of $v$ when using only 1 year of data.
+
 
 \section{Concluding Remarks}
 \label{sec:conclusion}
@@ -393,11 +547,14 @@ series follows the null distribution. In addition, when the marginal
 distribution is not
 the one hypothesized, the test is powerful. It requires a larger sample size 
 than basic bootstrap to avoid either type I or type II errors. Unsurprisingly,
-the method performs better as the temporal dependence gets weaker. We have also 
+the method performs better as the temporal dependence gets weaker. Through
+simulation studies with Normal and Gamma-distributed data, we have shown that
+that the method is robust. We have also 
 demonstrated possible applications of this method to precipitation and 
 stock return data. This method can be used for any study where the goal is
 to see if a time series follows a hypothesized distribution and the parameters
-are unknown or unspecified. 
+are unknown or unspecified. Future studies could apply the method showcased
+in this paper to fields like earthquake prediction and astronomy.
 
 
 
