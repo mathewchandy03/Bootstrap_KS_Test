@@ -127,7 +127,7 @@ plot_p_vals <- function(df, filename) {
     stat_pp_point(distribution = "unif", cex = .1) +
     facet_grid(vars(as.numeric(phi)), vars(as.numeric(n))) +
     labs(x = "Probability Points", y = "Cumulative Probability") +
-    coord_cartesian(ylim = c(0, 0.1), xlim = c(0, 0.1))
+    coord_fixed(ylim = c(0, 0.1), xlim = c(0, 0.1))
   ggsave(filename = paste('zoom_', filename, sep = ''), plot = gg.f, 
          path = "../manuscript/figures", height = 4, width = 4)
 }

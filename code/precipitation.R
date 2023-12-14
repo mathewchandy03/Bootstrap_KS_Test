@@ -39,6 +39,8 @@ lax_pvals <- myapp(lax$annual_max_hpcp, 10000, 'gev', evd::pgev)
 write(print(xtable(data.frame(MDW = mdw_pvals, LGA = lga_pvals, LAX =
                                 lax_pvals),
                    caption = "P-values for testing that annual maximums of hourly 
-            precipitation from the three airports follows the GEV distribution.")), 
+            precipitation from the three airports follows the GEV distribution.",
+            label = "table:precipitation"), 
+            caption.placement = "top"), 
         file = "../manuscript/tables/precipitation_pvals.tex")
 

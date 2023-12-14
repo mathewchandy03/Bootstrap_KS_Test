@@ -10,7 +10,7 @@ write(print(xtable(df_100,
                    different values of AR(1) coefficient and for different 
                    significance levels. Lower and upper bounds are also 
                    included.",
-                   label = "table:rr_100")), 
+                   label = "table:rr_100"), caption.placement = "top"), 
       file = "../manuscript/tables/rr_100.tex")  
 
 df_200 <- df %>% 
@@ -23,7 +23,8 @@ write(print(xtable(df_200,
                    different values of AR(1) coefficient and for different 
                    significance levels. Lower and upper bounds are also 
                    included.",
-                   label = "table:rr_200")), file = "../manuscript/tables/rr_200.tex")
+                   label = "table:rr_200"), caption.placement = "top"), 
+      file = "../manuscript/tables/rr_200.tex")
 
 df_400 <- df %>% 
   filter(n == 400) %>% 
@@ -35,7 +36,8 @@ write(print(xtable(df_400,
                    different values of AR(1) coefficient and for different 
                    significance levels. Lower and upper bounds are also 
                    included.",
-                   label = "table:rr_400")), file = "../manuscript/tables/rr_400.tex")
+                   label = "table:rr_400"), caption.placement = "top"), 
+      file = "../manuscript/tables/rr_400.tex")
 
 df_800 <- df %>% 
   filter(n == 800) %>% 
@@ -47,7 +49,8 @@ write(print(xtable(df_800,
                    different values of AR(1) coefficient and for different 
                    significance levels. Lower and upper bounds are also 
                    included.",
-                   label = "table:rr_800")), file = "../manuscript/tables/rr_800.tex")
+                   label = "table:rr_800"), caption.placement = "top"), 
+      file = "../manuscript/tables/rr_800.tex")
 
 df_1600 <- df %>% 
   filter(n == 1600) %>% 
@@ -59,7 +62,8 @@ write(print(xtable(df_1600,
                    different values of AR(1) coefficient and for different 
                    significance levels. Lower and upper bounds are also 
                    included.",
-                   label = "table:rr_1600")), file = "../manuscript/tables/rr_1600.tex")
+                   label = "table:rr_1600"), caption.placement = "top"), 
+      file = "../manuscript/tables/rr_1600.tex")
 
 df_3200 <- df %>% 
   filter(n == 3200) %>% 
@@ -71,5 +75,6 @@ write(print(xtable(df_3200,
                    different values of AR(1) coefficient and for different 
                    significance levels. Lower and upper bounds are also 
                    included.",
-                   label = "table:rr_3200")), file = "../manuscript/tables/rr_3200.tex")
+                   label = "table:rr_3200"), caption.placement = "top"), 
+      file = "../manuscript/tables/rr_3200.tex")
 
