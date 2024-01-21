@@ -180,8 +180,14 @@ not follow~$F$ for any parameter value~$\theta$. This is a challenging situation
 both the parameters and the serial dependence structure are unknown.
 
 
+First, let us consider how the KS statistic is typically computed for a sample
+with no dependence structure.
+Let $\hat\theta_n$ denote the fitted parameters for the hypothesized 
+distribution fitted onto $X_t$, and let 
+$F_n$ denote the empirical distribution function based on $X_1,...,X_n$
 \jy{Need a better opening sentence. Notation $\hat\theta_n$ and $F_n$ have
   not been defined.}
+\mc{addressed}
 
 Let
 \begin{equation*}
@@ -192,9 +198,7 @@ goodness of fit statistic is
 \begin{equation*}
 T_n := \sup_x|Y_n(x; \hat\theta)|.
 \end{equation*}
-where $F_n$ denotes the empirical distribution function based on $X_1,...,X_n$,
-and $\hat\theta_n$ denotes the fitted parameters for the hypothesized 
-distribution fitted onto $X_t$.
+
 We note that
 \begin{equation*}
 Y_n(x; \hat\theta) = \sqrt{n}(F_n(x) - F(x)) - 
@@ -248,7 +252,9 @@ $l = \lceil n^{1/3} \rceil$ \citep{buhlmann1999block},
 which was adopted in this study.
 
 
-\jy{Not good opening sentence}
+We then use the bootstrap distribution to construct an approximation of
+the KS statistic.
+\jy{Not good opening sentence}\mc{addressed}
 Let $E^{(b)}$ refer to the expectation with respect to
 the bootstrap distribution. In this case, we can 
 use the distribution of $\sqrt{n}(F^{(b)}_n(x) - E^{(b)}[F^{(b)}_n(x)])$
@@ -340,6 +346,7 @@ In order for the method to work, a large sample size may be necessary.
 
 
 \jy{How many replicates were used to estimate the size and power?}
+\mc{addressed}
 
 We generated time series with marginal distributions $N(8, 8)$ and
 \jy{why choose these two distributions?}
@@ -347,7 +354,8 @@ $\Gamma(8, 1)$, lag-1 autocorrelation $\phi \in \{-.4, -.2, 0, .2, .4\}$, and
 sample size $n \in \{100, 200, 400, 600, 800, 1600, 3200\}$. For the purposes of 
 evaluating if the test holds it size, when $X_t \sim N(8, 8)$, we tested that the 
 marginal distribution family is normal, and when $X_t \sim \Gamma(8, 1)$, we tested
-that the marginal distribution family is gamma.
+that the marginal distribution family is gamma. For the block bootstrap step,
+we used $B = 1000$ and $l = \lceil n^{1/3} \rceil$.
 For each setting for $F$, $\phi$, and $n$, we replicate the method 1000 times 
 to get the distribution of the p-values 
 for the test when applied to samples from the same data generating process.
@@ -448,13 +456,14 @@ $(-\infty, \infty)$, but the support of $\Gamma(8, 1)$ is $(0, \infty)$, we used
 the \textsl{truncdist} package \citep{truncdist} to truncate the series at 
 values less than or equal to 0.
 When $X_t \sim \Gamma(8, 1)$, we tested
-that the marginal distribution family is normal.
-For each setting for $F$, $\phi$, and $n$, we replicate the method $R$ times 
-to obtain a p-value $p_r$ for each $r \in \{1, \ldots, R\}$.
+that the marginal distribution family is normal. For the block bootstrap step,
+we used $B = 1000$ and $l = \lceil n^{1/3} \rceil$.
+For each setting for $F$, $\phi$, and $n$, we replicate the method $1000$ times 
+to obtain a p-value $p_r$ for each $r \in \{1, \ldots, 1000\}$.
 
 
 Given some significance level $\alpha$, we can compute a rejection rate 
-$q = \#\{p_r < \alpha\} / R$ for $r \in \{1, \ldots, R\}$.
+$q = \#\{p_r < \alpha\} / 1000$ for $r \in \{1, \ldots, 1000\}$.
 Additionally, we can construct a 95\% confidence interval for 
 this rate. Below are tables containing rejection rates showcasing the 
 differences when simulation settings are changed.

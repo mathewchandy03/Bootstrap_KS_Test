@@ -1,7 +1,7 @@
-source("functions.R")
+source("hpc_functions.R")
 i <- Sys.getenv("SLURM_ARRAY_TASK_ID")
 B <- 1000
-nrep <- 10
+nrep <- 5
 for (phi in c(-.4, -.2, 0, .2, .4)) {
   for (n in c(100, 200, 400, 800, 1600, 3200)) {
     for (true_dist in c("normal", "gamma")) {
