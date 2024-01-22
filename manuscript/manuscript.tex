@@ -470,12 +470,12 @@ differences when simulation settings are changed.
 
 \jy{Clean up the tables. Use percentage for power. Keep three effective
   digits. Why are there so many decimal places? }
+\mc{reduced number of digits}
 
 \jy{Only three sample sizes will be enough. Sample size 800 or higher give
   power~1. Only report nominal size 0.05 would be ok. May consider presenting
   the intervals in a figure.}
-
-\input{tables/rr_100}
+\mc{only included three sample sizes and for alpha $=$ 0.05}
 
 \input{tables/rr_200}
 
@@ -483,14 +483,9 @@ differences when simulation settings are changed.
 
 \input{tables/rr_800}
 
-\input{tables/rr_1600}
-
-\input{tables/rr_3200}
 
 
-From Table~\ref{table:rr_100}, we can see that when $n = 100$, the rejection 
-rate may 
-be quite low, especially for lower values of $\alpha$. From 
+From 
 Table~\ref{table:rr_200}, 
 the rejection rates are a little higher for $n = 200$, but they may still be 
 drop below 50\% is the $\alpha = 0.1$. Once $n$ reaches 400, we can observe 
@@ -505,8 +500,8 @@ rate appears to be slightly higher for negative temporal dependence versus
 positive temporal dependence values of the same strength.
 
 
-As shown in Tables~\ref{table:rr_800}, \ref{table:rr_1600}, and 
-\ref{table:rr_3200}, the rejection rates for these settings are very 
+As shown in Tables~\ref{table:rr_800}, the rejection rates for this settings 
+are very 
 high (almost 1), indicating that under $H_A$, the test is very powerful 
 (low probability of failed rejection $\beta$) when a large enough
 sample size is used.
@@ -581,6 +576,8 @@ to December 31st, 2022.
 \input{tables/mc_pvals}
 
 \jy{Normal was not rejected for 1 year. How about 2 year, 3 year, 4 year?}
+\mc{tried these sample sizes, normal is rejected for all three might want to
+try 1.5 years}
 
 The p-values of our test when applied to Microsoft stock return data using
 different settings are showcased in Table~\ref{table:microsoft}.

@@ -1,5 +1,9 @@
 library(xtable)
-df <- readRDS("../data/rejection_rates.RDS")
+df <- readRDS("../data/rejection_rates.RDS") %>% 
+  mutate(rr_lb = round(as.numeric(rr_lb), 3),
+         rr = round(as.numeric(rr), 3),
+         rr_ub = round(as.numeric(rr_ub), 3)) %>% 
+  filter(alpha == 0.05)
 df_100 <- df %>% 
   filter(n == 100) %>% 
   select(-R) %>% 

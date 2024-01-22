@@ -1,7 +1,7 @@
 library(tidyverse)
-#library(evd)
+library(evd)
 library(truncdist)
-#library(qqplotr)
+library(qqplotr)
 mystat <- function(x, dist, df = NULL) {
   # Bootstrap will return actual pseudo-sample, mean, and standard deviation
   if (dist == 'gev') {
@@ -113,7 +113,8 @@ plot_p_vals <- function(df, filename) {
     stat_pp_point(distribution = "unif", cex = .1) +
     facet_grid(vars(as.numeric(phi)), vars(as.numeric(n))) +
     labs(x = "Probability Points", y = "Cumulative Probability") +
-    coord_fixed() 
+    coord_fixed() +
+    theme(strip.text.x = element_text(size = 8))
   ggsave(filename = filename, plot = gg.f, path = "../manuscript/figures", 
          height = 4, width = 4)
   
@@ -125,7 +126,8 @@ plot_p_vals <- function(df, filename) {
     stat_pp_point(distribution = "unif", cex = .1) +
     facet_grid(vars(as.numeric(phi)), vars(as.numeric(n))) +
     labs(x = "Probability Points", y = "Cumulative Probability") +
-    coord_fixed(ylim = c(0, 0.1), xlim = c(0, 0.1))
+    coord_fixed(ylim = c(0, 0.1), xlim = c(0, 0.1)) +
+    theme(strip.text.x = element_text(size = 8))
   ggsave(filename = paste('zoom_', filename, sep = ''), plot = gg.f, 
          path = "../manuscript/figures", height = 4, width = 4)
 }
