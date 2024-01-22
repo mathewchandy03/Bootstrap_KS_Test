@@ -255,32 +255,31 @@ which was adopted in this study.
 We then use the bootstrap distribution to construct an approximation of
 the KS statistic.
 \jy{Not good opening sentence}\mc{addressed}
-Let $E^{(b)}$ refer to the expectation with respect to
-the bootstrap distribution. In this case, we can 
-use the distribution of $\sqrt{n}(F^{(b)}_n(x) - E^{(b)}[F^{(b)}_n(x)])$
-\jy{The second term: does it depend on $b$? }
+In this case, we can 
+use the distribution of $\sqrt{n}(F^{(b)}_n(x) - E[F^{(b)}_n(x)])$
+\jy{The second term: does it depend on $b$? }\mc{addressed}
 as an approximation of the distribution of
 $\sqrt{n}(F_n(x) - F(x))$,
 and the distribution of 
-$\sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; E^*[\hat\theta^{(b)}_n]))$ to
+$\sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; E[\hat\theta^{(b)}_n]))$ to
 approximate $\sqrt{n}(F(x; \theta_n) - F(x))$'s distribution.
 
 
-We can compute $E^{(b)}[F^{(b)}_n(x)]$ and
-\jy{Are these two terms $b$-specific?}
-$E^{(b)}[\hat\theta^{(b)}_n]$ numerically (they can also be computed analytically, 
+We can compute $E[F^{(b)}_n(x)]$ and
+\jy{Are these two terms $b$-specific?}\mc{addressed}
+$E[\hat\theta^{(b)}_n]$ numerically (they can also be computed analytically, 
 depending on the types of block bootstrap we use). One can compute 
 $F^{(b)}_n$ 
 and $\hat\theta^{(b)}_n$ based on
 the $b$th bootstrap sample. Then
-$E^{(b)}[F^{(b)}_n(x)] \approx \frac{1}{B}\sum_{b = 1}^BF^{(b)}_n(x)$, and
-$E^{(b)}[\hat\theta^{(b)}_n] \approx \frac{1}{B}\sum_{b = 1}^B\hat\theta^{(b)}_n$.
+$E[F^{(b)}_n(x)] \approx \frac{1}{B}\sum_{b = 1}^BF^{(b)}_n(x)$, and
+$E[\hat\theta^{(b)}_n] \approx \frac{1}{B}\sum_{b = 1}^B\hat\theta^{(b)}_n$.
 In this case, we can define
 \begin{align*}
-  Y^{(b)}_n(x) &= \sqrt{n}(F^{(b)}_n(x) - E^{(b)}[F^{(b)}_n(x)]) - 
-             \sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; E^{(b)}[\hat\theta^{(b)}_n)]) \\
+  Y^{(b)}_n(x) &= \sqrt{n}(F^{(b)}_n(x) - E[F^{(b)}_n(x)]) - 
+             \sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; E[\hat\theta^{(b)}_n)]) \\
            &= \sqrt{n}(F^{(b)}_n(x) - F(x; \hat\theta^{(b)}_n)) -
-             \sqrt{n}(E^{(b)}[F^{(b)}_n(x)] - F(x; E^{(b)}[\hat\theta^{(b)}_n])),
+             \sqrt{n}(E[F^{(b)}_n(x)] - F(x; E[\hat\theta^{(b)}_n])),
 \end{align*}
 and $T^{(b)}_n = \sup_x|Y^{(b)}_n(x)|$.
 
@@ -305,8 +304,8 @@ summarized as follows.
     - F(x; \hat\theta^{(b)}_n)\right) - B_n(x) |.
   \]
   where 
-  $B_{n}(x) = \sqrt{n}(E^{(b)}[F^{(b)}_n(x)] - 
-  F(x; E^{(b)}[\hat\theta^{(b)}_n]))$ is the known
+  $B_{n}(x) = \sqrt{n}(E[F^{(b)}_n(x)] - 
+  F(x; E[\hat\theta^{(b)}_n]))$ is the known
   bias term.
 \item
   Repeat the previous steps a large number $B$ times and use the empirical
