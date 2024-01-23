@@ -40,3 +40,8 @@
 - Rerun simulation with more jobs
 - Look if there is more data
 - Try other locations for precipitation
+
+1/23 notes
+- Just rejection rate (percentage) 3 digit
+- Function of phi, facet by other parameters
+- Try -0.8 and 0.8
