@@ -41,7 +41,12 @@
 - Look if there is more data
 - Try other locations for precipitation
 
-1/23 notes
+1/23 Notes
 - Just rejection rate (percentage) 3 digit
 - Function of phi, facet by other parameters
 - Try -0.8 and 0.8
+- Fix summary
+- Kendall's tau
+- n = 100 to n = 800
+- show that there is autocorrelation (try autocorrelation and autocorrelation of squares)
+- fit arma model and look at residuals, try t fit on residuals
