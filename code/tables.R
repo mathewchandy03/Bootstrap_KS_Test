@@ -56,29 +56,3 @@ write(print(xtable(df_800,
                    label = "table:rr_800"), caption.placement = "top"), 
       file = "../manuscript/tables/rr_800.tex")
 
-df_1600 <- df %>% 
-  filter(n == 1600) %>% 
-  select(-R) %>% 
-  rename(distribution = dist, `lower bound` = rr_lb, `rejection rate` = rr, 
-         `upper bound` = rr_ub)
-write(print(xtable(df_1600,
-                   caption = "Rejection rates for test when n = 1600 for 
-                   different values of AR(1) coefficient and for different 
-                   significance levels. Lower and upper bounds are also 
-                   included.",
-                   label = "table:rr_1600"), caption.placement = "top"), 
-      file = "../manuscript/tables/rr_1600.tex")
-
-df_3200 <- df %>% 
-  filter(n == 3200) %>% 
-  select(-R) %>% 
-  rename(distribution = dist, `lower bound` = rr_lb, `rejection rate` = rr, 
-         `upper bound` = rr_ub)
-write(print(xtable(df_3200,
-                   caption = "Rejection rates for test when n = 3200 for 
-                   different values of AR(1) coefficient and for different 
-                   significance levels. Lower and upper bounds are also 
-                   included.",
-                   label = "table:rr_3200"), caption.placement = "top"), 
-      file = "../manuscript/tables/rr_3200.tex")
-

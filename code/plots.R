@@ -12,3 +12,5 @@ gamma <- df %>% filter(dist == 'gamma')
 plot_p_vals(gamma, 'gamma.pdf')
 
 
+df <- readRDS("../data/rejection_rates.RDS") %>% filter(alpha == 0.05)
+plot_rr(df, 'rr.pdf')

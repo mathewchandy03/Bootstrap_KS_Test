@@ -2,6 +2,7 @@ library(tidyverse)
 library(evd)
 library(truncdist)
 library(qqplotr)
+library(copula)
 mystat <- function(x, dist, df = NULL) {
   # Bootstrap will return actual pseudo-sample, mean, and standard deviation
   if (dist == 'gev') {
@@ -105,13 +106,22 @@ myapp <- function(y, B, h0_dist, f0, df = NULL) {
 }
 
 plot_p_vals <- function(df, filename) {
+  
+  df$tau <- case_when(df$phi == -0.9238795 ~ -0.75,
+                      df$phi == -0.7071068 ~ -0.5,
+                      df$phi == -0.3826834 ~ -0.25,
+                      df$phi == 0 ~ 0,
+                      df$phi == 0.9238795 ~ 0.75,
+                      df$phi == 0.7071068 ~ 0.5,
+                      df$phi == 0.3826834 ~ 0.25)
+  
   gg.f <- ggplot(data = df, mapping = aes(sample = pval)) +
     scale_x_continuous(breaks=c(0, 1)) +
     scale_y_continuous(breaks=c(0, 1)) + 
     stat_pp_band(distribution = "unif") +
     stat_pp_line() +
     stat_pp_point(distribution = "unif", cex = .1) +
-    facet_grid(vars(as.numeric(phi)), vars(as.numeric(n))) +
+    facet_grid(vars(as.numeric(n)), vars(as.numeric(tau))) +
     labs(x = "Probability Points", y = "Cumulative Probability") +
     coord_fixed() +
     theme(strip.text.x = element_text(size = 8))
@@ -124,11 +134,28 @@ plot_p_vals <- function(df, filename) {
     stat_pp_band(distribution = "unif") +
     stat_pp_line() +
     stat_pp_point(distribution = "unif", cex = .1) +
-    facet_grid(vars(as.numeric(phi)), vars(as.numeric(n))) +
+    facet_grid(vars(as.numeric(n)), vars(as.numeric(tau))) +
     labs(x = "Probability Points", y = "Cumulative Probability") +
     coord_fixed(ylim = c(0, 0.1), xlim = c(0, 0.1)) +
     theme(strip.text.x = element_text(size = 8))
   ggsave(filename = paste('zoom_', filename, sep = ''), plot = gg.f, 
          path = "../manuscript/figures", height = 6, width = 6)
+}
+
+plot_rr <- function(df, filename) {
+  df$tau <- case_when(df$phi == -0.9238795 ~ -0.75,
+                      df$phi == -0.7071068 ~ -0.5,
+                      df$phi == -0.3826834 ~ -0.25,
+                      df$phi == 0 ~ 0,
+                      df$phi == 0.9238795 ~ 0.75,
+                      df$phi == 0.7071068 ~ 0.5,
+                      df$phi == 0.3826834 ~ 0.25)
+  gg.f <- ggplot(data = df, mapping = aes(x = tau, y = as.numeric(rr))) +
+    geom_point() +
+    facet_grid(vars(as.numeric(n)), vars(dist))
+  ggsave(filename = filename, plot = gg.f, path = "../manuscript/figures", 
+         height = 6, width = 6)
+    
+    
 }
 

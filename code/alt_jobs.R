@@ -1,9 +1,17 @@
 source("hpc_functions.R")
+# library(copula)
 i <- Sys.getenv("SLURM_ARRAY_TASK_ID")
 B <- 1000
 nrep <- 5
-for (phi in c(-.4, -.2, 0, .2, .4)) {
-  for (n in c(100, 200, 400, 800, 1600, 3200)) {
+phis <- c()
+# for (i in c(-.75, -.5, -.25, 0, .25, .5, .75)) {
+#   phis <- c(phis, iTau(normalCopula(), i))
+# }
+phis <- 
+  c(-0.9238795, -0.7071068, -0.3826834, 0, 0.3826834, 0.7071068, 0.9238795)
+i <- Sys.getenv("SLURM_ARRAY_TASK_ID")
+for (phi in phis) {
+  for (n in c(100, 200, 400, 800)) {
     for (true_dist in c("normal", "gamma")) {
       set.seed(as.integer(i))
       if (true_dist == "normal") {

@@ -1,10 +1,12 @@
 library(tidyverse)
 library(janitor)
-setwd("../data")
+setwd("../data/simulation")
 
 file_names <- list.files(pattern = "^sim")
-for (phi in c(-.4, -.2, 0, .2, .4)) {
-  for (n in c(100, 200, 400, 800, 1600, 3200)) {
+phis <- 
+  c(-0.9238795, -0.7071068, -0.3826834, 0, 0.3826834, 0.7071068, 0.9238795)
+for (phi in phis) {
+  for (n in c(100, 200, 400, 800)) {
     for (dist in c("normal", "gamma")) {
       list <- file_names[which(grepl(paste("_", n, "_", dist, "_", phi, "_0_", sep = ''), 
                                      file_names))]
@@ -12,7 +14,7 @@ for (phi in c(-.4, -.2, 0, .2, .4)) {
       for (file in list) {
         tosave <- c(tosave, readRDS(file)$p)
       }
-      saveRDS(tosave, file = paste("sim_", n, "_", dist, "_",
+      saveRDS(tosave, file = paste("../sim_", n, "_", dist, "_",
                                    phi, '_', 
                                    '0', ".RDS", sep = ''))
     }
@@ -20,8 +22,8 @@ for (phi in c(-.4, -.2, 0, .2, .4)) {
 }
 
 file_names <- list.files(pattern = "^alt")
-for (phi in c(-.4, -.2, 0, .2, .4)) {
-  for (n in c(100, 200, 400, 800, 1600, 3200)) {
+for (phi in phis) {
+  for (n in c(100, 200, 400, 800)) {
     for (dist in c("normal", "gamma")) {
       list <- file_names[which(grepl(paste("_", n, "_", dist, "_", phi, "_0_", sep = ''), 
                                      file_names))]
@@ -29,7 +31,7 @@ for (phi in c(-.4, -.2, 0, .2, .4)) {
       for (file in list) {
         tosave <- c(tosave, readRDS(file)$p)
       }
-      saveRDS(tosave, file = paste("alt_", n, "_", dist, "_",
+      saveRDS(tosave, file = paste("../alt_", n, "_", dist, "_",
                                    phi, '_', 
                                    '0', ".RDS", sep = ''))
     }
@@ -37,12 +39,12 @@ for (phi in c(-.4, -.2, 0, .2, .4)) {
 }
 
 df <- data.frame(matrix(ncol = 8, nrow = 0))
-for (phi in c(-.4, -.2, 0, .2, .4)) {
-  for (n in c(100, 200, 400, 800, 1600, 3200)) {
+for (phi in phis) {
+  for (n in c(100, 200, 400, 800)) {
     for (dist in c("normal", "gamma")) {
       for(alpha in c(.01, .05, .10)) {
         pvals <- readRDS(
-          paste("../data/", "alt_", n, "_", dist, "_", phi, "_0", ".RDS", 
+          paste("../", "alt_", n, "_", dist, "_", phi, "_0", ".RDS", 
                 sep = ''))
         R <- length(pvals)
         if (R <= 0) next
@@ -57,14 +59,14 @@ for (phi in c(-.4, -.2, 0, .2, .4)) {
   }
 }
 colnames(df) <- c("phi", "n", "dist", "alpha", "rr_lb", "rr", "rr_ub", "R")
-saveRDS(df, file = "../data/rejection_rates.RDS")
+saveRDS(df, file = "../rejection_rates.RDS")
 
 df <- data.frame(matrix(ncol = 4, nrow = 0))
-for (phi in c(-.4, -.2, 0, .2, .4)) {
-  for (n in c(100, 200, 400, 800, 1600, 3200)) {
+for (phi in phis) {
+  for (n in c(100, 200, 400, 800)) {
     for (dist in c("normal", "gamma")) {
       pvals <- readRDS(
-        paste("../data/", "sim_", n, "_", dist, "_", phi, "_0", ".RDS", 
+        paste("../", "sim_", n, "_", dist, "_", phi, "_0", ".RDS", 
               sep = ''))
       R <- length(pvals)
       tobind <- cbind(rep(phi, R), rep(n, R), rep(dist, R), pvals)
@@ -73,4 +75,6 @@ for (phi in c(-.4, -.2, 0, .2, .4)) {
   }
 }
 colnames(df) <- c("phi", "n", "dist", "pval")
-saveRDS(df, file = "../data/pvals.RDS")
+saveRDS(df, file = "../pvals.RDS")
+
+setwd("../../code")

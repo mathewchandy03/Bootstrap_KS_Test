@@ -13,6 +13,15 @@ mdw <- precipitation %>%
   summarize(annual_max_hpcp = max(hpcp)) %>% 
   ungroup()
 
+acf(mdw$annual_max_hpcp)
+pacf(mdw$annual_max_hpcp)
+arima0(mdw$annual_max_hpcp, order = c(1, 0, 1))
+# Coefficients:
+#   ar1     ma1  intercept
+# -0.7886  0.6723     1.3957
+# s.e.   0.0966  0.5436     0.0635
+#
+# sigma^2 estimated as 0.3086:  log likelihood = -55.71,  aic = 119.41
 set.seed(123)
 mdw_pvals <- myapp(mdw$annual_max_hpcp, 10000, 'gev', evd::pgev, df = NULL)
 
@@ -23,6 +32,15 @@ lga <- precipitation %>%
   summarize(annual_max_hpcp = max(hpcp)) %>% 
   ungroup()
 
+acf(lga$annual_max_hpcp)
+pacf(lga$annual_max_hpcp)
+arima0(lga$annual_max_hpcp, order = c(1, 0, 1))
+# Coefficients:
+#   ar1     ma1  intercept
+# -0.4624  0.3793     1.1507
+# s.e.   0.1123  0.6820     0.0473
+#
+# sigma^2 estimated as 0.1656:  log likelihood = -34.32,  aic = 76.64
 set.seed(123)
 lga_pvals <- myapp(lga$annual_max_hpcp, 10000, 'gev', evd::pgev)
 
@@ -33,6 +51,15 @@ lax <- precipitation %>%
   summarize(annual_max_hpcp = max(hpcp)) %>% 
   ungroup()
 
+acf(lax$annual_max_hpcp)
+pacf(lax$annual_max_hpcp)
+arima0(lax$annual_max_hpcp, order = c(1, 0, 1))
+# Coefficients:
+#   ar1     ma1  intercept
+# -0.8726  0.8123     0.5946
+# s.e.   0.0824  0.8140     0.0311
+#
+# sigma^2 estimated as 0.06766:  log likelihood = -4.78,  aic = 17.56
 set.seed(123)
 lax_pvals <- myapp(lax$annual_max_hpcp, 10000, 'gev', evd::pgev)
 

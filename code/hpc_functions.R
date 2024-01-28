@@ -1,4 +1,4 @@
-.libPaths("~/rlibs")
+.libPaths("/gpfs/homefs1/mac18033/rlibs")
 library(tidyverse)
 library(truncdist)
 mystat <- function(x, dist) {
@@ -27,7 +27,7 @@ mysim <- function(n, blksize, B, h0_dist, true_dist, f0, f, theta, phi, rho) {
   
   # Block Bootstrap
   bts <- boot::tsboot(y, mystat, l = blksize, sim = "fixed", R = B, 
-                      dist = h0_dist, df = df)
+                      dist = h0_dist)
   
   # Data must be restructured in the following ways, so the expected value
   # of the cdfs can be computed
