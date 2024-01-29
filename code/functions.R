@@ -115,13 +115,22 @@ plot_p_vals <- function(df, filename) {
                       df$phi == 0.7071068 ~ 0.5,
                       df$phi == 0.3826834 ~ 0.25)
   
+  df$dist <- factor(case_when(df$dist == "normal" ~ "N(8,8)",
+                              df$dist == "gamma" ~ "Gamma(8,1)"))
+  
+  df$n <- factor(case_when(df$n == 100 ~ "n = 100",
+                           df$n == 200 ~ "n = 200",
+                           df$n == 400 ~ "n = 400",
+                           df$n == 800 ~ "n = 800"))
+  
   gg.f <- ggplot(data = df, mapping = aes(sample = pval)) +
     scale_x_continuous(breaks=c(0, 1)) +
     scale_y_continuous(breaks=c(0, 1)) + 
     stat_pp_band(distribution = "unif") +
     stat_pp_line() +
     stat_pp_point(distribution = "unif", cex = .1) +
-    facet_grid(vars(as.numeric(n)), vars(as.numeric(tau))) +
+    facet_grid(vars(n), vars(as.numeric(tau)),
+               labeller = label_parsed) +
     labs(x = "Probability Points", y = "Cumulative Probability") +
     coord_fixed() +
     theme(strip.text.x = element_text(size = 8))
@@ -134,7 +143,8 @@ plot_p_vals <- function(df, filename) {
     stat_pp_band(distribution = "unif") +
     stat_pp_line() +
     stat_pp_point(distribution = "unif", cex = .1) +
-    facet_grid(vars(as.numeric(n)), vars(as.numeric(tau))) +
+    facet_grid(vars(n), vars(as.numeric(tau)), 
+               labeller = label_parsed) +
     labs(x = "Probability Points", y = "Cumulative Probability") +
     coord_fixed(ylim = c(0, 0.1), xlim = c(0, 0.1)) +
     theme(strip.text.x = element_text(size = 8))
@@ -143,6 +153,15 @@ plot_p_vals <- function(df, filename) {
 }
 
 plot_rr <- function(df, filename) {
+  
+  df$dist <- factor(case_when(df$dist == "normal" ~ "N(8,8)",
+                       df$dist == "gamma" ~ "Gamma(8,1)"))
+  
+  df$n <- factor(case_when(df$n == 100 ~ "n = 100",
+                           df$n == 200 ~ "n = 200",
+                           df$n == 400 ~ "n = 400",
+                           df$n == 800 ~ "n = 800"))
+  
   df$tau <- case_when(df$phi == -0.9238795 ~ -0.75,
                       df$phi == -0.7071068 ~ -0.5,
                       df$phi == -0.3826834 ~ -0.25,
@@ -150,9 +169,11 @@ plot_rr <- function(df, filename) {
                       df$phi == 0.9238795 ~ 0.75,
                       df$phi == 0.7071068 ~ 0.5,
                       df$phi == 0.3826834 ~ 0.25)
+  
   gg.f <- ggplot(data = df, mapping = aes(x = tau, y = as.numeric(rr))) +
     geom_point() +
-    facet_grid(vars(as.numeric(n)), vars(dist))
+    facet_grid(vars(n), vars(dist), labeller = label_parsed) +
+    labs(x = latex2exp::TeX("$\\tau$"), y = latex2exp::TeX("Rejection Rate"))
   ggsave(filename = filename, plot = gg.f, path = "../manuscript/figures", 
          height = 6, width = 6)
     
