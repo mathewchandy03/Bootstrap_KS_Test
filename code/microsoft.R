@@ -10,6 +10,10 @@ microsoft_5y <-
   diff(log(get.hist.quote(instrument = "msft", start = "2018-01-01",
                           end = "2022-12-31")))
 
+acf(as.vector(microsoft_5y[, "Close"]))
+pacf(as.vector(microsoft_5y[, "Close"]))
+arima0(as.vector(microsoft_5y[, "Close"]), order = c(1, 0, 1))
+
 set.seed(123)
 mc_norm_pval_5y <- myapp(as.vector(microsoft_5y[, "Close"]), 1000, "normal", 
                          pnorm)
@@ -52,6 +56,10 @@ microsoft_4y <-
   diff(log(get.hist.quote(instrument = "msft", start = "2019-01-01",
                           end = "2022-12-31")))
 
+acf(as.vector(microsoft_4y[, "Close"]))
+pacf(as.vector(microsoft_4y[, "Close"]))
+arima0(as.vector(microsoft_4y[, "Close"]), order = c(1, 0, 1))
+
 set.seed(123)
 mc_norm_pval_4y <- myapp(as.vector(microsoft_4y[, "Close"]), 1000, "normal", 
                          pnorm)
@@ -92,6 +100,10 @@ mc_t2.15_pval_4y <- myapp(as.vector(microsoft_4y[, "Close"]), 1000, "t", plst,
 microsoft_3y <- 
   diff(log(get.hist.quote(instrument = "msft", start = "2020-01-01",
                           end = "2022-12-31")))
+
+acf(as.vector(microsoft_3y[, "Close"]))
+pacf(as.vector(microsoft_3y[, "Close"]))
+arima0(as.vector(microsoft_3y[, "Close"]), order = c(1, 0, 1))
 
 set.seed(123)
 mc_norm_pval_3y <- myapp(as.vector(microsoft_3y[, "Close"]), 1000, "normal", 
@@ -175,6 +187,10 @@ mc_t2.15_pval_2y <- myapp(as.vector(microsoft_2y[, "Close"]), 1000, "t", plst,
 microsoft_1y <- 
   diff(log(get.hist.quote(instrument = "msft", start = "2022-01-01",
                           end = "2022-12-31")))
+
+acf(as.vector(microsoft_1y[, "Close"]))
+pacf(as.vector(microsoft_1y[, "Close"]))
+arima0(as.vector(microsoft_1y[, "Close"]), order = c(1, 0, 1))
 
 set.seed(123)
 mc_norm_pval_1y <- myapp(as.vector(microsoft_1y[, "Close"]), 1000, "normal", 

@@ -343,8 +343,9 @@ In order for the method to work, a large sample size may be necessary.
 
 We generated time series with marginal distributions $N(8, 8)$ and
 \jy{why choose these two distributions?}\mc{addressed}
-$\Gamma(8, 1)$, lag-1 autocorrelation $\phi \in \{-.4, -.2, 0, .2, .4\}$, and
-sample size $n \in \{100, 200, 400, 800, 1600, 3200\}$. These distributions
+$\Gamma(8, 1)$, Kendall's $\tau \in \{-.75, -.5, -.25, 0, .25, .5, 
+.75\}$, and
+sample size $n \in \{100, 200, 400, 800}$. These distributions
 were chosen to compare results on normal and non-normal
 error structures, and the parameters were chosen so that the distributions
 have the same mean 8 and variance 8. To generate 
@@ -353,7 +354,7 @@ evaluating if the test holds it size, when $X_t \sim N(8, 8)$, we tested that th
 marginal distribution family is normal, and when $X_t \sim \Gamma(8, 1)$, we tested
 that the marginal distribution family is gamma. For the block bootstrap step,
 we used $B = 1000$ and $l = \lceil n^{1/3} \rceil$.
-For each setting for $F$, $\phi$, and $n$, we replicate the method 1000 times 
+For each setting for $F$, $\tau$, and $n$, we replicate the method 1000 times 
 to get the distribution of the p-values 
 for the test when applied to samples from the same data generating process.
 
@@ -445,8 +446,9 @@ of $\#P < \alpha$ to be high, meaning a higher density of low p-values.
 
 Like we did to see if the test holds its size, we generated time series with 
 marginal distributions $N(8, 8)$ and 
-$\Gamma(8, 1)$, lag-1 autocorrelation $\phi \in \{-.4, -.2, 0, .2, .4\}$, and
-sample size $n \in \{200, 400, 800\}$. However, 
+$\Gamma(8, 1)$, Kendall's $\tau \in \{-.75, -.5, -.25, 0, .25, .5, 
+.75\}$, and
+sample size $n \in \{100, 200, 400, 800\}$. However, 
 to evaluate the test's power, when $X_t \sim N(8, 8)$, we tested that the 
 marginal distribution family is gamma. Because the support of $N(8, 8)$ is
 $(-\infty, \infty)$, but the support of $\Gamma(8, 1)$ is $(0, \infty)$, we used
@@ -455,7 +457,7 @@ values less than or equal to 0.
 When $X_t \sim \Gamma(8, 1)$, we tested
 that the marginal distribution family is normal. For the block bootstrap step,
 we used $B = 1000$ and $l = \lceil n^{1/3} \rceil$.
-For each setting for $F$, $\phi$, and $n$, we replicate the method $1000$ times 
+For each setting for $F$, $\tau$, and $n$, we replicate the method $1000$ times 
 to obtain a p-value $p_r$ for each $r \in \{1, \ldots, 1000\}$.
 
 
