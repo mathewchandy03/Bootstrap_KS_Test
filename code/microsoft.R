@@ -12,7 +12,8 @@ microsoft_5y <-
 
 acf(as.vector(microsoft_5y[, "Close"]))
 pacf(as.vector(microsoft_5y[, "Close"]))
-arima0(as.vector(microsoft_5y[, "Close"]), order = c(1, 0, 1))
+fit <- arima0(as.vector(microsoft_5y[, "Close"]), order = c(1, 0, 1))
+mc_resid <- residuals(fit)
 
 set.seed(123)
 mc_norm_pval_5y <- myapp(as.vector(microsoft_5y[, "Close"]), 1000, "normal", 
