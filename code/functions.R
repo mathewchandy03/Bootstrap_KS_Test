@@ -170,9 +170,11 @@ plot_rr <- function(df, filename) {
                       df$phi == 0.7071068 ~ 0.5,
                       df$phi == 0.3826834 ~ 0.25)
   
-  gg.f <- ggplot(data = df, mapping = aes(x = tau, y = as.numeric(rr))) +
+  gg.f <- ggplot(data = df, mapping = aes(x = tau, y = as.numeric(rr), 
+                                          color = n, linetype = n)) +
+    geom_line() +
     geom_point() +
-    facet_grid(vars(n), vars(dist), labeller = label_parsed) +
+    facet_grid(vars(dist), labeller = label_parsed) +
     labs(x = latex2exp::TeX("$\\tau$"), y = latex2exp::TeX("Rejection Rate"))
   ggsave(filename = filename, plot = gg.f, path = "../manuscript/figures", 
          height = 6, width = 6)
