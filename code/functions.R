@@ -133,7 +133,8 @@ plot_p_vals <- function(df, filename) {
                labeller = label_parsed) +
     labs(x = "Probability Points", y = "Cumulative Probability") +
     coord_fixed() +
-    theme(strip.text.x = element_text(size = 8))
+    theme(strip.text.x = element_text(size = 8),
+          axis.text.x = element_text(angle = -45))
   ggsave(filename = filename, plot = gg.f, path = "../manuscript/figures", 
          height = 6, width = 6)
   
@@ -147,7 +148,8 @@ plot_p_vals <- function(df, filename) {
                labeller = label_parsed) +
     labs(x = "Probability Points", y = "Cumulative Probability") +
     coord_fixed(ylim = c(0, 0.1), xlim = c(0, 0.1)) +
-    theme(strip.text.x = element_text(size = 8))
+    theme(strip.text.x = element_text(size = 8),
+          axis.text.x = element_text(angle = -45))
   ggsave(filename = paste('zoom_', filename, sep = ''), plot = gg.f, 
          path = "../manuscript/figures", height = 6, width = 6)
 }
@@ -171,13 +173,16 @@ plot_rr <- function(df, filename) {
                       df$phi == 0.3826834 ~ 0.25)
   
   gg.f <- ggplot(data = df, mapping = aes(x = tau, y = as.numeric(rr), 
-                                          color = n, linetype = n)) +
+                                          color = n, 
+                                          linetype = n)) +
     geom_line() +
     geom_point() +
-    facet_grid(vars(dist), labeller = label_parsed) +
+    facet_grid(cols = vars(dist), labeller = label_parsed) +
+    theme(axis.text.x = element_text(angle = -45),
+          legend.position = "bottom") +
     labs(x = latex2exp::TeX("$\\tau$"), y = latex2exp::TeX("Rejection Rate"))
   ggsave(filename = filename, plot = gg.f, path = "../manuscript/figures", 
-         height = 6, width = 6)
+         height = 4, width = 6)
     
     
 }
