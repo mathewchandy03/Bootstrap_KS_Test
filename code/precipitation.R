@@ -13,7 +13,7 @@ mdw <- precipitation %>%
   summarize(annual_max_hpcp = max(hpcp)) %>% 
   ungroup()
 
-auto.arima(mdw$annual_max_hpcp)
+acf(mdw$annual_max_hpcp)
 set.seed(123)
 mdw_pvals <- myapp(mdw$annual_max_hpcp, 10000, 'gev', evd::pgev, df = NULL)
 
@@ -24,7 +24,7 @@ lga <- precipitation %>%
   summarize(annual_max_hpcp = max(hpcp)) %>% 
   ungroup()
 
-auto.arima(lga$annual_max_hpcp)
+acf(lga$annual_max_hpcp)
 set.seed(123)
 lga_pvals <- myapp(lga$annual_max_hpcp, 10000, 'gev', evd::pgev)
 
@@ -35,7 +35,7 @@ lax <- precipitation %>%
   summarize(annual_max_hpcp = max(hpcp)) %>% 
   ungroup()
 
-auto.arima(lga$annual_max_hpcp)
+acf(lga$annual_max_hpcp)
 set.seed(123)
 lax_pvals <- myapp(lax$annual_max_hpcp, 10000, 'gev', evd::pgev)
 
