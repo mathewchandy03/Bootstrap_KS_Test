@@ -133,8 +133,7 @@ plot_p_vals <- function(df, filename) {
                labeller = label_parsed) +
     labs(x = "Probability Points", y = "Cumulative Probability") +
     coord_fixed() +
-    theme(strip.text.x = element_text(size = 8),
-          axis.text.x = element_text(angle = -45))
+    theme(strip.text.x = element_text(size = 8))
   ggsave(filename = filename, plot = gg.f, path = "../manuscript/figures", 
          height = 6, width = 6)
   
@@ -147,9 +146,8 @@ plot_p_vals <- function(df, filename) {
     facet_grid(vars(n), vars(as.numeric(tau)), 
                labeller = label_parsed) +
     labs(x = "Probability Points", y = "Cumulative Probability") +
-    coord_fixed(ylim = c(0, 0.1), xlim = c(0, 0.1)) +
-    theme(strip.text.x = element_text(size = 8),
-          axis.text.x = element_text(angle = -45))
+    coord_fixed(ylim = c(-0.01, 0.11), xlim = c(-0.01, 0.11)) +
+    theme(strip.text.x = element_text(size = 8))
   ggsave(filename = paste('zoom_', filename, sep = ''), plot = gg.f, 
          path = "../manuscript/figures", height = 6, width = 6)
 }
@@ -178,9 +176,10 @@ plot_rr <- function(df, filename) {
     geom_line() +
     geom_point() +
     facet_grid(cols = vars(dist), labeller = label_parsed) +
-    theme(axis.text.x = element_text(angle = -45),
+    theme(
           legend.position = "bottom") +
-    labs(x = latex2exp::TeX("$\\tau$"), y = latex2exp::TeX("Rejection Rate"))
+    labs(x = latex2exp::TeX("$\\tau$"), y = latex2exp::TeX("Rejection Rate")) +
+    coord_fixed(ylim = c(0, 1), xlim = c(-1, 1))
   ggsave(filename = filename, plot = gg.f, path = "../manuscript/figures", 
          height = 4, width = 6)
     
