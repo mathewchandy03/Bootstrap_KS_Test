@@ -281,7 +281,7 @@ $T_n^{(b)}$, $b = 1, \ldots, B$.
 
 
 In summary, the procedure of the nonparametric block bootstrap test is 
-summarized as follows.
+summarized as follows. Repeat the following steps for $b \in \{1, ..., B\}$.
 \jy{Whrere is the 'block' part?}
 \mc{addressed}
 \begin{enumerate}
@@ -305,10 +305,6 @@ summarized as follows.
   $B_{n}(x) = \sqrt{n}(E[F^{(b)}_n(x)] - 
   F(x; E[\hat\theta^{(b)}_n]))$ is the known
   bias term.
-\item
-  Repeat the previous steps a large number $B$ times and use the empirical
-  distribution of $T^{(b)}_n$ to approximate the null distribution of the observed
-  statistic. 
 \end{enumerate}
 
 
@@ -348,8 +344,8 @@ $\Gamma(8, 1)$, Kendall's $\tau \in \{-.75, -.5, -.25, 0, .25, .5,
 .75\}$, and
 sample size $n \in \{100, 200, 400, 800\}$. Kendall's $\tau$ was chosen as
 it ...
-The autocorrelation $\phi$ of the series was set to \{-0.9238795, -0.7071068, 
--0.3826834, 0, 0.3826834, 0.7071068, 0.9238795\}. These
+The autocorrelation $\phi$ of the series was set to \{-0.924, -0.707, 
+-0.383, 0, 0.383, 0.707, 0.924\}. These
 are the autocorrelations of the normal series, but after the transformation
 to the marginal gamma distribution
 \mc{my explanation needs work}
