@@ -1,3 +1,7 @@
+2/13 Notes
+- Try SP500 and SP100
+- Try GEV
+
 2/6 Notes
 - expand range to 0.11 but keep tick at 0.1
 - say that the correlation for 0.75 is already very high (write the number)
