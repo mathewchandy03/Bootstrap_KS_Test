@@ -3,6 +3,7 @@ library(evd)
 library(truncdist)
 library(qqplotr)
 library(copula)
+library(tseries)
 mystat <- function(x, dist, df = NULL) {
   # Bootstrap will return actual pseudo-sample, mean, and standard deviation
   if (dist == 'gev') {
@@ -55,7 +56,7 @@ my_babu <- function(y, B, h0_dist, f0, df = NULL) {
   c(mean(ks_values > obsv_ks)) # Which are greater than the observed ks statistic
 }
 
-my_param_app <- function(y, B, h0_dist, f0, rgen = NULL, df = NULL) {
+my_param <- function(y, B, h0_dist, f0, rgen, df = NULL) {
   n <- length(y)
   blksize <- 1
   emp <- ecdf(y)(sort(y)) # observed empirical distribution
@@ -68,15 +69,15 @@ my_param_app <- function(y, B, h0_dist, f0, rgen = NULL, df = NULL) {
   fit <- do.call(f0, c(list(sort(y)), as.list(c(df, fit_theta)))) # observed fitted distribution
   obsv_ks <- sqrt(n) * max(abs(emp - fit)) # observed ks statistic
   
-  # Parametric Bootstrap
-  bts <- NA
-  if (h0_dist == 'gev') {
-    bts <- replicate(B, c(evd::rgev(length(y)), 
-                          evd::fgev(y, std.err = FALSE)$estimate)) # gev not recognised by fitdistr
-  } else {
-    bts <- replicate(B, c(rgen(length(y)),
-                     MASS::fitdistr(y, dist, df = df)$estimate)) # observed fitted values
+  bts <- t(replicate(B, c(
+    do.call(rgen, c(n, as.list(c(df, fit_theta)))))))
+  
+  theta <- c()
+  for(row in 1:nrow(bts)) {
+    theta <- rbind(theta, MASS::fitdistr(bts[row,], h0_dist, df = df)$estimate)
   }
+ 
+  bts <- cbind(bts, theta)
   
   # Data must be restructured in the following ways, so the expected value
   # of the cdfs can be computed
@@ -86,8 +87,8 @@ my_param_app <- function(y, B, h0_dist, f0, rgen = NULL, df = NULL) {
   sum_theta <- 0
   
   for (i in 1:B) {
-    list_emp <- rbind(list_emp, c(ecdf(bts$t[i, (1:n)])(sort(y))))
-    list_theta <- rbind(list_theta, c(bts$t[i, -(1:n)]))
+    list_emp <- rbind(list_emp, c(ecdf(bts[i, (1:n)])(sort(y))))
+    list_theta <- rbind(list_theta, c(bts[i, -(1:n)]))
   }
   
   ks_values <- c()
@@ -100,5 +101,43 @@ my_param_app <- function(y, B, h0_dist, f0, rgen = NULL, df = NULL) {
   c(mean(ks_values > obsv_ks)) # Which are greater than the observed ks statistic
 }
 
-
-
+microsoft_app <- function(start, end, years) {
+  microsoft <- 
+    diff(log(get.hist.quote(instrument = "msft", start = "2018-01-01",
+                            end = "2022-12-31")))
+  
+  mc_fit <- auto.arima(as.vector(microsoft[, "Close"]))
+  mc_resid <- residuals(mc_fit)
+  
+  set.seed(123)
+  mc_pval <- myapp(mc_resid, 1000, "normal", 
+                      pnorm)
+  set.seed(123)
+  mc_pval <- c(mc_pval, my_babu(mc_resid, 1000, "normal", 
+                                      pnorm))
+  set.seed(123)
+  mc_pval <- c(mc_pval, my_param(mc_resid, 1000, "normal", 
+                                pnorm, rnorm))
+  
+  for (v in c(30, 20, 10, 5, 4, 3, 2, 1)) {
+    set.seed(123)
+    np <- myapp(mc_resid, 1000, "t", plst, 
+                df = v)
+    set.seed(123)
+    babu <- my_babu(mc_resid, 1000, "t", plst, 
+                    df = v)
+    set.seed(123)
+    param <- my_param(mc_resid, 1000, "t", plst, rlst,
+                    df = v)
+    mc_pval <- rbind(mc_pval,
+                        c(np,
+                          babu,
+                          param))
+  }
+  
+  mc_pval <- cbind(rep(years, dim(mc_pval_5y)[1]), 
+                      c("norm", 30, 20, 10, 5, 4, 3, 2, 1), mc_pval)
+  colnames(mc_pval) <- c("duration", "df", "block", "basic", "param")
+  rownames(mc_pval) <- NULL
+  return(mc_pval)
+}

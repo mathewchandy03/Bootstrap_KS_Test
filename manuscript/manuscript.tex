@@ -100,18 +100,18 @@ time series.
 
 The Kolmogorov-Smirnov (KS) test is a useful goodness-of-fit statistic. 
 Let $X_1, ..., X_n$ be a random sample of size~$n$ from some continuous
-distribution. The null hypothesis $H_0$ is that $X_i$'s follow the
+distribution and the null hypothesis $H_0$ be that $X_i$'s follow the
 hypothesized distribution~$F$.
-Let $F_n(t) = \sum_{i=1}^n I(X_i \le t) / n$ be the empirical cumulative
+If we let $F_n(t) = \sum_{i=1}^n I(X_i \le t) / n$ be the empirical cumulative
 distribution function of the sample, where $I(\cdot)$ is the indicator
-function. The KS test statistic takes the form
+function, the KS test statistic takes the form
 \begin{equation}
   \label{eq:ks_standard}
   T_n = \sqrt{n} \sup_x | F_{n}(x) - F(x) |.
 \end{equation}
 
 
-The statistic 
+The KS statistic 
 can be used to see if a population follows a hypothesized distribution and has 
 and can be applied to a variety of fields. It has
 been used to analyze the random distribution of cosmic microwave background 
@@ -130,7 +130,7 @@ serially dependent. \citet{zeimbekakis2022misuses}'s remedy for
 this scenario also uses semi-parametric bootstrap.
 
 
-A complete remedy for KS tests with serially dependent data is
+A non-parametric remedy for KS tests with serially dependent data is
 a challenging task. The null distribution depends on the structure of the serial
 dependence, which can be arbitrary in practice. A parametric bootstrap procedure
 would demand a specification for a model for the dependence, whereas the primary 
