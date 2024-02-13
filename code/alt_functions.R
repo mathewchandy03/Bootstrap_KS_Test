@@ -103,8 +103,8 @@ my_param <- function(y, B, h0_dist, f0, rgen, df = NULL) {
 
 microsoft_app <- function(start, end, years) {
   microsoft <- 
-    diff(log(get.hist.quote(instrument = "msft", start = "2018-01-01",
-                            end = "2022-12-31")))
+    diff(log(get.hist.quote(instrument = "msft", start = start,
+                            end = end)))
   
   mc_fit <- auto.arima(as.vector(microsoft[, "Close"]))
   mc_resid <- residuals(mc_fit)
@@ -135,7 +135,7 @@ microsoft_app <- function(start, end, years) {
                           param))
   }
   
-  mc_pval <- cbind(rep(years, dim(mc_pval_5y)[1]), 
+  mc_pval <- cbind(rep(years, dim(mc_pval)[1]), 
                       c("norm", 30, 20, 10, 5, 4, 3, 2, 1), mc_pval)
   colnames(mc_pval) <- c("duration", "df", "block", "basic", "param")
   rownames(mc_pval) <- NULL

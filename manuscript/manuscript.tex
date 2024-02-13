@@ -589,7 +589,15 @@ Finally, we tried the method only using the last year of data: January 1st, 2022
 to December 31st, 2022.
 
 
-\input{tables/mc_pvals}
+\input{tables/mc_pval_1y}
+
+\input{tables/mc_pval_2y}
+
+\input{tables/mc_pval_3y}
+
+\input{tables/mc_pval_4y}
+
+\input{tables/mc_pval_5y}
 
 \jy{Normal was not rejected for 1 year. How about 2 year, 3 year, 4 year?}
 \mc{tried these sample sizes, normal is rejected for all three might want to
@@ -603,7 +611,8 @@ to December 31st, 2022.
 
 
 The p-values of our test when applied to Microsoft stock return data using
-different settings are showcased in Table~\ref{table:microsoft}.
+different settings are showcased in 
+Tables~\ref{table:microsoft1}--\ref{table:microsoft2}.
 We observe that when the duration of time is large, our method rejects the null
 hypothesis unless the degrees of freedom specified is very precise. When
 we use 25 years of data, the method
