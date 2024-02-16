@@ -112,8 +112,8 @@ function, the KS test statistic takes the form
 
 
 The KS statistic 
-can be used to see if a population follows a hypothesized distribution and has 
-and can be applied to a variety of fields. It has
+can be used to see if a population follows a hypothesized distribution and can 
+be applied to a variety of fields. It has
 been used to analyze the random distribution of cosmic microwave background 
 radiation \citep{naess2012application}. \citet{zeimbekakis2022misuses} reviews
 some of the common misuses of the one-sample KS test. One of the most common 
@@ -418,15 +418,21 @@ that is the most common range for significance levels $\alpha$.
 \end{figure}
 
 From Figures~\ref{fig:normal} and \ref{fig:gamma}, we can observe that 
-although the p-values do not appear to be 
+although the extent to which the p-values appear to be 
 completely aligned with the line
-in the Q-Q plots for smaller sample sizes like $n = 100$ or $200$, they match
-the lines very closely for $n = 1600$ and $3200$. More importantly, almost
-all of the p-values appear to be within the confidence bands when looking at the
-plots zoomed in to probabilities between 0 and 0.1 in 
-Figures~\ref{fig:zoom_normal} and \ref{fig:zoom_gamma}, and as stated 
-before, 
-researchers are unlikely to choose significance levels above 0.1. 
+in the Q-Q plots is dependent on the sample size and the level of serial 
+dependence.
+A small sample size like $n = 100$ or $200$ seems adequate when Kendall's
+$\tau$ is lower than 0.25. For Kendall's $\tau \geq 0.5$, a sample larger than
+$n = 200$ seems necessary for the p-values to be normally distributed. For
+Kendall's $\tau \geq 0.75$, a sample larger than $n = 800$ appears to be 
+necessary, as the p-values are not aligned with the line in the Q-Q plots, even
+in Figures~\ref{fig:zoom_normal} and \ref{fig:zoom_gamma}. This
+is not necessarily a cause for concern, as (for normal margins)
+a Kendall's $\tau$ corresponds to
+a $\phi$ of 0.924, which is very high. Additionally, performance generally seems
+better for negative $\tau$ values versus positive $\tau$ values of the same
+strength.
 
 
 Under $H_0$, the p-values for the non-parametric block bootstrap KS test are

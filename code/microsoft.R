@@ -5,15 +5,15 @@ library(tseries)
 library(extraDistr)
 library(xtable)
 
-mc_pval_5y <- microsoft_app("2018-01-01", "2022-12-31", 5)
+mc_pval_5y <- app_scheme("2018-01-01", "2022-12-31", 5, "msft")
 
-mc_pval_4y <- microsoft_app("2019-01-01", "2022-12-31", 4)
+mc_pval_4y <- app_scheme("2019-01-01", "2022-12-31", 4, "msft")
 
-mc_pval_3y <- microsoft_app("2020-01-01", "2022-12-31", 3)
+mc_pval_3y <- app_scheme("2020-01-01", "2022-12-31", 3, "msft")
 
-mc_pval_2y <- microsoft_app("2021-01-01", "2022-12-31", 2)
+mc_pval_2y <- app_scheme("2021-01-01", "2022-12-31", 2, "msft")
 
-mc_pval_1y <- microsoft_app("2022-01-01", "2022-12-31", 1)
+mc_pval_1y <- app_scheme("2022-01-01", "2022-12-31", 1, "msft")
 
 microsoft_df <- t(rbind(mc_pval_1y, mc_pval_2y, mc_pval_3y, mc_pval_4y, 
                       mc_pval_5y

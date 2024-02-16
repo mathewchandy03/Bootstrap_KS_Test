@@ -101,43 +101,43 @@ my_param <- function(y, B, h0_dist, f0, rgen, df = NULL) {
   c(mean(ks_values > obsv_ks)) # Which are greater than the observed ks statistic
 }
 
-microsoft_app <- function(start, end, years) {
-  microsoft <- 
-    diff(log(get.hist.quote(instrument = "msft", start = start,
+app_scheme <- function(start, end, years, stock) {
+  series <- 
+    diff(log(get.hist.quote(instrument = stock, start = start,
                             end = end)))
   
-  mc_fit <- auto.arima(as.vector(microsoft[, "Close"]))
-  mc_resid <- residuals(mc_fit)
+  fit <- auto.arima(as.vector(series[, "Close"]))
+  resid <- residuals(fit)
   
   set.seed(123)
-  mc_pval <- myapp(mc_resid, 1000, "normal", 
+  pval <- myapp(resid, 1000, "normal", 
                       pnorm)
   set.seed(123)
-  mc_pval <- c(mc_pval, my_babu(mc_resid, 1000, "normal", 
+  pval <- c(pval, my_babu(resid, 1000, "normal", 
                                       pnorm))
   set.seed(123)
-  mc_pval <- c(mc_pval, my_param(mc_resid, 1000, "normal", 
+  pval <- c(pval, my_param(resid, 1000, "normal", 
                                 pnorm, rnorm))
   
   for (v in c(30, 20, 10, 5, 4, 3, 2, 1)) {
     set.seed(123)
-    np <- myapp(mc_resid, 1000, "t", plst, 
+    np <- myapp(resid, 1000, "t", plst, 
                 df = v)
     set.seed(123)
-    babu <- my_babu(mc_resid, 1000, "t", plst, 
+    babu <- my_babu(resid, 1000, "t", plst, 
                     df = v)
     set.seed(123)
-    param <- my_param(mc_resid, 1000, "t", plst, rlst,
+    param <- my_param(resid, 1000, "t", plst, rlst,
                     df = v)
-    mc_pval <- rbind(mc_pval,
+    pval <- rbind(pval,
                         c(np,
                           babu,
                           param))
   }
   
-  mc_pval <- cbind(rep(years, dim(mc_pval)[1]), 
-                      c("norm", 30, 20, 10, 5, 4, 3, 2, 1), mc_pval)
-  colnames(mc_pval) <- c("duration", "df", "block", "basic", "param")
-  rownames(mc_pval) <- NULL
-  return(mc_pval)
+  pval <- cbind(rep(years, dim(pval)[1]), 
+                      c("norm", 30, 20, 10, 5, 4, 3, 2, 1), pval)
+  colnames(pval) <- c("duration", "df", "block", "basic", "param")
+  rownames(pval) <- NULL
+  return(pval)
 }
