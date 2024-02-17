@@ -432,7 +432,7 @@ is not necessarily a cause for concern, as (for normal margins)
 a Kendall's $\tau$ corresponds to
 a $\phi$ of 0.924, which is very high. Additionally, performance generally seems
 better for negative $\tau$ values versus positive $\tau$ values of the same
-strength.
+strength. Results are very similar for normal and gamma margins.
 
 
 Under $H_0$, the p-values for the non-parametric block bootstrap KS test are
@@ -507,18 +507,13 @@ differences when simulation settings are changed.
 
 
 From 
-Table~\ref{fig:rr}, 
-the rejection rates are a little higher for $n = 200$, but they may still be 
-drop below 50\% is the $\alpha = 0.1$. Once $n$ reaches 400, we can observe 
-that the rejection rate
-is consistently above 50\%. For larger sample sizes, the rejection rate is 
-consistently above 90\%. We can also
-observe that the rejection rate is slightly higher for the $\Gamma(8, 1)$ sample 
-than for 
-the $N(8, 8)$. As the strength of the temporal dependence increases, the 
-rejection rate decreases, and the rejection
-rate appears to be slightly higher for negative temporal dependence versus 
-positive temporal dependence values of the same strength.
+Figure~\ref{fig:rr}, 
+the rejection rates appear to get lower as $\tau$ increases in a
+positive direction. Using a sample size $n \geq 800$ appears to be sufficient
+when $\tau$ is not too high, but for $\tau \geq 0.75$, all sample sizes 
+observed appeared to have less than desirable rejection rates. Results
+do not appear to be to different when comparing gamma and normal 
+margins, indicating that the method is robust to the marginal distribution.
 
 
 The rejection rates for $n = 800$

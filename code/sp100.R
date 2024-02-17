@@ -1,0 +1,23 @@
+source("functions.R")
+source("alt_functions.R")
+library(forecast)
+library(tseries)
+library(extraDistr)
+library(xtable)
+
+sp100_pval_5y <- app_scheme("2018-01-01", "2022-12-31", 5, "^sp100")
+
+sp100_pval_4y <- app_scheme("2019-01-01", "2022-12-31", 4, "^sp100")
+
+sp100_pval_3y <- app_scheme("2020-01-01", "2022-12-31", 3, "^sp100")
+
+sp100_pval_2y <- app_scheme("2021-01-01", "2022-12-31", 2, "^sp100")
+
+sp100_pval_1y <- app_scheme("2022-01-01", "2022-12-31", 1, "^sp100")
+
+sp100_df <- t(rbind(sp100_pval_1y, sp100_pval_2y, sp100_pval_3y, sp100_pval_4y, 
+                    sp100_pval_5y
+))
+
+saveRDS(sp100_df, "../data/sp100_df")
+
