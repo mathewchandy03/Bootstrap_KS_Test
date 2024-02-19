@@ -60,7 +60,7 @@ my_param <- function(y, B, h0_dist, f0, rgen, df = NULL) {
   n <- length(y)
   blksize <- 1
   emp <- ecdf(y)(sort(y)) # observed empirical distribution
-  if (h0_dist == 'gev') {
+  if (h0_dist == "gev") {
     fit_theta <- evd::fgev(y, std.err = FALSE)$estimate # gev not recognised by fitdistr
   } else {
     fit_theta <- MASS::fitdistr(y, h0_dist, df = df)$estimate # observed fitted values
@@ -73,8 +73,14 @@ my_param <- function(y, B, h0_dist, f0, rgen, df = NULL) {
     do.call(rgen, c(n, as.list(c(df, fit_theta)))))))
   
   theta <- c()
-  for(row in 1:nrow(bts)) {
-    theta <- rbind(theta, MASS::fitdistr(bts[row,], h0_dist, df = df)$estimate)
+  if (h0_dist == "gev") {
+    for(row in 1:nrow(bts)) {
+      theta <- rbind(theta, evd::fgev(bts[row,], std.err = FALSE)$estimate)
+    }
+  } else {
+    for(row in 1:nrow(bts)) {
+      theta <- rbind(theta, MASS::fitdistr(bts[row,], h0_dist, df = df)$estimate)
+    }
   }
  
   bts <- cbind(bts, theta)
@@ -141,3 +147,4 @@ app_scheme <- function(start, end, years, stock) {
   rownames(pval) <- NULL
   return(pval)
 }
+

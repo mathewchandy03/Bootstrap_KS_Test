@@ -539,7 +539,9 @@ from places of importance in the three largest American cities. LGA and
 MDW were chosen over John F. Kennedy and O'Hare as more data was available
 from these stations. The data for MDW is from
 1948 to 2014, the data for LGA is from 1948 to 2013, and the
-data for LAX is also from 1948 to 2013. We can apply our method to
+data for LAX is also from 1948 to 2013. We can apply our method (as well
+as the non-parametric bootstrap KS Test \citep{babu2004goodness} and
+the parametric bootstrap KS Test) to
 the precipitation time series from each of these locations to test if they
 follow the
 Generalized Extreme Value (GEV) distribution using the \textsl{evd} 
@@ -552,11 +554,15 @@ null hypothesis.
 %\input{tables/precipitation_pvals}
 %\mc{https://hdsc.nws.noaa.gov/pfds/pfds_map_cont.html?bkmrk=ct}
 
-The p-value is 0.71 for MDW, 0.13 for LGA, and 0.36 for LAX. Using a 
-significance level as 
-high as .10 still results in a failed rejection
-of the null hypothesis for each of the three tests that the respective 
-time series follow the GEV distribution.
+The p-value is 0.71 for MDW, 0.13 for LGA, and 0.36 for LAX when using our 
+method.
+When using Babu's non-parametric method which does not account for serial
+dependence, the p-value is 0.74 for MDW, 0.19 for LGA, and 0.40 for LAX. 
+When using the parametric bootstrap KS test, the p-value is 0.64 for MDW,
+0.12 for LGA, and 0.35 for LAX. In this instance, the conclusions are the same 
+(the three series follow the GEV distribution), but because of the difference
+in p-values, it is possible for different conclusions to be found in another
+study.
 
 \subsection{Microsoft Stock Returns}
 \label{sec:microsoft}
@@ -584,10 +590,15 @@ the location-scale $t$ distribution with increasingly smaller specified degrees
 of freedoms. This was achieved with the \textsl{extraDistr} 
 package \citep{extraDistr}. We
 also observed how the method performs using increasingly smaller durations of
-time. First, we tred the entire data set which has a duration of 25 years. Then,
-we used the last 5 years of data: January 1st, 2018 to December 31st, 2022.
-Finally, we tried the method only using the last year of data: January 1st, 2022
-to December 31st, 2022.
+time. ,
+we used the last 5 years of data: January 1st, 2018 to December 31st, 2022,
+4 years of data: January 1st, 2019 to December 31st, 2022,
+3 years of data: January 1st, 2020 to December 31st, 2022,
+2 years of data: January 1st, 2021 to December 31st, 2022,
+and 1 year of data: January 1st, 2022
+to December 31st, 2022. In addition, we compared it to results from 
+the Babu non-parametric and 
+the parametric bootstrap KS Test.
 
 
 \input{tables/mc_pval_1y}
@@ -613,23 +624,12 @@ to December 31st, 2022.
 
 The p-values of our test when applied to Microsoft stock return data using
 different settings are showcased in 
-Tables~\ref{table:microsoft1}--\ref{table:microsoft2}.
-We observe that when the duration of time is large, our method rejects the null
-hypothesis unless the degrees of freedom specified is very precise. When
-we use 25 years of data, the method
-only fails to reject the null hypothesis at $\alpha = .05$ when 
-the hypothesized $v = 2.2$, when 
-the precision
-is to the tenths place. For $\alpha = .10$, we only rail to reject the null 
-hypothesis when the hypothesized $v = 2.15$, when the precision is to the 
-hundredths place.
-When using only 5 years of data, the method reaches a p-value of 
-$0.05$ when the hypothesized $v = 2.5$, but the p-value is
-lower for $v = 2.2$ and $v = 2.15$.
-When we only use 1 year of data, the method fails to reject the null hypothesis
-even when the hypothesized distribution family is normal ($v \to \infty$). The
-p-value is maximized at 0.65 when we hypothesize that $v = 5$, but the p-value 
-is lower for smaller values of $v$ when using only 1 year of data.
+Tables~\ref{table:microsoft1}--\ref{table:microsoft2}. Although the p-values
+are indeed different between the three methods, the conclusions at a .05 
+significance 
+level are mostly the same. This motivated an additional application on SP500
+and SP100 data.
+
 
 
 \section{Concluding Remarks}
