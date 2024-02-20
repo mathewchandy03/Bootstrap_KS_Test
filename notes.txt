@@ -1,3 +1,13 @@
+2/20 Notes
+- Try no resid 
+- Try annual maximums of daily precipitation 
+- Annual maximum temperature 
+- txx (highest day temperature)
+- lowest day temperature
+- highest night temperature
+- lowest night temperature
+
+
 2/13 Notes
 - Try SP500 and SP100
 - Try GEV

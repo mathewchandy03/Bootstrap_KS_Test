@@ -17,7 +17,7 @@ mdw <- precipitation %>%
 mdw_fit <- auto.arima(mdw$annual_max_hpcp)
 mdw_resid <- residuals(mdw_fit)
 
-mdw_pvals <- myapp(mdw_resid, 10000, 'gev', evd::pgev, df = NULL)
+mdw_pvals <- myapp(mdw$annual_max_hpcp, 10000, 'gev', evd::pgev, df = NULL)
 mdw_pvals <- c(mdw_pvals, my_babu(mdw_resid, 10000, 'gev', evd::pgev, df = NULL))
 mdw_pvals <- c(mdw_pvals, my_param(mdw_resid, 10000, 'gev', evd::pgev, evd::rgev, 
                                    df = NULL))

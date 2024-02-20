@@ -112,8 +112,11 @@ app_scheme <- function(start, end, years, stock) {
     diff(log(get.hist.quote(instrument = stock, start = start,
                             end = end)))
   
-  fit <- auto.arima(as.vector(series[, "Close"]))
-  resid <- residuals(fit)
+  series <- as.vector(series[, "Close"])
+#  fit <- auto.arima(as.vector(series[, "Close"]))
+#  resid <- residuals(fit)
+  
+  resid <- series
   
   set.seed(123)
   pval <- myapp(resid, 1000, "normal", 
