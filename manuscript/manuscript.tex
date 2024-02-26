@@ -535,7 +535,7 @@ sample size is used.
 \section{Real Data Analysis}
 \label{sec:real}
 
-\subsection{Precipitation in Mansfield Connecticut}
+\subsection{Precipitation at Airports}
 \label{sec:precipitation}
 Annual maximums of hourly precipitation in inches time series data were 
 retrieved 
@@ -543,7 +543,7 @@ from the Chicago Midway International Airport (MDW), New York LaGuardia
 International 
 Airport (LGA),
 and Los Angeles International Airport (LAX) stations from the 
-National Oceanic and Atmospheric Administration. These stations were selected 
+National Oceanic and Atmospheric Administration (NOAA). These stations were selected 
 from places of importance in the three largest American cities. LGA and
 MDW were chosen over John F. Kennedy and O'Hare as more data was available
 from these stations. The data for MDW is from
@@ -568,10 +568,29 @@ method.
 When using Babu's non-parametric method which does not account for serial
 dependence, the p-value is 0.74 for MDW, 0.19 for LGA, and 0.40 for LAX. 
 When using the parametric bootstrap KS test, the p-value is 0.64 for MDW,
-0.12 for LGA, and 0.35 for LAX. In this instance, the conclusions are the same 
+0.12 for LGA, and 0.35 for LAX. In this instance, the conclusions are the
+same 
 (the three series follow the GEV distribution), but because of the difference
 in p-values, it is possible for different conclusions to be found in another
 study.
+
+\subsection{Temperature in Central Park}
+\label{sec:temperature}
+
+Annual temperature maximums recorded in Central Park, New York, NY from
+1895 to 2023 were sourced from the NOAA. Again, we are interested in seeing
+if our method, which
+accounts for serial dependence and does not require parameter specification,
+performs differently than the non-parametric bootstrap KS Test 
+\citep{babu2004goodness} and the parametric bootstrap KS Test, neither of
+which account for serial dependence. We found that when using our method,
+the p-value for the test that the series follows the GEV distribution is 0.1420.
+When using Babu's method, the p-value is 0.0666, and when using the parametric
+method, the p-value is 0.0682. At the common significance level of .05,
+the conclusions would be the same regardless of the method used. However, it
+is clear that for this series, our method more decisively fails to reject the 
+null hypothesis at a significance level of .10.
+
 
 \subsection{Microsoft Stock Returns}
 \label{sec:microsoft}
