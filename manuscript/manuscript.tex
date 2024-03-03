@@ -109,58 +109,69 @@ function, the KS test statistic takes the form
   \label{eq:ks_standard}
   T_n = \sqrt{n} \sup_x | F_{n}(x) - F(x) |.
 \end{equation}
-
-
-The KS statistic 
-can be used to see if a population follows a hypothesized distribution and can 
-be applied to a variety of fields. It has
+As sample size $n\to \infty$, the distribution of $T_n$ converges to that of the
+absolute value of standard Brownian bridge, which is known as the Kolmogorov
+distribution \citep{stephens1974edf}. The distribution function can be
+accurately evaluated in modern statistical software
+\citep{marsaglia2003evaluating}. The KS test can be applied to a variety of
+fields. \jy{cite a few  references in various field to show its wide
+  applications.}
+ It has
 been used to analyze the random distribution of cosmic microwave background 
-radiation \citep{naess2012application}. \citet{zeimbekakis2022misuses} reviews
-some of the common misuses of the one-sample KS test. One of the most common 
-misuses of the KS test is when
-the hypothesized distribution has unspecified parameters. 
-\citet{babu2004goodness} approaches this scenario using basic 
-non-parametric bootstrap. There is also the scenario where the data are serially
-dependent, which \citet{zeimbekakis2022misuses} partially remedies with 
-semi-parametric
-bootstrap. The last scenario \citet{zeimbekakis2022misuses} discusses is that
-where both the hypothesized 
-distribution has unspecified parameters and the data are 
-serially dependent. \citet{zeimbekakis2022misuses}'s remedy for
-this scenario also uses semi-parametric bootstrap.
+radiation \citep{naess2012application}.
 
 
-A non-parametric remedy for KS tests with serially dependent data is
-a challenging task. The null distribution depends on the structure of the serial
-dependence, which can be arbitrary in practice. A parametric bootstrap procedure
-would demand a specification for a model for the dependence, whereas the primary 
-interest
-is to test the marginal distribution of the stationary series. A bias 
-correction
-for block bootstrap similar to what \citet{babu2004goodness} did for basic
-bootstrap had not yet been shown.  This study aims to resolve this gap by 
-demonstrating a bias 
-correction
-for non-parametric block bootstrap to use when the hypothesized distribution
-has unspecified parameters and the data are serially dependent.
+Despite its widespread use, the Kolmogorov-Smirnov (KS) test can be 
+misapplied when its foundational assumptions are overlooked. The KS test 
+assumes the data are independently and identically distributed (i.i.d.) and 
+that the hypothesized distribution is continuous and fully specified without 
+the need for parameter estimation. \citet{zeimbekakis2022misuses} examines 
+common misapplications of the one-sample KS test, notably the inappropriate
+use when the hypothesized distribution contains unspecified parameters.
+Another commonly encountered situation is when the data are serially
+dependent. \citet{babu2004goodness} addresses this issue through the
+application of basic non-parametric bootstrap methods. Alternatively, 
+\citet{zeimbekakis2022misuses} proposed a semi-parametric bootstrap
+where the serial dependence structure is modeled via a working serial copula.
+A particularly complex scenario arises when the distribution has unspecified
+parameters, and the data are serially dependent. For this,
+\citet{zeimbekakis2022misuses} also recommends a semi-parametric bootstrap
+approach, where the parameters of the hypothesized distribution and the serial
+dependence both need to be estimated and their uncertainty accounted for.
 
 
-The rest of the paper is outlined as follows: Section~\ref{sec:methods} reviews
-block bootstrap procedure and demonstrates the basis for bias correction for
-the non-parametric block bootstrap KS test. In Section~\ref{sec:simu}, we first 
-assess whether the KS
-test holds its size; that is, does the test fail to reject the null hypothesis
-when it is true. In the second part of Section~\ref{sec:simu}, we 
-evaluate the 
-test's power; that is, does the test reject the null hypothesis when it is 
-false. We show practical applications of this method in Section~\ref{sec:real}.
-First, we apply the method to test if annual maximums of hourly precipitation
-in three U.S. airports follows the GEV distribution in 
-Subsection~\ref{sec:precipitation}.
-Then, we test if Microsoft stock return data follows the Normal or the Student's
-$t$ distribution in Subsection~\ref{sec:microsoft}.
-Finally, we end with 
-concluding remarks in Section~\ref{sec:conclusion}.
+Developing a fully non-parametric solution for the Kolmogorov-Smirnov (KS) 
+tests in the presence of serially dependent data presents a significant 
+challenge. The null distribution's characteristics are intricately linked to 
+the structure of the serial dependence, which can vary widely in practical 
+situations. Employing a parametric bootstrap would necessitate defining a 
+specific model for this dependence, despite the primary focus being on 
+evaluating the marginal distribution of a stationary series. To date, a bias 
+correction method for block bootstrap, akin to the approach \citet{babu2004goodness} 
+applied to the basic bootstrap, has not been established. This study seeks 
+to bridge this gap by introducing a bias correction technique for the 
+non-parametric block bootstrap, tailored for use in scenarios where the 
+hypothesized distribution includes unspecified parameters and the data 
+exhibit serial dependence. Our approach reduces to that of
+\citet{babu2004goodness} when the data are independent.
+
+
+The remainder of this paper is structured as follows: 
+Section~\ref{sec:methods} provides an overview of the block bootstrap 
+procedure and introduces the bias correction methodology for the 
+non-parametric block bootstrap KS test. Section~\ref{sec:simu} is divided 
+into two parts; initially, we evaluate the KS test's ability to maintain 
+its size, i.e., its consistency in not rejecting the null hypothesis when 
+it is indeed true. Subsequently, we examine the test's power, assessing 
+whether it can reject the null hypothesis when it is false. Practical 
+applications of our method are presented in Section~\ref{sec:real}, where 
+we first apply the approach to assess whether annual maximums of hourly 
+precipitation at three U.S. airports conform to the Generalized Extreme 
+Value (GEV) distribution in Subsection~\ref{sec:precipitation}. Following 
+this, we analyze if Microsoft stock return data adhere to either the Normal 
+or the Student's $t$ distribution in Subsection~\ref{sec:microsoft}. The 
+paper concludes with Section~\ref{sec:conclusion}, offering final thoughts 
+and remarks.
 
 
 \section{Methods}
@@ -651,11 +662,12 @@ are unknown or unspecified. Future studies could apply the method showcased
 in this paper to fields like earthquake prediction and astronomy.
 
 
+\jy{The number of references seems low. Need to cite more related works.}
 
 
 \jy{Quality control the bib source}
 
-\bibliographystyle{chicago}
+\bibliographystyle{asa}
 \bibliography{citations}
 
 
