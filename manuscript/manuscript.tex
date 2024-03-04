@@ -591,6 +591,17 @@ the conclusions would be the same regardless of the method used. However, it
 is clear that for this series, our method more decisively fails to reject the 
 null hypothesis at a significance level of .10.
 
+Annual temperature minimums were also recorded from Central Park, and the
+same method comparison was applied to this series. We found that our method
+yields a p-value of 0.0015, Babu's method yields a p-value of 0.2747, and
+the parametric method yields a p-value of 0.0002.
+
+\subsection{Temperature in Eastern Asia}
+\label{sec:temperature}
+
+Annual maximums of daily maximum (TXx) and minimum (TNx) temperatures, and annual 
+minimums of daily maximum (TXn) and minimum (TNn) temperatures were collected
+for 60 years from 44 locations in Eastern Asia.
 
 \subsection{Microsoft Stock Returns}
 \label{sec:microsoft}
@@ -673,11 +684,15 @@ than basic bootstrap to avoid either type I or type II errors. Unsurprisingly,
 the method performs better as the temporal dependence gets weaker. Through
 simulation studies with Normal and Gamma-distributed data, we have shown that
 that the method is robust. We have also 
-demonstrated possible applications of this method to precipitation and 
-stock return data. This method can be used for any study where the goal is
+demonstrated possible applications of this method to climate and financial data.
+Although in many cases, the conclusions may not differ between our method
+and other bootstrap KS tests, the p-values are different enough where in a case
+where the temporal dependence in the data is more extreme, conclusions could
+be drastically different if a different method is used.
+This method can be used for any study where the goal is
 to see if a time series follows a hypothesized distribution and the parameters
 are unknown or unspecified. Future studies could apply the method showcased
-in this paper to fields like earthquake prediction and astronomy.
+in this paper to fields like earthquake prediction and astronomy. 
 
 
 
