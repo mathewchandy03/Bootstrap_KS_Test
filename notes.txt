@@ -1,3 +1,9 @@
+3/5 Notes
+- SP100 and SP500 for 4 years include in the paper
+- Try different locations in those cities
+- Try precipitation data from Central Park
+- Try snowfall
+
 2/20 Notes
 - Try no resid 
 - Try annual maximums of daily precipitation 
