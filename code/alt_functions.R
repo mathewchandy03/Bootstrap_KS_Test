@@ -119,24 +119,24 @@ app_scheme <- function(start, end, years, stock) {
   resid <- series
   
   set.seed(123)
-  pval <- myapp(resid, 1000, "normal", 
+  pval <- myapp(resid, 10000, "normal", 
                       pnorm)
   set.seed(123)
-  pval <- c(pval, my_babu(resid, 1000, "normal", 
+  pval <- c(pval, my_babu(resid, 10000, "normal", 
                                       pnorm))
   set.seed(123)
-  pval <- c(pval, my_param(resid, 1000, "normal", 
+  pval <- c(pval, my_param(resid, 10000, "normal", 
                                 pnorm, rnorm))
   
   for (v in c(30, 20, 10, 5, 4, 3, 2, 1)) {
     set.seed(123)
-    np <- myapp(resid, 1000, "t", plst, 
+    np <- myapp(resid, 10000, "t", plst, 
                 df = v)
     set.seed(123)
-    babu <- my_babu(resid, 1000, "t", plst, 
+    babu <- my_babu(resid, 10000, "t", plst, 
                     df = v)
     set.seed(123)
-    param <- my_param(resid, 1000, "t", plst, rlst,
+    param <- my_param(resid, 10000, "t", plst, rlst,
                     df = v)
     pval <- rbind(pval,
                         c(np,

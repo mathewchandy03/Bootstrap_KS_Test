@@ -80,7 +80,7 @@ not specified and the data are serially dependent. We demonstrate the
 theoretical justication for this method, then through simulation we verify that
 it holds it size under the null distribution and is powerful when the null 
 hypothesis is false. Finally, we demonstrate applications of the method to
-precipitation data from three airports and Microsoft stock returns.
+the S&P 100 and S&P 500 indices stock returns.
 
 \bigskip
 \noindent{\sc Keywords}:
@@ -127,7 +127,7 @@ can also be used to compare images of breast
 cancer tumors \citep{demidenko2004kolmogorov}.
 
 
-Despite its widespread use, the Kolmogorov-Smirnov (KS) test can be 
+Despite its widespread use, the KS test can be 
 misapplied when its foundational assumptions are overlooked. The KS test 
 assumes the data are independently and identically distributed (i.i.d.) and 
 that the hypothesized distribution is continuous and fully specified without 
@@ -136,9 +136,10 @@ common misapplications of the one-sample KS test, notably the inappropriate
 use when the hypothesized distribution contains unspecified parameters.
 For this situation, \citet{zeimbekakis2022misuses} proposed a parametric
 bootstrap, where bootstrap samples of the test statistics are constructed from samples generated from the fitted hypothesized distribution.
+Alternatively, \citet{babu2004goodness} addresses this issue through the
+application of basic non-parametric bootstrap methods.
 Another commonly encountered situation is when the data are serially
-dependent. \citet{babu2004goodness} addresses this issue through the
-application of basic non-parametric bootstrap methods. Alternatively, 
+dependent.
 \citet{zeimbekakis2022misuses} proposed a semi-parametric bootstrap
 where the serial dependence structure is modeled via a working serial copula.
 A particularly complex scenario arises when the distribution has unspecified
@@ -148,11 +149,11 @@ approach, where the parameters of the hypothesized distribution and the serial
 dependence both need to be estimated and their uncertainty accounted for.
 
 
-Developing a fully non-parametric solution for the Kolmogorov-Smirnov (KS) 
+Developing a fully non-parametric solution for the KS 
 tests in the presence of serially dependent data presents a significant 
 challenge. The null distribution's characteristics are intricately linked to 
 the structure of the serial dependence, which can vary widely in practical 
-situations. Employing a parametric bootstrap would necessitate defining a 
+situations. Employing a non-parametric bootstrap would necessitate defining a 
 specific model for this dependence, despite the primary focus being on 
 evaluating the marginal distribution of a stationary series. To date, a bias 
 correction method for block bootstrap, akin to the approach \citet{babu2004goodness} 
@@ -173,11 +174,9 @@ its size, i.e., its consistency in not rejecting the null hypothesis when
 it is indeed true. Subsequently, we examine the test's power, assessing 
 whether it can reject the null hypothesis when it is false. Practical 
 applications of our method are presented in Section~\ref{sec:real}, where 
-we first apply the approach to assess whether annual maximums of hourly 
-precipitation at three U.S. airports conform to the Generalized Extreme 
-Value (GEV) distribution in Subsection~\ref{sec:precipitation}. Following 
-this, we analyze if Microsoft stock return data adhere to either the Normal 
-or the Student's $t$ distribution in Subsection~\ref{sec:microsoft}. The 
+we apply the approach to analyze if S&P 100 and S&P 500 index stock return data adhere to either the Normal 
+or the Student's $t$ distribution in Subsection~\ref{sec:sp100} and
+\ref{sec:sp500}. The 
 paper concludes with Section~\ref{sec:conclusion}, offering final thoughts 
 and remarks.
 
@@ -196,7 +195,7 @@ vector~$\theta$. That is, the null hypothesis is
 for some unspecified parameter $\theta$.
 The alternative hypothesis $H_A$ is that the marginal distribution of $X_t$ does
 not follow~$F$ for any parameter value~$\theta$. This is a challenging situation
-both the parameters and the serial dependence structure are unknown.
+because both the parameters and the serial dependence structure are unknown.
 
 
 First, let us consider how the KS statistic is typically computed for a sample
@@ -262,9 +261,14 @@ A common
 function for block size that is considered optimal is 
 $l = \lceil n^{1/3} \rceil$ \citep{buhlmann1999block},  
 which was adopted in this study.
+Now we draw $k$ blocks from the $(n - l + 1)$ blocks 
+of $Z_j$'s with replacement and then align them in the order they were picked to
+form a block bootstrap sample. If $n$ is not a multiple of~$l$, the last block 
+selected will be reduced in size so that the final size of the block bootstrap 
+sample is $n$.
 
 
-We then use bootstrap to approximate the distribuition of
+We then use bootstrap to approximate the distribution of
 the KS statistic under $H_0$. In this case, we can 
 use the distribution of $\sqrt{n}(F^{(b)}_n(x) - E[F^{(b)}_n(x)])$
 as an approximation of the distribution of
