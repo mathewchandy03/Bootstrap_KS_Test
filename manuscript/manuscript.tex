@@ -333,9 +333,11 @@ $b \in \{1, \ldots, B\}$.
 \section{Simulation Studies}
 \label{sec:simu}
 
-If we can show that the test correctly fails to reject $H_0$ under the null
-distribution, and correctly rejects $H_0$ for an alternate distribution, we can
-state that the method works.
+In this simulation study, we aim to show that the test correctly fails to 
+reject $H_0$ under the null
+distribution, and correctly rejects $H_0$ for an alternate distribution. If
+both of these things are true, we can state that the method works
+reasonably well.
 
 
 \subsection{Size}
@@ -352,14 +354,15 @@ In order for the method to work, a large sample size may be necessary.
 
 
 We generated time series with marginal distributions $N(8, 8)$ and
-$\Gamma(8, 1)$, Kendall's
+$\Gamma(8, 1)$ with Kendall's
 \jy{Need to state how serial dependence were introduced, like you did in the
   first paper: transforming a normal series.}
 $\tau \in \{-.75, -.5, -.25, 0, .25, .5, 75\}$, and
 sample size $n \in \{100, 200, 400, 800\}$. Kendall's $\tau$ was chosen as a
 measure of serial dependence as it does not vary between two different 
-distributions.
-We generated time series $W_t$ from a 1st 
+marginal distributions.
+To generate the samples to which our
+method would be applied, we simulated a time series $W_t$ from a 1st 
 order autoregressive (AR(1)) process:
 \begin{equation*}
 W_t = \phi X_{t-1} + \epsilon_t,
@@ -370,14 +373,14 @@ $\sigma_{\epsilon}^2$. The strength of the serial dependence is controlled by
 $\phi$, which was set to five levels: 
 $\{-0.924, -0.707, -0.383, 0, 0.383, 0.707, 0.924\}$, as these
 correspond to the desired values for $\tau$. First, we generated a
-marginal $N(8, 8)$ by marginally transforming the $W_t$ by
+marginal $N(8, 8)$ by marginally transforming $W_t$ by
 \begin{equation*}
-X_t = F^{-1}[\Phi(X_t)],
+X_t = F^{-1}[\Phi(W_t)],
 \end{equation*}
 where $F^{-1}(p)$ is the quantile function for the $N(8, 8)$ 
 distribution.
 Then we generated a marginal gamma series by the same procedure, but
-replacing $F^{-1}(p)$ with the quantile function for the unit exponential 
+replacing $F^{-1}(p)$ with the quantile function for the $\Gamma(8, 1)$
 distribution.
 After the transformation
 to the marginal gamma distribution, the autocorrelations are $\{-0.607, 
@@ -392,8 +395,16 @@ are very similar and their
 first two moments are the same. 
 For the purposes of 
 evaluating if the test holds it size, when $X_t \sim N(8, 8)$, we tested that the 
-marginal distribution family is normal, and when $X_t \sim \Gamma(8, 1)$, we tested
-that the marginal distribution family is gamma. For the block bootstrap step,
+marginal distribution is from the
+Normal family, or 
+$X_t \sim N(\cdot \mid \mu, \sigma^2), \quad t = 1, \ldots, n$
+for some unspecified $\mu$ and $\sigma$. When $X_t \sim \Gamma(8, 1)$, we tested
+that the marginal distribution family is from the Gamma family,
+or
+$X_t \sim \Gamma(\cdot \mid \alpha, \beta), \quad t = 1, \ldots, n$.
+for some unspecified $\alpha$ and $\beta$.
+For the block
+bootstrap step,
 we used $B = 1000$ and $l = \lceil n^{1/3} \rceil$.
 For each setting for $F$, $\tau$, and $n$, we replicate the method 1000 times 
 to get the distribution of the p-values 
@@ -493,13 +504,19 @@ marginal distributions $N(8, 8)$ and
 $\Gamma(8, 1)$, Kendall's $\tau \in \{-.75, -.5, -.25, 0, .25, .5, 
 .75\}$, and
 sample size $n \in \{100, 200, 400, 800\}$. However, 
-to evaluate the test's power, when $X_t \sim N(8, 8)$, we tested that the 
-marginal distribution family is gamma. Because the support of $N(8, 8)$ is
+to evaluate the test's power, when $X_t \sim N(8, 8)$, we tested
+that the marginal distribution family is from the Gamma family,
+or
+$X_t \sim \Gamma(\cdot \mid \alpha, \beta), \quad t = 1, \ldots, n$.
+for some unspecified $\alpha$ and $\beta$. Because the support of $N(8, 8)$ is
 $(-\infty, \infty)$, but the support of $\Gamma(8, 1)$ is $(0, \infty)$, we used
 the \textsl{truncdist} package \citep{truncdist} to truncate the series at 
 values less than or equal to 0.
-When $X_t \sim \Gamma(8, 1)$, we tested
-that the marginal distribution family is normal. For the block bootstrap step,
+When $X_t \sim \Gamma(8, 1)$, we tested that the 
+marginal distribution is from the
+Normal family, or 
+$X_t \sim N(\cdot \mid \mu, \sigma^2), \quad t = 1, \ldots, n$
+for some unspecified $\mu$ and $\sigma$. For the block bootstrap step,
 we used $B = 1000$ and $l = \lceil n^{1/3} \rceil$.
 For each setting for $F$, $\tau$, and $n$, we replicate the method $1000$ times 
 to obtain a p-value $p_r$ for each $r \in \{1, \ldots, 1000\}$.
@@ -546,136 +563,6 @@ sample size is used.
 \section{Real Data Analysis}
 \label{sec:real}
 
-\subsection{Precipitation at Airports}
-\label{sec:precipitation}
-Annual maximums of hourly precipitation in inches time series data were 
-retrieved 
-from the Chicago Midway International Airport (MDW), New York LaGuardia 
-International 
-Airport (LGA),
-and Los Angeles International Airport (LAX) stations from the 
-National Oceanic and Atmospheric Administration (NOAA). These stations were selected 
-from places of importance in the three largest American cities. LGA and
-MDW were chosen over John F. Kennedy and O'Hare as more data was available
-from these stations. The data for MDW is from
-1948 to 2014, the data for LGA is from 1948 to 2013, and the
-data for LAX is also from 1948 to 2013. We can apply our method (as well
-as the non-parametric bootstrap KS Test \citep{babu2004goodness} and
-the parametric bootstrap KS Test \citep{zeimbekakis2022misuses}) to
-the precipitation time series from each of these locations to test if they
-follow the
-Generalized Extreme Value (GEV) distribution using the \textsl{evd} 
-package \citep{evd}. Precipitation maximum series 
-typically do follow the GEV distribution, so we expect to fail to reject the
-null hypothesis.
-
-\jy{Is the parametric method by Zeimberkakis?}
-\mc{yes}
-
-%\input{tables/precipitation_pvals}
-%\mc{https://hdsc.nws.noaa.gov/pfds/pfds_map_cont.html?bkmrk=ct}
-
-The p-value is 0.71 for MDW, 0.13 for LGA, and 0.36 for LAX when using our 
-method.
-When using Babu's non-parametric method which does not account for serial
-dependence, the p-value is 0.74 for MDW, 0.19 for LGA, and 0.40 for LAX. 
-When using the parametric bootstrap KS test, the p-value is 0.64 for MDW,
-0.12 for LGA, and 0.35 for LAX. In this instance, the conclusions are the
-same 
-(the three series follow the GEV distribution), but because of the difference
-in p-values, it is possible for different conclusions to be found in another
-study.
-
-\subsection{Temperature in Central Park}
-\label{sec:temperature}
-
-Annual temperature maximums recorded in Central Park, New York, NY from
-1895 to 2023 were sourced from the NOAA. Again, we are interested in seeing
-if our method, which
-accounts for serial dependence and does not require parameter specification,
-performs differently than the non-parametric bootstrap KS Test 
-\citep{babu2004goodness} and the parametric bootstrap KS Test, neither of
-which account for serial dependence. We found that when using our method,
-the p-value for the test that the series follows the GEV distribution is 0.1420.
-When using Babu's method, the p-value is 0.0666, and when using the parametric
-method, the p-value is 0.0682. At the common significance level of .05,
-the conclusions would be the same regardless of the method used. However, it
-is clear that for this series, our method more decisively fails to reject the 
-null hypothesis at a significance level of .10.
-
-Annual temperature minimums were also recorded from Central Park, and the
-same method comparison was applied to this series. We found that our method
-yields a p-value of 0.0015, Babu's method yields a p-value of 0.2747, and
-the parametric method yields a p-value of 0.0002.
-
-\subsection{Temperature in Eastern Asia}
-\label{sec:asia}
-
-Annual maximums of daily maximum (TXx) and minimum (TNx) temperatures, and annual 
-minimums of daily maximum (TXn) and minimum (TNn) temperatures were collected
-for 60 years from 44 locations in Eastern Asia.
-\jy{Sorry I forgot to send you the data I promised. Remind in the future
-  please. }
-
-\subsection{Microsoft Stock Returns}
-\label{sec:microsoft}
-
-%\mc{https://www.nasdaq.com/market-activity/stocks/msft/historical}
-
-We expect the marginal distribution of Microsoft stock returns to have a 
-slightly
-heavier tail than the normal distribution. Using the \textsl{tseries} package 
-\citep{tseries}, 
-we gathered closing stock prices from January 1st, 1998 to December 31st, 2022.
-Then we approximated stock returns by taking the difference in the logarithm 
-of the closing prices.
-We tested that the stock returns are normally
-distributed (which we expect to reject).  After that, we tested that the
-marginal distribution of the time series follows the Student's $t$ distribution
-with a fixed degrees of freedom.
-While we 
-could choose to estimate a fitted value of the degrees of freedom parameter $v$
-as
-part of our method, it is very difficult to do so. Therefore, we attempted to
-test 
-if it follows
-the location-scale $t$ distribution with increasingly smaller specified degrees 
-of freedoms. This was achieved with the \textsl{extraDistr} 
-package \citep{extraDistr}. We
-also observed how the method performs using increasingly smaller durations of
-time. ,
-we used the last 5 years of data: January 1st, 2018 to December 31st, 2022,
-4 years of data: January 1st, 2019 to December 31st, 2022,
-3 years of data: January 1st, 2020 to December 31st, 2022,
-2 years of data: January 1st, 2021 to December 31st, 2022,
-and 1 year of data: January 1st, 2022
-to December 31st, 2022. In addition, we compared it to results from 
-the Babu non-parametric and 
-the parametric bootstrap KS Test.
-
-
-\input{tables/mc_pval_1y}
-
-\input{tables/mc_pval_2y}
-
-\input{tables/mc_pval_3y}
-
-\input{tables/mc_pval_4y}
-
-\input{tables/mc_pval_5y}
-
-\jy{Report the autocorrelation estimate of residual and residual squared in the
-  text.}
-
-
-
-The p-values of our test when applied to Microsoft stock return data using
-different settings are showcased in 
-Tables~\ref{table:microsoft1}--\ref{table:microsoft2}. Although the p-values
-are indeed different between the three methods, the conclusions at a .05 
-significance 
-level are mostly the same. This motivated an additional application on SP500
-and SP100 data.
 
 \subsection{SP500}
 \label{sec:sp500}
@@ -751,6 +638,10 @@ wheraeas \citep{babu2004goodness}'s method finds a p-value of .031, and
 \section{Concluding Remarks}
 \label{sec:conclusion}
 
+The Kolmogorov-Smirnov test provides a way for researchers in a broad array
+of applications to compare the distributions of populations. The
+method proposed in this paper offers a variant of the test that can
+be utilized for serially dependent data without specifying parameters.
 Using simulation, we have shown that given a large enough sample of a time 
 series, the block 
 bootstrap KS test can appropriately fail to reject the null hypothesis when the
@@ -761,14 +652,17 @@ than basic bootstrap to avoid either type I or type II errors. Unsurprisingly,
 the method performs better as the temporal dependence gets weaker. Through
 simulation studies with Normal and Gamma-distributed data, we have shown that
 that the method is robust. We have also 
-demonstrated possible applications of this method to climate and financial data.
-Although in many cases, the conclusions may not differ between our method
-and other bootstrap KS tests, the p-values are different enough where in a case
-where the temporal dependence in the data is more extreme, conclusions could
-be drastically different if a different method is used.
+demonstrated possible applications of this method to financial data.
+Through comparison with \citep{babu2004goodness}'s non-parametric
+bootstrap KS test and \citet{zeimbekakis2022misuses}'s parametric bootstrap
+KS test, we have shown that our method can reach different conclusions which
+would perhaps be missed if serial dependence was neglected and another
+method was chosen.
 This method can be used for any study where the goal is
-to see if a time series follows a hypothesized distribution and the parameters
-are unknown or unspecified. Future studies could apply the method showcased
+to see if a serially dependenttime series follows a hypothesized distribution and the parameters
+are unknown or unspecified. Future studies could investigate
+the method's performance on different marginal distributions and
+different dependence structures. One could also apply the method showcased
 in this paper to fields like earthquake prediction and astronomy. 
 
 
