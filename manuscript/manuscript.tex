@@ -80,7 +80,7 @@ not specified and the data are serially dependent. We demonstrate the
 theoretical justication for this method, then through simulation we verify that
 it holds it size under the null distribution and is powerful when the null 
 hypothesis is false. Finally, we demonstrate applications of the method to
-the S&P 100 and S&P 500 indices stock returns.
+the S\&P 100 and S\&P 500 indices stock returns.
 
 \bigskip
 \noindent{\sc Keywords}:
@@ -174,7 +174,7 @@ its size, i.e., its consistency in not rejecting the null hypothesis when
 it is indeed true. Subsequently, we examine the test's power, assessing 
 whether it can reject the null hypothesis when it is false. Practical 
 applications of our method are presented in Section~\ref{sec:real}, where 
-we apply the approach to analyze if S&P 100 and S&P 500 index stock return data adhere to either the Normal 
+we apply the approach to analyze if S\&P 100 and S\&P 500 index stock return data adhere to either the Normal 
 or the Student's $t$ distribution in Subsection~\ref{sec:sp100} and
 \ref{sec:sp500}. The 
 paper concludes with Section~\ref{sec:conclusion}, offering final thoughts 
@@ -569,7 +569,7 @@ sample size is used.
 
 Using the \textsl{tseries} package 
 \citep{tseries}, 
-we gathered closing stock prices for the SP500 index. We
+we gathered closing stock prices for the S\&P 500 index. We
 observed how the method performs using increasingly smaller durations of
 time.
 We used the last 5 years of data: January 1st, 2019 to December 31st, 2023,
@@ -611,8 +611,8 @@ wheraeas \citep{babu2004goodness}'s method finds a p-value of .016, and
 
 Once again using the \textsl{tseries} package 
 \citep{tseries}, 
-we gathered closing stock prices for the SP100 index. We varied the
-durations as we did with the SP500 index.
+we gathered closing stock prices for the S\&P 100 index. We varied the
+durations as we did with the S\&P 500 index.
 We approximated stock returns by taking the difference in the logarithm 
 of the closing prices.
 We tested that the stock returns are normally
