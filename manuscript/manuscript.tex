@@ -583,8 +583,10 @@ of the closing prices.
 We tested that the stock returns are normally
 distributed and Student's $t$ distributed 
 with degrees of freedom $v \in \{30, 20, 10, 5, 4, 3, 2, 1\}$.
+We used $B = 10,000$ bootstrap 
+replicates in this analysis.
 The p-values for these tests are highlighted in 
-Tables~\ref{table:SP5001}--\ref{table:SP5005}.
+Tables~\ref{table:SP5001}--\ref{table:SP5005}. 
 
 \input{tables/sp500_pval_1y}
 
@@ -602,9 +604,11 @@ at the .05 significance level for our method are different than those
 for both
 \citep{babu2004goodness}'s and \citet{zeimbekakis2022misuses}'s method.
 For instance, for a duration of 4 years, our method fails to reject that
-the series follows the $v = 5$ Student's $t$ distribution with p-value .064,
-wheraeas \citep{babu2004goodness}'s method finds a p-value of .016, and 
-\citet{zeimbekakis2022misuses}'s method finds a p-value of .01.
+the series follows the $v = 5$ Student's $t$ distribution with p-value .061,
+wheraeas \citep{babu2004goodness}'s method finds a p-value of .0222, and 
+\citet{zeimbekakis2022misuses}'s method finds a p-value of .0141. Although this
+will not always be the case, we have found at least one example of a difference
+in conclusions for different methods.
 
 \subsection{SP100}
 \label{sec:sp100}
@@ -617,13 +621,18 @@ We approximated stock returns by taking the difference in the logarithm
 of the closing prices.
 We tested that the stock returns are normally
 distributed and Student's $t$ distributed 
-with degrees of freedom $v \in \{30, 20, 10, 5, 4, 3, 2, 1\}$.
+with degrees of freedom $v \in \{30, 20, 10, 5, 4, 3, 2, 1\}$. 
+We used $B = 10,000$ bootstrap 
+replicates in this analysis as well.
 The p-values for these tests are highlighted in 
-Tables~\ref{table:SP1001}--\ref{table:SP1005}.
+Tables~\ref{table:SP1001}--\ref{table:SP1005}. One can observe more examples
+of our method reaching different conclusions at the .05 level than others.
 For a duration of 4 years, our method fails to reject that
-the series follows the $v = 5$ Student's $t$ distribution with p-value .092,
-wheraeas \citep{babu2004goodness}'s method finds a p-value of .031, and 
-\citet{zeimbekakis2022misuses}'s method finds a p-value of .027.
+the series follows the $v = 5$ Student's $t$ distribution with p-value .0873,
+wheraeas \citep{babu2004goodness}'s method finds a p-value of .0368, and 
+\citet{zeimbekakis2022misuses}'s method finds a p-value of .03. we have here
+another instance where using a different method would lead to a different
+conclusion about the marginal distribution of the population of interest.
 
 \input{tables/sp100_pval_1y}
 
