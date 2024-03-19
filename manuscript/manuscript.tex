@@ -95,9 +95,6 @@ time series.
 \section{Introduction}
 \label{sec:intro}
 
-\jy{Start from the need for KS test for stationary series; review existing works
-  and identify the gap; summarize the contribution.}
-
 The Kolmogorov-Smirnov (KS) test is a useful goodness-of-fit statistic. 
 Let $X_1, ..., X_n$ be a random sample of size~$n$ from some continuous
 distribution and the null hypothesis $H_0$ be that $X_i$'s follow the
@@ -114,17 +111,11 @@ absolute value of standard Brownian bridge, which is known as the Kolmogorov
 distribution \citep{stephens1974edf}. The distribution function can be
 accurately evaluated in modern statistical software
 \citep{marsaglia2003evaluating}. The KS test can be applied to a variety of
-fields. \jy{cite a few  references in various field to show its wide
-  applications.}
- It has
-been used to analyze the random distribution of cosmic microwave background 
-radiation \citep{naess2012application}. \citep{aslam2020introducing} 
-applied the method to test if the count rate per second of
-radioactive data followed the Poisson distribution. 
-Researchers have proposed the
-method as a technique for gear condition monitoring \citep{andrade2001gear}. It
-can also be used to compare images of breast
-cancer tumors \citep{demidenko2004kolmogorov}.
+fields. Examples are cosmic microwave background 
+radiation \citep{naess2012application},
+count rate of redioactive data??? \citep{aslam2020introducing},
+gear condition monitoring \citep{andrade2001gear}, and
+images of breast cancer tumors \citep{demidenko2004kolmogorov}.
 
 
 Despite its widespread use, the KS test can be 
@@ -135,7 +126,8 @@ the need for parameter estimation. \citet{zeimbekakis2022misuses} examines
 common misapplications of the one-sample KS test, notably the inappropriate
 use when the hypothesized distribution contains unspecified parameters.
 For this situation, \citet{zeimbekakis2022misuses} proposed a parametric
-bootstrap, where bootstrap samples of the test statistics are constructed from samples generated from the fitted hypothesized distribution.
+bootstrap, where bootstrap samples of the test statistics are constructed from
+samples generated from the fitted hypothesized distribution.
 Alternatively, \citet{babu2004goodness} addresses this issue through the
 application of basic non-parametric bootstrap methods.
 Another commonly encountered situation is when the data are serially
@@ -147,7 +139,9 @@ parameters, and the data are serially dependent. For this,
 \citet{zeimbekakis2022misuses} also recommends a semi-parametric bootstrap
 approach, where the parameters of the hypothesized distribution and the serial
 dependence both need to be estimated and their uncertainty accounted for.
-
+\jy{This reference is an example of abuse in time series settings:
+Tuncer, O., Ates, E., Zhang, Y., Turk, A., Brandt, J., Leung, V. J., Egele, M., and Coskun, A. K. (2019), “Online Diagnosis of Performance Variation in HPC Systems Using Machine Learning,” IEEE Transactions on Parallel and Distributed Systems, 30, 883–896.
+}
 
 Developing a fully non-parametric solution for the KS 
 tests in the presence of serially dependent data presents a significant 
