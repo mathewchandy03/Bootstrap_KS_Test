@@ -1,3 +1,15 @@
+3/19 Notes
+- mention references were method was abused
+- mention financial data in introduction
+- in discussion, future study on comparing two serially dependent series
+- polish up methods
+- split methods into sections, standard semi parametric, and new development
+- rephrase section 3 intro
+- when null is true, the test rejects the null at the desired level
+- generate series of length million, transform to gamma, look at sample
+autocorrelation
+- label as empirical quantile, and theoretical quantile
+
 3/5 Notes
 - SP100 and SP500 for 4 years include in the paper
 - Try different locations in those cities

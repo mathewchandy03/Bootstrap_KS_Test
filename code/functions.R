@@ -131,7 +131,8 @@ plot_p_vals <- function(df, filename) {
     stat_pp_point(distribution = "unif", cex = .1) +
     facet_grid(vars(n), vars(as.numeric(tau)),
                labeller = label_parsed) +
-    labs(x = "Probability Points", y = "Cumulative Probability") +
+    labs(x = "Theoretical Cumulative Distribution", 
+         y = "Empirical Cumulative Distribution") +
     coord_fixed() +
     theme(strip.text.x = element_text(size = 8))
   ggsave(filename = filename, plot = gg.f, path = "../manuscript/figures", 
@@ -145,7 +146,8 @@ plot_p_vals <- function(df, filename) {
     stat_pp_point(distribution = "unif", cex = .1) +
     facet_grid(vars(n), vars(as.numeric(tau)), 
                labeller = label_parsed) +
-    labs(x = "Probability Points", y = "Cumulative Probability") +
+    labs(x = "Theoretical Cumulative Distribution", 
+         y = "Empirical Cumulative Distribution") +
     coord_fixed(ylim = c(-0.01, 0.11), xlim = c(-0.01, 0.11)) +
     theme(strip.text.x = element_text(size = 8))
   ggsave(filename = paste('zoom_', filename, sep = ''), plot = gg.f, 
