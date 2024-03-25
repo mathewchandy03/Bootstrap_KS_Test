@@ -107,21 +107,28 @@ myapp <- function(y, B, h0_dist, f0, df = NULL) {
 
 plot_p_vals <- function(df, filename) {
   
-  df$tau <- case_when(df$phi == -0.9238795 ~ -0.75,
-                      df$phi == -0.7071068 ~ -0.5,
-                      df$phi == -0.3826834 ~ -0.25,
-                      df$phi == 0 ~ 0,
-                      df$phi == 0.9238795 ~ 0.75,
-                      df$phi == 0.7071068 ~ 0.5,
-                      df$phi == 0.3826834 ~ 0.25)
+  df$tau <- factor(case_when(df$phi == -0.9238795 ~ "tau == -0.75",
+                      df$phi == -0.7071068 ~ "tau == -0.5",
+                      df$phi == -0.3826834 ~ "tau == -0.25",
+                      df$phi == 0 ~ "tau = 0",
+                      df$phi == 0.9238795 ~ "tau == 0.75",
+                      df$phi == 0.7071068 ~ "tau == 0.5",
+                      df$phi == 0.3826834 ~ "tau == 0.25"),
+                   levels = c("tau == -0.75",
+                              "tau == -0.5",
+                              "tau == -0.25",
+                              "tau == 0",
+                              "tau == 0.25",
+                              "tau == 0.5",
+                              "tau == 0.75"))
   
   df$dist <- factor(case_when(df$dist == "normal" ~ "N(8,8)",
                               df$dist == "gamma" ~ "Gamma(8,1)"))
   
-  df$n <- factor(case_when(df$n == 100 ~ "n = 100",
-                           df$n == 200 ~ "n = 200",
-                           df$n == 400 ~ "n = 400",
-                           df$n == 800 ~ "n = 800"))
+  df$n <- factor(case_when(df$n == 100 ~ "n == 100",
+                           df$n == 200 ~ "n == 200",
+                           df$n == 400 ~ "n == 400",
+                           df$n == 800 ~ "n == 800"))
   
   gg.f <- ggplot(data = df, mapping = aes(sample = pval)) +
     scale_x_continuous(breaks=c(0, 1)) +
@@ -129,7 +136,7 @@ plot_p_vals <- function(df, filename) {
     stat_pp_band(distribution = "unif") +
     stat_pp_line() +
     stat_pp_point(distribution = "unif", cex = .1) +
-    facet_grid(vars(n), vars(as.numeric(tau)),
+    facet_grid(rows = vars(n), cols = vars(tau),
                labeller = label_parsed) +
     labs(x = "Theoretical Cumulative Distribution", 
          y = "Empirical Cumulative Distribution") +
@@ -144,7 +151,7 @@ plot_p_vals <- function(df, filename) {
     stat_pp_band(distribution = "unif") +
     stat_pp_line() +
     stat_pp_point(distribution = "unif", cex = .1) +
-    facet_grid(vars(n), vars(as.numeric(tau)), 
+    facet_grid(rows = vars(n), cols = vars(tau), 
                labeller = label_parsed) +
     labs(x = "Theoretical Cumulative Distribution", 
          y = "Empirical Cumulative Distribution") +
@@ -157,12 +164,9 @@ plot_p_vals <- function(df, filename) {
 plot_rr <- function(df, filename) {
   
   df$dist <- factor(case_when(df$dist == "normal" ~ "N(8,8)",
-                       df$dist == "gamma" ~ "Gamma(8,1)"))
-  
-  df$n <- factor(case_when(df$n == 100 ~ "n = 100",
-                           df$n == 200 ~ "n = 200",
-                           df$n == 400 ~ "n = 400",
-                           df$n == 800 ~ "n = 800"))
+                       df$dist == "gamma" ~ "Gamma(8,1)"),
+                    levels = c("N(8,8)",
+                               "Gamma(8,1)"))
   
   df$tau <- case_when(df$phi == -0.9238795 ~ -0.75,
                       df$phi == -0.7071068 ~ -0.5,
