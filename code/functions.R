@@ -107,13 +107,13 @@ myapp <- function(y, B, h0_dist, f0, df = NULL) {
 
 plot_p_vals <- function(df, filename) {
   
-  df$tau <- factor(case_when(df$phi == -0.9238795 ~ "tau == -0.75",
-                      df$phi == -0.7071068 ~ "tau == -0.5",
-                      df$phi == -0.3826834 ~ "tau == -0.25",
-                      df$phi == 0 ~ "tau = 0",
-                      df$phi == 0.9238795 ~ "tau == 0.75",
-                      df$phi == 0.7071068 ~ "tau == 0.5",
-                      df$phi == 0.3826834 ~ "tau == 0.25"),
+  df$tau <- factor(case_when(df$phi == "-0.9238795" ~ "tau == -0.75",
+                      df$phi == "-0.7071068" ~ "tau == -0.5",
+                      df$phi == "-0.3826834" ~ "tau == -0.25",
+                      df$phi == "0" ~ "tau == 0",
+                      df$phi == "0.9238795" ~ "tau == 0.75",
+                      df$phi == "0.7071068" ~ "tau == 0.5",
+                      df$phi == "0.3826834" ~ "tau == 0.25"),
                    levels = c("tau == -0.75",
                               "tau == -0.5",
                               "tau == -0.25",
@@ -168,13 +168,13 @@ plot_rr <- function(df, filename) {
                     levels = c("N(8,8)",
                                "Gamma(8,1)"))
   
-  df$tau <- case_when(df$phi == -0.9238795 ~ -0.75,
-                      df$phi == -0.7071068 ~ -0.5,
-                      df$phi == -0.3826834 ~ -0.25,
-                      df$phi == 0 ~ 0,
-                      df$phi == 0.9238795 ~ 0.75,
-                      df$phi == 0.7071068 ~ 0.5,
-                      df$phi == 0.3826834 ~ 0.25)
+  df$tau <- case_when(df$phi == "-0.9238795" ~ -0.75,
+                      df$phi == "-0.7071068" ~ -0.5,
+                      df$phi == "-0.3826834" ~ -0.25,
+                      df$phi == "0" ~ 0,
+                      df$phi == "0.9238795" ~ 0.75,
+                      df$phi == "0.7071068" ~ 0.5,
+                      df$phi == "0.3826834" ~ 0.25)
   
   gg.f <- ggplot(data = df, mapping = aes(x = tau, y = as.numeric(rr), 
                                           color = n, 
