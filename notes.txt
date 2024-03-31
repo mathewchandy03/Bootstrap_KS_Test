@@ -1,3 +1,7 @@
+3/26 Notes
+- 3 decimal places
+- email
+
 3/19 Notes
 - mention references were method was abused
 - mention financial data in introduction
