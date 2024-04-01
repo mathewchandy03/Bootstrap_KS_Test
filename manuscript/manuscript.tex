@@ -245,6 +245,35 @@ expected to approximate the distribution of $T_n$. We note that the term
 $\sqrt{n}(F_n(x) - F(x; \hat\theta_n))$ is exactly the bias term considered in 
 \citet{babu2004goodness}.
 
+In summary, the procedure of the nonparametric basic bootstrap test is 
+summarized as follows. Repeat the following steps for $b \in \{1, ..., B\}$.
+\begin{enumerate}
+\item
+  Generate $X^{(b)}_1,...,X^{(b)}_n$ by applying basic bootstrap 
+  on the original sample as
+  defined previously.
+\item
+  Fit $F_\theta$ to $X^{(b)}_1,...,X^{(b)}_n$ and obtain estimate 
+	$\hat\theta^{(b)}_n$ of $\theta$.
+\item
+  Obtain the empirical distribution function $F^{(b)}_n$ of
+  $X^{(b)}_1,...,X^{(b)}_n$. 
+\item
+  Calculate bootstrap KS statistic
+  \[
+    T^{(b)}_n = \sup_x | \sqrt{n}\left(F^{(b)}_n(x) 
+    - F(x; \hat\theta^{(b)}_n)\right) - B_n(x) |.
+  \]
+  where 
+  $B_{n}(x) = \sqrt{n}(F_n(x) - F(x; \hat\theta_n))$ is the known
+  bias term.
+\end{enumerate}
+
+
+The p-value of the basic bootstrap KS test can be computed
+as $p = \#\{T^{(b)}_n > T_n\} / B$ for 
+$b \in \{1, \ldots, B\}$.
+
 \subsection{Non-Parametric Block Bootstrap}
 
 We now consider the case where $X_i$'s are realizations from a time series and
