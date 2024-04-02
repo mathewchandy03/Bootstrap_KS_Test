@@ -144,9 +144,8 @@ app_scheme <- function(start, end, years, stock) {
                           param))
   }
   
-  pval <- cbind(rep(years, dim(pval)[1]), 
-                      c("norm", 30, 20, 10, 5, 4, 3, 2, 1), pval)
-  colnames(pval) <- c("duration", "df", "block", "basic", "param")
+  pval <- cbind(c("normal", 30, 20, 10, 5, 4, 3, 2, 1), pval)
+  colnames(pval) <- c("$v$", "Our Method", "Babu", "Zeimbekakis")
   rownames(pval) <- NULL
   return(pval)
 }
