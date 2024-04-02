@@ -62,7 +62,7 @@
 %   \href{mailto:mathew.chandy@uconn.edu}
 %   {\nolinkurl{mathew.chandy@uconn.edu}}\\
   Elizabeth Schifano\\
-  Jun Yan, %\\
+  Jun Yan\\
   Xianyang Zhang\\
 } \fi
 
@@ -95,9 +95,10 @@ time series.
 \section{Introduction}
 \label{sec:intro}
 
-The Kolmogorov-Smirnov (KS) test is a useful goodness-of-fit statistic. 
-Let $X_1, ..., X_n$ be a random sample of size~$n$ from some continuous
-distribution and the null hypothesis $H_0$ be that $X_i$'s follow the
+The standard one-sample Kolmogorov-Smirnov (KS) test is widely
+recoganized as effective good-of-fit test for continuous distributions.
+Consider $X_1, ..., X_n$, a random sample of size~$n$ from some continuous
+distribution and the null hypothesis $H_0$ that $X_i$'s follow a specific
 hypothesized distribution~$F$.
 If we let $F_n(t) = \sum_{i=1}^n I(X_i \le t) / n$ be the empirical cumulative
 distribution function of the sample, where $I(\cdot)$ is the indicator
@@ -108,15 +109,15 @@ function, the KS test statistic takes the form
 \end{equation}
 As sample size $n\to \infty$, the distribution of $T_n$ converges to that of the
 absolute value of standard Brownian bridge, which is known as the Kolmogorov
-distribution \citep{stephens1974edf}. The distribution function can be
-accurately evaluated in modern statistical software
-\citep{marsaglia2003evaluating}. The KS test can be applied to a variety of
-fields. Examples are cosmic microwave background 
-radiation \citep{naess2012application},
-count rate of radioactive data \citep{aslam2020introducing},
-gear condition monitoring \citep{andrade2001gear},
-images of breast cancer tumors \citep{demidenko2004kolmogorov},
-and financial markets \citep{lux2001turbulence}.
+distribution \citep{stephens1974edf}. This distribution function is
+precisely computable using contemporary statistical software
+\citep{marsaglia2003evaluating}. The versatility of the KS test allows its
+application across various domains, such as analyzing cosmic microwave
+background radiation \citep{naess2012application}, monitoring the count rate of
+radioactive data \citep{aslam2020introducing}, gear condition monitoring
+\citep{andrade2001gear}, studying images of breast cancer tumors
+\citep{demidenko2004kolmogorov}, and examining financial markets
+\citep{lux2001turbulence}.
 
 
 Despite its widespread use, the KS test can be 
@@ -145,10 +146,6 @@ parameters, and the data are serially dependent. For this,
 approach, where the parameters of the hypothesized distribution and the serial
 dependence both need to be estimated and their uncertainty accounted for.
 
-\jy{This reference is an example of abuse in time series settings:
-Tuncer, O., Ates, E., Zhang, Y., Turk, A., Brandt, J., Leung, V. J., Egele, M., and Coskun, A. K. (2019), “Online Diagnosis of Performance Variation in HPC Systems Using Machine Learning,” IEEE Transactions on Parallel and Distributed Systems, 30, 883–896.
-}
-\mc{addressed}
 
 Developing a fully non-parametric solution for the KS 
 tests in the presence of serially dependent data presents a significant 
