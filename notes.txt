@@ -1,3 +1,14 @@
+4/2 Notes
+- Merge tables
+- Merge sections
+- Make sure digits are the same
+- Go over references
+- Identify gap in abstract
+- For serially dependent data with no specified parameters, non-parametric
+bootstrap bias correction does not exist yet
+- We propose instead of demonstrate
+
+
 3/26 Notes
 - 3 decimal places
 - email
