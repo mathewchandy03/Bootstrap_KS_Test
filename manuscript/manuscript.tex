@@ -54,8 +54,7 @@
 \begin{document}
 %\maketitle
 
-\title{\bf Nonparametric Bootstrap Kolmogorov-Smirnov Goodness-of-Fit Test for
-  Marginal Distributions of Stationary Time Series}
+\title{Nonparametric Block Bootstrap Kolmogorov-Smirnov Goodness-of-Fit Test}
 \if0\blind
 {
   \author{Mathew Chandy, %\\
@@ -72,24 +71,27 @@
 
 \begin{abstract}
 
-The Kolmogorov-Smirnov (KS) test is widely used to test if a sample is
-from a given distribution. While a non-parametric bootstrap bias correction
-exists for independent and identically distributed (i.i.d.) samples with unknown
-parameters, a comparable correction suitable 
-for serially dependent data is lacking.
-This study proposes a bias correction
-using non-parametric 
-block bootstrap, designed to approximate the KS statistic in scenarios where
-parameters are unspecified and data exhibit serial dependence. We provide
-theoretical justification for this approach, then we evaluate its size
-and power through simulation. Finally, we demonstrate applications of 
-the method to
-stock returns of the S\&P 100 and S\&P 500 indices.
+The Kolmogorov-Smirnov (KS) test is a widely used statistical test that
+assesses the conformity of a sample to a specified distribution. Its efficacy,
+however, diminishes with serially dependent data and when parameters
+within the hypothesized distribution are unknown. For independent data,
+parametric and nonparametric bootstrap procedure are available to adjust for
+estimated parameters. For serially dependent stationary data, parametric
+bootstrap has been developed with a working serial dependence structure. A
+counterpart for the nonparametric bootstrap approach, which needs a bias
+correction, has not been studied. Addressing this gap, our study introduces a
+bias correction method employing a non-parametric block bootstrap, which
+adeptly the distribution of the KS statistic for by unspecified serial
+dependence and unspecified parameters. We assess its effectiveness
+through simulations, scrutinizing both its size and power. The practicality of
+our method is further illustrated with an examination of stock returns from the
+S\&P 100 and S\&P 500 indices, showcasing its utility in real-world
+applications.
 
 \bigskip
 \noindent{\sc Keywords}:
 bias-correction; 
-dependent data; 
+serial dependence;
 time series. 
 \end{abstract}
 
@@ -127,25 +129,30 @@ radioactive data \citep{aslam2020introducing}, gear condition monitoring
 Despite its widespread use, the KS test can be 
 misapplied when its foundational assumptions are overlooked. The KS test 
 assumes the data are independently and identically distributed (i.i.d.) and 
+\jy{no defining acronyms that are not used later}
 that the hypothesized distribution is continuous and fully specified without 
-the need for parameter estimation. \citet{zeimbekakis2022misuses} examines 
-common misapplications of the one-sample KS test, notably the inappropriate
-use when the hypothesized distribution contains unspecified parameters.
-For this situation, \citet{zeimbekakis2022misuses} proposed a parametric
+the need for parameter estimation. \citet{zeimbekakis2022misuses} examines
+common misapplications of the one-sample KS test. One notable inappropriate
+use is when the hypothesized distribution contains unspecified parameters.
+In this case, the tests are generally constructed by substituting the unknown
+parameters by their estimates, and the asymptotic null distribution of
+the test statistic may depend in a complex way on the unknown parameters.
+The problem of unspecified parameters can be handled by a parametric
 bootstrap, where bootstrap samples of the test statistics are constructed from
 samples generated from the fitted hypothesized distribution.
-Alternatively, \citet{babu2004goodness} address this issue through the
-application of basic non-parametric bootstrap methods.
+Alternatively, \citet{babu2004goodness} address this issue through a
+non-parametric bootstrap method that corrects the bias in the asymptotic null
+distribution.
 
 
-Another prevalent misapplication of the KS test arises when data exhibit serial dependence, often overlooked in analyses. In an investigation of performance variation in
-high-performance computing systems, \citet{tuncer2019ieee} did not describe
-how or if they accounted for serial dependence when applying the two-sample
-KS test.
+
+Another prevalent misapplication of the KS test arises when data exhibit serial
+dependence, which is often overlooked in analyses. For example, in an
+investigation of performance variation in high-performance computing systems,
+\citet{tuncer2019ieee} did not describe how or if they accounted for serial
+dependence when applying the two-sample KS test.
 \citet{zeimbekakis2022misuses} proposed a semi-parametric bootstrap
 where the serial dependence structure is modeled via a working serial copula.
-
-
 A particularly complex scenario arises when the distribution has unspecified
 parameters, and the data are serially dependent. For this,
 \citet{zeimbekakis2022misuses} also recommends a semi-parametric bootstrap
@@ -160,8 +167,9 @@ the structure of the serial dependence, which can vary widely in practical
 situations. Employing a non-parametric bootstrap would necessitate defining a 
 specific model for this dependence, despite the primary focus being on 
 evaluating the marginal distribution of a stationary series. To date, a bias 
-correction method for block bootstrap, akin to the approach \citet{babu2004goodness} 
-applied to the basic bootstrap, has not been established. This study seeks 
+correction method for block bootstrap, akin to the non-parametric bootstrap
+approach of \citet{babu2004goodness} for independent data,
+has not been established. This study seeks 
 to bridge this gap by introducing a bias correction technique for the 
 non-parametric block bootstrap, tailored for use in scenarios where the 
 hypothesized distribution includes unspecified parameters and the data 
@@ -178,8 +186,8 @@ its size, i.e., its consistency in not rejecting the null hypothesis when
 it is indeed true. Subsequently, we examine the test's power, assessing 
 whether it can reject the null hypothesis when it is false. Practical 
 applications of our method are presented in Section~\ref{sec:real}, where 
-we apply the approach to analyze if S\&P 100 and S\&P 500 index stock return data adhere to either the Normal 
-or the Student's $t$ distribution. The 
+we apply the approach to analyze if S\&P 100 and S\&P 500 index stock return
+data adhere to either the Normal or the Student's $t$ distribution. The 
 paper concludes with Section~\ref{sec:conclusion}, offering final thoughts 
 and remarks.
 
@@ -199,7 +207,7 @@ The alternative hypothesis $H_A$ is that the marginal distribution of $X_t$ does
 not follow~$F$ for any parameter value~$\theta$. This is a challenging situation
 because both the parameters and the serial dependence structure are unknown.
 
-\subsection{Review of Kolmogorov-Smirnov Test}
+\subsection{Kolmogorov--Smirnov Test}
 
 First, let us review how the KS statistic is typically computed for a sample
 with no serial dependence with fitted parameters.
@@ -216,15 +224,20 @@ goodness of fit statistic is
 T_n := \sup_x|Y_n(x; \hat\theta)|.
 \end{equation*}
 
+\jy{State clearly the test statistic definition. Point out that the null
+  distribution depends on the unknown parameters and unknown serial
+  dependence. Point out the challenges are to approximate the null distribution.}
+
 We note that
 \begin{equation*}
 Y_n(x; \hat\theta) = \sqrt{n}(F_n(x) - F(x)) - 
 \sqrt{n}(F(x; \hat\theta_n) - F(x)),
 \end{equation*}
+\jy{clean up the notations. Has $F$ been defined yet? do you need cdf?}
 where $F(x)$ is the true cdf (under the null $F(x) = F(x, \theta_0)$ for some
 true parameter $\theta_0$).
 
-\subsection{Non-Parametric Basic Bootstrap}
+\subsection{Non-Parametric Bootstrap for Independent Data}
 
 Let us then consider the case where $X_i$'s are independent, but parameters
 are unspecified. Denote by
@@ -272,18 +285,16 @@ summarized as follows. Repeat the following steps for $b \in \{1, ..., B\}$.
 \end{enumerate}
 
 
-The p-value of the basic bootstrap KS test can be computed
-as $p = \#\{T^{(b)}_n > T_n\} / B$ for 
-$b \in \{1, \ldots, B\}$.
+The p-value of the basic bootstrap KS test can be approximated
+as $p = \sum_{b=1}^BB I\{T^{(b)}_n > T_n\} / B$.
 
-\subsection{Non-Parametric Block Bootstrap}
+\subsection{Non-Parametric Block Bootstrap for Stationary Series}
 
 We now consider the case where $X_i$'s are realizations from a time series and
 $X^{(b)}_1,...,X^{(b)}_n$ are generated by block bootstrap for 
 $b \in \{1, \ldots, B\}$.  
 Block-bootstrap can be done with overlapping or moving blocks.
-Define 
-moving blocks (assuming $l > 1$) as:
+Define moving blocks (assuming $l > 1$) as:
 \begin{equation*}
 Z_j =
     \begin{cases}
@@ -303,25 +314,24 @@ selected will be reduced in size so that the final size of the block bootstrap
 sample is $n$.
 
 
-We then use bootstrap to approximate the distribution of
-the KS statistic under $H_0$. In this case, we can 
+Continuing using the notation in the independent case,
+we use $F^{(b)}_n$ and $\hat\theta^{(b)}_n$ for the empirical distribution and
+the estimated parameters based on the $b$th bootstrap sample,
+$b = 1, \ldots, B$.
+We then use block bootstrap to approximate the asymptotic distribution of
+the KS statistic under $H_0$. In particular, we
 use the distribution of $\sqrt{n}(F^{(b)}_n(x) - E[F^{(b)}_n(x)])$
 as an approximation of the distribution of
-$\sqrt{n}(F_n(x) - F(x))$,
-and the distribution of 
-$\sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; E[\hat\theta^{(b)}_n]))$ to
-approximate $\sqrt{n}(F(x; \theta_n) - F(x))$'s distribution.
+$\sqrt{n}(F_n(x) - F(x))$, and the distribution of 
+$\sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; E[\hat\theta^{(b)}_n]))$ as
+an approximation of the distribution of $\sqrt{n}(F(x; \theta_n) - F(x))$.
+The expected values $E[F^{(b)}_n(x)]$ and
+$E[\hat\theta^{(b)}_n]$ can be approximated by, respectively,
+$E_n[F^{(b)}_n(x)] = \frac{1}{B}\sum_{b = 1}^BF^{(b)}_n(x)$ and
+$E_n[\hat\theta^{(b)}_n]  =  \frac{1}{B}\sum_{b = 1}^B\hat\theta^{(b)}_n$.
 
 
-We can compute $E[F^{(b)}_n(x)]$ and
-$E[\hat\theta^{(b)}_n]$ numerically (they can also be computed analytically, 
-depending on the types of block bootstrap we use). One can compute 
-$F^{(b)}_n$ 
-and $\hat\theta^{(b)}_n$ based on
-the $b$th bootstrap sample. Then
-$E[F^{(b)}_n(x)] \approx \frac{1}{B}\sum_{b = 1}^BF^{(b)}_n(x)$, and
-$E[\hat\theta^{(b)}_n] \approx \frac{1}{B}\sum_{b = 1}^B\hat\theta^{(b)}_n$.
-In this case, we can define
+Then, we can define
 \begin{align*}
   Y^{(b)}_n(x) &= \sqrt{n}(F^{(b)}_n(x) - E[F^{(b)}_n(x)]) - 
              \sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; E[\hat\theta^{(b)}_n)]) \\
@@ -361,9 +371,9 @@ summarized as follows. Repeat the following steps for $b \in \{1, ..., B\}$.
 \end{enumerate}
 
 
-The p-value of the block bootstrap KS test can be computed
-as $p = \#\{T^{(b)}_n > T_n\} / B$ for 
-$b \in \{1, \ldots, B\}$.
+The p-value of the block bootstrap KS test can be approximated
+as $p = \sum_{b=1}^N I\{T^{(b)}_n > T_n\} / B$.
+
 
 \section{Simulation Studies}
 \label{sec:simu}
@@ -384,16 +394,13 @@ $F_\theta$,
 and use our method to test if $X_t$ indeed has the marginal distribution $F$ 
 with some unknown $\theta$. If the test holds its size, the 
 p-value
-of the test should be uniformally distributed between 0 and 1. We must try the
+of the test should be uniformly distributed between 0 and 1. We must try the
 method with different marginal distributions to ensure that it is robust.
 In order for the method to work, a large sample size may be necessary. 
 
 
 We generated time series with marginal distributions $N(8, 8)$ and
 $\Gamma(8, 1)$ with Kendall's
-\jy{Need to state how serial dependence were introduced, like you did in the
-  first paper: transforming a normal series.}
-\mc{addressed}
 $\tau \in \{-.75, -.5, -.25, 0, .25, .5, 75\}$, and
 sample size $n \in \{100, 200, 400, 800\}$. Kendall's $\tau$ was chosen as a
 measure of serial dependence as it does not vary between two different 
@@ -414,6 +421,9 @@ marginal $N(8, 8)$ by marginally transforming $W_t$ by
 \begin{equation*}
 X_t = F^{-1}[\Phi(W_t)],
 \end{equation*}
+\jy{define $\Phi$}
+\jy{The language issues are more than I expected. Please do a careful proofread,
+  now that you are more experienced.}
 where $F^{-1}(p)$ is the quantile function for the $N(8, 8)$ 
 distribution.
 Then we generated a marginal gamma series by the same procedure, but
@@ -564,10 +574,6 @@ Additionally, we can construct a 95\% confidence interval for
 this rate. Below are tables containing rejection rates showcasing the 
 differences when simulation settings are changed.
 
-\jy{Consider presenting this in a graph. Try explaining the pattern.
-  Keep the notations consistent: $n$ and n are different.}
-\mc{addressed}
-
 
 \begin{figure}[tbp]
   \centering
@@ -587,10 +593,7 @@ when $\tau$ is not too high, but for $\tau \geq 0.75$, all sample sizes
 observed appeared to have less than desirable rejection rates. Results
 do not appear to be to different when comparing gamma and normal 
 margins, indicating that the method is robust to the marginal distribution.
-
-
-The rejection rates for $n = 800$
-are very 
+The rejection rates for $n = 800$ are very 
 high (almost 1), indicating that under $H_A$, the test is very powerful 
 (low probability of failed rejection $\beta$) when a large enough
 sample size is used.
@@ -686,10 +689,6 @@ for comparing two serially dependent methods. One could also apply the method
 showcased
 in this paper to fields like earthquake prediction and astronomy. 
 
-
-
-\jy{Quality control the bib source}
-\mc{addressed}
 
 \bibliographystyle{asa}
 \bibliography{citations}
