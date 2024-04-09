@@ -1,3 +1,18 @@
+4/9 Notes
+- Try larger block size for -0.75 and 0.75
+- Replace zoomed in figure with rejection rate table
+- Remove extra space
+- This is still the testing statistic, but the distribution under dependence cannot be used
+- Anthony's method uses a copula which could affect the result if its too far away from the truth
+- This is why the non-parametric method is motivated
+- Try semi-parametric bootstrap
+- Treat F as an experimental factor
+- Say p-values are not uniformly distributed for 0.75 and -0.75 (stronger dependence)
+- Take out beta
+- Talk about how different experimental factors are associated with rejection rate
+- Define block size can depend on temporal dependence level, search literature if adaptive block
+size has been developed
+
 4/2 Notes
 - Merge tables
 - Merge sections
