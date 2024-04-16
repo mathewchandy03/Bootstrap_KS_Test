@@ -128,8 +128,7 @@ radioactive data \citep{aslam2020introducing}, gear condition monitoring
 
 Despite its widespread use, the KS test can be 
 misapplied when its foundational assumptions are overlooked. The KS test 
-assumes the data are independently and identically distributed (i.i.d.) and 
-\jy{no defining acronyms that are not used later}
+assumes the data are independently and identically distributed and 
 that the hypothesized distribution is continuous and fully specified without 
 the need for parameter estimation. \citet{zeimbekakis2022misuses} examines
 common misapplications of the one-sample KS test. One notable inappropriate
@@ -421,10 +420,11 @@ marginal $N(8, 8)$ by marginally transforming $W_t$ by
 \begin{equation*}
 X_t = F^{-1}[\Phi(W_t)],
 \end{equation*}
-\jy{define $\Phi$}
+\jy{define $\Phi$}\mc{addressed}
 \jy{The language issues are more than I expected. Please do a careful proofread,
   now that you are more experienced.}
 where $F^{-1}(p)$ is the quantile function for the $N(8, 8)$ 
+distribution and $\Phi$ is the distribution function of the standard normal
 distribution.
 Then we generated a marginal gamma series by the same procedure, but
 replacing $F^{-1}(p)$ with the quantile function for the $\Gamma(8, 1)$
@@ -468,7 +468,7 @@ also provided, as
 that is the most common range for significance levels $\alpha$. 
 
 \jy{Remove the white space in the pdf figures. Could put the zoomed version in
-  the same figure.}
+  the same figure.}\mc{addressed}
 
 \begin{figure}[tbp]
   \centering
@@ -478,13 +478,6 @@ that is the most common range for significance levels $\alpha$.
   \label{fig:normal}
 \end{figure}
 
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[width = \textwidth]{figures/zoom_normal}
-  \caption{A Q-Q plot of the p-values displayed in Figure~\ref{fig:normal} zoomed in to 
-  probabilities between 0 and  0.1.}
-  \label{fig:zoom_normal}
-\end{figure}
 
 \begin{figure}[tbp]
   \centering
@@ -494,13 +487,13 @@ that is the most common range for significance levels $\alpha$.
   \label{fig:gamma}
 \end{figure}
 
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[scale=1]{figures/zoom_gamma}
-  \caption{A Q-Q plot of the p-values displayed in Figure~\ref{fig:gamma} zoomed in to 
-  probabilities between 0 and 0.1.}
-  \label{fig:zoom_gamma}
-\end{figure}
+\input{tables/rr_100}
+
+\input{tables/rr_200}
+
+\input{tables/rr_400}
+
+\input{tables/rr_800}
 
 From Figures~\ref{fig:normal} and \ref{fig:gamma}, we can observe that 
 although the extent to which the p-values appear to be 
@@ -511,8 +504,7 @@ A small sample size like $n = 100$ or $200$ seems adequate when Kendall's
 $\tau$ is lower than 0.25. For Kendall's $\tau \geq 0.5$, a sample larger than
 $n = 200$ seems necessary for the p-values to be normally distributed. For
 Kendall's $\tau \geq 0.75$, a sample larger than $n = 800$ appears to be 
-necessary, as the p-values are not aligned with the line in the Q-Q plots, even
-in Figures~\ref{fig:zoom_normal} and \ref{fig:zoom_gamma}. This
+necessary, as the p-values are not aligned with the line in the Q-Q plots. This
 is not necessarily a cause for concern, as (for normal margins)
 a Kendall's $\tau$ corresponds to
 a $\phi$ of 0.924, which is very high. Additionally, performance generally seems
@@ -522,20 +514,23 @@ strength. Results are very similar for normal and gamma margins.
 
 
 Under $H_0$, the p-values for the non-parametric block bootstrap KS test are
-\jy{Not true from the plots.}
-uniformly distributed. This is an indication that our method 
-holds its size and that we can expect the probability
+\jy{Not true from the plots.}\mc{addressed}
+uniformly distributed as long as the serial dependence is not too high. 
+This is an indication that our method 
+holds its size for moderate serial dependence levels.
+For such cases, we can expect the probability
 of a type 1 error to be the significance level $\alpha$.
 
 
 \subsection{Power}
 The power of the proposed test is investigated with data generated from
 distributions that are not in the hypothesized distribution family. If the test
-is indeed powerful, we would ideally want $\beta$ \jy{beta has been
+is indeed powerful, we would ideally want the probability of
+rejecting $H_0$ when $H_0$ is false\jy{beta has been
   used. Discuss in terms of power: the probability of rejecting $H_0$ when $H_0$
   is false.}
-to be 0, but we
-expect it to be generally low. Again, we must try the method with different
+to be 1, but we
+expect it to be generally high. Again, we must try the method with different
 marginal distributions to ensure that it is robust.
 We would then expect the distribution of p-values to be non-uniform, and the 
 rate \jy{Does not sound right. What is $\alpha$?}
@@ -640,8 +635,6 @@ While differences in p-values among different methods are expected, our analysis
 reveals numerous instances where conclusions at the 0.05 significance level
 using our method differ from those obtained using the methods proposed by
 \citet{babu2004goodness} and \citet{zeimbekakis2022misuses}.
-\jy{I don't like one-sentence paragraphs.}
-
 For example, when assessing the S\&P 500 series, our method fails to reject the
 hypothesis that the series follows a Student's $t$ distribution with degrees of
 freedom $v = 5$ with a p-value of 0.061. In contrast, Babu and Sen's method
@@ -682,10 +675,12 @@ that the method is robust.
 
 We have also 
 demonstrated possible applications of this method to financial data.
-\jy{don't astrophie citet; let alone citep}
-Through comparison with \citep{babu2004goodness}'s non-parametric
-bootstrap bias correction and \citet{zeimbekakis2022misuses}'s parametric
-bootstrap method, we have underscored the importance of accounting for serial
+\jy{don't astrophie citet; let alone citep}\mc{addressed}
+Through comparison with the non-parametric
+bootstrap bias correction developed by \citet{babu2004goodness}
+and the parametric
+bootstrap method developed by \citet{zeimbekakis2022misuses}, we have 
+underscored the importance of accounting for serial
 dependence in choosing an appropriate methodology.
 This method holds relevance for studies aiming to assess if a serially dependent
 time series adheres to a hypothesized distribution in scenarios where parameters

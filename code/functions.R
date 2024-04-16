@@ -143,7 +143,7 @@ plot_p_vals <- function(df, filename) {
     coord_fixed() +
     theme(strip.text.x = element_text(size = 8))
   ggsave(filename = filename, plot = gg.f, path = "../manuscript/figures", 
-         height = 6, width = 6)
+         height = 4, width = 6)
   
   gg.f <- ggplot(data = df, mapping = aes(sample = pval)) +
     scale_x_continuous(breaks=c(0, 0.1)) +
@@ -158,7 +158,7 @@ plot_p_vals <- function(df, filename) {
     coord_fixed(ylim = c(-0.01, 0.11), xlim = c(-0.01, 0.11)) +
     theme(strip.text.x = element_text(size = 8))
   ggsave(filename = paste('zoom_', filename, sep = ''), plot = gg.f, 
-         path = "../manuscript/figures", height = 6, width = 6)
+         path = "../manuscript/figures", height = 4, width = 6)
 }
 
 plot_rr <- function(df, filename) {
@@ -187,7 +187,7 @@ plot_rr <- function(df, filename) {
     labs(x = latex2exp::TeX("$\\tau$"), y = latex2exp::TeX("Rejection Rate")) +
     coord_fixed(ylim = c(0, 1), xlim = c(-1, 1))
   ggsave(filename = filename, plot = gg.f, path = "../manuscript/figures", 
-         height = 4, width = 6)
+         height = 3, width = 6)
     
     
 }
