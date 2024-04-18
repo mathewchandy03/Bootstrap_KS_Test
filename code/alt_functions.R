@@ -107,6 +107,26 @@ my_param <- function(y, B, h0_dist, f0, rgen, df = NULL) {
   c(mean(ks_values > obsv_ks)) # Which are greater than the observed ks statistic
 }
 
+ks.sb <- function(x, B = 1000, q0, f0, df = NULL) {
+  stat <- ks.test(x, f0, df = df)$statistic
+  stat.b <- rep(0, B)
+  n <- length(x)
+  rk <- rank(x)
+  for (i in 1:B) {
+    u <- runif(n)
+    x.b <- q0(sort(u)[rk], df)
+    ## The ks stat remained the same as the one before sorting
+    stat.b[i] <- ks.test(x.b, f0, df = df)$statistic
+  }
+  p.value <-  (sum(stat.b >= stat) + 0.5) / (B + 1)
+  list(p.value = p.value,
+       statistic = stat, stat.b = stat.b)
+}
+
+my_sb <- function(x, B = 1000, q0, f0, df = NULL) {
+  ks.sb(x, B = 1000, q0, f0, df = NULL)$p.value
+}
+
 app_scheme <- function(start, end, years, stock) {
   series <- 
     diff(log(get.hist.quote(instrument = stock, start = start,
@@ -127,6 +147,8 @@ app_scheme <- function(start, end, years, stock) {
   set.seed(123)
   pval <- c(pval, my_param(resid, 10000, "normal", 
                                 pnorm, rnorm))
+  set.seed(123)
+  pval <- c(pval, my_sb(resid, 10000, qnorm, pnorm, df = NULL))
   
   for (v in c(30, 20, 10, 5, 4, 3, 2, 1)) {
     set.seed(123)
@@ -138,14 +160,19 @@ app_scheme <- function(start, end, years, stock) {
     set.seed(123)
     param <- my_param(resid, 10000, "t", plst, rlst,
                     df = v)
+    
+    set.seed(123)
+    sb <- my_sb(resid, 10000, qlst, rlst, df = v)
     pval <- rbind(pval,
                         c(np,
                           babu,
-                          param))
+                          param,
+                          sb))
   }
   
   pval <- cbind(c("normal", 30, 20, 10, 5, 4, 3, 2, 1), pval)
-  colnames(pval) <- c("$v$", "Our Method", "Babu", "Zeimbekakis")
+  colnames(pval) <- c("$v$", "Our Method", "Babu", "Zeimbekakis", 
+                      "Semiparametric")
   rownames(pval) <- NULL
   return(pval)
 }

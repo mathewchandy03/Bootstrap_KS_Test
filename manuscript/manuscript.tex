@@ -211,12 +211,14 @@ because both the parameters and the serial dependence structure are unknown.
 First, let us review how the KS statistic is typically computed for a sample
 with no serial dependence with fitted parameters.
 Let $\hat\theta_n$ denote the fitted parameters for the hypothesized 
-distribution fitted onto $X_t$, and let 
+distribution $F(x; \hat\theta_n)$ fitted onto $X_t$, and let 
 $F_n$ denote the empirical distribution function based on $X_1,...,X_n$.
 Let
 \begin{equation*}
 Y_n(x; \hat\theta) = \sqrt{n}(F_n(x) - F(x; \hat\theta_n)).
 \end{equation*}
+
+
 Then, the
 goodness of fit statistic is 
 \begin{equation*}
@@ -230,11 +232,11 @@ T_n := \sup_x|Y_n(x; \hat\theta)|.
 We note that
 \begin{equation*}
 Y_n(x; \hat\theta) = \sqrt{n}(F_n(x) - F(x)) - 
-\sqrt{n}(F(x; \hat\theta_n) - F(x)),
+\sqrt{n}(F(x; \hat\theta_n) - F(x)).
 \end{equation*}
 \jy{clean up the notations. Has $F$ been defined yet? do you need cdf?}
-where $F(x)$ is the true cdf (under the null $F(x) = F(x, \theta_0)$ for some
-true parameter $\theta_0$).
+\mc{addressed}
+
 
 \subsection{Non-Parametric Bootstrap for Independent Data}
 

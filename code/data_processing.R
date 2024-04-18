@@ -49,10 +49,10 @@ for (phi in phis) {
         R <- length(pvals)
         if (R <= 0) next
         x <- sum(pvals < alpha)
-        prop_test <- prop.test(x, R, correct=FALSE)
+        prop_test <- prop.test(x, R, correct=TRUE)
         rr_lb <- prop_test$conf.int[1]
         rr_ub <- prop_test$conf.int[2]
-        rr <- mean(c(rr_lb, rr_ub))
+        rr <- x / R
         df <- rbind(df, c(phi, n, dist, alpha, rr_lb, rr, rr_ub, R))
       }
     }

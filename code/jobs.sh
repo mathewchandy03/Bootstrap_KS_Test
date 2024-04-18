@@ -13,5 +13,4 @@ module load r/4.2.2
 ## avoiding implicit paralellism
 export OMP_NUM_THREADS=1
 
-Rscript null_jobs.R
-Rscript alt_jobs.R
+Rscript blk2_jobs.R
