@@ -208,39 +208,46 @@ because both the parameters and the serial dependence structure are unknown.
 
 \subsection{Kolmogorov--Smirnov Test}
 
-First, let us review how the KS statistic is typically computed for a sample
-with no serial dependence with fitted parameters.
-Let $\hat\theta_n$ denote the fitted parameters for the hypothesized 
-distribution $F(x; \hat\theta_n)$ fitted onto $X_t$, and let 
-$F_n$ denote the empirical distribution function based on $X_1,...,X_n$.
-Let
+First, let us review how the KS statistic is computed for an independent
+sample with fitted parameters. Let $\hat\theta_n$ denote the parametrically
+fitted parameters, which can be obtained from any consistent estimator with
+asymptotic normality properties,  Let $F_n$ be the empirical distribution
+function based on $X_1,...,X_n$.
+Define 
 \begin{equation*}
 Y_n(x; \hat\theta) = \sqrt{n}(F_n(x) - F(x; \hat\theta_n)).
 \end{equation*}
-
-
-Then, the
-goodness of fit statistic is 
+Then, the one-sample KS goodness of fit statistic is 
 \begin{equation*}
 T_n := \sup_x|Y_n(x; \hat\theta)|.
 \end{equation*}
 
-\jy{State clearly the test statistic definition. Point out that the null
-  distribution depends on the unknown parameters and unknown serial
-  dependence. Point out the challenges are to approximate the null distribution.}
 
-We note that
+Because of the estimation uncertainty in $\hat\theta_n$, the asymptotic
+distribution of $Y_n$ is no longer distribution-free. This is in contrast to the
+case where $\theta$ is known.  Note that
 \begin{equation*}
 Y_n(x; \hat\theta) = \sqrt{n}(F_n(x) - F(x)) - 
 \sqrt{n}(F(x; \hat\theta_n) - F(x)).
 \end{equation*}
-\jy{clean up the notations. Has $F$ been defined yet? do you need cdf?}
-\mc{addressed}
+When $\hat\theta_n$ is replaced with $\theta$, as in the standard KS testing
+situation, the second term vanishes, and $T_n$ converges in distribution to that
+of $\sup_t | B(F(t)) |$, where $B(\cdot)$ is the standard Brownian bridge
+\citep{kolmogorov1933sulla}. With $\hat\theta_n$ in place of $\theta$, the
+second term leads to a bias in the Brownian bridge, which was addressed by
+\citet{babu2004goodness}.
+
+
+When $\{X_t: t = 1, \ldots, n\}$ are further serially dependent, the statistics
+$T_n$ still provides a reasonable metric for deviation from the null
+hypothesis. Nonetheless, the asymptotic distribution of $T_n$ cannot be fixed
+even with the bias correction of \citet{babu2004goodness}, because the
+correction requires independent sample.
 
 
 \subsection{Non-Parametric Bootstrap for Independent Data}
 
-Let us then consider the case where $X_i$'s are independent, but parameters
+Continue with the case where $X_i$'s are independent but the parameters
 are unspecified. Denote by
 $F^{(b)}_n$ the empirical distribution of the $b$th bootstrap sample and let
 $\hat\theta^{(b)}_n$ be the parameter estimate based on the $b$th bootstrap 
@@ -261,7 +268,9 @@ expected to approximate the distribution of $T_n$. We note that the term
 $\sqrt{n}(F_n(x) - F(x; \hat\theta_n))$ is exactly the bias term considered in 
 \citet{babu2004goodness}.
 
-In summary, the procedure of the nonparametric basic bootstrap test is 
+
+In summary, the procedure of the nonparametric bootstrap KS test for independent
+sample is 
 summarized as follows. Repeat the following steps for $b \in \{1, ..., B\}$.
 \begin{enumerate}
 \item
@@ -287,7 +296,8 @@ summarized as follows. Repeat the following steps for $b \in \{1, ..., B\}$.
 
 
 The p-value of the basic bootstrap KS test can be approximated
-as $p = \sum_{b=1}^BB I\{T^{(b)}_n > T_n\} / B$.
+as $p = \sum_{b=1}^B I\{T^{(b)}_n > T_n\} / B$.
+
 
 \subsection{Non-Parametric Block Bootstrap for Stationary Series}
 
@@ -422,7 +432,6 @@ marginal $N(8, 8)$ by marginally transforming $W_t$ by
 \begin{equation*}
 X_t = F^{-1}[\Phi(W_t)],
 \end{equation*}
-\jy{define $\Phi$}\mc{addressed}
 \jy{The language issues are more than I expected. Please do a careful proofread,
   now that you are more experienced.}
 where $F^{-1}(p)$ is the quantile function for the $N(8, 8)$ 
@@ -432,8 +441,10 @@ Then we generated a marginal gamma series by the same procedure, but
 replacing $F^{-1}(p)$ with the quantile function for the $\Gamma(8, 1)$
 distribution.
 After the transformation
-to the marginal gamma distribution, the autocorrelations are $\{-0.884, 
--0.686, -0.389, -0.033, 0.327, 0.639, 0.861\}$.
+to the marginal gamma distribution, the autocorrelations are
+\[
+  \{-0.884, -0.686, -0.389, -0.033, 0.327, 0.639, 0.861\}.
+\]
 
 
 These distributions
@@ -459,18 +470,14 @@ to get the distribution of the p-values
 for the test when applied to samples from the same data generating process.
 
 
-Using the \textsl{qqplotr} and \textsl{ggplot2} packages 
-\citep{qqplotr, ggplot2},
+Using R packages \textsl{qqplotr} and \textsl{ggplot2} \citep{qqplotr, ggplot2},
 we constructed Q-Q plots of the distribution of the p-values to see if they are
 uniformly distributed. If the distribution of the p-values is uniform, this 
 indicates that under the null hypothesis, our method will only reject the $H_0$
-at a rate of $\alpha$.
+at a rate of $\alpha$. \jy{Describe the table not zoomed-in figure.}
 A zoomed in plot for probabilities between 0 and 0.1 is
 also provided, as
 that is the most common range for significance levels $\alpha$. 
-
-\jy{Remove the white space in the pdf figures. Could put the zoomed version in
-  the same figure.}\mc{addressed}
 
 \begin{figure}[tbp]
   \centering
@@ -516,7 +523,7 @@ strength. Results are very similar for normal and gamma margins.
 
 
 Under $H_0$, the p-values for the non-parametric block bootstrap KS test are
-\jy{Not true from the plots.}\mc{addressed}
+\jy{The flow doesn't read right from the last paragraph}
 uniformly distributed as long as the serial dependence is not too high. 
 This is an indication that our method 
 holds its size for moderate serial dependence levels.
@@ -677,7 +684,6 @@ that the method is robust.
 
 We have also 
 demonstrated possible applications of this method to financial data.
-\jy{don't astrophie citet; let alone citep}\mc{addressed}
 Through comparison with the non-parametric
 bootstrap bias correction developed by \citet{babu2004goodness}
 and the parametric
