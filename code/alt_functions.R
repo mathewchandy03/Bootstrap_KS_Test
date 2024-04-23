@@ -114,9 +114,25 @@ ks.sb <- function(x, B = 1000, q0, f0, df = NULL) {
   rk <- rank(x)
   for (i in 1:B) {
     u <- runif(n)
-    x.b <- q0(sort(u)[rk], df)
+    x.b <- q0(sort(u)[rk], df, mean(x), sd(x))
     ## The ks stat remained the same as the one before sorting
-    stat.b[i] <- ks.test(x.b, f0, df = df)$statistic
+    stat.b[i] <- ks.test(x.b, f0, df = df, mean(x.b), sd(x.b))$statistic
+  }
+  p.value <-  (sum(stat.b >= stat) + 0.5) / (B + 1)
+  list(p.value = p.value,
+       statistic = stat, stat.b = stat.b)
+}
+
+normal.ks.sb <- function(x, B = 1000, q0, f0, df = NULL) {
+  stat <- ks.test(x, f0)$statistic
+  stat.b <- rep(0, B)
+  n <- length(x)
+  rk <- rank(x)
+  for (i in 1:B) {
+    u <- runif(n)
+    x.b <- q0(sort(u)[rk], mean(x), sd(x))
+    ## The ks stat remained the same as the one before sorting
+    stat.b[i] <- ks.test(x.b, f0, mean(x.b), sd(x.b))$statistic
   }
   p.value <-  (sum(stat.b >= stat) + 0.5) / (B + 1)
   list(p.value = p.value,
@@ -124,7 +140,11 @@ ks.sb <- function(x, B = 1000, q0, f0, df = NULL) {
 }
 
 my_sb <- function(x, B = 1000, q0, f0, df = NULL) {
-  ks.sb(x, B = 1000, q0, f0, df = NULL)$p.value
+  if(is.null(df)) {
+    normal.ks.sb(x, B = 1000, q0, f0)$p.value
+  } else {
+    ks.sb(x, B = 1000, q0, f0, df = df)$p.value
+  }
 }
 
 app_scheme <- function(start, end, years, stock) {

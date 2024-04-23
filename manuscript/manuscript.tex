@@ -105,13 +105,15 @@ The standard one-sample Kolmogorov-Smirnov (KS) test is widely
 recognized as an effective good-of-fit test for continuous distributions.
 Consider $X_1, ..., X_n$, a random sample of size~$n$ from some continuous
 distribution and the null hypothesis $H_0$ that $X_i$'s follow a specific
-hypothesized distribution~$F$.
+hypothesized distribution~$F(x; \theta_0)$, where $\theta_0$ are the 
+specified parameters
+of the hypothesized distribution family.
 If we let $F_n(t) = \sum_{i=1}^n I(X_i \le t) / n$ be the empirical cumulative
 distribution function of the sample, where $I(\cdot)$ is the indicator
 function, the KS test statistic takes the form
 \begin{equation}
   \label{eq:ks_standard}
-  T_n = \sqrt{n} \sup_x | F_{n}(x) - F(x) |.
+  T_n = \sqrt{n} \sup_x | F_{n}(x) - F(x; \theta_0)|.
 \end{equation}
 As sample size $n\to \infty$, the distribution of $T_n$ converges to that of the
 absolute value of standard Brownian bridge, which is known as the Kolmogorov
@@ -150,13 +152,21 @@ dependence, which is often overlooked in analyses. For example, in an
 investigation of performance variation in high-performance computing systems,
 \citet{tuncer2019ieee} did not describe how or if they accounted for serial
 dependence when applying the two-sample KS test.
+The distribution of the test statistic under
+the null hypothesis depends on the unknown parameters and unknown 
+serial dependence. Therefore, the null distribution under dependence cannot be
+used,
+and the challenge is to approximate said distribution.
 \citet{zeimbekakis2022misuses} proposed a semi-parametric bootstrap
 where the serial dependence structure is modeled via a working serial copula.
 A particularly complex scenario arises when the distribution has unspecified
 parameters, and the data are serially dependent. For this,
 \citet{zeimbekakis2022misuses} also recommends a semi-parametric bootstrap
 approach, where the parameters of the hypothesized distribution and the serial
-dependence both need to be estimated and their uncertainty accounted for.
+dependence both need to be estimated and their uncertainty accounted for,
+but this could affect results if the estimated serial
+dependence is too far from the truth. For this reason, a non-parametric method
+is motivated.
 
 
 Developing a fully non-parametric solution for the KS 
@@ -225,18 +235,22 @@ goodness of fit statistic is
 T_n := \sup_x|Y_n(x; \hat\theta)|.
 \end{equation*}
 
+
 \jy{State clearly the test statistic definition. Point out that the null
   distribution depends on the unknown parameters and unknown serial
   dependence. Point out the challenges are to approximate the null distribution.}
+\mc{addressed in third paragraph of introduction}
 
 We note that
 \begin{equation*}
 Y_n(x; \hat\theta) = \sqrt{n}(F_n(x) - F(x)) - 
-\sqrt{n}(F(x; \hat\theta_n) - F(x)).
+\sqrt{n}(F(x; \hat\theta_n) - F(x)),
 \end{equation*}
 \jy{clean up the notations. Has $F$ been defined yet? do you need cdf?}
 \mc{addressed}
-
+where $F(x)$ is the true cumulative distribution function 
+(under the $H_0: F(x) = F(x; \theta_0)$ for some true
+parameter $\theta_0$.)
 
 \subsection{Non-Parametric Bootstrap for Independent Data}
 
@@ -433,7 +447,8 @@ replacing $F^{-1}(p)$ with the quantile function for the $\Gamma(8, 1)$
 distribution.
 After the transformation
 to the marginal gamma distribution, the autocorrelations are $\{-0.884, 
--0.686, -0.389, -0.033, 0.327, 0.639, 0.861\}$.
+-0.686, -0.389, -0.033, 0.327, 
+\break 0.639, 0.861\}$.
 
 
 These distributions
@@ -455,19 +470,17 @@ For the block
 bootstrap step,
 we used $B = 1000$ and $l = \lceil n^{1/3} \rceil$.
 For each setting for $F$, $\tau$, and $n$, we replicate the method 1000 times 
-to get the distribution of the p-values 
+to get the distribution of the p-values $p_r$
 for the test when applied to samples from the same data generating process.
 
 
 Using the \textsl{qqplotr} and \textsl{ggplot2} packages 
 \citep{qqplotr, ggplot2},
 we constructed Q-Q plots of the distribution of the p-values to see if they are
-uniformly distributed. If the distribution of the p-values is uniform, this 
+uniformly distributed. If the distribution of the p-values is uniform, the
+points will be aligned with the diagonal line. This 
 indicates that under the null hypothesis, our method will only reject the $H_0$
-at a rate of $\alpha$.
-A zoomed in plot for probabilities between 0 and 0.1 is
-also provided, as
-that is the most common range for significance levels $\alpha$. 
+at the rate of the significance level.
 
 \jy{Remove the white space in the pdf figures. Could put the zoomed version in
   the same figure.}\mc{addressed}
@@ -489,29 +502,26 @@ that is the most common range for significance levels $\alpha$.
   \label{fig:gamma}
 \end{figure}
 
-\input{tables/rr_100}
+\input{tables/rr_norm}
 
-\input{tables/rr_200}
-
-\input{tables/rr_400}
-
-\input{tables/rr_800}
+\input{tables/rr_gamma}
 
 From Figures~\ref{fig:normal} and \ref{fig:gamma}, we can observe that 
-although the extent to which the p-values appear to be 
-completely aligned with the line
-in the Q-Q plots is dependent on the sample size and the level of serial 
+the extent to which the p-values are uniformly distributed
+is dependent on the sample size and the level of serial 
 dependence.
 A small sample size like $n = 100$ or $200$ seems adequate when Kendall's
 $\tau$ is lower than 0.25. For Kendall's $\tau \geq 0.5$, a sample larger than
 $n = 200$ seems necessary for the p-values to be normally distributed. For
 Kendall's $\tau \geq 0.75$, a sample larger than $n = 800$ appears to be 
-necessary, as the p-values are not aligned with the line in the Q-Q plots. This
+necessary, as the p-values are not aligned with the line in any of the Q-Q 
+plots. This
 is not necessarily a cause for concern, as (for normal margins)
 a Kendall's $\tau$ corresponds to
-a $\phi$ of 0.924, which is very high. Additionally, performance generally seems
-better for negative $\tau$ values versus positive $\tau$ values of the same
-strength. Results are very similar for normal and gamma margins.
+a $\phi$ of 0.924, which is very high.
+Additionally, positive serial dependence appears to misalign the distribution
+of the p-values moreso than negative serial dependences of the same strength.
+Results are very similar for normal and gamma margins.
 \jy{Summarize findings in bullet points before forming text.}
 
 
@@ -521,7 +531,15 @@ uniformly distributed as long as the serial dependence is not too high.
 This is an indication that our method 
 holds its size for moderate serial dependence levels.
 For such cases, we can expect the probability
-of a type 1 error to be the significance level $\alpha$.
+of a type 1 error to be approximately equivalent to the significance level.
+
+From Tables~\ref{table:rr_norm} and \ref{table:rr_gamma}, we can observe 
+that the rejection rate is close to the significance level
+as long as 
+Kendall's $\tau$ is less than or equal to 0.5 and a sample size greater
+than 100 is used.
+
+
 
 
 \subsection{Power}
@@ -530,42 +548,33 @@ distributions that are not in the hypothesized distribution family. If the test
 is indeed powerful, we would ideally want the probability of
 rejecting $H_0$ when $H_0$ is false\jy{beta has been
   used. Discuss in terms of power: the probability of rejecting $H_0$ when $H_0$
-  is false.}
+  is false.}\mc{addressed}
 to be 1, but we
 expect it to be generally high. Again, we must try the method with different
 marginal distributions to ensure that it is robust.
-We would then expect the distribution of p-values to be non-uniform, and the 
-rate \jy{Does not sound right. What is $\alpha$?}
-of $\#P < \alpha$ to be high, meaning a higher density of low p-values.
+We would then expect the distribution of p-values to be non-uniform -
+specifically a higher density of low p-values - and the 
+rate \jy{Does not sound right. What is $\alpha$?}\mc{addressed}
+of $\#(p_r < 0.05)$ - where 0.05 is the significance level - to be high, 
 
 
 \jy{Description too wordy, Be concise. Basically generate data from one
-  distribution but test for the other distribution.}
-Like we did to see if the test holds its size, we generated time series with 
-marginal distributions $N(8, 8)$ and 
-$\Gamma(8, 1)$, Kendall's $\tau \in \{-.75, -.5, -.25, 0, .25, .5, .75\}$, and
-sample size $n \in \{100, 200, 400, 800\}$. However, 
-to evaluate the test's power, when $X_t \sim N(8, 8)$, we tested
-that the marginal distribution family is from the Gamma family,
-or
-$X_t \sim \Gamma(\cdot \mid \alpha, \beta), \quad t = 1, \ldots, n$.
-for some unspecified $\alpha$ and $\beta$. Because the support of $N(8, 8)$ is
+  distribution but test for the other distribution.}\mc{addressed}
+We generated the same scheme of time series as we did when testing size, but
+tested that the time series was from the other distribution.
+Because the support of $N(8, 8)$ is
 $(-\infty, \infty)$, but the support of $\Gamma(8, 1)$ is $(0, \infty)$, we used
 the \textsl{truncdist} package \citep{truncdist} to truncate the series at 
-values less than or equal to 0.
-When $X_t \sim \Gamma(8, 1)$, we tested that the 
-marginal distribution is from the
-Normal family, or 
-$X_t \sim N(\cdot \mid \mu, \sigma^2), \quad t = 1, \ldots, n$
-for some unspecified $\mu$ and $\sigma$. For the block bootstrap step,
-we used $B = 1000$ and $l = \lceil n^{1/3} \rceil$.
-For each setting for $F$, $\tau$, and $n$, we replicate the method $1000$ times 
+values less than or equal to 0 when testing that $N(8, 8)$ sample was
+from $\Gamma(8, 1)$. For each setting for $F$, $\tau$, and $n$, we replicate the 
+method $1000$ times 
 to obtain a p-value $p_r$ for each $r \in \{1, \ldots, 1000\}$.
 
+
 \jy{alpha has been used as gamma parameters. This is not necessary, Just say we
-  checked the power when the significance level is .05.}
-Given some significance level $\alpha$, we can compute a rejection rate 
-$q = \#\{p_r < \alpha\} / 1000$ for $r \in \{1, \ldots, 1000\}$.
+  checked the power when the significance level is .05.}\mc{addressed}
+We can compute a rejection rate 
+$q = \#\{p_r < 0.05\} / 1000$ for $r \in \{1, \ldots, 1000\}$.
 Additionally, we can construct a 95\% confidence interval for 
 this rate. Below are tables containing rejection rates showcasing the 
 differences when simulation settings are changed.
@@ -623,6 +632,7 @@ Table~\ref{table:SP5004}.
   model for the serial dependence. If that is severely misspecified, I'd expect
   poor performance. The proposed method does not need to specify that dependence
   structure.}
+\mc{addressed earlier}
 
 
 \input{tables/sp500_pval_4y}
@@ -632,6 +642,7 @@ Table~\ref{table:SP5004}.
 
 \jy{Stock returns are known to be serially dependent and heavy-tailed. Search
   google scholar ``stylized facts of daily returns series'' and cite them.}
+\mc{addressed}
 
 While differences in p-values among different methods are expected, our analysis
 reveals numerous instances where conclusions at the 0.05 significance level
@@ -652,7 +663,8 @@ Our method does not reject the hypothesis that the series conforms to a
 Student's $t$ distribution with degrees of freedom $v = 5$, yielding a p-value
 of 0.0873. In contrast, \citet{babu2004goodness}'s method yields a p-value of 
 0.0368, and \citet{zeimbekakis2022misuses}'s method yields a p-value of 0.03.
-conclusions regarding the marginal distribution of the population under scrutin.
+conclusions regarding the marginal distribution of the population under 
+scrutiny.
 
 
 \section{Concluding Remarks}
@@ -687,9 +699,10 @@ dependence in choosing an appropriate methodology.
 This method holds relevance for studies aiming to assess if a serially dependent
 time series adheres to a hypothesized distribution in scenarios where parameters
 are unknown or unspecified. Future studies could investigate
-\jy{Too vague.}
-the method's performance on different marginal distributions and
-different dependence structures. Additionally, one could propose a 
+\jy{Too vague.}\mc{addressed}
+the method's performance on different marginal distributions such
+as the generalized extreme value distribution and
+different dependence structures such as MA, ARMA, and ARIMA processes. Additionally, one could propose a 
 similar method
 for comparing two serially dependent methods. One could also apply the method
 showcased

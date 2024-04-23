@@ -1,3 +1,14 @@
+4/23 Notes
+- Remove -0.75 and 0.75 from power curve
+- percentage 3 digits
+- agreement between empirical size and nominal size improves as sample size increases
+- 0.75, agreement does not get there
+- Approach is working for tau between -0.25 and 0.25 for 100,
+- Larger sample size needed (400 close enough) for tau between -0.5 and 0.5
+- weak dependence, method works
+- stronger dependence
+- usually tau is less than 0.5, then the method can be recommended with a smallish sample size
+
 4/9 Notes
 - Try larger block size for -0.75 and 0.75
 - Replace zoomed in figure with rejection rate table

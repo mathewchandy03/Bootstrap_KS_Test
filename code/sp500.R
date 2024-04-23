@@ -31,8 +31,10 @@ sp500_pval_4y[,3] <- sapply(as.numeric(sp500_pval_4y[,3]), my_format)
 
 sp500_pval_4y[,4] <- sapply(as.numeric(sp500_pval_4y[,4]), my_format)
 
+sp500_pval_4y[,5] <- sapply(as.numeric(sp500_pval_4y[,5]), my_format)
+
 colnames(sp500_pval_4y) <- c("$v$", "Our Method", "Babu's Method",
-                             "Zeimbekakis' Method")
+                             "Zeimbekakis' Method", "Semiparametric Method")
 
 sp500_pval_4y[1, 1] <- "$\\infty$"
 

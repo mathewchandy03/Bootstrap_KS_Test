@@ -1,70 +1,50 @@
 library(xtable)
-df <- readRDS("../data/rejection_rates1.RDS") %>% 
+df <- readRDS("../data/sim_rejection_rates.RDS") %>% 
   mutate(rr_lb = round(as.numeric(rr_lb), 3),
          rr = round(as.numeric(rr), 3),
          rr_ub = round(as.numeric(rr_ub), 3))
 
-df_100 <- df %>% 
-  filter(n == 100) %>% 
-  select(-R) %>% 
-  rename(`$\\phi$` = phi, `$n$` = n, distribution = dist, 
-         `$\\alpha$` = alpha, `lower bound` = rr_lb, `rejection rate` = rr, 
-         `upper bound` = rr_ub)
-write(print(xtable(df_100, 
-                   caption = "Rejection rates for test under true null hypothesis
-                   when n = 100 for 
-                   different values of AR(1) coefficient and for different 
-                   significance levels. Lower and upper bounds are also 
-                   included.",
-                   label = "table:rr_100"), caption.placement = "top",
-            sanitize.text.function=function(x){x}), 
-      file = "../manuscript/tables/rr_100.tex")  
+df$tau <- factor(case_when(df$phi == "-0.9238795" ~ "$\\tau = -0.75$",
+                           df$phi == "-0.7071068" ~ "$\\tau = -0.5$",
+                           df$phi == "-0.3826834" ~ "$\\tau = -0.25$",
+                           df$phi == "0" ~ "$\\tau = 0$",
+                           df$phi == "0.9238795" ~ "$\\tau = 0.75$",
+                           df$phi == "0.7071068" ~ "$\\tau = 0.5$",
+                           df$phi == "0.3826834" ~ "$\\tau = 0.25$"),
+                 levels = c("$\\tau = -0.75$",
+                            "$\\tau = -0.5$",
+                            "$\\tau = -0.25$",
+                            "$\\tau = 0$",
+                            "$\\tau = 0.25$",
+                            "$\\tau = 0.5$",
+                            "$\\tau = 0.75$"))
 
-df_200 <- df %>% 
-  filter(n == 200) %>% 
-  select(-R) %>% 
-  rename(`$\\phi$` = phi, `$n$` = n, distribution = dist, 
-         `$\\alpha$` = alpha, `lower bound` = rr_lb, `rejection rate` = rr, 
-         `upper bound` = rr_ub)
-write(print(xtable(df_200, 
-                   caption = "Rejection rates for test under true null hypothesis
-                   when n = 200 for 
-                   different values of AR(1) coefficient and for different 
-                   significance levels. Lower and upper bounds are also 
-                   included.",
-                   label = "table:rr_200"), caption.placement = "top",
-            sanitize.text.function=function(x){x}), 
-      file = "../manuscript/tables/rr_200.tex")  
+library(reshape2)
+df_norm <- df %>% filter(dist == "normal") %>% 
+  select(n, alpha, rr, tau) %>% 
+  dcast(n + alpha ~ tau, value.var = "rr") %>% 
+  rename(`$n$` = n, `$\\alpha$` = alpha)
 
-df_400 <- df %>% 
-  filter(n == 400) %>% 
-  select(-R) %>% 
-  rename(`$\\phi$` = phi, `$n$` = n, distribution = dist, 
-         `$\\alpha$` = alpha, `lower bound` = rr_lb, `rejection rate` = rr, 
-         `upper bound` = rr_ub)
-write(print(xtable(df_400, 
-                   caption = "Rejection rates for test under true null hypothesis
-                   when n = 400 for 
+write(print(xtable(df_norm, 
+                   caption = "Rejection rates for test that $N(8, 8)$ is indeed
+                   normally distributed for
                    different values of AR(1) coefficient and for different 
-                   significance levels. Lower and upper bounds are also 
-                   included.",
-                   label = "table:rr_400"), caption.placement = "top",
+                   significance levels.",
+                   label = "table:rr_norm"), caption.placement = "top",
             sanitize.text.function=function(x){x}), 
-      file = "../manuscript/tables/rr_400.tex")  
+      file = "../manuscript/tables/rr_norm.tex")  
 
-df_800 <- df %>% 
-  filter(n == 800) %>% 
-  select(-R) %>% 
-  rename(`$\\phi$` = phi, `$n$` = n, distribution = dist, 
-         `$\\alpha$` = alpha, `lower bound` = rr_lb, `rejection rate` = rr, 
-         `upper bound` = rr_ub)
-write(print(xtable(df_800, 
-                   caption = "Rejection rates for test under true null hypothesis
-                   when n = 800 for 
+df_gamma <- df %>% filter(dist == "gamma") %>% 
+  select(n, alpha, rr, tau) %>% 
+  dcast(n + alpha ~ tau, value.var = "rr") %>% 
+  rename(`$n$` = n, `$\\alpha$` = alpha)
+
+write(print(xtable(df_gamma, 
+                   caption = "Rejection rates for test that $\\Gamma(8, 8)$ is 
+                   indeed
+                   gamma-distributed for
                    different values of AR(1) coefficient and for different 
-                   significance levels. Lower and upper bounds are also 
-                   included.",
-                   label = "table:rr_800"), caption.placement = "top",
+                   significance levels.",
+                   label = "table:rr_gamma"), caption.placement = "top",
             sanitize.text.function=function(x){x}), 
-      file = "../manuscript/tables/rr_800.tex")  
-
+      file = "../manuscript/tables/rr_gamma.tex") 
