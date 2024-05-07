@@ -50,6 +50,8 @@ series <- as.vector(series[, "Close"])
 
 resid <- series
 
+cor(resid[-1], resid[-length(x)], method = "kendall")
+
 set.seed(123)
 semi <- ks.test.fitted(resid, "norm", B = 10000, serial = TRUE, 
                        param = c(mean = 0, sd = 1))$p.value
@@ -63,6 +65,20 @@ for (v in c(30, 20, 10, 5, 4, 3, 2, 1)) {
 
 sp500_pval_4y[,5] <- semi
 
+non <- sp500_pval_4y[,3]
+
+param <- sp500_pval_4y[,4]
+
+sp500_pval_4y[,3] <- sp500_pval_4y[,5]
+
+sp500_pval_4y[,4] <- non
+
+sp500_pval_4y[,5] <- param
+
+colnames(sp500_pval_4y) <- c("$v$", "Our Method", "Semiparametric Method",
+                             "Nonparametric Method", "Parametric Method")
+
+saveRDS(sp500_pval_4y, "../data/sp500_pval_4y")
 
 write(print(xtable(sp500_pval_4y,
                    caption = "P-values for 4 years of S\\&P 500 stock return 

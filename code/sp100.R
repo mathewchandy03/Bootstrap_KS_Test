@@ -65,6 +65,21 @@ for (v in c(30, 20, 10, 5, 4, 3, 2, 1)) {
 
 sp100_pval_4y[,5] <- semi
 
+non <- sp100_pval_4y[,3]
+
+param <- sp100_pval_4y[,4]
+
+sp100_pval_4y[,3] <- sp100_pval_4y[,5]
+
+sp100_pval_4y[,4] <- non
+
+sp100_pval_4y[,5] <- param
+
+colnames(sp100_pval_4y) <- c("$v$", "Our Method", "Semiparametric Method",
+                             "Nonparametric Method", "Parametric Method")
+
+saveRDS(sp100_pval_4y, "../data/sp100_pval_4y")
+
 write(print(xtable(sp100_pval_4y,
                    caption = "P-values for 4 years of S\\&P 100 stock return 
                    data using different durations

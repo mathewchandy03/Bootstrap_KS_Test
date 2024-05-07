@@ -555,10 +555,7 @@ rejecting $H_0$ when $H_0$ is false\jy{beta has been
 to be 1, but we
 expect it to be generally high. Again, we must try the method with different
 marginal distributions to ensure that it is robust.
-We would then expect the distribution of p-values to be non-uniform -
-specifically a higher density of low p-values - and the 
-rate \jy{Does not sound right. What is $\alpha$?}\mc{addressed}
-of $\#(p_r < 0.05)$ - where 0.05 is the significance level - to be high, 
+
 
 
 \jy{Description too wordy, Be concise. Basically generate data from one
@@ -577,7 +574,7 @@ to obtain a p-value $p_r$ for each $r \in \{1, \ldots, 1000\}$.
 \jy{alpha has been used as gamma parameters. This is not necessary, Just say we
   checked the power when the significance level is .05.}\mc{addressed}
 We can compute a rejection rate 
-$q = \#\{p_r < 0.05\} / 1000$ for $r \in \{1, \ldots, 1000\}$.
+at a nominal significance level of 0.05.
 Additionally, we can construct a 95\% confidence interval for 
 this rate. Below are tables containing rejection rates showcasing the 
 differences when simulation settings are changed.
@@ -616,7 +613,8 @@ sample size is used.
 Using the \textsl{tseries} package  \citep{tseries}, 
 we gathered daily closing prices for the S\&P 500 index from January 1st, 2020
 to December 31st, 2023. Daily returns were obtained by taking the difference in
-the logarithm of the closing prices.
+the logarithm of the closing prices. The Kendall's $\tau$ for the series
+was about -0.0298, indicating a very slight serial dependence.
 Using our method, we tested that the daily returns are normally
 distributed and Student's $t$ distributed 
 with degrees of freedom $v \in \{30, 20, 10, 5, 4, 3, 2, 1\}$.
@@ -643,8 +641,6 @@ Table~\ref{table:SP5004}.
 
 \input{tables/sp500_pval_4y}
 
-\input{tables/sp100_pval_4y}
-
 
 \jy{Stock returns are known to be serially dependent and heavy-tailed. Search
   google scholar ``stylized facts of daily returns series'' and cite them.}
@@ -662,16 +658,7 @@ yields a p-value of 0.0222, and Zeimbekakis et al.'s method yields a p-value of
 instance highlights a disagreement in conclusions among methods for the S\&P 500
 index.
 
-The same analyses were repeated on the daily returns of the S\&P 100 index.
-As shown in Table~\ref{table:SP1004}, 
-our method demonstrates more instances where it reaches
-different conclusions at the 0.05 significance level compared to other methods.
-Our method does not reject the hypothesis that the series conforms to a
-Student's $t$ distribution with degrees of freedom $v = 5$, yielding a p-value
-of 0.0873. In contrast, \citet{babu2004goodness}'s method yields a p-value of 
-0.0368, and \citet{zeimbekakis2022misuses}'s method yields a p-value of 0.03.
-conclusions regarding the marginal distribution of the population under 
-scrutiny.
+
 
 
 \section{Concluding Remarks}
