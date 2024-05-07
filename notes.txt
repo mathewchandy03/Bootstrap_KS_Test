@@ -1,3 +1,14 @@
+5/7 Notes
+- Rename Nonparametric and Parametric
+- Put Our Method next to Semiparametric
+- Remove SP100
+- remove row numbers
+- 0.10 instead of 0.1
+- Real Data Analysis, report first lag tau
+- Remove # 
+- Specify nominal significance level of 0.05
+- Cite zeimbakis
+
 4/23 Notes
 - Remove -0.75 and 0.75 from power curve
 - percentage 3 digits
