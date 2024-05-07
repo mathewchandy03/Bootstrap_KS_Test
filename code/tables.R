@@ -30,7 +30,7 @@ write(print(xtable(df_norm,
                    normally distributed for
                    different values of AR(1) coefficient and for different 
                    significance levels.",
-                   label = "table:rr_norm"), caption.placement = "top",
+                   label = "table:rr_norm", digits = 3), caption.placement = "top",
             sanitize.text.function=function(x){x}), 
       file = "../manuscript/tables/rr_norm.tex")  
 
@@ -45,6 +45,6 @@ write(print(xtable(df_gamma,
                    gamma-distributed for
                    different values of AR(1) coefficient and for different 
                    significance levels.",
-                   label = "table:rr_gamma"), caption.placement = "top",
+                   label = "table:rr_gamma", digits = 3), caption.placement = "top",
             sanitize.text.function=function(x){x}), 
       file = "../manuscript/tables/rr_gamma.tex") 

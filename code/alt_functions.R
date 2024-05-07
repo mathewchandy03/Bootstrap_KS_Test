@@ -4,6 +4,7 @@ library(truncdist)
 library(qqplotr)
 library(copula)
 library(tseries)
+source("ksfitted.R")
 mystat <- function(x, dist, df = NULL) {
   # Bootstrap will return actual pseudo-sample, mean, and standard deviation
   if (dist == 'gev') {

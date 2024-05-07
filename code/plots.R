@@ -11,7 +11,8 @@ plot_p_vals(normal, 'normal.pdf')
 gamma <- df %>% filter(dist == 'gamma')
 plot_p_vals(gamma, 'gamma.pdf')
 
-df <- readRDS("../data/alt_rejection_rates.RDS") %>% filter(alpha == 0.05)
+df <- readRDS("../data/alt_rejection_rates.RDS") %>% filter(alpha == 0.05) %>% 
+  filter(phi != "-0.9238795", phi != "0.9238795")
 plot_rr(df, 'rr.pdf')
 
 df <- readRDS("../data/pvals2.RDS") %>% 

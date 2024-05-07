@@ -185,7 +185,7 @@ plot_rr <- function(df, filename) {
     theme(
           legend.position = "bottom") +
     labs(x = latex2exp::TeX("$\\tau$"), y = latex2exp::TeX("Rejection Rate")) +
-    coord_fixed(ylim = c(0, 1), xlim = c(-1, 1))
+    coord_fixed(ylim = c(0, 1), xlim = c(-0.6, 0.6))
   ggsave(filename = filename, plot = gg.f, path = "../manuscript/figures", 
          height = 3, width = 6)
     

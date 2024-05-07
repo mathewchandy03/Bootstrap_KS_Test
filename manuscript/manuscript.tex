@@ -44,7 +44,7 @@
 \setcounter{topnumber}{50}
 \setcounter{bottomnumber}{50}
 
-\newcommand{\jy}[1]{\textcolor{blue}{JY: #1}}
+\newcommand{\jy}[1]{\textcolor{blue}{JY: (#1)}}
 \newcommand{\eds}[1]{\textcolor{red}{EDS: (#1)}}
 \newcommand{\mc}[1]{\textcolor{green}{MC: (#1)}}
 
@@ -55,15 +55,13 @@
 %\maketitle
 
 \title{Nonparametric Block Bootstrap Kolmogorov-Smirnov Goodness-of-Fit Test}
-\if0\blind
-{
-  \author{Mathew Chandy, %\\
+  \author{Mathew Chandy %\\
 %   \href{mailto:mathew.chandy@uconn.edu}
 %   {\nolinkurl{mathew.chandy@uconn.edu}}\\
-  Elizabeth Schifano\\
-  Jun Yan\\
-  Xianyang Zhang\\
-} \fi
+%  Elizabeth Schifano\\
+%  Jun Yan\\
+%  Xianyang Zhang\\
+} 
 
 
 \maketitle
@@ -253,8 +251,6 @@ $T_n$ still provides a reasonable metric for deviation from the null
 hypothesis. Nonetheless, the asymptotic distribution of $T_n$ cannot be fixed
 even with the bias correction of \citet{babu2004goodness}, because the
 correction requires independent sample.
-
->>>>>>> 8ae0002af5827811aa9091e769fc16303007bc1c
 
 \subsection{Non-Parametric Bootstrap for Independent Data}
 
@@ -487,10 +483,9 @@ uniformly distributed. If the distribution of the p-values is uniform, the
 points will be aligned with the diagonal line. This 
 indicates that under the null hypothesis, our method will only reject the $H_0$
 at the rate of the significance level.
-\jy{Describe the table not zoomed-in figure.}
-A zoomed in plot for probabilities between 0 and 0.1 is
-also provided, as
-that is the most common range for significance levels $\alpha$. 
+\jy{Describe the table not zoomed-in figure.}\mc{addressed}
+A table of the rejection rates for each scheme
+also provided/
 
 \begin{figure}[tbp]
   \centering
@@ -527,24 +522,25 @@ is not necessarily a cause for concern, as (for normal margins)
 a Kendall's $\tau$ corresponds to
 a $\phi$ of 0.924, which is very high.
 Additionally, positive serial dependence appears to misalign the distribution
-of the p-values moreso than negative serial dependences of the same strength.
+of the p-values more so than negative serial dependences of the same strength.
 Results are very similar for normal and gamma margins.
 \jy{Summarize findings in bullet points before forming text.}
 
 
-Under $H_0$, the p-values for the non-parametric block bootstrap KS test are
-\jy{The flow doesn't read right from the last paragraph}
-uniformly distributed as long as the serial dependence is not too high. 
-This is an indication that our method 
-holds its size for moderate serial dependence levels.
-For such cases, we can expect the probability
-of a type 1 error to be approximately equivalent to the significance level.
-
 From Tables~\ref{table:rr_norm} and \ref{table:rr_gamma}, we can observe 
-that the rejection rate is close to the significance level
-as long as 
-Kendall's $\tau$ is less than or equal to 0.5 and a sample size greater
-than 100 is used.
+that the agreement between empirical size (rejection rate)
+and nominal size (the
+significance level) improves as sample size increases, but for $\tau = -0.75$
+and $\tau = 0.75$, a sample size larger than 800 seems to be necessary for that 
+agreemet to be reached. Using the criteria of approximate agreement between 
+empirical size and nominal size, we can say that our approach is working 
+for $-0.25 < \tau < 0.25$ for $n > 100$. However a larger sample size seems 
+necessary, greater than 400 perhaps, for $\tau$ as strong as $0.5$. In other
+words, for weaker dependence, our method works without need for a particular
+large sample size, whereas for moderate dependence, a larger sample size may 
+be required. Because $\tau$ is typically less than 0.5, it is still safe to
+recommend our method with a smaller sample size.
+
 
 
 
@@ -599,10 +595,13 @@ differences when simulation settings are changed.
 
 Figure~\ref{fig:rr} displays the empirical power curve of the test at
 significance level 0.05 as the lag-1 Kendall's~$\tau$ increases from
-$-0.9$ to $0.9$. Using a sample size $n \geq 800$ appears to be sufficient
-\jy{What are the findings? summarize bullet points before forming texts.}
-when $\tau$ is not too high, but for $\tau \geq 0.75$, all sample sizes 
-observed appeared to have less than desirable rejection rates. Results
+$-0.5$ to $0.5$. We omitted -0.75 and 0.75 from this study because we already 
+found that our method doesn't work under the null hypothesis for such high
+dependence levels. It appears that rejection rate seems to decline as $\tau$ 
+increases. Using $n \geq 400$ seems to be good enough
+if $\tau < 0.5$, but using a $n \geq 800$ will result in 
+rejection rates close to 1 for $0.5 < \tau < 0.5$.
+Results for $n \geq 400$
 do not appear to be to different when comparing gamma and normal 
 margins, indicating that the method is robust to the marginal distribution.
 The rejection rates for $n = 800$ are very 
@@ -664,7 +663,8 @@ instance highlights a disagreement in conclusions among methods for the S\&P 500
 index.
 
 The same analyses were repeated on the daily returns of the S\&P 100 index.
-Our method demonstrates more instances where it reaches
+As shown in Table~\ref{table:SP1004}, 
+our method demonstrates more instances where it reaches
 different conclusions at the 0.05 significance level compared to other methods.
 Our method does not reject the hypothesis that the series conforms to a
 Student's $t$ distribution with degrees of freedom $v = 5$, yielding a p-value
