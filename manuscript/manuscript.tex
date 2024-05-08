@@ -69,7 +69,7 @@
 
 \begin{abstract}
 
-The Kolmogorov-Smirnov (KS) test is a widely used statistical test that
+The Kolmogorov--Smirnov (KS) test is a widely used statistical test that
 assesses the conformity of a sample to a specified distribution. Its efficacy,
 however, diminishes with serially dependent data and when parameters
 within the hypothesized distribution are unknown. For independent data,
@@ -99,7 +99,7 @@ time series.
 \section{Introduction}
 \label{sec:intro}
 
-The standard one-sample Kolmogorov-Smirnov (KS) test is widely
+The standard one-sample Kolmogorov--Smirnov (KS) test is widely
 recognized as an effective good-of-fit test for continuous distributions.
 Consider $X_1, ..., X_n$, a random sample of size~$n$ from some continuous
 distribution and the null hypothesis $H_0$ that $X_i$'s follow a specific
@@ -471,13 +471,13 @@ for the test when applied to samples from the same data generating process.
 
 \begin{figure}[tbp]
   \centering
-  \includegraphics[width = \textwidth]{figures/normal}
-  \includegraphics[width = \textwidth]{figures/gamma}
+  \includegraphics[width = .9\textwidth]{figures/normal}
+  \includegraphics[width = .9\textwidth]{figures/gamma}
   \caption{Q-Q plots of the p-values testing that a time series
     have marginal normal distribution with true data generating distribution
     being $N(8,8)$ (upper) and marginal gamma distribution with true data
     generating distribution $\Gamma(8,1)$ (lower)}
-  \label{fig:normal}
+  \label{fig:qq}
 \end{figure}
 
 
@@ -579,81 +579,110 @@ when a large enough sample size is used.
 Using the \textsl{tseries} package \citep{tseries}, 
 we gathered daily closing prices for the S\&P 500 index from January 1st, 2020
 to December 31st, 2023. Daily returns were obtained by taking the difference in
-the logarithm of the closing prices. The Kendall's $\tau$ for the series
-was about -0.0298, indicating a very slight serial dependence.
+the logarithm of the closing prices. 
+It is known as stylized facts that daily return series often exhibts nonlinear
+dependence and unconditional heavy tails \citep[e.g.,][]{ryden1998stylized,
+  cont2001empirical}. The Kendall's $\tau$ for the series is
+was about $-0.0298$, indicating a fairly weak serial linear correlation, but
+certainly not meaning absence of serial dependence.
 Using our method, we tested that the daily returns are normally
 distributed and Student's $t$ distributed 
-with degrees of freedom $v \in \{30, 20, 10, 5, 4, 3, 2, 1\}$.
-We tested the same hypotheses using 1) the
-semiparametric bootstrap method shown by \citet{zeimbekakis2022misuses} which 
-accounts for both serial dependence and unspecified parameters, 2)
-nonparametric basic bootstrap bias correction developed by 
-\citet{babu2004goodness}, and 3) the parametric bootstrap method shown
-by \citet{zeimbekakis2022misuses}.
-We used $B = 10,000$ bootstrap 
-replicates in this analysis.
-The p-values for these tests are highlighted in 
-Table~\ref{table:SP5004}. 
+with degrees of freedom $\nu \in \{30, 20, 10, 5, 4, 3, 2, 1\}$
+with the proposed nonparametric block bootstrap (NPBB) method.
+For comparison, we tested the same hypotheses using 1) the
+semiparametric bootstrap (SPB) method of \citet{zeimbekakis2022misuses},
+which accounts for both serial dependence and unspecified parameters;
+2) nonparametric bootstrap (NPB) bias correction method of
+\citet{babu2004goodness}; and and 3) the parametric bootstrap (PB) method shown
+by \citet{zeimbekakis2022misuses}. The latter of the two methods discard the
+serial dependence. In all methods, we used $B = 10,000$ bootstrap replicates.
+The p-values for these tests are summarized in 
+Table~\ref{table:SP5004}.
 
-
-\input{tables/sp500_pval_4y}
-
+\begin{table}[ht]
+\centering
+\caption{P-values for 4 years of S\&P 500 stock return 
+  data using different durations
+  and different degrees of freedom for Student's $t$ distribution.
+  NPBB: nonparametric block bootstrap;
+  SPB: semiparametric bootstrap;
+  NPB: nonparametric bootstrap;
+  PB: parametric bootstrap.} 
+\label{table:SP5004}
+\begin{tabular}{ccccc}
+  \toprule
+$\nu$ & NPBB & SPB & NPB & PB\\ 
+  \midrule
+$\infty$ & 0.0001 & 0.0000 & 0.0000 & 0.0000 \\ 
+  30 & 0.0019 & 0.0000 & 0.0000 & 0.0000 \\ 
+  20 & 0.0027 & 0.0000 & 0.0000 & 0.0000 \\ 
+  10 & 0.0125 & 0.0002 & 0.0003 & 0.0003 \\ 
+  5 & 0.0610 & 0.0192 & 0.0222 & 0.0141 \\ 
+  4 & 0.1037 & 0.0733 & 0.0574 & 0.0499 \\ 
+  3 & 0.3133 & 0.3000 & 0.2759 & 0.2686 \\ 
+  2 & 0.0418 & 0.0461 & 0.0377 & 0.0443 \\ 
+  1 & 0.0000 & 0.0000 & 0.0000 & 0.0000 \\ 
+  \bottomrule
+\end{tabular}
+\end{table}
 
 While differences in p-values among different methods are expected, our analysis
-reveals numerous instances where conclusions at the 0.05 significance level
+reveals some instances where conclusions at the 0.05 significance level
 using our method differ from those obtained using the methods proposed by
 \citet{babu2004goodness} and \citet{zeimbekakis2022misuses}.
-For example, when assessing the S\&P 500 series, our method fails to reject the
+For example, our NPBB method fails to reject the
 hypothesis that the series follows a Student's $t$ distribution with degrees of
 freedom $v = 5$ with a p-value of 0.061. In contrast, 
-the semiparametric method yields a p-value of 0.0192,
-the basic nonparametric method
-yields a p-value of 0.0222, and the parametric method yields a p-value of
+the SPB method yields a p-value of 0.0192,
+the NPB method yields a p-value of 0.0222, and the PB yields a p-value of
 0.0141. Although such differences are not guaranteed, this
 instance highlights a disagreement in conclusions among methods for the S\&P 500
-index.
+index. Because NPB and PB both discard serial dependence, it is expected that
+their conclusions could be different from our method. It is worth noting that
+the SPB result is also not reliable here because the working dependence model is
+in the class of ARMA dependence as specified in \citet{zeimbekakis2022misuses},
+which does not cover nonlinear dependence usually captured by autoregressive
+conditional heteroskedasticity \citep{engle1995arch}. The proposed method has
+no need to specify the serial dependence and, hence, produces results under
+weakest assumptions.
 
 
 
-
-\section{Concluding Remarks}
+\section{Conclusion}
 \label{sec:conclusion}
 
-The Kolmogorov-Smirnov test stands as a crucial tool for researchers across
-diverse fields, enabling comparisons of population distributions. This paper
-introduces a variant of the test tailored for serially dependent data without
-necessitating parameter specification.
-Using simulation, we have shown that given a large enough sample of a time 
-series and if the serial dependence is not too extreme, the block 
-bootstrap KS test can appropriately fail to reject the null hypothesis when the
-series follows the null distribution. In addition, when the marginal
-distribution is not
-the one hypothesized, the test is powerful. Notably, it demands a larger sample
-size compared to basic bootstrap methods to avoid both type I and type II 
-errors. Unsurprisingly,
-the method performs better as the temporal dependence gets weaker. Through
-simulation studies with Normal and Gamma-distributed data, we have shown that
-that the method is robust. 
+The KS test remains a crucial tool for researchers across diverse fields,
+enabling critical assessments of population distributions. We introduced a
+nonparametric block bootstrap variant of the KS test tailored for data with
+serial dependencies, which eliminates the need for explicit modeling serial
+dependence in addition to parameter specification within the hypothesized
+distribution. Our simulations have demonstrated that, given
+sufficiently large samples of time series data and moderate serial dependencies,
+the test maintains its size under the null hypothesis and have considerable
+power in detecting deviations from the hypothesized marginal distribution. The
+method's performance improves as the strength of temporal dependence decreases
+or the sample size increases. For moderate serial dependence levels in practice,
+the test can be recommended for sample size~$n = 400$ or higher.
+Overall, the test provides an analog of the bias-corrected nonparametric
+bootstrap KS test of \citet{babu2004goodness} in the context of stationaly time
+series with unspecified serial dependence. Compared to the semiparametric method
+of \citet{zeimbekakis2022misuses}, which requires a working dependence model, it
+is reliable regardless of whether the working dependence model approximates the
+true dependence model.
 
 
-We have also 
-demonstrated possible applications of this method to financial data.
-Through comparison with the nonparametric
-bootstrap bias correction developed by \citet{babu2004goodness}
-and the parametric and semiparametric
-bootstrap methods developed by \citet{zeimbekakis2022misuses}, we have 
-underscored the importance of accounting for serial
-dependence in choosing an appropriate methodology.
-This method holds relevance for studies aiming to assess if a serially dependent
-time series adheres to a hypothesized distribution in scenarios where parameters
-are unknown or unspecified. Future studies could investigate
-the method's performance on different marginal distributions such
-as the generalized extreme value distribution and
-different dependence structures such as MA, ARMA, and ARIMA
-processes. Additionally, one could propose a similar method
-for comparing two serially dependent methods. One could also apply the method
-showcased in this paper to fields like earthquake prediction and astronomy.
-
+Several promising directions for further research emerge from the findings of
+this study. Firstly, analogous methodologies for other goodness-of-fit tests
+based on empirical distributions, such as the Anderson--Darling and Cramér--von
+Mises tests---which have been shown to outperform the KS test in certain scenarios
+\citep{stephens2017tests}---could be explored. The application of block
+bootstrapping bias correction to these tests could be particularly beneficial in
+environmental studies, such as extreme value modeling, where observations are
+often serially dependent. Secondly, an extension of the proposed nonparametric
+block bootstrap one-sample KS test to a two-sample setting would be
+intriguing. This adaptation would test whether two samples originate from the
+same distribution without requiring specification of serial dependencies in
+either sample, maintaining the advantageous feature of the original method.
 
 
 \jy{QC bib entries: page numbers missing for some journal articles.}
