@@ -78,12 +78,12 @@ estimated parameters. For serially dependent stationary data, parametric
 bootstrap has been developed with a working serial dependence structure. A
 counterpart for the nonparametric bootstrap approach, which needs a bias
 correction, has not been studied. Addressing this gap, our study introduces a
-bias correction method employing a non-parametric block bootstrap, which
+bias correction method employing a nonparametric block bootstrap, which
 approximates the distribution of the KS statistic accounting for unspecified
 serial dependence and unspecified parameters. We assess its effectiveness
 through simulations, scrutinizing both its size and power. The practicality of
-our method is further illustrated with an examination of stock returns from the
-S\&P 100 and S\&P 500 indices, showcasing its utility in real-world
+our method is further illustrated with an examination of stock returns from the 
+S\&P 500 index, showcasing its utility in real-world
 applications.
 
 \bigskip
@@ -140,7 +140,7 @@ The problem of unspecified parameters can be handled by a parametric
 bootstrap, where bootstrap samples of the test statistics are constructed from
 samples generated from the fitted hypothesized distribution.
 Alternatively, \citet{babu2004goodness} address this issue through a
-non-parametric bootstrap method that corrects the bias in the asymptotic null
+nonparametric bootstrap method that corrects the bias in the asymptotic null
 distribution.
 
 
@@ -155,31 +155,33 @@ the null hypothesis depends on the unknown parameters and unknown
 serial dependence. Therefore, the null distribution under dependence cannot be
 used,
 and the challenge is to approximate said distribution.
-\citet{zeimbekakis2022misuses} proposed a semi-parametric bootstrap
+\citet{zeimbekakis2022misuses} proposed a semiparametric bootstrap
 where the serial dependence structure is modeled via a working serial copula.
+
+
 A particularly complex scenario arises when the distribution has unspecified
 parameters, and the data are serially dependent. For this,
-\citet{zeimbekakis2022misuses} also recommends a semi-parametric bootstrap
+\citet{zeimbekakis2022misuses} also recommends a semiparametric bootstrap
 approach, where the parameters of the hypothesized distribution and the serial
 dependence both need to be estimated and their uncertainty accounted for,
 but this could affect results if the estimated serial
-dependence is too far from the truth. For this reason, a non-parametric method
+dependence is too far from the truth. For this reason, a nonparametric method
 is motivated.
 
 
-Developing a fully non-parametric solution for the KS 
+Developing a fully nonparametric solution for the KS 
 tests in the presence of serially dependent data presents a significant 
 challenge. The null distribution's characteristics are intricately linked to 
 the structure of the serial dependence, which can vary widely in practical 
-situations. Employing a non-parametric bootstrap would necessitate defining a 
+situations. Employing a nonparametric bootstrap would necessitate defining a 
 specific model for this dependence, despite the primary focus being on 
 evaluating the marginal distribution of a stationary series. To date, a bias 
-correction method for block bootstrap, akin to the non-parametric bootstrap
+correction method for block bootstrap, akin to the nonparametric bootstrap
 approach of \citet{babu2004goodness} for independent data,
 has not been established. This study seeks 
 to bridge this gap by introducing a bias correction technique for the 
-non-parametric block bootstrap, tailored for use in scenarios where the 
-hypothesized distribution includes unspecified parameters and the data 
+nonparametric block bootstrap, tailored for use in scenarios where the 
+hypothesized distribution has unspecified parameters and the data 
 exhibit serial dependence. Our approach reduces to that of
 \citet{babu2004goodness} when the data are independent.
 
@@ -187,14 +189,14 @@ exhibit serial dependence. Our approach reduces to that of
 The remainder of this paper is structured as follows: 
 Section~\ref{sec:methods} provides an overview of the block bootstrap 
 procedure and introduces the bias correction methodology for the 
-non-parametric block bootstrap KS test. Section~\ref{sec:simu} is divided 
+nonparametric block bootstrap KS test. Section~\ref{sec:simu} is divided 
 into two parts; initially, we evaluate the KS test's ability to maintain 
 its size, i.e., its consistency in not rejecting the null hypothesis when 
 it is indeed true. Subsequently, we examine the test's power, assessing 
 whether it can reject the null hypothesis when it is false. Practical 
 applications of our method are presented in Section~\ref{sec:real}, where 
-we apply the approach to analyze if S\&P 100 and S\&P 500 index stock return
-data adhere to either the Normal or the Student's $t$ distribution. The 
+we apply the approach to analyze if S\&P 500 index stock return
+data adheres to either the Normal or the Student's $t$ distribution. The 
 paper concludes with Section~\ref{sec:conclusion}, offering final thoughts 
 and remarks.
 
@@ -252,7 +254,7 @@ hypothesis. Nonetheless, the asymptotic distribution of $T_n$ cannot be fixed
 even with the bias correction of \citet{babu2004goodness}, because the
 correction requires independent sample.
 
-\subsection{Non-Parametric Bootstrap for Independent Data}
+\subsection{Nonparametric Bootstrap for Independent Data}
 
 Continue with the case where $X_i$'s are independent but the parameters
 are unspecified. Denote by
@@ -306,7 +308,7 @@ The p-value of the basic bootstrap KS test can be approximated
 as $p = \sum_{b=1}^B I\{T^{(b)}_n > T_n\} / B$.
 
 
-\subsection{Non-Parametric Block Bootstrap for Stationary Series}
+\subsection{Nonparametric Block Bootstrap for Stationary Series}
 
 We now consider the case where $X_i$'s are realizations from a time series and
 $X^{(b)}_1,...,X^{(b)}_n$ are generated by block bootstrap for 
@@ -485,7 +487,7 @@ indicates that under the null hypothesis, our method will only reject the $H_0$
 at the rate of the significance level.
 \jy{Describe the table not zoomed-in figure.}\mc{addressed}
 A table of the rejection rates for each scheme
-also provided/
+also provided.
 
 \begin{figure}[tbp]
   \centering
@@ -535,10 +537,12 @@ and $\tau = 0.75$, a sample size larger than 800 seems to be necessary for that
 agreemet to be reached. Using the criteria of approximate agreement between 
 empirical size and nominal size, we can say that our approach is working 
 for $-0.25 < \tau < 0.25$ for $n > 100$. However a larger sample size seems 
-necessary, greater than 400 perhaps, for $\tau$ as strong as $0.5$. In other
-words, for weaker dependence, our method works without need for a particular
+necessary, greater than 400 perhaps, for $\tau$ as strong as $0.5$. To 
+summarize, for weaker dependence, our method works without need for a 
+particularly
 large sample size, whereas for moderate dependence, a larger sample size may 
-be required. Because $\tau$ is typically less than 0.5, it is still safe to
+be required. Because $\tau$ is typically less than 0.5, it is still reasonable
+to
 recommend our method with a smaller sample size.
 
 
@@ -618,9 +622,12 @@ was about -0.0298, indicating a very slight serial dependence.
 Using our method, we tested that the daily returns are normally
 distributed and Student's $t$ distributed 
 with degrees of freedom $v \in \{30, 20, 10, 5, 4, 3, 2, 1\}$.
-We tested the same hypotheses using \citet{babu2004goodness}'s 
-non-parametric basic bootstrap bias correction and 
-\citet{zeimbekakis2022misuses}'s parametric bootstrap method.
+We tested the same hypotheses using 1) the
+semiparametric bootstrap method shown by \citet{zeimbekakis2022misuses} which 
+accounts for both serial dependence and unspecified parameters, 2)
+nonparametric basic bootstrap bias correction developed by 
+\citet{babu2004goodness}, and 3) the parametric bootstrap method shown
+by \citet{zeimbekakis2022misuses}.
 We used $B = 10,000$ bootstrap 
 replicates in this analysis.
 The p-values for these tests are highlighted in 
@@ -652,8 +659,10 @@ using our method differ from those obtained using the methods proposed by
 \citet{babu2004goodness} and \citet{zeimbekakis2022misuses}.
 For example, when assessing the S\&P 500 series, our method fails to reject the
 hypothesis that the series follows a Student's $t$ distribution with degrees of
-freedom $v = 5$ with a p-value of 0.061. In contrast, Babu and Sen's method
-yields a p-value of 0.0222, and Zeimbekakis et al.'s method yields a p-value of
+freedom $v = 5$ with a p-value of 0.061. In contrast, 
+the semiparametric method yields a p-value of 0.0192,
+the basic nonparametric method
+yields a p-value of 0.0222, and the parametric method yields a p-value of
 0.0141. Although such differences are not guaranteed, this
 instance highlights a disagreement in conclusions among methods for the S\&P 500
 index.
@@ -669,7 +678,7 @@ diverse fields, enabling comparisons of population distributions. This paper
 introduces a variant of the test tailored for serially dependent data without
 necessitating parameter specification.
 Using simulation, we have shown that given a large enough sample of a time 
-series, the block 
+series and if the serial dependence is not too extreme, the block 
 bootstrap KS test can appropriately fail to reject the null hypothesis when the
 series follows the null distribution. In addition, when the marginal
 distribution is not
@@ -683,10 +692,10 @@ that the method is robust.
 
 We have also 
 demonstrated possible applications of this method to financial data.
-Through comparison with the non-parametric
+Through comparison with the nonparametric
 bootstrap bias correction developed by \citet{babu2004goodness}
-and the parametric
-bootstrap method developed by \citet{zeimbekakis2022misuses}, we have 
+and the parametric and semiparametric
+bootstrap methods developed by \citet{zeimbekakis2022misuses}, we have 
 underscored the importance of accounting for serial
 dependence in choosing an appropriate methodology.
 This method holds relevance for studies aiming to assess if a serially dependent

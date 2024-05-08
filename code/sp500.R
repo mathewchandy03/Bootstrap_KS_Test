@@ -75,8 +75,8 @@ sp500_pval_4y[,4] <- non
 
 sp500_pval_4y[,5] <- param
 
-colnames(sp500_pval_4y) <- c("$v$", "Our Method", "Semiparametric Method",
-                             "Nonparametric Method", "Parametric Method")
+colnames(sp500_pval_4y) <- c("$v$", "Nonparametric Block", "Semiparametric",
+                             "Nonparametric Basic", "Parametric")
 
 saveRDS(sp500_pval_4y, "../data/sp500_pval_4y")
 
