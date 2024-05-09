@@ -409,15 +409,13 @@ W_t = \phi W_{t-1} + \epsilon_t,
 \end{equation*}
 where $\phi$ is an autoregressive coefficient, and $\epsilon_t$ is a series of
 independent errors from a normal distribution with mean zero and variance
-\jy{What was the value of $\sigma_\epsilon$?}\mc{addressed}
 $\sigma_{\epsilon}^2$. The strength of the serial dependence is controlled by
 $\phi$, which was set to five levels: 
 $\{-0.924, -0.707, -0.383, 0, 0.383, 0.707, 0.924\}$, as these
 correspond to the desired values for $\tau$. The 
 series $W_t$ has mean zero and variance 
 $\sigma_x^2 = \sigma_{\epsilon}^2 / (1 - \phi^2)$, so for each value of
-$\phi$, 
-we 
+$\phi$,  we 
 set $\sigma_{\epsilon}^2 = (1 - \phi^2)$ such that $\sigma_x^2 = 1$.
 First, we generated a
 marginal $N(8, 8)$ by marginally transforming $W_t$ by
@@ -495,11 +493,7 @@ Additionally, positive serial dependence appears to misalign the distribution
 of the p-values more so than negative serial dependences of the same strength.
 Results are very similar for normal and gamma margins.
 
-\jy{merge the two tables; use bottomrule and toprule instead of hline;
-  put them in this file instead of inputing.}\mc{addressed, let me know if I 
-  should combine them in a different way}
-  
-\begin{table}[ht]
+\begin{table}[tbp]
 \centering
 \caption{Rejection rates for test that sample follows its true
                     distribution family for
@@ -511,33 +505,31 @@ Results are very similar for normal and gamma margins.
 $F(\cdot; \theta)$ & $n$ & $\alpha$ & $\tau = -0.75$ & $\tau = -0.5$ & $\tau = -0.25$ 
 & $\tau = 0$ & $\tau = 0.25$ & $\tau = 0.5$ & $\tau = 0.75$ \\ 
   \midrule
-\multirow{12}{3em}{$N(8,8)$} & \multirow{3}{2em}{100} & 0.01 & 0.052 & 0.013
-& 0.007 & 0.011 & 0.009 & 0.013 & 0.058 \\ 
+{$N(8,8)$} & {100} & 0.01 & 0.052 & 0.013& 0.007 & 0.011 & 0.009 & 0.013 & 0.058 \\ 
 & & 0.05 & 0.138 & 0.061 & 0.038 & 0.059 & 0.054 & 0.083 & 0.178 \\ 
 & & 0.10 & 0.238 & 0.125 & 0.089 & 0.124 & 0.102 & 0.152 & 0.272 \\ 
-& \multirow{3}{2em}{200} & 0.01 & 0.043 & 0.009 & 0.006 & 0.017 & 0.011 & 0.018 & 0.062 \\ 
+& {200} & 0.01 & 0.043 & 0.009 & 0.006 & 0.017 & 0.011 & 0.018 & 0.062 \\ 
 & & 0.05 & 0.130 & 0.058 & 0.041 & 0.051 & 0.053 & 0.061 & 0.175 \\ 
 & & 0.10 & 0.202 & 0.120 & 0.101 & 0.107 & 0.110 & 0.125 & 0.266 \\ 
-& \multirow{3}{2em}{400} & 0.01 & 0.037 & 0.011 & 0.009 & 0.014 & 0.013 & 0.009 & 0.043 \\ 
+& {400} & 0.01 & 0.037 & 0.011 & 0.009 & 0.014 & 0.013 & 0.009 & 0.043 \\ 
 & & 0.05 & 0.109 & 0.047 & 0.052 & 0.061 & 0.044 & 0.064 & 0.133 \\ 
 & & 0.10 & 0.174 & 0.099 & 0.098 & 0.108 & 0.099 & 0.123 & 0.212 \\ 
-& \multirow{3}{2em}{800} & 0.01 & 0.023 & 0.011 & 0.008 & 0.011 & 0.011 & 0.011 & 0.038 \\ 
+& {800} & 0.01 & 0.023 & 0.011 & 0.008 & 0.011 & 0.011 & 0.011 & 0.038 \\ 
 & & 0.05 & 0.088 & 0.043 & 0.040 & 0.055 & 0.042 & 0.053 & 0.125 \\ 
-& & 0.10 & 0.166 & 0.097 & 0.095 & 0.102 & 0.107 & 0.109 & 0.196 \\ 
-\multirow{12}{3em}{$N(8,8)$} & \multirow{3}{2em}{100} & 0.01 & 0.056 & 0.014 & 0.006 & 0.011 & 0.009 & 0.015 & 0.063 \\ 
+& & 0.10 & 0.166 & 0.097 & 0.095 & 0.102 & 0.107 & 0.109 & 0.196 \\ [1ex]
+{$\Gamma(8,1)$} & {100} & 0.01 & 0.056 & 0.014 & 0.006 & 0.011 & 0.009 & 0.015 & 0.063 \\
   & & 0.05 & 0.144 & 0.063 & 0.037 & 0.059 & 0.053 & 0.083 & 0.180 \\ 
   & & 0.10 & 0.239 & 0.125 & 0.092 & 0.126 & 0.103 & 0.150 & 0.273 \\ 
-  & \multirow{3}{2em}{200} & 0.01 & 0.045 & 0.012 & 0.005 & 0.017 & 0.012 & 0.020 & 0.066 \\ 
+  & {200} & 0.01 & 0.045 & 0.012 & 0.005 & 0.017 & 0.012 & 0.020 & 0.066 \\ 
   & & 0.05 & 0.127 & 0.058 & 0.045 & 0.052 & 0.054 & 0.056 & 0.173 \\ 
   & & 0.10 & 0.204 & 0.123 & 0.103 & 0.106 & 0.108 & 0.129 & 0.263 \\ 
-  & \multirow{3}{2em}{400} & 0.01 & 0.038 & 0.012 & 0.010 & 0.014 & 0.010 & 0.010 & 0.045 \\ 
+  & {400} & 0.01 & 0.038 & 0.012 & 0.010 & 0.014 & 0.010 & 0.010 & 0.045 \\ 
   & & 0.05 & 0.106 & 0.049 & 0.051 & 0.062 & 0.042 & 0.063 & 0.128 \\ 
   & & 0.10 & 0.175 & 0.097 & 0.098 & 0.107 & 0.100 & 0.122 & 0.211 \\ 
-  & \multirow{3}{2em}{800} & 0.01 & 0.024 & 0.011 & 0.007 & 0.011 & 0.011 & 0.010 & 0.039 \\ 
+  & {800} & 0.01 & 0.024 & 0.011 & 0.007 & 0.011 & 0.011 & 0.010 & 0.039 \\ 
   & & 0.05 & 0.089 & 0.043 & 0.041 & 0.055 & 0.044 & 0.051 & 0.121 \\ 
   & & 0.10 & 0.169 & 0.096 & 0.094 & 0.100 & 0.109 & 0.110 & 0.194 \\ 
    \bottomrule
-   
 \end{tabular}
 \end{table}
 
@@ -582,8 +574,7 @@ rejection rate.
     $n \in \{100, 200, 400, 800\}$ and true marginal distribution 
     $\in \{N(8,8), \Gamma(8,1)\}$. When the data was generated from $N(8,8)$,
     we tested for the gamma family. When the data was generated from 
-    $\Gamma(8,1)$, we tested for the normal family. \jy{clarify the data generating distribution and the
-      hypothesized distribution}\mc{addressed}
+    $\Gamma(8,1)$, we tested for the normal family. 
   }
   \label{fig:rr}
 \end{figure}
@@ -594,7 +585,6 @@ significance level 0.05 as the lag-1 Kendall's~$\tau$ increases from
 $-0.5$ to $0.5$. We omitted -0.75 and 0.75 from this study because we already 
 found that our method doesn't work under the null hypothesis for such high
 dependence levels. It appears that rejection rate seems to decline as $\tau$
-\jy{comment on the asymmetry of the power in response to tau.}\mc{addressed}
 increases. Rejection rates are negatively affected by positive serial 
 dependence, but they do not seem to be affected by negative serial dependences
 of the same strength.
