@@ -1,49 +1,18 @@
-\documentclass[12pt, titlepage, letterpaper]{article}
+\documentclass[APA,Times1COL]{WileyNJDv5} %STIX1COL,STIX2COL,STIXSMALL
 
-\usepackage{amsmath}
-\usepackage{booktabs}
-\usepackage{amsthm}
-\usepackage{graphicx}
-\usepackage[margin=1in]{geometry}
-\usepackage{hyperref}
-\hypersetup{colorlinks = true, linkcolor = blue, citecolor=blue, urlcolor = blue}
 \usepackage{natbib}
-\usepackage{enumitem}
-\usepackage{setspace}
-\usepackage{multirow}
-\allowdisplaybreaks
 
+\articletype{Article Type}%
 
-\usepackage[]{lineno}
-\linenumbers*[1]
-% %% patches to make lineno work better with amsmath
-\newcommand*\patchAmsMathEnvironmentForLineno[1]{%
- \expandafter\let\csname old#1\expandafter\endcsname\csname #1\endcsname
- \expandafter\let\csname oldend#1\expandafter\endcsname\csname end#1\endcsname
- \renewenvironment{#1}%
- {\linenomath\csname old#1\endcsname}%
- {\csname oldend#1\endcsname\endlinenomath}}%
-\newcommand*\patchBothAmsMathEnvironmentsForLineno[1]{%
- \patchAmsMathEnvironmentForLineno{#1}%
- \patchAmsMathEnvironmentForLineno{#1*}}%
+\received{Date Month Year}
+\revised{Date Month Year}
+\accepted{Date Month Year}
+\journal{Journal}
+\volume{00}
+\copyyear{2023}
+\startpage{1}
 
-\AtBeginDocument{%
- \patchBothAmsMathEnvironmentsForLineno{equation}%
- \patchBothAmsMathEnvironmentsForLineno{align}%
- \patchBothAmsMathEnvironmentsForLineno{flalign}%
- \patchBothAmsMathEnvironmentsForLineno{alignat}%
- \patchBothAmsMathEnvironmentsForLineno{gather}%
- \patchBothAmsMathEnvironmentsForLineno{multline}%
-}
-
-% control floats
-\renewcommand\floatpagefraction{.9}
-\renewcommand\topfraction{.9}
-\renewcommand\bottomfraction{.9}
-\renewcommand\textfraction{.1}
-\setcounter{totalnumber}{50}
-\setcounter{topnumber}{50}
-\setcounter{bottomnumber}{50}
+\raggedbottom
 
 \newcommand{\jy}[1]{\textcolor{blue}{JY: (#1)}}
 \newcommand{\eds}[1]{\textcolor{red}{EDS: (#1)}}
@@ -53,24 +22,36 @@
 \newcommand{\blind}{1]}
 
 \begin{document}
-%\maketitle
 
 \title{Nonparametric Block Bootstrap Kolmogorov-Smirnov Goodness-of-Fit Test}
-  \author{Mathew Chandy \\
-  % \href{mailto:mathew.chandy@uconn.edu}
-  % {\nolinkurl{mathew.chandy@uconn.edu}}\\
- Elizabeth Schifano\\
- Jun Yan\\
- Xianyang Zhang
-} 
 
+\author[1]{Mathew Chandy}
 
-\maketitle
+\author[1]{Elizabeth Schifano}
 
+\author[1]{Jun Yan}
 
-\begin{abstract}
+\author[2]{Xianyang Zhang}
 
-The Kolmogorov--Smirnov (KS) test is a widely used statistical test that
+\authormark{CHANDY \textsc{et al.}}
+\titlemark{NONPARAMETRIC BLOCK BOOTSTRAP KOLMOGOROV-SMIRNOV GOODNESS-OF-FIT TEST}
+
+\address[1]{\orgdiv{Statistics}, \orgname{University of Connecticut},
+\orgaddress{\state{Connecticut}, \country{United States}}}
+
+\address[2]{\orgdiv{Statistics}, \orgname{Texas A\&M University}, \orgaddress{\state{Texas}, \country{United States}}}
+
+\corres{\email{mathewchandy03@gmail.com}
+\email{elizabeth.schifano@uconn.edu}
+\email{jun.yan@uconn.edu} 
+\email{zhangxiany@stat.tamu.edu} }
+
+\presentaddress{21 Maxfelix Dr, Storrs, CT 06268}
+
+%\fundingInfo{Text}
+%\JELinfo{ejlje}
+
+\abstract[Abstract]{The Kolmogorov--Smirnov (KS) test is a widely used statistical test that
 assesses the conformity of a sample to a specified distribution. Its efficacy,
 however, diminishes with serially dependent data and when parameters
 within the hypothesized distribution are unknown. For independent data,
@@ -85,20 +66,27 @@ serial dependence and unspecified parameters. We assess its effectiveness
 through simulations, scrutinizing both its size and power. The practicality of
 our method is further illustrated with an examination of stock returns from the 
 S\&P 500 index, showcasing its utility in real-world
-applications.
+applications.}
 
-\bigskip
-\noindent{\sc Keywords}:
-bias-correction; 
-serial dependence;
-time series. 
-\end{abstract}
+\keywords{bias-correction, p-value, time series, finance}
 
-\doublespace 
+\jnlcitation{\cname{%
+\author{Chandy M.},
+\author{Schifano E},
+\author{Yan J}, and
+\author{Zhang X}}.
+\ctitle{Nonparametric block bootstrap Kolmogorov-Smirnov goodness-of-fit test.} \cjournal{\it Stat.} \cvol{2024;}.}
 
 
-\section{Introduction}
-\label{sec:intro}
+\maketitle
+
+\renewcommand\thefootnote{}
+\footnotetext{\textbf{Abbreviations:} }
+
+\renewcommand\thefootnote{\fnsymbol{footnote}}
+\setcounter{footnote}{1}
+
+\section{Introduction}\label{sec:intro}
 
 The standard one-sample Kolmogorov--Smirnov (KS) test is widely
 recognized as an effective good-of-fit test for continuous distributions.
@@ -191,12 +179,11 @@ whether it can reject the null hypothesis when it is false. Practical
 applications of our method are presented in Section~\ref{sec:real}, where 
 we apply the approach to analyze if S\&P 500 index stock return
 data adheres to either the Normal or the Student's $t$ distribution. The 
-paper concludes with Section~\ref{sec:conclusion}, offering final thoughts 
+paper concludes with Section~\ref{sec:conclusion}, offering final thoughts
 and remarks.
 
 
-\section{Methods}
-\label{sec:methods}
+\section{Methods}\label{sec:methods}
 
 Consider a stationary time series $\{X_t: t = 1, \ldots, n\}$ with length~$n$.
 We are interested in testing whether or not $X_t$ follows a distribution in a
@@ -210,7 +197,7 @@ The alternative hypothesis $H_A$ is that the marginal distribution of $X_t$ does
 not follow~$F$ for any parameter value~$\theta$. This is a challenging situation
 because both the parameters and the serial dependence structure are unknown.
 
-\subsection{Kolmogorov--Smirnov Test}
+\subsection{Kolmogorov--Smirnov test}
 
 First, let us review how the KS statistic is computed for an independent
 sample with fitted parameters. Let $\hat\theta_n$ denote the parametrically
@@ -248,7 +235,7 @@ hypothesis. Nonetheless, the asymptotic distribution of $T_n$ cannot be fixed
 even with the bias correction of \citet{babu2004goodness}, because the
 correction requires independent sample.
 
-\subsection{Nonparametric Bootstrap for Independent Data}
+\subsection{Nonparametric bootstrap for independent data}
 
 Continue with the case where $X_i$'s are independent but the parameters
 are unspecified. Denote by
@@ -302,7 +289,7 @@ The p-value of the basic bootstrap KS test can be approximated
 as $p = \sum_{b=1}^B I\{T^{(b)}_n > T_n\} / B$.
 
 
-\subsection{Nonparametric Block Bootstrap for Stationary Series}
+\subsection{Nonparametric block bootstrap for stationary series}
 
 We now consider the case where $X_i$'s are realizations from a time series and
 $X^{(b)}_1,...,X^{(b)}_n$ are generated by block bootstrap for 
@@ -388,9 +375,7 @@ summarized as follows. Repeat the following steps for $b \in \{1, ..., B\}$.
 The p-value of the block bootstrap KS test can be approximated
 as $p = \sum_{b=1}^N I\{T^{(b)}_n > T_n\} / B$.
 
-
-\section{Simulation Studies}
-\label{sec:simu}
+\section{Simulation Studies}\label{sec:simu}
 
 In this simulation study, our objective is twofold: firstly, to demonstrate that
 under the null distribution, our test rejects the null hypothesis ($H_0$) 
@@ -407,7 +392,7 @@ distribution $F(\cdot; \theta)$, and for each time series, use our method to
 test if $X_t$ follows a hypothesized marginal distribution $F(\cdot; \theta)$
 with some unknown $\theta$. If the test holds its size, the p-value
 of the test should be uniformly distributed between 0 and 1. We will validate
-method with different marginal distributions to ensure that it is robust.
+our method with different marginal distributions to ensure that it is robust.
 In order for the method to work, a large number of replicates is necessary. 
 
 
@@ -698,9 +683,7 @@ no need to specify the serial dependence and, hence, produces results under
 weakest assumptions.
 
 
-
-\section{Conclusion}
-\label{sec:conclusion}
+\section{Conclusions}\label{sec:conclusion}
 
 The KS test remains a crucial tool for researchers across diverse fields,
 enabling critical assessments of population distributions. We introduced a
@@ -736,19 +719,42 @@ same distribution without requiring specification of serial dependencies in
 either sample, maintaining the advantageous feature of the original method.
 
 
-\jy{QC bib entries: page numbers missing for some journal articles.}
-\mc{couldn't find it for naess2012application}
+%\backmatter
+\bmsection*{Author contributions}
 
-\bibliographystyle{asa}
+This is an author contribution text. This is an author contribution text. This is an author contribution text. This is an author contribution text. This is an author contribution text.
+
+\bmsection*{Acknowledgments}
+This is acknowledgment text. Provide text here. This is acknowledgment text. Provide text here. This is acknowledgment text. Provide text here. This is acknowledgment text. Provide text here. This is acknowledgment text. Provide text here. This is acknowledgment text. Provide text here. This is acknowledgment text. Provide text here. This is acknowledgment text. Provide text here. This is acknowledgment text. Provide text here.
+
+\bmsection*{Data availability statement}
+
+\bmsection*{Funding statement}
+
+None reported.
+
+\bmsection*{Conflict of interest disclosure}
+
+The authors declare no potential conflict of interests.
+
+\bmsection*{Ethics approval statement}
+
 \bibliography{citations}
 
 
+\bmsection*{Supporting information}
+
+Additional supporting information may be found in the
+online version of the article at the publisher’s website.
+
+
+
+
+
+
+\nocite{*}% Show all bib entries - both cited and uncited; comment this line to view only cited bib entries;
+
+
+
+
 \end{document}
-%%% LocalWords: nonparametric semiparametric autocorrelation ARMA
-%%% Local Variables:
-%%% mode: latex
-%%% TeX-master: t
-%%% ispell-personal-dictionary: ".aspell.en.pws"
-%%% fill-column: 80
-%%% eval: (auto-fill-mode 1)
-%%% End:
