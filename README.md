@@ -1,6 +1,6 @@
 # Bootstrap_KS_Test
 
-The Kolmogorov-Smirnov (KS) test is a useful goodness-of-fit statistic. It can be used 
+Abstract: The Kolmogorov-Smirnov (KS) test is a useful goodness-of-fit statistic. It can be used 
 to see if a population 
 follows a hypothesized distribution and has and can be applied to a variety of fields. 
 It has been used to analyze the random distribution of cosmic microwave background radiation (Næss, 2012). 
