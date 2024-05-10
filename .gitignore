@@ -1,4 +1,5 @@
 # about manuscript
+*/*.pag
 */*.aux
 */*.dbj
 */*.bbl
