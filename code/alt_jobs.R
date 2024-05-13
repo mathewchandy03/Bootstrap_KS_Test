@@ -2,7 +2,7 @@ source("hpc_functions.R")
 # library(copula)
 i <- Sys.getenv("SLURM_ARRAY_TASK_ID")
 B <- 1000
-nrep <- 5
+nrep <- 1000
 phis <- c()
 # for (i in c(-.75, -.5, -.25, 0, .25, .5, .75)) {
 #   phis <- c(phis, iTau(normalCopula(), i))

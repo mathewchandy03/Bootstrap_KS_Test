@@ -12,7 +12,7 @@ for (phi in phis) {
                                      file_names))]
       tosave <- c()
       for (file in list) {
-        tosave <- c(tosave, readRDS(file)$p)
+        tosave <- c(tosave, readRDS(file)[1,])
       }
       saveRDS(tosave, file = paste("../sim_", n, "_", dist, "_",
                                    phi, '_', 
@@ -29,7 +29,7 @@ for (phi in phis) {
                                      file_names))]
       tosave <- c()
       for (file in list) {
-        tosave <- c(tosave, readRDS(file)$p)
+        tosave <- c(tosave, readRDS(file)[1,])
       }
       saveRDS(tosave, file = paste("../alt_", n, "_", dist, "_",
                                    phi, '_', 
