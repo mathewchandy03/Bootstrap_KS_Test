@@ -167,7 +167,14 @@ to bridge this gap by introducing a bias correction technique for the
 nonparametric block bootstrap (NPBB), tailored for use in scenarios where the 
 hypothesized distribution has unspecified parameters and the data 
 exhibit serial dependence. Our approach reduces to that of
-\citet{babu2004goodness} when the data are independent.
+\citet{babu2004goodness} when the data are independent. 
+As noted by 
+\citet{chandy2024sample}, a sample greater than 1600 may be necessary for 
+block bootstrap confidence intervals to have the right coverage 
+rates of parameters. 
+Therefore, although this study uses block bootstrap in a different setting,
+we expect that a large sample size may be required when the data is serially
+dependent.
 
 
 The remainder of this paper is structured as follows: 
@@ -192,7 +199,7 @@ We are interested in testing whether or not $X_t$ follows a distribution in a
 parametric family of distribution~$F$ indexed by a parameter
 vector~$\theta$. That is, the null hypothesis is
 \[
-  H_0: X_t \sim F(\cdot \mid \theta), \quad t = 1, \ldots, n,
+  H_0: X_t \sim F(\cdot ; \theta), \quad t = 1, \ldots, n,
 \]
 for some unspecified parameter $\theta$.
 The alternative hypothesis $H_A$ is that the marginal distribution of $X_t$ does
@@ -241,8 +248,7 @@ arguments.  Then immediately above its use is mixed with $F(x)$ without a
 parameter argument (implying it is the true parameter $\theta$). This continues
 throughout the document. I suggest either using consistent notation throughout, 
 or explicitly defining any shortened/simplified notation at its first use.}
-\mc{I believe the vertical bar is to indicate that the parameters are 
-unspecified}
+\mc{switched everything to semicolons}
 
 When $\{X_t: t = 1, \ldots, n\}$ are further serially dependent, the statistic
 $T_n$ still provides a reasonable metric for deviation from the null
@@ -420,7 +426,8 @@ $\Gamma(8, 1)$ with seven levels of Kendall's
 $\tau \in \{-.75, -.5, -.25, 0, .25, .5, 75\}$, and
 sample size $n \in \{100, 200, 400, 800\}$. Kendall's $\tau$ was chosen as a
 measure of serial dependence as it is invariant to monotone marginal
-transformations. To generate the samples to which our
+transformations. 
+To generate the samples to which our
 method would be applied, we simulated a time series $W_t$ from a 1st 
 order autoregressive or AR(1) process:
 \begin{equation*}
@@ -463,15 +470,14 @@ For the purposes of
 evaluating if the test holds it size, when $X_t \sim N(8, 8)$, we tested that the 
 marginal distribution is from the
 Normal family, or 
-$X_t \sim N(\cdot \mid \mu, \sigma^2), \quad t = 1, \ldots, n$
+$X_t \sim N(\cdot ; \mu, \sigma^2), \quad t = 1, \ldots, n$
 for some unspecified $\mu$ and $\sigma$. When $X_t \sim \Gamma(8, 1)$, we tested
 that the marginal distribution family is from the Gamma family,
 or
-$X_t \sim \Gamma(\cdot \mid \alpha, \beta), \quad t = 1, \ldots, n$.
+$X_t \sim \Gamma(\cdot ; \alpha, \beta), \quad t = 1, \ldots, n$.
 for some unspecified $\alpha$ and $\beta$.
 \eds{Vertical bar vs semicolon to separate data and parameter arguments.}
-\mc{I believe the vertical bar is indicate that the parameter arguments are 
-unspecified}
+\mc{changed everything to semicolon}
 For the block
 bootstrap step,
 we used $B = 1000$ and $l = \lceil n^{1/3} \rceil$.
@@ -747,6 +753,7 @@ same distribution without requiring specification of serial dependencies in
 either sample, maintaining the advantageous feature of the original method.
 
 \eds{can Mathew's AJUR paper be cited somewhere in this document?}
+\mc{addressed}
 
 %\backmatter
 
