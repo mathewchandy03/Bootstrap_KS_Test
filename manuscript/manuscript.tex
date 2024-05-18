@@ -1,6 +1,7 @@
 \documentclass[APA,Times1COL]{WileyNJDv5} %STIX1COL,STIX2COL,STIXSMALL
 
 \usepackage{natbib}
+\usepackage{lipsum}
 
 \articletype{Article Type}%
 
@@ -168,22 +169,15 @@ nonparametric block bootstrap (NPBB), tailored for use in scenarios where the
 hypothesized distribution has unspecified parameters and the data 
 exhibit serial dependence. Our approach reduces to that of
 \citet{babu2004goodness} when the data are independent. 
-As noted by 
-\citet{chandy2024sample}, a sample greater than 1600 may be necessary for 
-block bootstrap confidence intervals to have the right coverage 
-rates of parameters. 
-Therefore, although this study uses block bootstrap in a different setting,
-we expect that a large sample size may be required when the data is serially
-dependent.
 
 
 The remainder of this paper is structured as follows: 
 Section~\ref{sec:methods} provides an overview of the block bootstrap 
 procedure and introduces the bias correction methodology for the 
 NPBB KS test. Section~\ref{sec:simu} is divided 
-into two parts; initially, we evaluate the KS test's ability to maintain 
+into two parts; initially, we evaluate the NPBB KS test's ability to maintain 
 its size, i.e., its consistency in not rejecting the null hypothesis when 
-it is indeed true. Subsequently, we examine the test's power, assessing 
+it is indeed true. Subsequently, we examine the NPBB KS test's power, assessing 
 whether it can reject the null hypothesis when it is false. Practical 
 applications of our method are presented in Section~\ref{sec:real}, where 
 we apply the approach to analyze if S\&P 500 index stock return
@@ -211,7 +205,7 @@ because both the parameters and the serial dependence structure are unknown.
 First, let us review how the KS statistic is computed for an independent
 sample with fitted parameters. Let $\hat\theta_n$ denote the parametrically
 fitted parameters, which can be obtained from any consistent estimator with
-asymptotic normality properties.  Let $F_n$ be the empirical distribution
+asymptotic normality property.  Let $F_n$ be the empirical distribution
 function based on $X_1,...,X_n$.
 Define 
 \begin{equation*}
@@ -227,28 +221,30 @@ Because of the estimation uncertainty in $\hat\theta_n$, the asymptotic
 distribution of $Y_n$ is no longer distribution-free. This is in contrast to the
 case where $\theta$ is known.  Note that
 \begin{equation*}
-Y_n(x; \hat\theta) = \sqrt{n}(F_n(x) - F(x)) - 
-\sqrt{n}(F(x; \hat\theta_n) - F(x)).
+Y_n(x; \hat\theta) = \sqrt{n}(F_n(x) - F(x; \theta_0)) - 
+\sqrt{n}(F(x; \hat\theta_n) - F(x; \theta_0)),
 \end{equation*}
-When $\hat\theta_n$ is replaced with $\theta$, as in the standard KS testing
+where $\theta_0$ is the true parameter value of $\theta$ under~$H_0$.
+When $\hat\theta_n$ is replaced with $\theta_0$, as in the standard KS testing
 situation, the second term vanishes, and $T_n$ converges in distribution to that
-of $\sup_t | B(F(t)) |$, where $B(\cdot)$ is the standard Brownian bridge
+of $\sup_t | B(F(t; \theta_0)) |$, where $B(\cdot)$ is the standard Brownian bridge
 \citep{kolmogorov1933sulla}. With $\hat\theta_n$ in place of $\theta$, the
 second term leads to a bias in the Brownian bridge, which was addressed by
 \citet{babu2004goodness}.
 
-\eds{Please check consistency with how you refer to $F$.  In 
-Equation~\eqref{eq:ks_standard}, it is $F(x; \theta_0)$ where the data and 
-parameter arguments are separated by a semicolon.  At the beginning of 
-Section~\ref{sec:methods}, it is $F(\cdot \mid \theta)$, with the vertical bar
-separating the data argument from the parameter argument (and no 0 subscript
-either).   Then in this first 
-subsection it is $F(x; \hat\theta_n)$ with a semicolon separating the two 
-arguments.  Then immediately above its use is mixed with $F(x)$ without a 
-parameter argument (implying it is the true parameter $\theta$). This continues
-throughout the document. I suggest either using consistent notation throughout, 
-or explicitly defining any shortened/simplified notation at its first use.}
-\mc{switched everything to semicolons}
+%\eds{Please check consistency with how you refer to $F$.  In 
+%Equation~\eqref{eq:ks_standard}, it is $F(x; \theta_0)$ where the data and 
+%parameter arguments are separated by a semicolon.  At the beginning of 
+%Section~\ref{sec:methods}, it is $F(\cdot \mid \theta)$, with the vertical bar
+%separating the data argument from the parameter argument (and no 0 subscript
+%either).   Then in this first 
+%subsection it is $F(x; \hat\theta_n)$ with a semicolon separating the two 
+%arguments.  Then immediately above its use is mixed with $F(x)$ without a 
+%parameter argument (implying it is the true parameter $\theta$). This continues
+%throughout the document. I suggest either using consistent notation throughout, 
+%or explicitly defining any shortened/simplified notation at its first use.}
+%\mc{switched everything to semicolons}
+%\jy{replaced $F$ with $F(\cdot; \theta_0)$}
 
 When $\{X_t: t = 1, \ldots, n\}$ are further serially dependent, the statistic
 $T_n$ still provides a reasonable metric for deviation from the null
@@ -256,7 +252,7 @@ hypothesis. Nonetheless, the asymptotic distribution of $T_n$ cannot be fixed
 even with the bias correction of \citet{babu2004goodness}, because the
 correction requires an independent sample.
 
-\subsection{Nonparametric bootstrap (NPB) for independent data}
+\subsection{NPB for independent data}
 
 Continue with the case where $X_i$'s are independent but the parameters
 are unspecified. Denote by
@@ -264,7 +260,8 @@ $F^{(b)}_n$ the empirical distribution of the $b$th bootstrap sample and let
 $\hat\theta^{(b)}_n$ be the parameter estimate based on the $b$th bootstrap 
 sample. 
 Using the bootstrap (asymptotic) theory, we can approximate the distribution of
-$\sqrt{n}(F_n(x) - F(x))$ and $\sqrt{n}(F(x; \hat\theta_n) - F(x))$
+$\sqrt{n}(F_n(x) - F(x; \theta_0))$ and
+$\sqrt{n}(F(x; \hat\theta_n) - F(x; \theta_0))$
 by that of $\sqrt{n}(F^{(b)}_n(x) - F_n(x))$ and
 $\sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; \hat\theta_n))$, respectively.
 Therefore, if we define
@@ -280,27 +277,25 @@ $\sqrt{n}(F_n(x) - F(x; \hat\theta_n))$ is exactly the bias term considered in
 \citet{babu2004goodness}.
 
 
-In summary, the procedure of the NPB KS test for independent
-sample is 
+In summary, the procedure of the NPB KS test for an independent sample is
 summarized as follows. Repeat the following steps for $b \in \{1, ..., B\}$.
 \begin{enumerate}
 \item
-  Generate $X^{(b)}_1,...,X^{(b)}_n$ by applying basic bootstrap 
-  on the original sample as
-  defined previously.
+  Generate $X^{(b)}_1,...,X^{(b)}_n$ by sampling $X_1, \ldots, X_n$
+  with replacement.
 \item
   Obtain parametrically
   fitted parameters 
 	$\hat\theta^{(b)}_n$ of $\theta$ from $X^{(b)}_1,...,X^{(b)}_n$.  
-	\eds{$F_\theta$ has not yet been defined.}\mc{addressed}
+	%\eds{$F_\theta$ has not yet been defined.}\mc{addressed}
 \item
   Obtain the empirical distribution function $F^{(b)}_n$ of
   $X^{(b)}_1,...,X^{(b)}_n$. 
 \item
   Calculate bootstrap KS statistic
   \[
-    T^{(b)}_n = \sup_x | \sqrt{n}\left(F^{(b)}_n(x) 
-    - F(x; \hat\theta^{(b)}_n)\right) - B_n(x) |.
+    T^{(b)}_n = \sup_x \Big\vert \sqrt{n}\left(F^{(b)}_n(x) 
+    - F(x; \hat\theta^{(b)}_n)\right) - B_n(x) \Big\vert.
   \]
   where 
   $B_{n}(x) = \sqrt{n}(F_n(x) - F(x; \hat\theta_n))$ is the known
@@ -312,7 +307,7 @@ The p-value of the basic bootstrap KS test can be approximated
 as $p = \sum_{b=1}^B I\{T^{(b)}_n > T_n\} / B$.
 
 
-\subsection{Nonparametric block bootstrap (NPBB) for stationary series}
+\subsection{NPBB for stationary series}
 
 We now consider the case where $X_i$'s are realizations from a time series and
 $X^{(b)}_1,...,X^{(b)}_n$ are generated by block bootstrap for 
@@ -368,8 +363,12 @@ the distribution of $T_n$. Therefore, the p-value of the observed statistic
 $T_n$ can be assessed by positioning it agains the empirical distribution of
 $T_n^{(b)}$, $b = 1, \ldots, B$.
 
-\eds{Do we not define $Y^{(b)}_n(x)$ in terms of the $E_n(\cdot)$'s instead of 
-the $E(\cdot)$ above and below?}\mc{$E_n$ was a typo}
+%\eds{Do we not define $Y^{(b)}_n(x)$ in terms of the $E_n(\cdot)$'s instead of 
+%  the $E(\cdot)$ above and below?}\mc{$E_n$ was a typo}
+
+\jy{This is a placeholder for a proposition to theoretically justify the
+  approximation.}
+\lipsum[1-2]
 
 In summary, the procedure of the NPBB test is 
 summarized as follows. Repeat the following steps for $b \in \{1, ..., B\}$.
@@ -379,16 +378,19 @@ summarized as follows. Repeat the following steps for $b \in \{1, ..., B\}$.
   on the original sample as
   defined previously.
 \item
-  Fit $F_\theta$ to $X^{(b)}_1,...,X^{(b)}_n$ and obtain estimate 
-	$\hat\theta^{(b)}_n$ of $\theta$.
+  %Fit $F_\theta$ to $X^{(b)}_1,...,X^{(b)}_n$ and obtain estimate 
+	%$\hat\theta^{(b)}_n$ of $\theta$.
+	Obtain parametrically fitted parameters 
+	$\hat\theta^{(b)}_n$ of $\theta$ from $X^{(b)}_1,...,X^{(b)}_n$.  
+	\eds{changed this to remove $F_\theta$, please check}
 \item
   Obtain the empirical distribution function $F^{(b)}_n$ of
   $X^{(b)}_1,...,X^{(b)}_n$. 
 \item
   Calculate bootstrap KS statistic
   \[
-    T^{(b)}_n = \sup_x | \sqrt{n}\left(F^{(b)}_n(x) 
-    - F(x; \hat\theta^{(b)}_n)\right) - B_n(x) |.
+    T^{(b)}_n = \sup_x \Big\vert \sqrt{n}\left(F^{(b)}_n(x) 
+    - F(x; \hat\theta^{(b)}_n)\right) - B_n(x) \Big\vert.
   \]
   where 
   $B_{n}(x) = \sqrt{n}(E[F^{(b)}_n(x)] - 
@@ -398,7 +400,7 @@ summarized as follows. Repeat the following steps for $b \in \{1, ..., B\}$.
 
 
 The p-value of the block bootstrap KS test can be approximated
-as $p = \sum_{b=1}^N I\{T^{(b)}_n > T_n\} / B$.
+as $p = \sum_{b=1}^B I\{T^{(b)}_n > T_n\} / B$.
 
 \section{Simulation Studies}\label{sec:simu}
 
@@ -476,8 +478,8 @@ that the marginal distribution family is from the Gamma family,
 or
 $X_t \sim \Gamma(\cdot ; \alpha, \beta), \quad t = 1, \ldots, n$.
 for some unspecified $\alpha$ and $\beta$.
-\eds{Vertical bar vs semicolon to separate data and parameter arguments.}
-\mc{changed everything to semicolon}
+%\eds{Vertical bar vs semicolon to separate data and parameter arguments.}
+%\mc{changed everything to semicolon}
 For the block
 bootstrap step,
 we used $B = 1000$ and $l = \lceil n^{1/3} \rceil$.
@@ -485,8 +487,8 @@ For each setting for $F$, $\tau$, and $n$, we replicate the method 1000 times
 to get the distribution of the p-values $p_r$ for
 $r \in \{1, \dots, 1000\}$
 for the test when applied to samples from the same data generating process.
-\eds{I assume $r$ is for replicate?  Please define and include how many 
-total replicates you are using.} \mc{addressed}
+%\eds{I assume $r$ is for replicate?  Please define and include how many 
+%total replicates you are using.} \mc{addressed}
 
 
 \begin{figure}[tbp]
@@ -512,8 +514,7 @@ uniformly distributed is dependent on the sample size and the level of serial
 dependence.
 A small sample size like $n = 100$ or $200$ seems adequate when Kendall's
 $\tau$ is lower than 0.25. For Kendall's $\tau \geq 0.5$, a sample larger than
-$n = 200$ seems necessary for the p-values to be uniformly
-\eds{uniformly?}\mc{addressed} distributed. For
+$n = 200$ seems necessary for the p-values to be uniformly distributed. For
 Kendall's $\tau \geq 0.75$, a sample larger than $n = 800$ appears to be 
 necessary, as the p-values are not aligned with the line in any of the Q-Q 
 plots. This
@@ -526,13 +527,17 @@ Results are very similar for normal and gamma margins.
 
 \begin{table}[tbp]
 \centering
-\caption{Rejection rates or true size for test that sample follows its true
+\caption{Empirical sizes for the test that sample follows its true
                     distribution family for
                    different values of AR(1) coefficient and for different 
-                   significance levels or estimated sizes.
+                   significance levels.
 		\eds{Not sure if it will help presentation or interpretation, but you could
 	consider presenting the values inside the table as estimated size/true size}
-	\mc{addressed}}
+	\mc{addressed}
+	\eds{I meant reporting the ratio, e.g, dividing all values currently in the    first row by 0.01, dividing all values in the second row by 0.05. Sometimes this
+	is helpful if there is a conservative or liberal pattern, which there seems
+	to be as $|\tau|$ increases away from zero, but it may be fine to leave it as
+	is.}}
 \label{table:size}
 \begin{tabular}{lllrrrrrrr}
   \toprule
@@ -571,8 +576,7 @@ $F(\cdot; \theta)$ & $n$ & $\alpha$ & $\tau = -0.75$ & $\tau = -0.5$ & $\tau = -
 For a closer scrutiny on whether the test holds its size at commonly used
 significance levels 0.01, 0.05, and 0.10, Table~\ref{table:size}
 summarizes the empirical sizes of the tests based on 1000 replicates.
-\eds{Number of replicates needs to be stated earlier.  Also, is 1000 enough
-to truly evaluate whether size is good at the 0.01 level?}
+\eds{Is 1000 enough to truly evaluate whether size is good at the 0.01 level?}
 The agreement between the empirical sizes and the nominal size
 improves as sample size increases, as expected. For $\tau = -0.75$
 and $\tau = 0.75$, a sample size as large as 800 is still not sufficient for the
@@ -583,7 +587,10 @@ summarize, for weaker dependence, our method works without need for a
 particularly large sample size, whereas for moderate dependence, a larger sample
 size is required. For practical situations with a $\tau$ of magnitude 0.5 or
 lower, it is still reasonable to recommend our method with $n \ge 400$.
-
+This recommendation echoes the high sample size requirement for
+confidence intervals constructed with block bootstrapping in
+estimating location, scale, and autocorrelation parameters of
+stationary series~\citep{chandy2024sample}.
 
 
 \subsection{Power}
@@ -606,7 +613,7 @@ rejection rate.
 \begin{figure}[tbp]
   \centering
   \includegraphics[scale=1]{figures/rr}
-  \caption{Power curve as a function of $\tau$ for
+  \caption{Empirical power curve as a function of $\tau$ for
     $n \in \{100, 200, 400, 800\}$ and true marginal distribution 
     $\in \{N(8,8), \Gamma(8,1)\}$. When the data was generated from $N(8,8)$,
     we tested for the gamma family. When the data was generated from 
@@ -652,8 +659,6 @@ Using our method, we tested that the daily returns are normally
 distributed and Student's $t$ distributed 
 with degrees of freedom $\nu \in \{30, 20, 10, 5, 4, 3, 2, 1\}$
 with the proposed NPBB method.
-\eds{Introduce this acronym earlier (as early as in the intro), and use it 
-throughout the ms.}\mc{addressed}
 For comparison, we tested the same hypotheses using 1) the
 SPB method of \citet{zeimbekakis2022misuses},
 which accounts for both serial dependence and unspecified parameters;
@@ -666,9 +671,9 @@ Table~\ref{table:SP5004}.
 
 \begin{table}[ht]
 \centering
-\caption{P-values for 4 years of S\&P 500 stock return 
-  data using different degrees of freedom for Student's $t$ distribution.
-	\eds{how are ``different durations'' reflected in this table?}\mc{addressed}
+\caption{P-values for testing marginal Student's $t$ distribution on  
+  4 years of daily returns of S\&P 500 with $B = 10,000$
+  using different degrees of freedom~$\nu$. 
   NPBB: nonparametric block bootstrap;
   SPB: semiparametric bootstrap;
   NPB: nonparametric bootstrap;
@@ -716,6 +721,9 @@ in supplemental materials if we are concerned with paper length) that the other
 methods are not valid or unreliable under this setting, and then 
 further discredit those results here in the real data analysis.
 (I would expect a reviewer to ask for this comparison anyway.)}
+\jy{we could design scenarios where SPBB fails: some dependency
+  structure that cannot be well-approximated by ARMA.}
+
 
 \section{Conclusions}\label{sec:conclusion}
 
@@ -752,16 +760,13 @@ intriguing. This adaptation would test whether two samples originate from the
 same distribution without requiring specification of serial dependencies in
 either sample, maintaining the advantageous feature of the original method.
 
-\eds{can Mathew's AJUR paper be cited somewhere in this document?}
-\mc{addressed}
-
 %\backmatter
 
 \bmsection*{Data availability statement}
 The data and code used in the real data analysis and simulation
 studies are publicly available in a GitHub repo:
-\url{https://github.com/mathewchandy03/Bootstrap_KS_Test}
-\jy{Give the link}\mc{addressed}
+\url{https://github.com/mathewchandy03/Bootstrap_KS_Test}.
+
 
 \bmsection*{Funding statement}
 
