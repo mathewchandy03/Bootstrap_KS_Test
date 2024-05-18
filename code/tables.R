@@ -1,7 +1,7 @@
 library(xtable)
-df <- readRDS("../data/sim_rejection_rates.RDS") %>% 
+df <- readRDS("../data/null_rejection_rates.RDS") %>% 
   mutate(rr_lb = round(as.numeric(rr_lb), 3),
-         rr = round(as.numeric(rr), 3),
+         rr = round(as.numeric(rr), 4),
          rr_ub = round(as.numeric(rr_ub), 3),
          alpha = format(round(as.numeric(alpha), 2), nsmall = 2))
 
@@ -31,7 +31,7 @@ write(print(xtable(df_norm,
                    normally distributed for
                    different values of AR(1) coefficient and for different 
                    significance levels.",
-                   label = "table:rr_norm", digits = 3), caption.placement = "top",
+                   label = "table:rr_norm", digits = 4), caption.placement = "top",
             sanitize.text.function=function(x){x}, include.rownames = FALSE), 
       file = "../manuscript/tables/rr_norm.tex")  
 
@@ -46,6 +46,6 @@ write(print(xtable(df_gamma,
                    gamma-distributed for
                    different values of AR(1) coefficient and for different 
                    significance levels.",
-                   label = "table:rr_gamma", digits = 3), caption.placement = "top",
+                   label = "table:rr_gamma", digits = 4), caption.placement = "top",
             sanitize.text.function=function(x){x}, include.rownames = FALSE), 
       file = "../manuscript/tables/rr_gamma.tex") 

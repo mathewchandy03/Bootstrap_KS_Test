@@ -1,8 +1,6 @@
 .libPaths("/gpfs/homefs1/mac18033/rlibs")
 library(tidyverse)
 library(truncdist)
-source("functions.R")
-source("alt_functions.R")
 mystat <- function(x, dist) {
   # Bootstrap will return actual pseudo-sample, mean, and standard deviation
   c(c(x),  
@@ -66,17 +64,20 @@ bs_ks <- function(y, B, h0_dist, f0, blksize, method, rgen = NULL) {
   c(mean(ks_values > obsv_ks)) # Which are greater than the observed ks statistic
 }
 
-mysim <- function(n, blksize, B, h0_dist, true_dist, f0, f, theta, phi, rho, 
+mysim <- function(n, blksize, B, h0_dist, true_dist, f0, f, theta, phi,  
                   rgen) {
+  y <- arima.sim(list(ar = phi), n = n) * 
+    sqrt(1 - sum(phi^2))
   if (h0_dist == 'gamma' & true_dist == 'normal') {
     y <- qtrunc(pnorm(y), "norm", a = 0, mean = theta[1], sd = theta[2])
   } else {
     y <- do.call(f, c(list(pnorm(y)), as.list(theta)))
   }
   npbb <- bs_ks(y, B, h0_dist, f0, blksize, "npbb")
-  npb <- bs_ks(y, B, h0_dist, f0, blksize, "npb")
-  pb <- bs_ks(y, B, h0_dist, f0, blksize, "pb", rgen)
+#  npb <- bs_ks(y, B, h0_dist, f0, blksize, "npb")
+#  pb <- bs_ks(y, B, h0_dist, f0, blksize, "pb", rgen)
   
-  list(npbb = npbb, npb = npb, pb = pb)
+#  list(npbb = npbb, npb = npb, pb = pb)
+  c(npbb)
   
 }
