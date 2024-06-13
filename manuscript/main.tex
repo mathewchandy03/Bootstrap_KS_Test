@@ -1,0 +1,205 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{authblk}
+\usepackage{algorithm}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{algpseudocode}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage{caption}
+\usepackage{color}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{mathtools}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{comment}
+\usepackage{longtable}
+\usepackage{rotating}
+\usepackage{xcolor}
+\usepackage{fullpage}
+
+\newcommand{\mc}[1]{\textcolor{blue}{MC: (#1)}}
+
+\begin{document}
+
+
+\section{Asymptotic limit of the KS-statistic}
+We first derive the limiting distribution of the KS statistic under the null. Suppose $\hat{\theta}_n$ admits the expansion:
+\begin{align}\label{eq-expan}
+\hat{\theta}_n-\theta_0 = \frac{1}{n}\sum^{n}_{i=1}h(X_i;\theta_0) + \frac{1}{\sqrt{n}}R_n,    
+\end{align}
+where $h(\cdot;\theta_0)$ is the influence function with $\mathbb{E}[h(X_i;\theta_0)]=0$ and $R_n$ is the remainder term satisfying that
+$R_n\overset{p}{\rightarrow} 0.$ Write $G_n(x):=\sqrt{n}(F_n(x)-F(x))$ and let $f(x;\theta)=\partial F(x;\theta)/\partial \theta$. We assume $\theta \in \mathbb{R}$ for ease of presentation.
+
+
+Given any $x_1,\dots,x_m$ in the domain of $F$, by the CLT for weakly dependent time series, we have the joint convergence of 
+$V_n:=(G_n(x_1),\dots,G_n(x_m),\sqrt{n}(\hat{\theta}_n-\theta_0))$
+to some Gaussian limit, with the covariance matrix being $\Sigma_{m+1}=\lim_{n\rightarrow+\infty}\text{Cov}(V_n)$.
+%\begin{align*}
+%\Sigma_{m+1}=\begin{pmatrix}
+%df & df & \cdots & df\\   
+%df & df & \cdots & df\\ 
+%\cdots & \cdots & \ddots & \cdots  \\ 
+%df & df & \cdots & df
+%\end{pmatrix}    
+%\end{align*} 
+Moreover, we can show the tightness of the process $G_n(x)$. 
+For sufficiently small $\delta$, and leveraging the properties of weakly 
+dependent sequences, we can show that
+\[ \sup_{|x - y| < \delta} |G_n(x) - G_n(y)| = \sup_{|x - y| < \delta} 
+\sqrt{n}|(F_n(x) - F(x)) - (F_n(y) - F(y))| \]
+is small with high probability.
+Specifically, since $F(x)$ is continuous, for small 
+$\delta$, $|F(x) - F(y)|$ is small. For the empirical 
+distribution function $F_n(x)$, the increments $|F_n(x) - F_n(y)|$ are 
+also controlled. 
+This implies that the process $G_n(x)$ does not exhibit large oscillations over 
+small intervals, thus satisfying the criterion for tightness.
+Therefore, we have
+\begin{align*}
+\begin{pmatrix}
+G_n(x)  \\ 
+\sqrt{n}(F(x;\hat{\theta}_n)-F(x;\theta_0))
+\end{pmatrix}\Rightarrow
+\begin{pmatrix}
+G_{\infty}(x) \\
+f(x;\theta_0)U
+\end{pmatrix}
+\end{align*}
+jointly, where $G_{\infty}(x)$ is a Gaussian process with the covariance function defined as
+\begin{align*}
+\text{Cov}(G_{\infty}(x),G_{\infty}(x'))=& \lim_{n\rightarrow+\infty}\frac{1}{n}\sum^{n}_{i,j=1}\text{Cov}(\mathbf{1}\{X_i\leq x\},\mathbf{1}\{X_j\leq x'\})
+\\=& \sum^{+\infty}_{h=-\infty}\text{Cov}(\mathbf{1}\{X_{h}\leq x\},\mathbf{1}\{X_0\leq x'\}),
+\end{align*}
+and $U\sim N(0,s^2)$ with 
+\begin{align*}
+s^2=\lim_{n\rightarrow+\infty}\frac{1}{n}\sum^{n}_{i,j=1}\text{Cov}(h(X_i,\theta_0),h(X_j;\theta_0))
+= \sum^{+\infty}_{h=-\infty}\text{Cov}(h(X_{h},\theta_0),h(X_0;\theta_0)),
+\end{align*}
+and the covariance between $U$ and $G_{\infty}(x)$ is given by
+\begin{align*}
+\text{Cov}(U,G_\infty(x))=&\lim_{n\rightarrow+\infty}
+\frac{1}{n}\sum^{n}_{i,j=1}\text{Cov}(h(X_i,\theta_0),\mathbf{1}\{X_j\leq x\})
+\\=&\sum^{+\infty}_{h=-\infty}\text{Cov}(h(X_{h},\theta_0),\mathbf{1}\{X_0\leq x\}).
+\end{align*}
+By the continuous mapping theorem, we obtain
+\begin{align*}
+T_n \overset{d}{\rightarrow} \sup_x |G_{\infty}(x)+f(x;\theta_0)U|.    
+\end{align*}
+
+
+
+\section{Bootstrap consistency}
+\subsection{Preliminaries}
+Denote by $\mathbb{E}^*$, $\text{Var}^*$ and $\text{Cov}^*$
+the expectation, variance and covariance conditional on $X_{1:n}$ in the bootstrap world. Assuming that $n=kl$ with $l$ being the block size and $k$ being the number of blocks, the bootstrap marginal distribution is 
+\begin{align*}
+\rho_n^*=\frac{1}{n}\sum^{k}_{j=1}\sum^{S_j+l-1}_{i=S_j} \delta_{X_i},    
+\end{align*}
+where $\delta_x$ denotes a point mass at $x$, and $S_1,\dots,S_k$ are i.i.d uniform on $\{1,\dots,n-l+1\}$. 
+Define $G_n^*(x)$ in the same way as $G_n(x)$ with $X_{1:n}$ being replaced by the bootstrap samples $X_{1:n}^*=\{X_1^*,\dots,X_n^*\}$.
+
+\subsection{A sketch of the proof}
+
+We want to show that
+\begin{align}\label{eq-con-boot}
+\begin{pmatrix}
+G_n^*(x)  \\ 
+\sqrt{n}(F(x;\hat{\theta}_n^*)-F(x;\hat{\theta}_0))
+\end{pmatrix}\Rightarrow^{*}
+\begin{pmatrix}
+G_{\infty}(x) \\
+f(x;\theta_0)U
+\end{pmatrix}
+\end{align}
+where $\Rightarrow^*$ means convergence in distribution almost surely and $\hat{\theta}_0:=\mathbb{E}^*[\hat{\theta}_n^*]$. 
+In the bootstrap world, we have an expansion similar to (\ref{eq-expan}):
+\begin{align*}
+\hat{\theta}_n^*-\hat{\theta}_0 = \frac{1}{n}\sum^{n}_{i=1}h(X_i^*;\hat{\theta}_0) + \frac{1}{\sqrt{n}}R_n^*,    
+\end{align*}
+where $R_n^* \overset{p^*}{\rightarrow} 0$, where $\overset{p^*}{\rightarrow}$ means convergence in probability almost surely. Note that 
+\begin{align*}
+\mathbb{E}^*\left[\frac{1}{n}\sum^{n}_{i=1}h(X_i^*;\hat{\theta}_0)\right]
+=&\frac{1}{n}\sum^{k}_{j=1}\mathbb{E}^*\left[\sum^{S_j+l-1}_{i=S_j}h(X_{i};\hat{\theta}_0)\right]
+\\=&\frac{k}{n^2}[\sum^{n - l + 1}_{j=1}\sum^{j+l-1}_{i=j}h(X_{i};\hat{\theta}_0) +
+\sum^{n}_{j=n - l + 2}[\sum^{n}_{i=j}h(X_{i};\hat{\theta}_0) +
+\sum^{j - n + l -1}_{i=1}h(X_{i};\hat{\theta}_0)]]
+\\=&\frac{k}{n^2}\sum^{n}_{i=1}l h(X_{i};\hat{\theta}_0),
+\end{align*}.
+Moreover, we have
+\begin{align*}
+\text{var}^*\left(\frac{1}{\sqrt{n}}\sum^{n}_{i=1}h(X_i^*;\theta_0^*)\right)
+=&\text{var}^*\left(\frac{1}{\sqrt{n}}\sum^{k}_{j=1}\sum^{S_j+l-1}_{i=S_j}h(X_{i};\hat{\theta}_0)\right)
+\\=&\frac{1}{l}\text{var}^*\left(\sum^{S_1+l-1}_{i=S_1}h(X_{i};\hat{\theta}_0)\right)
+\\=&\frac{1}{ln}\sum^{n}_{t=1}(W_t-\bar{W})^2
+\end{align*}
+with $W_t=
+ \begin{cases}
+\sum^{t+l-1}_{i=t}h(X_i;\hat{\theta}_0)  & \text{if } t \leq n - 1 + 1,\\
+\sum^{n}_{i=t}h(X_{i};\hat{\theta}_0) +
+\sum^{t - n + l -1}_{i=1}h(X_{i};\hat{\theta}_0)  & \text{if } t \geq n - 1 + 2
+\end{cases}$
+and $\bar{W}=\sum^{n}_{t=1}W_t/n$,
+which is expected to converge to $s^2$ almost surely. Similar calculations apply to $G_n^*(x)$ and we expect that
+\begin{align*}
+&\text{Cov}^*(G_n^*(x),G_n^*(x'))\overset{a.s.}{\rightarrow}   \sum^{+\infty}_{h=-\infty}\text{Cov}(\mathbf{1}\{X_{h}\leq x\},\mathbf{1}\{X_0\leq x'\}),\\
+&\text{Cov}^*\left(\frac{1}{\sqrt{n}}\sum^{n}_{i=1}h(X_i^*;\hat{\theta}_0), G_n^*(x)\right)\overset{a.s.}{\rightarrow} \sum^{+\infty}_{h=-\infty}\text{Cov}(h(X_{h},\theta_0),\mathbf{1}\{X_0\leq x\}).
+\end{align*}
+By showing the finite-dimensional convergence and tightness in the bootstrap world (conditional on the data $X_{1:n}$), we can establish \eqref{eq-con-boot}.
+From the CLT, the process $G_n^*(x) = \sqrt{n}(F_n^*(x) - F_n(x))$ converges 
+to 
+$G_{\infty}(x)$.
+
+For $\sqrt{n}(F(x;\hat{\theta}_n^*) - F(x;\hat{\theta}_0))$, using the first-
+order Taylor 
+expansion around $\hat{\theta}_0$, we have:
+\[
+F(x;\hat{\theta}_n^*) \approx F(x;\hat{\theta}_0) + f(x; 
+\hat{\theta}_0) (\hat{\theta}_n^* - \hat{\theta}_0),
+\] so
+\[
+\sqrt{n}(F(x;\hat{\theta}_n^*) - F(x;\hat{\theta}_0)) \approx \sqrt{n} 
+(F(x;\hat{\theta}_0) + f(x; 
+\hat{\theta}_0) (\hat{\theta}_n^* - \hat{\theta}_0) - F(x;\hat{\theta}_0)) 
+\approx
+f(x; 
+\hat{\theta}_0) \sqrt{n} (\hat{\theta}_n^* - \hat{\theta}_0).
+\].
+
+Substituting the expansion of $\hat{\theta}_n^*$:
+\[
+\sqrt{n} (\hat{\theta}_n^* - \hat{\theta}_0) = \frac{1}{\sqrt{n}} \sum_{i=1}^{n} 
+h(X_i^*; \hat{\theta}_0) + R_n^*.
+\]
+
+Since $R_n^* \overset{p^*}{\rightarrow} 0$, 
+\[
+\sqrt{n}(F(x;\hat{\theta}_n^*) - F(x;\hat{\theta}_0)) \approx 
+f(x; \hat{\theta}_0) \left( \frac{1}{\sqrt{n}} \sum_{i=1}^{n} h(X_i^*; 
+\hat{\theta}_0) \right).
+\]
+
+The term $\frac{1}{\sqrt{n}} \sum_{i=1}^{n} h(X_i^*; \hat{\theta}_0)$ 
+converges in distribution to a normal random variable $U$ with variance 
+$s^2$.
+We can show tightness of $G_n^*(x)$ similarly to how we established 
+tightness of $G_n(x)$
+The results then follow from the continuous mapping theorem.
+
+
+
+%\bibliographystyle{plain} 
+%\bibliography{ref}
+
+
+
+
+\end{document}

@@ -1,3 +1,7 @@
+6/11 Notes
+- Two propositions, sketch of proofs is given in supplement
+- In main paper, state two propositions
+
 5/7 Notes
 - Rename Nonparametric and Parametric
 - Put Our Method next to Semiparametric
