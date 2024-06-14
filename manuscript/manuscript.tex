@@ -363,26 +363,6 @@ the distribution of $T_n$. Therefore, the p-value of the observed statistic
 $T_n$ can be assessed by positioning it against the empirical distribution of
 $T_n^{(b)}$, $b = 1, \ldots, B$.
 
-%\eds{Do we not define $Y^{(b)}_n(x)$ in terms of the $E_n(\cdot)$'s instead of 
-%  the $E(\cdot)$ above and below?}\mc{$E_n$ was a typo}
-
-We will assume that the time series $\{X_t\}$ is stationary and strongly mixing, 
-and $1/l+l/n\rightarrow 0$. We aim to show that under suitable assumptions
-\begin{enumerate}
-    \item $T_n \overset{d}{\rightarrow} \sup_x |G_{\infty}(x)+f(x;\theta_0)U|$ 
-    for some Gaussian process $G_{\infty}(\cdot)$ and Gaussian random variable 
-    $U$ defined below.
-    \item $|\mathbb{P}(T_n^*\leq x|X_{1:n}) - 
-    \mathbb{P}(T_n\leq x)|\overset{a.s.}{\rightarrow} 0$ for any fixed $x,$ 
-    where $X_{1:n}:=\{X_1,\dots,X_n\}$ and $T_n^*$ is the the statistic computed 
-    based on the bootstrap sample $X_1^*,\dots,X_n^*$). 
-    Following the arguments in the proof of the Glivenko-Cantelli Theorem, we 
-    may further strengthen this result to allow uniform convergence over $x$: 
-    in other words, $\sup_x|\mathbb{P}(T_n^*\leq x|X_{1:n}) - 
-    \mathbb{P}(T_n\leq x)|\overset{a.s.}{\rightarrow} 0$.
-\end{enumerate}
-Sketches of the proofs for these propositions are shown as supporting 
-information.
 
 In summary, the procedure of the NPBB test is 
 summarized as follows. Repeat the following steps for $b \in \{1, ..., B\}$.
@@ -411,10 +391,51 @@ summarized as follows. Repeat the following steps for $b \in \{1, ..., B\}$.
   F(x; E[\hat\theta^{(b)}_n]))$ is the known
   bias term.
 \end{enumerate}
-
-
 The p-value of the block bootstrap KS test can be approximated
 as $p = \sum_{b=1}^B I\{T^{(b)}_n > T_n\} / B$.
+
+\jy{Cite Kunsch (1989)}
+
+\jy{In the supplement, use the proof environment to give proof
+  sketches; make the title ``Supplement to `paper title` by
+  authors''. No need to use their template for supp.}
+
+Assume that the time series $\{X_t\}$ is stationary and
+strongly mixing. The following results provides theoretical validity
+of the NPBB procedure of the KS test. Sketches of their proofs are
+in the Supplementary Information, with most arguments similar to those
+in \citet{kunsch1989jackknife}.
+
+\begin{proposition}\label{prop:Tn}
+  As $1/l+l/n\rightarrow 0$,
+  \[
+    T_n \overset{d}{\rightarrow}
+    \sup_x \big\vert G_{\infty}(x)+f(x;\theta_0)U \big\vert
+  \]
+  for some appropriately defined Gaussian process $G_{\infty}(\cdot)$
+  and Gaussian random variable  $U$.
+\end{proposition}
+
+\begin{proposition}\label{prop:Tnboot}
+  As $1/l+l/n\rightarrow 0$,
+  \[
+    \big\vert \mathbb{P}(T_n^*\leq x \mid \{X_t: t = 1, \ldots, n\}) -
+    \mathbb{P}(T_n\leq x) \big\vert
+    \overset{a.s.}{\rightarrow} 0
+  \]
+  for any fixed $x$, where and $T_n^*$ is the the statistic computed 
+  based on the bootstrap sample $\{X_t^*: t = 1, \ldots, n\}$.
+\end{proposition}
+  
+Following the arguments in the proof of the Glivenko--Cantelli
+Theorem, the result in Proposition~\ref{prop:Tnboot} can be further
+strengthened to allow uniform convergence over $x$. That is,
+\[
+  \sup_x \big \vert
+  \mathbb{P}(T_n^*\leq x|X_{1:n}) - \mathbb{P}(T_n\leq x) \big\vert
+  \overset{a.s.}{\rightarrow} 0.
+\]
+
 
 \section{Simulation Studies}\label{sec:simu}
 
