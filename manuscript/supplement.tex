@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass[12pt]{article}
 
 \usepackage{amsmath}
 \usepackage{graphicx}
@@ -28,10 +28,20 @@
 
 \newcommand{\mc}[1]{\textcolor{blue}{MC: (#1)}}
 
+\title{Supporting Information for
+  ``Nonparametric Block Bootstrap Kolmogorov-Smirnov Goodness-of-Fit
+  Test''}
+\author{Mathew Chandy, Elizabeth D. Schifano, Jun Yan, and Xianyang
+  Zhang}
+
+
 \begin{document}
+\maketitle
 
 
-\section{Asymptotic limit of the KS-statistic}
+\section{Asymptotic Limit of the KS Statistic}
+
+\begin{proof}[Proof of Proposition~1]
 We first derive the limiting distribution of the KS statistic under the null. Suppose $\hat{\theta}_n$ admits the expansion:
 \begin{align}\label{eq-expan}
 \hat{\theta}_n-\theta_0 = \frac{1}{n}\sum^{n}_{i=1}h(X_i;\theta_0) + \frac{1}{\sqrt{n}}R_n,    
@@ -95,10 +105,10 @@ By the continuous mapping theorem, we obtain
 T_n \overset{d}{\rightarrow} \sup_x |G_{\infty}(x)+f(x;\theta_0)U|.    
 \end{align*}
 
+\end{proof}
 
+\section{Bootstrap Consistency}
 
-\section{Bootstrap consistency}
-\subsection{Preliminaries}
 Denote by $\mathbb{E}^*$, $\text{Var}^*$ and $\text{Cov}^*$
 the expectation, variance and covariance conditional on $X_{1:n}$ in the bootstrap world. Assuming that $n=kl$ with $l$ being the block size and $k$ being the number of blocks, the bootstrap marginal distribution is 
 \begin{align*}
@@ -107,9 +117,8 @@ the expectation, variance and covariance conditional on $X_{1:n}$ in the bootstr
 where $\delta_x$ denotes a point mass at $x$, and $S_1,\dots,S_k$ are i.i.d uniform on $\{1,\dots,n-l+1\}$. 
 Define $G_n^*(x)$ in the same way as $G_n(x)$ with $X_{1:n}$ being replaced by the bootstrap samples $X_{1:n}^*=\{X_1^*,\dots,X_n^*\}$.
 
-\subsection{A sketch of the proof}
-
-We want to show that
+\begin{proof}]Proof of Proposition~2]
+    We want to show that
 \begin{align}\label{eq-con-boot}
 \begin{pmatrix}
 G_n^*(x)  \\ 
@@ -193,13 +202,10 @@ $s^2$.
 We can show tightness of $G_n^*(x)$ similarly to how we established 
 tightness of $G_n(x)$
 The results then follow from the continuous mapping theorem.
-
-
+\end{proof}
 
 %\bibliographystyle{plain} 
 %\bibliography{ref}
-
-
 
 
 \end{document}
