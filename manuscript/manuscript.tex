@@ -15,9 +15,9 @@
 
 \raggedbottom
 
-\newcommand{\jy}[1]{}
-\newcommand{\eds}[1]{}
-\newcommand{\mc}[1]{}
+\newcommand{\jy}[1]{\textcolor{blue}{JY: (#1)}}
+\newcommand{\eds}[1]{\textcolor{red}{EDS: (#1)}}
+\newcommand{\mc}[1]{\textcolor{green}{MC: (#1)}}
 
 % NOTE: To produce blinded version, replace "0" with "1" below.
 \newcommand{\blind}{1]}
@@ -338,23 +338,29 @@ the estimated parameters based on the $b$th bootstrap sample,
 $b = 1, \ldots, B$.
 We then use block bootstrap to approximate the asymptotic distribution of
 the KS statistic under $H_0$. In particular, we
-use the distribution of $\sqrt{n}(F^{(b)}_n(x) - E[F^{(b)}_n(x)])$
+use the distribution of $\sqrt{n}(F^{(b)}_n(x) - \mathbb{E}^{(b)}[F^{(b)}_n(x)])$
 as an approximation of the distribution of
-$\sqrt{n}(F_n(x) - F(x))$, and the distribution of 
-$\sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; E[\hat\theta^{(b)}_n]))$ as
-an approximation of the distribution of $\sqrt{n}(F(x; \theta_n) - F(x))$.
-The expected values $E[F^{(b)}_n(x)]$ and
-$E[\hat\theta^{(b)}_n]$ can be approximated by, respectively,
-$E[F^{(b)}_n(x)] = \frac{1}{B}\sum_{b = 1}^BF^{(b)}_n(x)$ and
-$E[\hat\theta^{(b)}_n]  =  \frac{1}{B}\sum_{b = 1}^B\hat\theta^{(b)}_n$.
+$\sqrt{n}(F_n(x) - F(x; \theta_0))$, and the distribution of 
+$\sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; \mathbb{E}^{(b)}[\hat\theta^{(b)}_n]))$ as
+an approximation of the distribution of 
+$\sqrt{n}(F(x; \hat\theta_n) - F(x; \theta_0))$.
+Here $\mathbb{E}^{(b)}$ denotes the expectation with respect to the bootstrap 
+distribution 
+(i.e., the randomness due
+to the resampling using block bootstrap) conditional on the observations 
+$X_1, \dots, X_n$.
+The expected values $\mathbb{E}^{(b)}[F^{(b)}_n(x)]$ and
+$\mathbb{E}^{(b)}[\hat\theta^{(b)}_n]$ can be approximated by, respectively,
+$\mathbb{E}^{(b)}[F^{(b)}_n(x)] = \frac{1}{B}\sum_{b = 1}^BF^{(b)}_n(x)$ and
+$\mathbb{E}^{(b)}[\hat\theta^{(b)}_n]  =  \frac{1}{B}\sum_{b = 1}^B\hat\theta^{(b)}_n$.
 
 
 Then, we can define
 \begin{align*}
-  Y^{(b)}_n(x) &= \sqrt{n}(F^{(b)}_n(x) - E[F^{(b)}_n(x)]) - 
-             \sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; E[\hat\theta^{(b)}_n)]) \\
+  Y^{(b)}_n(x) &= \sqrt{n}(F^{(b)}_n(x) - \mathbb{E}^{(b)}[F^{(b)}_n(x)]) - 
+             \sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; \mathbb{E}^{(b)}[\hat\theta^{(b)}_n)]) \\
            &= \sqrt{n}(F^{(b)}_n(x) - F(x; \hat\theta^{(b)}_n)) -
-             \sqrt{n}(E[F^{(b)}_n(x)] - F(x; E[\hat\theta^{(b)}_n])),
+             \sqrt{n}(\mathbb{E}^{(b)}[F^{(b)}_n(x)] - F(x; \mathbb{E}^{(b)}[\hat\theta^{(b)}_n])),
 \end{align*}
 and $T^{(b)}_n = \sup_x|Y^{(b)}_n(x)|$. Each $T_n^{(b)}$,
 $b =1, \ldots, B$, is considered a draw from a distribution that approximates
@@ -383,8 +389,8 @@ summarized as follows. Repeat the following steps for $b \in \{1, ..., B\}$.
     - F(x; \hat\theta^{(b)}_n)\right) - B_n(x) \Big\vert.
   \]
   where 
-  $B_{n}(x) = \sqrt{n}(E[F^{(b)}_n(x)] - 
-  F(x; E[\hat\theta^{(b)}_n]))$ is the known
+  $B_{n}(x) = \sqrt{n}(\mathbb{E}^{(b)}[F^{(b)}_n(x)] - 
+  F(x; \mathbb{E}^{(b)}[\hat\theta^{(b)}_n]))$ is the known
   bias term.
 \end{enumerate}
 The p-value of the block bootstrap KS test can be approximated
@@ -392,12 +398,14 @@ as $p = \sum_{b=1}^B I\{T^{(b)}_n > T_n\} / B$.
 
 \jy{Recover the definition of jy and eds for comments. Prepare two
   definitions in the source so that one can be easily commented out.}
+\mc{addressed}
 
 \jy{Cite Kunsch (1989) in the proof as appropriate}
 
 \jy{In the Supp: make sure notations are consistent (e.g., use
   $\{X_t: t = 1, \ldots, n\}$ for observed data);
   clean up the styles (linewidth etc.)}
+\mc{addressed}
 
 Assume that the time series $\{X_t\}$ is stationary and
 strongly mixing. The following results provides theoretical validity
@@ -423,7 +431,7 @@ in \citet{kunsch1989jackknife}.
     \overset{a.s.}{\rightarrow} 0
   \]
   for any fixed $x$, where and $T_n^*$ is the the statistic computed 
-  based on the bootstrap sample $\{X_t^*: t = 1, \ldots, n\}$.
+  based on the bootstrap sample $\{X_t^{(b)}: t = 1, \ldots, n\}$.
 \end{proposition}
   
 Following the arguments in the proof of the Glivenko--Cantelli

@@ -42,17 +42,25 @@
 \section{Asymptotic Limit of the KS Statistic}
 
 \begin{proof}[Proof of Proposition~1]
-We first derive the limiting distribution of the KS statistic under the null. Suppose $\hat{\theta}_n$ admits the expansion:
+We first derive the limiting distribution of the KS statistic under the null. 
+Suppose $\hat{\theta}_n$ admits the expansion:
 \begin{align}\label{eq-expan}
-\hat{\theta}_n-\theta_0 = \frac{1}{n}\sum^{n}_{i=1}h(X_i;\theta_0) + \frac{1}{\sqrt{n}}R_n,    
+\hat{\theta}_n-\theta_0 = \frac{1}{n}\sum^{n}_{t=1}h(X_i;\theta_0) + 
+\frac{1}{\sqrt{n}}R_n,    
 \end{align}
-where $h(\cdot;\theta_0)$ is the influence function with $\mathbb{E}[h(X_i;\theta_0)]=0$ and $R_n$ is the remainder term satisfying that
-$R_n\overset{p}{\rightarrow} 0.$ Write $G_n(x):=\sqrt{n}(F_n(x)-F(x))$ and let $f(x;\theta)=\partial F(x;\theta)/\partial \theta$. We assume $\theta \in \mathbb{R}$ for ease of presentation.
+where $h(\cdot;\theta_0)$ is the influence function with 
+$\mathbb{E}[h(X_i;\theta_0)]=0$ and $R_n$ is the remainder term satisfying that
+$R_n\overset{p}{\rightarrow} 0.$ Write $G_n(x):=\sqrt{n}(F_n(x) - 
+F(x; \theta_0))$ 
+and let $f(x;\theta)=\partial F(x;\theta)/\partial \theta$. We assume 
+$\theta \in \mathbb{R}$ for ease of presentation.
 
 
-Given any $x_1,\dots,x_m$ in the domain of $F$, by the CLT for weakly dependent time series, we have the joint convergence of 
+Given any $x_1,\dots,x_m$ in the domain of $F$, by the CLT for weakly dependent 
+time series, we have the joint convergence of 
 $V_n:=(G_n(x_1),\dots,G_n(x_m),\sqrt{n}(\hat{\theta}_n-\theta_0))$
-to some Gaussian limit, with the covariance matrix being $\Sigma_{m+1}=\lim_{n\rightarrow+\infty}\text{Cov}(V_n)$.
+to some Gaussian limit, with the covariance matrix being 
+$\Sigma_{m+1}=\lim_{n\rightarrow+\infty}\text{Cov}(V_n)$.
 %\begin{align*}
 %\Sigma_{m+1}=\begin{pmatrix}
 %df & df & \cdots & df\\   
@@ -84,21 +92,27 @@ G_{\infty}(x) \\
 f(x;\theta_0)U
 \end{pmatrix}
 \end{align*}
-jointly, where $G_{\infty}(x)$ is a Gaussian process with the covariance function defined as
+jointly, where $G_{\infty}(x)$ is a Gaussian process with the covariance 
+function defined as
 \begin{align*}
-\text{Cov}(G_{\infty}(x),G_{\infty}(x'))=& \lim_{n\rightarrow+\infty}\frac{1}{n}\sum^{n}_{i,j=1}\text{Cov}(\mathbf{1}\{X_i\leq x\},\mathbf{1}\{X_j\leq x'\})
-\\=& \sum^{+\infty}_{h=-\infty}\text{Cov}(\mathbf{1}\{X_{h}\leq x\},\mathbf{1}\{X_0\leq x'\}),
+\text{Cov}(G_{\infty}(x),G_{\infty}(x'))=& 
+\lim_{n\rightarrow+\infty}\frac{1}{n}\sum^{n}_{i,j=1}
+\text{Cov}(\mathbf{1}\{X_i\leq x\},\mathbf{1}\{X_j\leq x'\})
+\\=& \sum^{+\infty}_{h=-\infty}\text{Cov}(\mathbf{1}\{X_{h}\leq x\},
+\mathbf{1}\{X_0\leq x'\}),
 \end{align*}
 and $U\sim N(0,s^2)$ with 
 \begin{align*}
-s^2=\lim_{n\rightarrow+\infty}\frac{1}{n}\sum^{n}_{i,j=1}\text{Cov}(h(X_i,\theta_0),h(X_j;\theta_0))
+s^2=\lim_{n\rightarrow+\infty}\frac{1}{n}\sum^{n}_{i,j=1}\text{Cov}(h(X_i,
+\theta_0),h(X_j;\theta_0))
 = \sum^{+\infty}_{h=-\infty}\text{Cov}(h(X_{h},\theta_0),h(X_0;\theta_0)),
 \end{align*}
 and the covariance between $U$ and $G_{\infty}(x)$ is given by
 \begin{align*}
 \text{Cov}(U,G_\infty(x))=&\lim_{n\rightarrow+\infty}
 \frac{1}{n}\sum^{n}_{i,j=1}\text{Cov}(h(X_i,\theta_0),\mathbf{1}\{X_j\leq x\})
-\\=&\sum^{+\infty}_{h=-\infty}\text{Cov}(h(X_{h},\theta_0),\mathbf{1}\{X_0\leq x\}).
+\\=&\sum^{+\infty}_{h=-\infty}
+\text{Cov}(h(X_{h},\theta_0),\mathbf{1}\{X_0\leq x\}).
 \end{align*}
 By the continuous mapping theorem, we obtain
 \begin{align*}
@@ -109,45 +123,60 @@ T_n \overset{d}{\rightarrow} \sup_x |G_{\infty}(x)+f(x;\theta_0)U|.
 
 \section{Bootstrap Consistency}
 
-Denote by $\mathbb{E}^*$, $\text{Var}^*$ and $\text{Cov}^*$
-the expectation, variance and covariance conditional on $X_{1:n}$ in the bootstrap world. Assuming that $n=kl$ with $l$ being the block size and $k$ being the number of blocks, the bootstrap marginal distribution is 
+Denote by $\mathbb{E}^{(b)}$, $\text{Var}^{(b)}$ and $\text{Cov}^{(b)}$
+the expectation, variance and covariance conditional on 
+$\{X_t: t = 1, \ldots, n\}$ in 
+the bootstrap world. Assuming that $n=kl$ with $l$ being the block size and $k$ 
+being the number of blocks, the bootstrap marginal distribution is 
 \begin{align*}
-\rho_n^*=\frac{1}{n}\sum^{k}_{j=1}\sum^{S_j+l-1}_{i=S_j} \delta_{X_i},    
+\rho_n^{(b)}=\frac{1}{n}\sum^{k}_{j=1}\sum^{S_j+l-1}_{i=S_j} \delta_{X_i},    
 \end{align*}
-where $\delta_x$ denotes a point mass at $x$, and $S_1,\dots,S_k$ are i.i.d uniform on $\{1,\dots,n-l+1\}$. 
-Define $G_n^*(x)$ in the same way as $G_n(x)$ with $X_{1:n}$ being replaced by the bootstrap samples $X_{1:n}^*=\{X_1^*,\dots,X_n^*\}$.
+where $\delta_x$ denotes a point mass at $x$, and $S_1,\dots,S_k$ are i.i.d 
+uniform on $\{1,\dots,n-l+1\}$. 
+Define $G_n^{(b)}(x)$ in the same way as $G_n(x)$ with $X_1, \dots, X_n$ being 
+replaced by the bootstrap samples $X_{1:n}^{(b)}=\{X_1^{(b)},\dots,X_n^{(b)}\}$.
 
-\begin{proof}]Proof of Proposition~2]
+\begin{proof}[Proof of Proposition~2]
     We want to show that
 \begin{align}\label{eq-con-boot}
 \begin{pmatrix}
-G_n^*(x)  \\ 
-\sqrt{n}(F(x;\hat{\theta}_n^*)-F(x;\hat{\theta}_0))
+G_n^{(b)}(x)  \\ 
+\sqrt{n}(F(x;\hat{\theta}_n^{(b)})-F(x;\hat{\theta}_0))
 \end{pmatrix}\Rightarrow^{*}
 \begin{pmatrix}
 G_{\infty}(x) \\
 f(x;\theta_0)U
 \end{pmatrix}
 \end{align}
-where $\Rightarrow^*$ means convergence in distribution almost surely and $\hat{\theta}_0:=\mathbb{E}^*[\hat{\theta}_n^*]$. 
+where $\Rightarrow^*$ means convergence in distribution almost surely and 
+$\hat{\theta}_0:=\mathbb{E}^{(b)}[\hat{\theta}_n^{(b)}]$. 
 In the bootstrap world, we have an expansion similar to (\ref{eq-expan}):
 \begin{align*}
-\hat{\theta}_n^*-\hat{\theta}_0 = \frac{1}{n}\sum^{n}_{i=1}h(X_i^*;\hat{\theta}_0) + \frac{1}{\sqrt{n}}R_n^*,    
+\hat{\theta}_n^{(b)}-\hat{\theta}_0 = \frac{1}{n}\sum^{n}_{i=1}h(X_i^{(b)};
+\hat{\theta}_0) + \frac{1}{\sqrt{n}}R_n^{(b)},    
 \end{align*}
-where $R_n^* \overset{p^*}{\rightarrow} 0$, where $\overset{p^*}{\rightarrow}$ means convergence in probability almost surely. Note that 
+where $R_n^{(b)} \overset{p^*}{\rightarrow} 0$, where 
+$\overset{p^*}{\rightarrow}$ means convergence in probability almost surely. 
+Note that 
 \begin{align*}
-\mathbb{E}^*\left[\frac{1}{n}\sum^{n}_{i=1}h(X_i^*;\hat{\theta}_0)\right]
-=&\frac{1}{n}\sum^{k}_{j=1}\mathbb{E}^*\left[\sum^{S_j+l-1}_{i=S_j}h(X_{i};\hat{\theta}_0)\right]
-\\=&\frac{k}{n^2}[\sum^{n - l + 1}_{j=1}\sum^{j+l-1}_{i=j}h(X_{i};\hat{\theta}_0) +
+\mathbb{E}^{(b)}\left[\frac{1}{n}\sum^{n}_{i=1}h(X_i^{(b)};
+\hat{\theta}_0)\right]
+=&\frac{1}{n}\sum^{k}_{j=1}\mathbb{E}^{(b)}\left[\sum^{S_j+l-1}_{i=S_j}h(X_{i};
+\hat{\theta}_0)\right]
+\\=&\frac{k}{n^2}[\sum^{n - l + 1}_{j=1}\sum^{j+l-1}_{i=j}h(X_{i};
+\hat{\theta}_0) +
 \sum^{n}_{j=n - l + 2}[\sum^{n}_{i=j}h(X_{i};\hat{\theta}_0) +
 \sum^{j - n + l -1}_{i=1}h(X_{i};\hat{\theta}_0)]]
 \\=&\frac{k}{n^2}\sum^{n}_{i=1}l h(X_{i};\hat{\theta}_0),
 \end{align*}.
 Moreover, we have
 \begin{align*}
-\text{var}^*\left(\frac{1}{\sqrt{n}}\sum^{n}_{i=1}h(X_i^*;\theta_0^*)\right)
-=&\text{var}^*\left(\frac{1}{\sqrt{n}}\sum^{k}_{j=1}\sum^{S_j+l-1}_{i=S_j}h(X_{i};\hat{\theta}_0)\right)
-\\=&\frac{1}{l}\text{var}^*\left(\sum^{S_1+l-1}_{i=S_1}h(X_{i};\hat{\theta}_0)\right)
+\text{var}^{(b)}\left(\frac{1}{\sqrt{n}}\sum^{n}_{i=1}h(X_i^{(b)};
+\theta_0^{(b)})\right)
+=&\text{var}^{(b)}\left(\frac{1}{\sqrt{n}}\sum^{k}_{j=1}\sum^{S_j+l-1}_{i=S_j}
+h(X_{i};\hat{\theta}_0)\right)
+\\=&\frac{1}{l}\text{var}^{(b)}\left(\sum^{S_1+l-1}_{i=S_1}h(X_{i};
+\hat{\theta}_0)\right)
 \\=&\frac{1}{ln}\sum^{n}_{t=1}(W_t-\bar{W})^2
 \end{align*}
 with $W_t=
@@ -157,55 +186,65 @@ with $W_t=
 \sum^{t - n + l -1}_{i=1}h(X_{i};\hat{\theta}_0)  & \text{if } t \geq n - 1 + 2
 \end{cases}$
 and $\bar{W}=\sum^{n}_{t=1}W_t/n$,
-which is expected to converge to $s^2$ almost surely. Similar calculations apply to $G_n^*(x)$ and we expect that
+which is expected to converge to $s^2$ almost surely. Similar calculations apply 
+to $G_n^{(b)}(x)$ and we expect that
 \begin{align*}
-&\text{Cov}^*(G_n^*(x),G_n^*(x'))\overset{a.s.}{\rightarrow}   \sum^{+\infty}_{h=-\infty}\text{Cov}(\mathbf{1}\{X_{h}\leq x\},\mathbf{1}\{X_0\leq x'\}),\\
-&\text{Cov}^*\left(\frac{1}{\sqrt{n}}\sum^{n}_{i=1}h(X_i^*;\hat{\theta}_0), G_n^*(x)\right)\overset{a.s.}{\rightarrow} \sum^{+\infty}_{h=-\infty}\text{Cov}(h(X_{h},\theta_0),\mathbf{1}\{X_0\leq x\}).
+&\text{Cov}^{(b)}(G_n^{(b)}(x),G_n^{(b)}(x'))\overset{a.s.}{\rightarrow}   
+\sum^{+\infty}_{h=-\infty}
+\text{Cov}(\mathbf{1}\{X_{h}\leq x\},\mathbf{1}\{X_0\leq x'\}),\\
+&\text{Cov}^{(b)}\left(\frac{1}{\sqrt{n}}\sum^{n}_{i=1}h(X_i^{(b)};
+\hat{\theta}_0), G_n^{(b)}(x)\right)\overset{a.s.}{\rightarrow} 
+\sum^{+\infty}_{h=-\infty}\text{Cov}(h(X_{h},\theta_0),\mathbf{1}\{X_0\leq x\}).
 \end{align*}
-By showing the finite-dimensional convergence and tightness in the bootstrap world (conditional on the data $X_{1:n}$), we can establish \eqref{eq-con-boot}.
-From the CLT, the process $G_n^*(x) = \sqrt{n}(F_n^*(x) - F_n(x))$ converges 
+By showing the finite-dimensional convergence and tightness in the bootstrap 
+world (conditional on the data $\{X_t: t = 1, \ldots, n\}$), we can establish 
+\eqref{eq-con-boot}.
+From the CLT, the process $G_n^{(b)}(x) = \sqrt{n}(F_n^{(b)}(x) - F_n(x))$ 
+converges 
 to 
 $G_{\infty}(x)$.
 
-For $\sqrt{n}(F(x;\hat{\theta}_n^*) - F(x;\hat{\theta}_0))$, using the first-
-order Taylor 
-expansion around $\hat{\theta}_0$, we have:
+For $\sqrt{n}(F(x;\hat{\theta}_n^{(b)}) - F(x;\hat{\theta}_0))$, using the 
+first-order Taylor 
+expansion around $\hat{\theta}_0$ similarly to what was done in 
+\citet{kunsch1989jackknife}, we have:
 \[
-F(x;\hat{\theta}_n^*) \approx F(x;\hat{\theta}_0) + f(x; 
-\hat{\theta}_0) (\hat{\theta}_n^* - \hat{\theta}_0),
+F(x;\hat{\theta}_n^{(b)}) \approx F(x;\hat{\theta}_0) + f(x; 
+\hat{\theta}_0) (\hat{\theta}_n^{(b)} - \hat{\theta}_0),
 \] so
 \[
-\sqrt{n}(F(x;\hat{\theta}_n^*) - F(x;\hat{\theta}_0)) \approx \sqrt{n} 
+\sqrt{n}(F(x;\hat{\theta}_n^{(b)}) - F(x;\hat{\theta}_0)) \approx \sqrt{n} 
 (F(x;\hat{\theta}_0) + f(x; 
-\hat{\theta}_0) (\hat{\theta}_n^* - \hat{\theta}_0) - F(x;\hat{\theta}_0)) 
+\hat{\theta}_0) (\hat{\theta}_n^{(b)} - \hat{\theta}_0) - F(x;\hat{\theta}_0)) 
 \approx
 f(x; 
-\hat{\theta}_0) \sqrt{n} (\hat{\theta}_n^* - \hat{\theta}_0).
-\].
-
-Substituting the expansion of $\hat{\theta}_n^*$:
-\[
-\sqrt{n} (\hat{\theta}_n^* - \hat{\theta}_0) = \frac{1}{\sqrt{n}} \sum_{i=1}^{n} 
-h(X_i^*; \hat{\theta}_0) + R_n^*.
+\hat{\theta}_0) \sqrt{n} (\hat{\theta}_n^{(b)} - \hat{\theta}_0).
 \]
 
-Since $R_n^* \overset{p^*}{\rightarrow} 0$, 
+Substituting the expansion of $\hat{\theta}_n^{(b)}$:
 \[
-\sqrt{n}(F(x;\hat{\theta}_n^*) - F(x;\hat{\theta}_0)) \approx 
-f(x; \hat{\theta}_0) \left( \frac{1}{\sqrt{n}} \sum_{i=1}^{n} h(X_i^*; 
+\sqrt{n} (\hat{\theta}_n^{(b)} - \hat{\theta}_0) = \frac{1}{\sqrt{n}} 
+\sum_{i=1}^{n} 
+h(X_i^{(b)}; \hat{\theta}_0) + R_n^{(b)}.
+\]
+
+Since $R_n^{(b)} \overset{p^{(b)}}{\rightarrow} 0$, 
+\[
+\sqrt{n}(F(x;\hat{\theta}_n^{(b)}) - F(x;\hat{\theta}_0)) \approx 
+f(x; \hat{\theta}_0) \left( \frac{1}{\sqrt{n}} \sum_{i=1}^{n} h(X_i^{(b)}; 
 \hat{\theta}_0) \right).
 \]
 
-The term $\frac{1}{\sqrt{n}} \sum_{i=1}^{n} h(X_i^*; \hat{\theta}_0)$ 
+The term $\frac{1}{\sqrt{n}} \sum_{i=1}^{n} h(X_i^{(b)}; \hat{\theta}_0)$ 
 converges in distribution to a normal random variable $U$ with variance 
 $s^2$.
-We can show tightness of $G_n^*(x)$ similarly to how we established 
+We can show tightness of $G_n^{(b)}(x)$ similarly to how we established 
 tightness of $G_n(x)$
 The results then follow from the continuous mapping theorem.
 \end{proof}
 
-%\bibliographystyle{plain} 
-%\bibliography{ref}
+\bibliographystyle{plain} 
+\bibliography{ref}
 
 
 \end{document}
