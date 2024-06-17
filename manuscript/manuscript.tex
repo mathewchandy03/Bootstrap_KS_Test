@@ -623,7 +623,10 @@ for $-0.25 < \tau < 0.25$ for $n = 100$. However, a larger sample size seems
 necessary, greater than 400 perhaps, for $\tau$ as strong as $0.5$. To 
 summarize, for weaker dependence, our method works without need for a 
 particularly large sample size, whereas for moderate dependence, a larger sample
-size is required. For practical situations with a $\tau$ of magnitude 0.5 or
+size is required. When the agreement is not met, the empirical size is 
+usually larger than 1, which indicates that the test is too liberal. In
+other words, the test rejects the null hypothesis more often than it should.
+For practical situations with a $\tau$ of magnitude 0.5 or
 lower, it is still reasonable to recommend our method with $n \ge 400$.
 This recommendation echoes the high sample size requirement for
 confidence intervals constructed with block bootstrapping in
