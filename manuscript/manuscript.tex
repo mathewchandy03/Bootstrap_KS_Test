@@ -64,14 +64,19 @@ bootstrap has been developed with a working serial dependence structure. A
 counterpart for the nonparametric bootstrap approach, which needs a bias
 correction, has not been studied. Addressing this gap, our study introduces a
 bias correction method employing a nonparametric block bootstrap, which
-approximates the distribution of the KS statistic accounting for unspecified
+approximates the distribution of the KS statistic in assessing the
+goodness-of-fit of the marginal distribution of a stationary series,
+accounting for unspecified
 serial dependence and unspecified parameters. We assess its effectiveness
 through simulations, scrutinizing both its size and power. The practicality of
 our method is further illustrated with an examination of stock returns from the 
 S\&P 500 index, showcasing its utility in real-world
 applications.}
 
-\keywords{bias-correction, p-value, time series, finance}
+% alphabetical; no repeating anything in the title already
+\keywords{bias-correction, financial data, marginal distribution,
+  stationary series, time series}
+
 
 \jnlcitation{\cname{%
 \author{Chandy M.},
@@ -231,19 +236,6 @@ of $\sup_t | B(F(t; \theta_0)) |$, where $B(\cdot)$ is the standard Brownian bri
 second term leads to a bias in the Brownian bridge, which was addressed by
 \citet{babu2004goodness}.
 
-%\eds{Please check consistency with how you refer to $F$.  In 
-%Equation~\eqref{eq:ks_standard}, it is $F(x; \theta_0)$ where the data and 
-%parameter arguments are separated by a semicolon.  At the beginning of 
-%Section~\ref{sec:methods}, it is $F(\cdot \mid \theta)$, with the vertical bar
-%separating the data argument from the parameter argument (and no 0 subscript
-%either).   Then in this first 
-%subsection it is $F(x; \hat\theta_n)$ with a semicolon separating the two 
-%arguments.  Then immediately above its use is mixed with $F(x)$ without a 
-%parameter argument (implying it is the true parameter $\theta$). This continues
-%throughout the document. I suggest either using consistent notation throughout, 
-%or explicitly defining any shortened/simplified notation at its first use.}
-%\mc{switched everything to semicolons}
-%\jy{replaced $F$ with $F(\cdot; \theta_0)$}
 
 When $\{X_t: t = 1, \ldots, n\}$ are further serially dependent, the statistic
 $T_n$ still provides a reasonable metric for deviation from the null
@@ -296,7 +288,7 @@ summarized as follows. Repeat the following steps for $b \in \{1, ..., B\}$.
     - F(x; \hat\theta^{(b)}_n)\right) - B_n(x) \Big\vert.
   \]
   where 
-  $B_{n}(x) = \sqrt{n}(F_n(x) - F(x; \hat\theta_n))$ is the known
+  $B_{n}(x) = \sqrt{n}(F_n(x) - F(x; \hat\theta_n))$ is the estimated
   bias term.
 \end{enumerate}
 
@@ -396,17 +388,6 @@ summarized as follows. Repeat the following steps for $b \in \{1, ..., B\}$.
 The p-value of the block bootstrap KS test can be approximated
 as $p = \sum_{b=1}^B I\{T^{(b)}_n > T_n\} / B$.
 
-\jy{Recover the definition of jy and eds for comments. Prepare two
-  definitions in the source so that one can be easily commented out.}
-\mc{addressed}
-
-\jy{Cite Kunsch (1989) in the proof as appropriate}
-\mc{addressed}
-
-\jy{In the Supp: make sure notations are consistent (e.g., use
-  $\{X_t: t = 1, \ldots, n\}$ for observed data);
-  clean up the styles (linewidth etc.)}
-\mc{addressed}
 
 Assume that the time series $\{X_t\}$ is stationary and
 strongly mixing. The following results provides theoretical validity
@@ -575,7 +556,9 @@ significance levels.
 \eds{I meant reporting the ratio, e.g, dividing all values currently in the    first row by 0.01, dividing all values in the second row by 0.05. Sometimes this
 	is helpful if there is a conservative or liberal pattern, which there seems
 	to be as $|\tau|$ increases away from zero, but it may be fine to leave it as
-	is.}\mc{how does this look?}}
+	is.}\mc{how does this look?}
+\jy{Once finalized, don't forget to update the caption.}
+    }
 \label{table:size}
 \begin{tabular}{lllrrrrrrr}
   \toprule
@@ -614,7 +597,6 @@ $F(\cdot; \theta)$ & $n$ & $\alpha$ & $\tau = -0.75$ & $\tau = -0.5$ & $\tau = -
 For a closer scrutiny on whether the test holds its size at commonly used
 significance levels 0.01, 0.05, and 0.10, Table~\ref{table:size}
 summarizes the empirical sizes of the tests based on 10000 replicates.
-\eds{Is 1000 enough to truly evaluate whether size is good at the 0.01 level?}
 The agreement between the empirical sizes and the nominal size
 improves as sample size improves, as expected. For $\tau = -0.75$
 and $\tau = 0.75$, a sample size as large as 800 is still not sufficient for the
@@ -754,13 +736,14 @@ conditional heteroskedasticity \citep{engle1995arch}. The proposed method has
 no need to specify the serial dependence and, hence, produces results under
 weakest assumptions.
 
-\eds{I think it would be better to show in simulation first (perhaps 
-in supplemental materials if we are concerned with paper length) that the other
-methods are not valid or unreliable under this setting, and then 
-further discredit those results here in the real data analysis.
-(I would expect a reviewer to ask for this comparison anyway.)}
-\jy{we could design scenarios where SPBB fails: some dependency
-  structure that cannot be well-approximated by ARMA.}
+% \eds{I think it would be better to show in simulation first (perhaps 
+% in supplemental materials if we are concerned with paper length) that the other
+% methods are not valid or unreliable under this setting, and then 
+% further discredit those results here in the real data analysis.
+% (I would expect a reviewer to ask for this comparison anyway.)}
+% \jy{We could design scenarios where SPBB fails: some dependency
+%   structure that cannot be well-approximated by ARMA. Could do this
+%   if requested.}
 
 
 \section{Conclusions}\label{sec:conclusion}
@@ -808,14 +791,14 @@ studies are publicly available in a GitHub repo:
 
 \bmsection*{Funding statement}
 
-None reported.
+JY and XZ's research was partially supported by NSF grant
+DMS2210735.
 
 \bmsection*{Conflict of interest disclosure}
 
 The authors declare no potential conflict of interests.
 
 % \bmsection*{Ethics approval statement}
-
 
 
 \bibliography{citations}
