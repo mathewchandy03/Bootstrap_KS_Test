@@ -1,4 +1,4 @@
-.libPaths("/gpfs/homefs1/mac18033/rlibs")
+.libPaths("/gpfs/homefs1/mac18033/rlibs") # replace with actual path
 library(tidyverse)
 library(truncdist)
 mystat <- function(x, dist) {
