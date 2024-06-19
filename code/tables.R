@@ -5,7 +5,7 @@ df <- readRDS("../data/null_rejection_rates.RDS") %>%
          rr = round(as.numeric(rr), 4),
          rr_ub = round(as.numeric(rr_ub), 3),
          alpha = format(round(as.numeric(alpha), 2), nsmall = 2),
-         `Empirical Size` = rr / as.numeric(alpha))
+         `Empirical Size` = rr)
 
 df$tau <- factor(case_when(df$phi == "-0.9238795" ~ "$\\tau = -0.75$",
                            df$phi == "-0.7071068" ~ "$\\tau = -0.5$",
