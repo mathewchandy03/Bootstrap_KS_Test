@@ -1,3 +1,11 @@
+6/18 Notes
+- Two affiliations on paper
+- Write about HPC
+- Write what each file does
+- Try AJUR for Arxiv
+- Send GitHub to Dr. Zhang
+- Series follow the conditions stated in Kunsch
+
 6/11 Notes
 - Two propositions, sketch of proofs is given in supplement
 - In main paper, state two propositions

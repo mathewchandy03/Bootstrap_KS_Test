@@ -1,11 +1,14 @@
 source("hpc_functions.R")
 B <- 1000
-nrep <- 4
+nrep <- 4 
+# If you cannot run it on HPC, you can try running it locally, but 10,000
+# replicates will take a long time, try nrep <- 10 first
 phis <- c()
 
 phis <- 
   c(-0.9238795, -0.7071068, -0.3826834, 0, 0.3826834, 0.7071068, 0.9238795)
-i <- Sys.getenv("SLURM_ARRAY_TASK_ID")
+i <- Sys.getenv("SLURM_ARRAY_TASK_ID") 
+# 1-2500, to run it locally select one seed
 
 for (phi in phis) {
   for (n in c(100, 200, 400, 800)) {
