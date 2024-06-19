@@ -267,7 +267,11 @@ Y^{(b)}_n(x) &= \sqrt{n}(F^{(b)}_n(x) - F_n(x)) -
                \sqrt{n}(F_n(x) - F(x; \hat\theta_n)),
 \end{align*}
 then $T^{(b)}_n := \sup_x|Y^{(b)}_n(x)|$ is the bootstrap statistic that is 
-expected to approximate the distribution of $T_n$. We note that the term
+expected to approximate the distribution of $T_n$. 
+\eds{you have defined two $T_n$'s - perhaps different notation should be used
+to differentiate the $T_n$ in the Intro and the $T_n$ in Section 2.1?  At least
+clarify which $T_n$ you are referring to here.} 
+We note that the term
 $\sqrt{n}(F_n(x) - F(x; \hat\theta_n))$ is exactly the bias term considered in 
 \citet{babu2004goodness}.
 
@@ -394,7 +398,7 @@ as $p = \sum_{b=1}^B I\{T^{(b)}_n > T_n\} / B$.
 
 
 Assume that the time series $\{X_t\}$ is stationary and
-strongly mixing. The following results provides theoretical validity
+strongly mixing. The following results provide theoretical validity
 of the NPBB procedure of the KS test. Sketches of their proofs are
 in the Supporting Information, with most arguments similar to those
 in \citet{kunsch1989jackknife}.
@@ -419,6 +423,10 @@ in \citet{kunsch1989jackknife}.
   for any fixed $x$, where and $T_n^*$ is the the statistic computed 
   based on the bootstrap sample $\{X_t^{(b)}: t = 1, \ldots, n\}$.
 \end{proposition}
+
+\eds{Is $T_n^*$ the same as $T_n^{(b)}$?  Can we replace the $t$ index with $i$ 
+to be consistent with earlier notation?  Or use $t$ earlier when introducing
+time-series data? ($t$ is used in the Simulation section below.)}
   
 Following the arguments in the proof of the Glivenko--Cantelli
 Theorem, the result in Proposition~\ref{prop:Tnboot} can be further
@@ -429,13 +437,14 @@ strengthened to allow uniform convergence over $x$. That is,
   \overset{a.s.}{\rightarrow} 0.
 \]
 
+\eds{Replace $X_{1:n}$ with $\{X_i: i = 1, \ldots, n\}$ or $\{X_t: t = 1, \ldots, n\}$?}
 
 \section{Simulation Studies}\label{sec:simu}
 
 In this simulation study, our objective is twofold: firstly, to demonstrate that
 under the null distribution, our test rejects the null hypothesis ($H_0$) 
 approximately at the specified size or significance level. Secondly, we aim to
-illustrate that under the alternate distribution, our test rejects
+illustrate that under the alternative hypothesis, our test rejects
 $H_0$ with substantial power. The fulfillment of both criteria would indicate
 the method's efficacy.
 
@@ -562,6 +571,7 @@ significance levels.
 	to be as $|\tau|$ increases away from zero, but it may be fine to leave it as
 	is.}\mc{how does this look?}
 \jy{Once finalized, don't forget to update the caption.}
+\eds{Leaving it like this is fine, thanks!}
     }
 \label{table:size}
 \begin{tabular}{lllrrrrrrr}
@@ -632,10 +642,12 @@ the \textsl{truncdist} package \citep{truncdist} to truncate the series at
 values less than or equal to 0 when testing that the $N(8, 8)$ sample was
 from $\Gamma(8, 1)$. For each setting for $F$, $\tau$, and $n$, we replicate the 
 method $10000$ times 
-to obtain a p-value $p_r$ for each $r \in \{1, \ldots, 1000\}$.
+to obtain a p-value $p_r$ for each $r \in \{1, \ldots, 1000\}$.  
+\eds{1000 or  10000?}
 The empirical rejection rates were obtained at a nominal significance level 0.05.
-Additionally, we constructed 95\% confidence intervals the actual rejection
-rejection rate.
+Additionally, we constructed 95\% confidence intervals of the actual rejection rate.
+\eds{what do you mean by `actual' rejection rate? True rejection rate?  
+I don't see the CI in Figure 2.}
 
 
 \begin{figure}[tbp]
@@ -691,7 +703,7 @@ For comparison, we tested the same hypotheses using 1) the
 SPB method of \citet{zeimbekakis2022misuses},
 which accounts for both serial dependence and unspecified parameters;
 2) NPB bias correction method of
-\citet{babu2004goodness}; and and 3) the parametric bootstrap (PB) method shown
+\citet{babu2004goodness}; and 3) the parametric bootstrap (PB) method shown
 by \citet{zeimbekakis2022misuses}. The latter of the two methods discard the
 serial dependence. In all methods, we used $B = 10,000$ bootstrap replicates.
 The p-values for these tests are summarized in 
@@ -752,7 +764,9 @@ weakest assumptions.
 % \jy{We could design scenarios where SPBB fails: some dependency
 %   structure that cannot be well-approximated by ARMA. Could do this
 %   if requested.}
-
+\eds{I still think this section is weak without supporting simulation evidence.
+but I am okay with letting this be low-hanging-fruit for a reviewer to request 
+if we are confident that the SPB will not work well in this situation.}
 
 \section{Conclusions}\label{sec:conclusion}
 
