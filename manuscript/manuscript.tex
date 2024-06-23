@@ -111,9 +111,9 @@ If we let $F_n(t) = \sum_{i=1}^n I(X_i \le t) / n$ be the empirical cumulative
 distribution function of the sample, where $I(\cdot)$ is the indicator
 function, the KS test statistic takes the form
 \[
-  T_n = \sqrt{n} \sup_x | F_{n}(x) - F(x; \theta_0)|.
+  D_n = \sqrt{n} \sup_x | F_{n}(x) - F(x; \theta_0)|.
 \]
-As sample size $n\to \infty$, the distribution of $T_n$ converges to that of the
+As sample size $n\to \infty$, the distribution of $D_n$ converges to that of the
 absolute value of standard Brownian bridge, which is known as the Kolmogorov
 distribution \citep{stephens1974edf}. This distribution function is
 precisely computable using contemporary statistical software
@@ -196,15 +196,15 @@ and remarks.
 
 \section{Methods}\label{sec:methods}
 
-Consider a stationary time series $\{X_t: t = 1, \ldots, n\}$ with length~$n$.
-We are interested in testing whether or not $X_t$ follows a distribution in a
+Consider a stationary time series $\{X_i: i = 1, \ldots, n\}$ with length~$n$.
+We are interested in testing whether or not $X_i$ follows a distribution in a
 parametric family of distribution~$F$ indexed by a parameter
 vector~$\theta$. That is, the null hypothesis is
 \[
-  H_0: X_t \sim F(\cdot ; \theta), \quad t = 1, \ldots, n,
+  H_0: X_i \sim F(\cdot ; \theta), \quad i = 1, \ldots, n,
 \]
 for some unspecified parameter $\theta$.
-The alternative hypothesis $H_A$ is that the marginal distribution of $X_t$ does
+The alternative hypothesis $H_A$ is that the marginal distribution of $X_i$ does
 not follow~$F$ for any parameter value~$\theta$. This is a challenging situation
 because both the parameters and the serial dependence structure are unknown.
 
@@ -241,7 +241,7 @@ second term leads to a bias in the Brownian bridge, which was addressed by
 \citet{babu2004goodness}.
 
 
-When $\{X_t: t = 1, \ldots, n\}$ are further serially dependent, the statistic
+When $\{X_i: i = 1, \ldots, n\}$ are further serially dependent, the statistic
 $T_n$ still provides a reasonable metric for deviation from the null
 hypothesis. Nonetheless, the asymptotic distribution of $T_n$ cannot be fixed
 even with the bias correction of \citet{babu2004goodness}, because the
@@ -270,7 +270,7 @@ then $T^{(b)}_n := \sup_x|Y^{(b)}_n(x)|$ is the bootstrap statistic that is
 expected to approximate the distribution of $T_n$. 
 \eds{you have defined two $T_n$'s - perhaps different notation should be used
 to differentiate the $T_n$ in the Intro and the $T_n$ in Section 2.1?  At least
-clarify which $T_n$ you are referring to here.} 
+clarify which $T_n$ you are referring to here.}\mc{addressed}
 We note that the term
 $\sqrt{n}(F_n(x) - F(x; \hat\theta_n))$ is exactly the bias term considered in 
 \citet{babu2004goodness}.
@@ -397,7 +397,7 @@ The p-value of the block bootstrap KS test can be approximated
 as $p = \sum_{b=1}^B I\{T^{(b)}_n > T_n\} / B$.
 
 
-Assume that the time series $\{X_t\}$ is stationary and
+Assume that the time series $\{X_i\}$ is stationary and
 strongly mixing. The following results provide theoretical validity
 of the NPBB procedure of the KS test. Sketches of their proofs are
 in the Supporting Information, with most arguments similar to those
@@ -416,28 +416,30 @@ in \citet{kunsch1989jackknife}.
 \begin{proposition}\label{prop:Tnboot}
   As $1/l+l/n\rightarrow 0$,
   \[
-    \big\vert \mathbb{P}(T_n^*\leq x \mid \{X_t: t = 1, \ldots, n\}) -
+    \big\vert \mathbb{P}(T_n^{(b)}\leq x \mid \{X_i: i = 1, \ldots, n\}) -
     \mathbb{P}(T_n\leq x) \big\vert
     \overset{a.s.}{\rightarrow} 0
   \]
   for any fixed $x$, where and $T_n^*$ is the the statistic computed 
-  based on the bootstrap sample $\{X_t^{(b)}: t = 1, \ldots, n\}$.
+  based on the bootstrap sample $\{X_i^{(b)}: i = 1, \ldots, n\}$.
 \end{proposition}
 
 \eds{Is $T_n^*$ the same as $T_n^{(b)}$?  Can we replace the $t$ index with $i$ 
 to be consistent with earlier notation?  Or use $t$ earlier when introducing
-time-series data? ($t$ is used in the Simulation section below.)}
+time-series data? ($t$ is used in the Simulation section below.)}\mc{I replaced
+everything with $i$, I wasn't sure when to use $X_i$ or $\{X_i\}$}
   
 Following the arguments in the proof of the Glivenko--Cantelli
 Theorem, the result in Proposition~\ref{prop:Tnboot} can be further
 strengthened to allow uniform convergence over $x$. That is,
 \[
   \sup_x \big \vert
-  \mathbb{P}(T_n^*\leq x|X_{1:n}) - \mathbb{P}(T_n\leq x) \big\vert
+  \mathbb{P}(T_n^{(b)}\leq x|\{X_i: i = 1, \ldots, n\}) - \mathbb{P}(T_n\leq x) \big\vert
   \overset{a.s.}{\rightarrow} 0.
 \]
 
 \eds{Replace $X_{1:n}$ with $\{X_i: i = 1, \ldots, n\}$ or $\{X_t: t = 1, \ldots, n\}$?}
+\mc{addressed}
 
 \section{Simulation Studies}\label{sec:simu}
 
@@ -451,9 +453,9 @@ the method's efficacy.
 
 \subsection{Size}
 To assess the actual size of the test, our strategy is to
-generate a large number of stationary time series $X_t$ with a certain marginal
+generate a large number of stationary time series $X_i$ with a certain marginal
 distribution $F(\cdot; \theta)$, and for each time series, use our method to
-test if $X_t$ follows a hypothesized marginal distribution $F(\cdot; \theta)$
+test if $X_i$ follows a hypothesized marginal distribution $F(\cdot; \theta)$
 with some unknown $\theta$. If the test holds its size, the p-value
 of the test should be uniformly distributed between 0 and 1. We will validate
 our method with different marginal distributions to ensure that it is robust.
@@ -467,25 +469,25 @@ sample size $n \in \{100, 200, 400, 800\}$. Kendall's $\tau$ was chosen as a
 measure of serial dependence as it is invariant to monotone marginal
 transformations. 
 To generate the samples to which our
-method would be applied, we simulated a time series $W_t$ from a 1st 
+method would be applied, we simulated a time series $W_i$ from a 1st 
 order autoregressive or AR(1) process:
 \begin{equation*}
-W_t = \phi W_{t-1} + \epsilon_t,
+W_i = \phi W_{i-1} + \epsilon_i,
 \end{equation*}
-where $\phi$ is an autoregressive coefficient, and $\epsilon_t$ is a series of
+where $\phi$ is an autoregressive coefficient, and $\epsilon_i$ is a series of
 independent errors from a normal distribution with mean zero and variance
 $\sigma_{\epsilon}^2$. The strength of the serial dependence is controlled by
 $\phi$, which was set to five levels: 
 $\{-0.924, -0.707, -0.383, 0, 0.383, 0.707, 0.924\}$, as these
 correspond to the desired values for $\tau$. The 
-series $W_t$ has mean zero and variance 
+series $W_i$ has mean zero and variance 
 $\sigma_x^2 = \sigma_{\epsilon}^2 / (1 - \phi^2)$, so for each value of
 $\phi$,  we 
 set $\sigma_{\epsilon}^2 = (1 - \phi^2)$ such that $\sigma_x^2 = 1$.
 First, we generated a
-marginal $N(8, 8)$ by marginally transforming $W_t$ by
+marginal $N(8, 8)$ by marginally transforming $W_i$ by
 \begin{equation*}
-X_t = F^{-1}[\Phi(W_t)],
+X_i = F^{-1}[\Phi(W_i)],
 \end{equation*}
 where $F^{-1}(p)$ is the quantile function for the $N(8, 8)$ 
 distribution and $\Phi$ is the distribution function of the standard normal
@@ -506,14 +508,14 @@ error structures. The specific parameters were chosen because the distributions
 are very similar and their
 first two moments are the same. 
 For the purposes of 
-evaluating if the test holds it size, when $X_t \sim N(8, 8)$, we tested that the 
+evaluating if the test holds it size, when $X_i \sim N(8, 8)$, we tested that the 
 marginal distribution is from the
 Normal family, or 
-$X_t \sim N(\cdot ; \mu, \sigma^2), \quad t = 1, \ldots, n$
-for some unspecified $\mu$ and $\sigma$. When $X_t \sim \Gamma(8, 1)$, we tested
+$X_i \sim N(\cdot ; \mu, \sigma^2), \quad i = 1, \ldots, n$
+for some unspecified $\mu$ and $\sigma$. When $X_i \sim \Gamma(8, 1)$, we tested
 that the marginal distribution family is from the Gamma family,
 or
-$X_t \sim \Gamma(\cdot ; \alpha, \beta), \quad t = 1, \ldots, n$.
+$X_i \sim \Gamma(\cdot ; \alpha, \beta), \quad i = 1, \ldots, n$.
 for some unspecified $\alpha$ and $\beta$. For the block bootstrap step,
 we used $B = 1000$ and $l = \lceil n^{1/3} \rceil$.
 For each setting for $F$, $\tau$, and $n$, we replicate the method 10000 times 
@@ -562,17 +564,7 @@ Results are very similar for normal and gamma margins.
 \caption{Empirical sizes or rejection rates
 for the test that sample follows its true distribution family for
 different values of AR(1) coefficient and for different 
-significance levels.
-\eds{Not sure if it will help presentation or interpretation, but you could
-  consider presenting the values inside the table as estimated size/true size}
-\mc{addressed}
-\eds{I meant reporting the ratio, e.g, dividing all values currently in the    first row by 0.01, dividing all values in the second row by 0.05. Sometimes this
-	is helpful if there is a conservative or liberal pattern, which there seems
-	to be as $|\tau|$ increases away from zero, but it may be fine to leave it as
-	is.}\mc{how does this look?}
-\jy{Once finalized, don't forget to update the caption.}
-\eds{Leaving it like this is fine, thanks!}
-    }
+significance levels.}
 \label{table:size}
 \begin{tabular}{lllrrrrrrr}
   \toprule
@@ -642,12 +634,11 @@ the \textsl{truncdist} package \citep{truncdist} to truncate the series at
 values less than or equal to 0 when testing that the $N(8, 8)$ sample was
 from $\Gamma(8, 1)$. For each setting for $F$, $\tau$, and $n$, we replicate the 
 method $10000$ times 
-to obtain a p-value $p_r$ for each $r \in \{1, \ldots, 1000\}$.  
-\eds{1000 or  10000?}
+to obtain a p-value $p_r$ for each $r \in \{1, \ldots, 10000\}$.  
+\eds{1000 or  10000?}\mc{addressed}
 The empirical rejection rates were obtained at a nominal significance level 0.05.
-Additionally, we constructed 95\% confidence intervals of the actual rejection rate.
 \eds{what do you mean by `actual' rejection rate? True rejection rate?  
-I don't see the CI in Figure 2.}
+I don't see the CI in Figure 2.}\mc{addressed}
 
 
 \begin{figure}[tbp]
@@ -764,9 +755,9 @@ weakest assumptions.
 % \jy{We could design scenarios where SPBB fails: some dependency
 %   structure that cannot be well-approximated by ARMA. Could do this
 %   if requested.}
-\eds{I still think this section is weak without supporting simulation evidence.
-but I am okay with letting this be low-hanging-fruit for a reviewer to request 
-if we are confident that the SPB will not work well in this situation.}
+%\eds{I still think this section is weak without supporting simulation evidence.
+%but I am okay with letting this be low-hanging-fruit for a reviewer to request 
+%if we are confident that the SPB will not work well in this situation.}
 
 \section{Conclusions}\label{sec:conclusion}
 
