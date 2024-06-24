@@ -45,7 +45,7 @@
 We first derive the limiting distribution of the KS statistic under the null. 
 Suppose $\hat{\theta}_n$ admits the expansion:
 \begin{align}\label{eq-expan}
-\hat{\theta}_n-\theta_0 = \frac{1}{n}\sum^{n}_{t=1}h(X_i;\theta_0) + 
+\hat{\theta}_n-\theta_0 = \frac{1}{n}\sum^{n}_{i=1}h(X_i;\theta_0) + 
 \frac{1}{\sqrt{n}}R_n,    
 \end{align}
 where $h(\cdot;\theta_0)$ is the influence function with 
@@ -125,7 +125,7 @@ T_n \overset{d}{\rightarrow} \sup_x |G_{\infty}(x)+f(x;\theta_0)U|.
 
 Denote by $\mathbb{E}^{(b)}$, $\text{Var}^{(b)}$ and $\text{Cov}^{(b)}$
 the expectation, variance and covariance conditional on 
-$\{X_t: t = 1, \ldots, n\}$ in 
+$\{X_i: i = 1, \ldots, n\}$ in 
 the bootstrap world. Assuming that $n=kl$ with $l$ being the block size and $k$ 
 being the number of blocks, the bootstrap marginal distribution is 
 \begin{align*}
@@ -134,7 +134,8 @@ being the number of blocks, the bootstrap marginal distribution is
 where $\delta_x$ denotes a point mass at $x$, and $S_1,\dots,S_k$ are i.i.d 
 uniform on $\{1,\dots,n-l+1\}$. 
 Define $G_n^{(b)}(x)$ in the same way as $G_n(x)$ with $X_1, \dots, X_n$ being 
-replaced by the bootstrap samples $\{X_i: i = 1, \ldots, n\}^{(b)}=\{X_1^{(b)},\dots,X_n^{(b)}\}$.
+replaced by the bootstrap samples %$\{X_i: i = 1, \ldots, n\}^{(b)}=\{X_1^{(b)},\dots,X_n^{(b)}\}$.
+$X_1^{(b)},\dots,X_n^{(b)}.$
 
 \begin{proof}[Proof of Proposition~2]
     We want to show that
@@ -197,7 +198,7 @@ to $G_n^{(b)}(x)$ and we expect that
 \sum^{+\infty}_{h=-\infty}\text{Cov}(h(X_{h},\theta_0),\mathbf{1}\{X_0\leq x\}).
 \end{align*}
 By showing the finite-dimensional convergence and tightness in the bootstrap 
-world (conditional on the data $\{X_t: t = 1, \ldots, n\}$), we can establish 
+world (conditional on the data $\{X_i: i = 1, \ldots, n\}$), we can establish 
 \eqref{eq-con-boot}.
 From the CLT, the process $G_n^{(b)}(x) = \sqrt{n}(F_n^{(b)}(x) - F_n(x))$ 
 converges 
