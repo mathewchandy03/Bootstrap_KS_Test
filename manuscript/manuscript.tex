@@ -128,7 +128,7 @@ radioactive data \citep{aslam2020introducing}, gear condition monitoring
 
 Despite its widespread use, the KS test can be 
 misapplied when its foundational assumptions are overlooked. The KS test 
-assumes the data are independently and identically distributed and 
+assumes that the data are independently and identically distributed and 
 that the hypothesized distribution is continuous and fully specified without 
 the need for parameter estimation. \citet{zeimbekakis2022misuses} examines
 common misapplications of the one-sample KS test. One notable inappropriate
@@ -142,7 +142,6 @@ samples generated from the fitted hypothesized distribution.
 Alternatively, \citet{babu2004goodness} address this issue through a
 nonparametric bootstrap (NPB) method that corrects the bias in the asymptotic null
 distribution.
-
 
 
 Another prevalent misapplication of the KS test arises when data exhibit serial
@@ -163,7 +162,7 @@ method that does not specify the serial dependence is desired.
 
 
 Developing a fully nonparametric solution for the KS 
-tests in the presence of serially dependent data presents a significant 
+tests in the presence of serial dependence presents a significant 
 challenge. The null distribution's characteristics are intricately linked to 
 the structure of the serial dependence, which can vary widely in practical 
 situations. Employing a nonparametric method would necessitate defining a 
@@ -424,6 +423,7 @@ in \citet{kunsch1989jackknife}.
 Following the arguments in the proof of the Glivenko--Cantelli
 Theorem, the result in Proposition~\ref{prop:Tnboot} can be further
 strengthened to allow uniform convergence over $x$. That is,
+as $1/l+l/n\rightarrow 0$,
 \[
   \sup_x \big \vert
   \mathbb{P}(T_n^{(b)}\leq x \mid \{X_i: i = 1, \ldots, n\}) - \mathbb{P}(T_n\leq x) \big\vert
