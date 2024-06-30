@@ -268,9 +268,6 @@ Y^{(b)}_n(x) &= \sqrt{n}(F^{(b)}_n(x) - F_n(x)) -
 \end{align*}
 then $T^{(b)}_n := \sup_x|Y^{(b)}_n(x)|$ is the bootstrap statistic that is 
 expected to approximate the distribution of $T_n$. 
-%\eds{you have defined two $T_n$'s - perhaps different notation should be used
-%to differentiate the $T_n$ in the Intro and the $T_n$ in Section 2.1?  At least
-%clarify which $T_n$ you are referring to here.}\mc{addressed}
 We note that the term
 $\sqrt{n}(F_n(x) - F(x; \hat\theta_n))$ is exactly the bias term considered in 
 \citet{babu2004goodness}.
@@ -420,17 +417,9 @@ in \citet{kunsch1989jackknife}.
     \mathbb{P}(T_n\leq x) \big\vert
     \overset{a.s.}{\rightarrow} 0
   \]
-  for any fixed $x$, where and $T_n^*$ is the the statistic computed 
+  for any fixed $x$, where and $T_n^b$ is the the statistic computed 
   based on the bootstrap sample $\{X_i^{(b)}: i = 1, \ldots, n\}$.
 \end{proposition}
-
-\eds{Is $T_n^*$ the same as $T_n^{(b)}$?}  
-\eds{Can we replace the $t$ index with $i$ 
-to be consistent with earlier notation?  Or use $t$ earlier when introducing
-time-series data? ($t$ is used in the Simulation section below.)}\mc{I replaced
-everything with $i$, I wasn't sure when to use $X_i$ or $\{X_i\}$}
-\eds{I think this is fine -- $t$ or $i$ would have worked, as long as it is 
-consistently used within the time series sections.}
   
 Following the arguments in the proof of the Glivenko--Cantelli
 Theorem, the result in Proposition~\ref{prop:Tnboot} can be further
@@ -440,9 +429,6 @@ strengthened to allow uniform convergence over $x$. That is,
   \mathbb{P}(T_n^{(b)}\leq x \mid \{X_i: i = 1, \ldots, n\}) - \mathbb{P}(T_n\leq x) \big\vert
   \overset{a.s.}{\rightarrow} 0.
 \]
-
-%\eds{Replace $X_{1:n}$ with $\{X_i: i = 1, \ldots, n\}$ or $\{X_t: t = 1, \ldots, n\}$?}
-%\mc{addressed}
 
 \section{Simulation Studies}\label{sec:simu}
 
