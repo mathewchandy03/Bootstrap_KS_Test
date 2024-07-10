@@ -107,8 +107,8 @@ distribution and the null hypothesis $H_0$ that $X_i$'s follow a specific
 hypothesized distribution~$F(x; \theta_0)$, where $\theta_0$ are the 
 specified parameters
 of the hypothesized distribution family.
-If we let $F_n(t) = \sum_{i=1}^n I(X_i \le t) / n$ be the empirical cumulative
-distribution function of the sample, where $I(\cdot)$ is the indicator
+If we let $F_n(t) = \sum_{i=1}^n \mathbf{1}(\{X_i \le t\} / n$ be the empirical cumulative
+distribution function of the sample, where $\mathbf{1}\{\cdot\}$ is the indicator
 function, the KS test statistic takes the form
 \[
   D_n = \sqrt{n} \sup_x | F_{n}(x) - F(x; \theta_0)|.
@@ -420,7 +420,7 @@ in \citet{kunsch1989jackknife}.
     \mathbb{P}(T_n\leq x) \big\vert
     \overset{a.s.}{\rightarrow} 0
   \]
-  for any fixed $x$, where and $T_n^*$ is the the statistic computed 
+  for any fixed $x$, where and $T_n^{(b)}$ is the the statistic computed 
   based on the bootstrap sample $\{X_i^{(b)}: i = 1, \ldots, n\}$.
 \end{proposition}
 

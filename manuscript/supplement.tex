@@ -25,6 +25,7 @@
 \usepackage{rotating}
 \usepackage{xcolor}
 \usepackage{fullpage}
+\usepackage[utf8]{inputenc}
 
 \newcommand{\mc}[1]{\textcolor{blue}{MC: (#1)}}
 
@@ -55,12 +56,76 @@ F(x; \theta_0))$
 and let $f(x;\theta)=\partial F(x;\theta)/\partial \theta$. We assume 
 $\theta \in \mathbb{R}$ for ease of presentation.
 
+\subsection{Finite-Dimensional Convergence of $G_n(x_1),\dots,G_n(x_m)$}
+
+We assume that the sequence \(\{X_i\}\) is strictly stationary and satisfies a 
+strong mixing condition.This condition ensures that the dependence between 
+\(X_i\) and \(X_{i+h}\) weakens sufficiently fast as \(h\) increases.
+
+We aim to show that for any fixed \( x_1, \ldots, x_m \), the vector \( (G_n(x_1), \ldots, G_n(x_m)) \) converges in distribution to a multivariate normal vector \( (G_{\infty}(x_1), \ldots, G_{\infty}(x_m)) \) with mean zero and covariance structure given by:
+\[
+\text{Cov}(G_{\infty}(x_i), G_{\infty}(x_j)) = \sum_{h=-\infty}^{\infty} \text{Cov}(\mathbf{1}\{X_0 \leq x\}, \mathbf{1}\{X_h \leq x^{\prime}\}),
+\]
+where $ \mathbf{1}\{\cdot\}$ is the indicator
+function.
+
 
 Given any $x_1,\dots,x_m$ in the domain of $F$, by the CLT for weakly dependent 
 time series, we have the joint convergence of 
 $V_n:=(G_n(x_1),\dots,G_n(x_m),\sqrt{n}(\hat{\theta}_n-\theta_0))$
 to some Gaussian limit, with the covariance matrix being 
 $\Sigma_{m+1}=\lim_{n\rightarrow+\infty}\text{Cov}(V_n)$.
+Consider the empirical process $ G_n(x) = \sqrt{n} (F_n(x) - F(x)) $, where 
+$ F_n(x) $ is the empirical distribution function based on $ X_1, \ldots, 
+X_n $. To show finite-dimensional convergence, we need to establish that for 
+any fixed $ x_1, \ldots, x_m $, the vector $ (G_n(x_1), \ldots, G_n(x_m)) $ 
+converges in distribution to a multivariate normal distribution.
+The 
+empirical distribution function can be written as:
+$
+F_n(x) = \frac{1}{n} \sum_{t=1}^n \mathbf{1}\{X_i \leq x\}.
+$
+Therefore, the empirical process is:
+$
+G_n(x) = \sqrt{n} (F_n(x) - F(x)) = \frac{1}{\sqrt{n}} \sum_{i=1}^n 
+(\mathbf{1}\{X_i \leq x\} - 
+F(x)).
+$ 
+
+To establish the asymptotic distribution of $ G_n(x) $, we consider the vector 
+$ (G_n(x_1), \ldots, G_n(x_m)) $:
+$
+(G_n(x_1), \ldots, G_n(x_m)) = \frac{1}{\sqrt{n}} \sum_{i=1}^n (\mathbf{1}\{X_i \leq x_1\} - 
+F(x_1), \ldots, \mathbf{1}\{X_i \leq x_m\} - F(x_m)).
+$
+We calculate the covariance structure of the limiting distribution. The 
+covariance between $ G_n(x) $ and $ G_n(x^{\prime}) $ is:
+$
+\text{Cov}(G_n(x), G_n(x^{\prime})) = \frac{1}{n} \sum_{t=1}^n \sum_{s=1}^n 
+\text{Cov}(\mathbf{1}\{X_t \leq x\}, \mathbf{1}\{X_t \leq x^{\prime}\}).
+$
+Since $ \{X_i\} $ is strictly stationary, the covariance depends only on the 
+lag $ h = |t-s| $:
+$
+\text{Cov}(\mathbf{1}\{X_t \leq x\}, \mathbf{1}\{X_t \leq x^{\prime}\}) = \text{Cov}(\mathbf{1}\{X_h \leq x\}, 
+\mathbf{1}\{X_0 \leq x^{\prime}\}).
+$
+Thus, the covariance can be expressed as:
+$
+\text{Cov}(G_n(x), G_n(x')) = \frac{1}{n} \sum_{t=1}^n \sum_{h=-t+1}^{n-t} 
+\text{Cov}(\mathbf{1}\{X_h \leq x\}, 
+\mathbf{1}\{X_0 \leq x^{\prime}\}).
+$
+
+By the mixing condition, the covariances $ \text{Cov}(\mathbf{1}\{X_h \leq x\}, 
+\mathbf{1}\{X_0 \leq x^{\prime}\}) $ 
+decay sufficiently fast as $ h \to \infty $. Therefore, the sum converges to:
+$
+\lim_{n \to \infty} \text{Cov}(G_n(x), G_n(x')) = \sum_{h=-\infty}^{\infty} 
+\text{Cov}(\{X_h \leq x\}, 
+\mathbf{1}\{X_0 \leq x^{\prime}\}).
+$
+
 %\begin{align*}
 %\Sigma_{m+1}=\begin{pmatrix}
 %df & df & \cdots & df\\   
@@ -69,18 +134,68 @@ $\Sigma_{m+1}=\lim_{n\rightarrow+\infty}\text{Cov}(V_n)$.
 %df & df & \cdots & df
 %\end{pmatrix}    
 %\end{align*} 
-Moreover, we can show the tightness of the process $G_n(x)$. 
+
+\subsection{Tightness of $G_n(x)$}
+
+Moreover, we can show the tightness of the process $G_n(s)$. 
+We want to show that for every $\epsilon > 0$,
+$
+\lim_{\delta \to 0} \limsup_{n \to \infty} \mathbb{P}\left( \omega_{G_n}(\delta) 
+\geq \epsilon \right) = 0,
+$
+where the modulus of continuity $\omega_{G_n}(\delta)$ is defined as
+$
+\omega_{G_n}(\delta) = \sup_{|s - t| < \delta} |G_n(s) - G_n(t)|
+$
+\citep{billingsley2013convergence}.
 For sufficiently small $\delta$, and leveraging the properties of weakly 
 dependent sequences, we can show that
-\[ \sup_{|x - y| < \delta} |G_n(x) - G_n(y)| = \sup_{|x - y| < \delta} 
-\sqrt{n}|(F_n(x) - F(x)) - (F_n(y) - F(y))| \]
+$ \sup_{|s - t| < \delta} |G_n(s) - G_n(t)| = \sup_{|s - t| < \delta} 
+\sqrt{n}|(F_n(s) - F(s)) - (F_n(t) - F(t))| $
 is small with high probability.
-Specifically, since $F(x)$ is continuous, for small 
-$\delta$, $|F(x) - F(y)|$ is small. For the empirical 
-distribution function $F_n(x)$, the increments $|F_n(x) - F_n(y)|$ are 
-also controlled. 
-This implies that the process $G_n(x)$ does not exhibit large oscillations over 
-small intervals, thus satisfying the criterion for tightness.
+For $ |s - t| < \delta $,
+$
+|G_n(s) - G_n(t)| = \sqrt{n} \left| (F_n(s) - F(s; \theta_0)) - (F_n(t) - 
+F(t; \theta_0)) \right|.
+$
+This can be decomposed as:
+$
+|G_n(s) - G_n(t)| = \sqrt{n} \left| (F_n(s) - F_n(t)) - (F(s; \theta_0) - 
+F(t; \theta_0)) \right|.
+$
+
+Remember that $F_n(t) = \sum_{i=1}^n  \mathbf{1}\{X_i \le t\} / n$. Then, for 
+$ |s - t| < \delta $, the difference $ F_n(s) - F_n(t) $ can be written as:
+$ F_n(s) - F_n(t) = \frac{1}{n} \sum_{i=1}^n \left( \mathbf{1}\{X_i \leq s\} - 
+\mathbf{1}\{X_i \leq t\} \right), $ or as 
+$ \mathbb{E}\left[ \frac{1}{n} \sum_{i=1}^n \mathbf{1}\{ t < X_i \leq s \} 
+\right] $. To provide a more precise bound on $ F_n(s) - F_n(t) $, we use 
+Hoeffding's inequality, which states that for any $ t > 0 $,
+$ \mathbb{P}\left( \left| \frac{1}{n} \sum_{i=1}^n \mathbf{1}\{ t < X_i \leq s 
+\} - \\
+\mathbb{E}\left[ \frac{1}{n} \sum_{i=1}^n \mathbf{1}\{ t < X_i \leq s \} 
+\right] \right| > t \right) \leq 2 \exp\left( -2nt^2 \right). $
+
+Since 
+$ \mathbb{E}\left[ \frac{1}{n} \sum_{i=1}^n \mathbf{1}\{ t < X_i \leq s \} 
+\right] = F(s; \theta_0) - F(t; \theta_0), $
+we have:
+$ \mathbb{P}\left( \left| \frac{1}{n} \sum_{i=1}^n \mathbf{1}\{ t < X_i \leq s 
+\} - \\
+(F(s; \theta_0) - F(t; \theta_0)) \right| > t \right) \leq 2
+\exp\left( 
+-2nt^2 \right). $
+Because the true CDF is continuous, by definition, $ F(s; \theta_0) $, for any $ \epsilon > 0 
+$, there esists a $ \delta > 0 $ such that for $ |s - t| < \delta $,
+$ |F(s; \theta_0) - F(t; \theta_0)| < \epsilon. $ Using the bound from Hoeffding's inequality, we have:
+$ \mathbb{P}\left( |F_n(s) - F_n(t) - (F(s; \theta_0) - F(t; \theta_0))| \geq 
+\epsilon \right) \leq 2 \exp\left( -2n\epsilon^2 \right). $ Then, for sufficiently large $ n $ and small $ \delta $,
+$ \mathbb{P}\left( \omega_{G_n}(\delta) \geq \epsilon \right) \leq 2 
+\exp\left( -2n\epsilon^2 \right). $ Taking limits, we conclude:
+$ \lim_{\delta \to 0} \limsup_{n \to \infty} \mathbb{P}\left( 
+\omega_{G_n}(\delta) \geq \epsilon \right) = 0. $
+
+
 Therefore, we have
 \begin{align*}
 \begin{pmatrix}
@@ -125,7 +240,7 @@ T_n \overset{d}{\rightarrow} \sup_x |G_{\infty}(x)+f(x;\theta_0)U|.
 
 Denote by $\mathbb{E}^{(b)}$, $\text{Var}^{(b)}$ and $\text{Cov}^{(b)}$
 the expectation, variance and covariance conditional on 
-$\{X_t: t = 1, \ldots, n\}$ in 
+$\{X_i: i = 1, \ldots, n\}$ in 
 the bootstrap world. Assuming that $n=kl$ with $l$ being the block size and $k$ 
 being the number of blocks, the bootstrap marginal distribution is 
 \begin{align*}
@@ -197,50 +312,54 @@ to $G_n^{(b)}(x)$ and we expect that
 \sum^{+\infty}_{h=-\infty}\text{Cov}(h(X_{h},\theta_0),\mathbf{1}\{X_0\leq x\}).
 \end{align*}
 By showing the finite-dimensional convergence and tightness in the bootstrap 
-world (conditional on the data $\{X_t: t = 1, \ldots, n\}$), we can establish 
+world (conditional on the data $\{X_i: i = 1, \ldots, n\}$), we can establish 
 \eqref{eq-con-boot}.
 From the CLT, the process $G_n^{(b)}(x) = \sqrt{n}(F_n^{(b)}(x) - F_n(x))$ 
 converges 
 to 
 $G_{\infty}(x)$.
 
+\subsection{Finite-Dimensional Convergence in the Bootstrap World}
+
 For $\sqrt{n}(F(x;\hat{\theta}_n^{(b)}) - F(x;\hat{\theta}_0))$, using the 
 first-order Taylor 
 expansion around $\hat{\theta}_0$ similarly to what was done in 
 \citet{kunsch1989jackknife}, we have:
-\[
+$
 F(x;\hat{\theta}_n^{(b)}) \approx F(x;\hat{\theta}_0) + f(x; 
 \hat{\theta}_0) (\hat{\theta}_n^{(b)} - \hat{\theta}_0),
-\] so
-\[
+$ so
+$
 \sqrt{n}(F(x;\hat{\theta}_n^{(b)}) - F(x;\hat{\theta}_0)) \approx \sqrt{n} 
 (F(x;\hat{\theta}_0) + f(x; 
 \hat{\theta}_0) (\hat{\theta}_n^{(b)} - \hat{\theta}_0) - F(x;\hat{\theta}_0)) 
 \approx
 f(x; 
 \hat{\theta}_0) \sqrt{n} (\hat{\theta}_n^{(b)} - \hat{\theta}_0).
-\]
+$
 
 Substituting the expansion of $\hat{\theta}_n^{(b)}$:
-\[
+$
 \sqrt{n} (\hat{\theta}_n^{(b)} - \hat{\theta}_0) = \frac{1}{\sqrt{n}} 
 \sum_{i=1}^{n} 
 h(X_i^{(b)}; \hat{\theta}_0) + R_n^{(b)}.
-\]
+$
 
 Since $R_n^{(b)} \overset{p^{(b)}}{\rightarrow} 0$, 
-\[
+$
 \sqrt{n}(F(x;\hat{\theta}_n^{(b)}) - F(x;\hat{\theta}_0)) \approx 
 f(x; \hat{\theta}_0) \left( \frac{1}{\sqrt{n}} \sum_{i=1}^{n} h(X_i^{(b)}; 
 \hat{\theta}_0) \right).
-\]
+$
 
 The term $\frac{1}{\sqrt{n}} \sum_{i=1}^{n} h(X_i^{(b)}; \hat{\theta}_0)$ 
 converges in distribution to a normal random variable $U$ with variance 
 $s^2$.
-We can show tightness of $G_n^{(b)}(x)$ similarly to how we established 
-tightness of $G_n(x)$
-The results then follow from the continuous mapping theorem.
+
+
+\subsection{Tightness in Bootstrap World}
+
+
 \end{proof}
 
 \bibliographystyle{chicago} 
@@ -248,3 +367,4 @@ The results then follow from the continuous mapping theorem.
 
 
 \end{document}
+
