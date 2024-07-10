@@ -128,7 +128,7 @@ radioactive data \citep{aslam2020introducing}, gear condition monitoring
 
 Despite its widespread use, the KS test can be 
 misapplied when its foundational assumptions are overlooked. The KS test 
-assumes the data are independently and identically distributed and 
+assumes that the data are independently and identically distributed and 
 that the hypothesized distribution is continuous and fully specified without 
 the need for parameter estimation. \citet{zeimbekakis2022misuses} examines
 common misapplications of the one-sample KS test. One notable inappropriate
@@ -142,7 +142,6 @@ samples generated from the fitted hypothesized distribution.
 Alternatively, \citet{babu2004goodness} address this issue through a
 nonparametric bootstrap (NPB) method that corrects the bias in the asymptotic null
 distribution.
-
 
 
 Another prevalent misapplication of the KS test arises when data exhibit serial
@@ -163,7 +162,7 @@ method that does not specify the serial dependence is desired.
 
 
 Developing a fully nonparametric solution for the KS 
-tests in the presence of serially dependent data presents a significant 
+tests in the presence of serial dependence presents a significant 
 challenge. The null distribution's characteristics are intricately linked to 
 the structure of the serial dependence, which can vary widely in practical 
 situations. Employing a nonparametric method would necessitate defining a 
@@ -268,9 +267,6 @@ Y^{(b)}_n(x) &= \sqrt{n}(F^{(b)}_n(x) - F_n(x)) -
 \end{align*}
 then $T^{(b)}_n := \sup_x|Y^{(b)}_n(x)|$ is the bootstrap statistic that is 
 expected to approximate the distribution of $T_n$. 
-\eds{you have defined two $T_n$'s - perhaps different notation should be used
-to differentiate the $T_n$ in the Intro and the $T_n$ in Section 2.1?  At least
-clarify which $T_n$ you are referring to here.}\mc{addressed}
 We note that the term
 $\sqrt{n}(F_n(x) - F(x; \hat\theta_n))$ is exactly the bias term considered in 
 \citet{babu2004goodness}.
@@ -420,26 +416,19 @@ in \citet{kunsch1989jackknife}.
     \mathbb{P}(T_n\leq x) \big\vert
     \overset{a.s.}{\rightarrow} 0
   \]
-  for any fixed $x$, where and $T_n^{(b)}$ is the the statistic computed 
+  for any fixed $x$, where $T_n^{(b)}$ is the statistic computed 
   based on the bootstrap sample $\{X_i^{(b)}: i = 1, \ldots, n\}$.
 \end{proposition}
-
-\eds{Is $T_n^*$ the same as $T_n^{(b)}$?  Can we replace the $t$ index with $i$ 
-to be consistent with earlier notation?  Or use $t$ earlier when introducing
-time-series data? ($t$ is used in the Simulation section below.)}\mc{I replaced
-everything with $i$, I wasn't sure when to use $X_i$ or $\{X_i\}$}
   
 Following the arguments in the proof of the Glivenko--Cantelli
 Theorem, the result in Proposition~\ref{prop:Tnboot} can be further
 strengthened to allow uniform convergence over $x$. That is,
+as $1/l+l/n\rightarrow 0$,
 \[
   \sup_x \big \vert
-  \mathbb{P}(T_n^{(b)}\leq x|\{X_i: i = 1, \ldots, n\}) - \mathbb{P}(T_n\leq x) \big\vert
+  \mathbb{P}(T_n^{(b)}\leq x \mid \{X_i: i = 1, \ldots, n\}) - \mathbb{P}(T_n\leq x) \big\vert
   \overset{a.s.}{\rightarrow} 0.
 \]
-
-\eds{Replace $X_{1:n}$ with $\{X_i: i = 1, \ldots, n\}$ or $\{X_t: t = 1, \ldots, n\}$?}
-\mc{addressed}
 
 \section{Simulation Studies}\label{sec:simu}
 
@@ -635,10 +624,7 @@ values less than or equal to 0 when testing that the $N(8, 8)$ sample was
 from $\Gamma(8, 1)$. For each setting for $F$, $\tau$, and $n$, we replicate the 
 method $10000$ times 
 to obtain a p-value $p_r$ for each $r \in \{1, \ldots, 10000\}$.  
-\eds{1000 or  10000?}\mc{addressed}
 The empirical rejection rates were obtained at a nominal significance level 0.05.
-\eds{what do you mean by `actual' rejection rate? True rejection rate?  
-I don't see the CI in Figure 2.}\mc{addressed}
 
 
 \begin{figure}[tbp]

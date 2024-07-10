@@ -46,7 +46,7 @@
 We first derive the limiting distribution of the KS statistic under the null. 
 Suppose $\hat{\theta}_n$ admits the expansion:
 \begin{align}\label{eq-expan}
-\hat{\theta}_n-\theta_0 = \frac{1}{n}\sum^{n}_{t=1}h(X_i;\theta_0) + 
+\hat{\theta}_n-\theta_0 = \frac{1}{n}\sum^{n}_{i=1}h(X_i;\theta_0) + 
 \frac{1}{\sqrt{n}}R_n,    
 \end{align}
 where $h(\cdot;\theta_0)$ is the influence function with 
@@ -249,7 +249,8 @@ being the number of blocks, the bootstrap marginal distribution is
 where $\delta_x$ denotes a point mass at $x$, and $S_1,\dots,S_k$ are i.i.d 
 uniform on $\{1,\dots,n-l+1\}$. 
 Define $G_n^{(b)}(x)$ in the same way as $G_n(x)$ with $X_1, \dots, X_n$ being 
-replaced by the bootstrap samples $\{X_i: i = 1, \ldots, n\}^{(b)}=\{X_1^{(b)},\dots,X_n^{(b)}\}$.
+replaced by the bootstrap samples %$\{X_i: i = 1, \ldots, n\}^{(b)}=\{X_1^{(b)},\dots,X_n^{(b)}\}$.
+$X_1^{(b)},\dots,X_n^{(b)}.$
 
 \begin{proof}[Proof of Proposition~2]
     We want to show that
