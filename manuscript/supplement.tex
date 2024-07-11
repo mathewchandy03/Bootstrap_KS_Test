@@ -28,6 +28,7 @@
 \usepackage[utf8]{inputenc}
 
 \newcommand{\mc}[1]{\textcolor{blue}{MC: (#1)}}
+\newcommand{\jy}[1]{\textcolor{purple}{JY: (#1)}}
 
 \title{Supporting Information for
   ``Nonparametric Block Bootstrap Kolmogorov--Smirnov Goodness-of-Fit
@@ -68,7 +69,9 @@ We aim to show that for any fixed \( x_1, \ldots, x_m \), the vector
 multivariate normal vector \( (G_{\infty}(x_1), \ldots,
 G_{\infty}(x_m)) \) with mean zero and covariance structure given by:
 \[
-\text{Cov}(G_{\infty}(x_i), G_{\infty}(x_j)) = \sum_{h=-\infty}^{\infty} \text{Cov}(\mathbf{1}\{X_0 \leq x\}, \mathbf{1}\{X_h \leq x^{\prime}\}),
+  \text{Cov}(G_{\infty}(x_i), G_{\infty}(x_j)) =
+  \sum_{h=-\infty}^{\infty}
+  \text{Cov}(\mathbf{1}\{X_0 \leq x\}, \mathbf{1}\{X_h \leq x^{\prime}\}),
 \]
 where $ \mathbf{1}\{\cdot\}$ is the indicator
 function.
@@ -88,7 +91,7 @@ The empirical distribution function can be written as
 $
 F_n(x) = \frac{1}{n} \sum_{t=1}^n \mathbf{1}\{X_i \leq x\}.
 $
-Therefore, the empirical process is:
+Therefore, the empirical process is
 \[
 G_n(x) = \sqrt{n} (F_n(x) - F(x)) = \frac{1}{\sqrt{n}} \sum_{i=1}^n 
 (\mathbf{1}\{X_i \leq x\} - F(x)).
@@ -97,14 +100,16 @@ G_n(x) = \sqrt{n} (F_n(x) - F(x)) = \frac{1}{\sqrt{n}} \sum_{i=1}^n
 
 To establish the asymptotic distribution of $ G_n(x) $, we consider the vector 
 \[
-(G_n(x_1), \ldots, G_n(x_m)) = \frac{1}{\sqrt{n}} \sum_{i=1}^n (\mathbf{1}\{X_i \leq x_1\} - 
-F(x_1), \ldots, \mathbf{1}\{X_i \leq x_m\} - F(x_m)).
+  (G_n(x_1), \ldots, G_n(x_m)) =
+  \frac{1}{\sqrt{n}} \sum_{i=1}^n
+  \left(\mathbf{1}\{X_i \leq x_1\} - 
+    F(x_1), \ldots, \mathbf{1}\{X_i \leq x_m\} - F(x_m)\right).
 \]
 We calculate the covariance structure of the limiting distribution. The 
 covariance between $ G_n(x) $ and $ G_n(x^{\prime}) $ is:
 \[
 \text{Cov}(G_n(x), G_n(x^{\prime})) = \frac{1}{n} \sum_{t=1}^n \sum_{s=1}^n 
-\text{Cov}(\mathbf{1}\{X_t \leq x\}, \mathbf{1}\{X_t \leq x^{\prime}\}).
+\text{Cov}\left(\mathbf{1}\{X_t \leq x\}, \mathbf{1}\{X_t \leq x^{\prime}\}\right).
 \]
 Since $ \{X_i\} $ is strictly stationary, the covariance depends only on the 
 lag $ h = |t-s| $:
@@ -225,7 +230,7 @@ function defined as
 \\=& \sum^{+\infty}_{h=-\infty}\text{Cov}(\mathbf{1}\{X_{h}\leq x\},
 \mathbf{1}\{X_0\leq x'\}),
 \end{align*}
-and $U\sim N(0,s^2)$ with 
+and $U\sim N(0, s^2)$ with 
 \begin{align*}
 s^2=\lim_{n\rightarrow+\infty}\frac{1}{n}\sum^{n}_{i,j=1}\text{Cov}(h(X_i,
 \theta_0),h(X_j;\theta_0))
@@ -262,7 +267,8 @@ replaced by the bootstrap samples $X_1^{(b)},\dots,X_n^{(b)}.$
 
 
 \begin{proof}[Proof of Proposition~2]
-    We want to show that
+  We want to show that
+  \jy{What is $\hat\theta_0$? Should it be $\hat\theta_n$?}
 \begin{align}\label{eq-con-boot}
 \begin{pmatrix}
 G_n^{(b)}(x)  \\ 
@@ -310,9 +316,9 @@ with
 \[
   W_t=
  \begin{cases}
-\sum^{t+l-1}_{i=t}h(X_i;\hat{\theta}_0)  & \text{if } t \leq n - 1 + 1,\\
+\sum^{t+l-1}_{i=t}h(X_i;\hat{\theta}_0)  , & \text{if } t \leq n - 1 + 1,\\
 \sum^{n}_{i=t}h(X_{i};\hat{\theta}_0) +
-\sum^{t - n + l -1}_{i=1}h(X_{i};\hat{\theta}_0)  & \text{if } t \geq n - 1 + 2
+\sum^{t - n + l -1}_{i=1}h(X_{i};\hat{\theta}_0) , & \text{if } t \geq n - 1 + 2,
 \end{cases}
 \]
 and $\bar{W}=\sum^{n}_{t=1}W_t/n$,
@@ -345,29 +351,27 @@ $
 F(x;\hat{\theta}_n^{(b)}) \approx F(x;\hat{\theta}_0) + f(x; 
 \hat{\theta}_0) (\hat{\theta}_n^{(b)} - \hat{\theta}_0),
 $ so
-$
-\sqrt{n}(F(x;\hat{\theta}_n^{(b)}) - F(x;\hat{\theta}_0)) \approx \sqrt{n} 
-(F(x;\hat{\theta}_0) + f(x; 
-\hat{\theta}_0) (\hat{\theta}_n^{(b)} - \hat{\theta}_0) - F(x;\hat{\theta}_0)) 
-\approx
-f(x; 
-\hat{\theta}_0) \sqrt{n} (\hat{\theta}_n^{(b)} - \hat{\theta}_0).
-$
+\begin{align*}
+  \sqrt{n}(F(x;\hat{\theta}_n^{(b)}) - F(x;\hat{\theta}_0))
+  &\approx \sqrt{n} (F(x;\hat{\theta}_0) +
+  f(x; \hat{\theta}_0) (\hat{\theta}_n^{(b)} - \hat{\theta}_0) - F(x;\hat{\theta}_0)) \\
+  &\approx  f(x; \hat{\theta}_0) \sqrt{n} (\hat{\theta}_n^{(b)} - \hat{\theta}_0).
+\end{align*}
+
 
 Substituting the expansion of $\hat{\theta}_n^{(b)}$:
-$
+\[
 \sqrt{n} (\hat{\theta}_n^{(b)} - \hat{\theta}_0) = \frac{1}{\sqrt{n}} 
 \sum_{i=1}^{n} 
 h(X_i^{(b)}; \hat{\theta}_0) + R_n^{(b)}.
-$
+\]
 
 Since $R_n^{(b)} \overset{p^{(b)}}{\rightarrow} 0$, 
-$
+\[
 \sqrt{n}(F(x;\hat{\theta}_n^{(b)}) - F(x;\hat{\theta}_0)) \approx 
 f(x; \hat{\theta}_0) \left( \frac{1}{\sqrt{n}} \sum_{i=1}^{n} h(X_i^{(b)}; 
 \hat{\theta}_0) \right).
-$
-
+\]
 The term $\frac{1}{\sqrt{n}} \sum_{i=1}^{n} h(X_i^{(b)}; \hat{\theta}_0)$ 
 converges in distribution to a normal random variable $U$ with variance 
 $s^2$.
