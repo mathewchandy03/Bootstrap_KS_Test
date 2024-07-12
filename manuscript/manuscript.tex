@@ -333,11 +333,12 @@ we use $F^{(b)}_n$ and $\hat\theta^{(b)}_n$ for the empirical distribution and
 the estimated parameters based on the $b$th bootstrap sample,
 $b = 1, \ldots, B$.
 We then use block bootstrap to approximate the asymptotic distribution of
-the KS statistic under $H_0$. In particular, we
+the KS statistic under $H_0$. Let $\hat{\theta}_0 = 
+\mathbb{E}^{(b)}[\hat\theta^{(b)}_n]$. In particular, we
 use the distribution of $\sqrt{n}(F^{(b)}_n(x) - \mathbb{E}^{(b)}[F^{(b)}_n(x)])$
 as an approximation of the distribution of
 $\sqrt{n}(F_n(x) - F(x; \theta_0))$, and the distribution of 
-$\sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; \mathbb{E}^{(b)}[\hat\theta^{(b)}_n]))$ as
+$\sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; \hat{\theta}_0))$ as
 an approximation of the distribution of 
 $\sqrt{n}(F(x; \hat\theta_n) - F(x; \theta_0))$.
 Here $\mathbb{E}^{(b)}$ denotes the expectation with respect to the bootstrap 
@@ -346,7 +347,7 @@ distribution
 to the resampling using block bootstrap) conditional on the observations 
 $X_1, \dots, X_n$.
 The expected values $\mathbb{E}^{(b)}[F^{(b)}_n(x)]$ and
-$\mathbb{E}^{(b)}[\hat\theta^{(b)}_n]$ can be approximated by, respectively,
+$\hat{\theta}_0 = \mathbb{E}^{(b)}[\hat\theta^{(b)}_n]$ can be approximated by, respectively,
 $\mathbb{E}^{(b)}[F^{(b)}_n(x)] = \frac{1}{B}\sum_{b = 1}^BF^{(b)}_n(x)$ and
 $\mathbb{E}^{(b)}[\hat\theta^{(b)}_n]  =  \frac{1}{B}\sum_{b = 1}^B\hat\theta^{(b)}_n$.
 
@@ -354,9 +355,9 @@ $\mathbb{E}^{(b)}[\hat\theta^{(b)}_n]  =  \frac{1}{B}\sum_{b = 1}^B\hat\theta^{(
 Then, we can define
 \begin{align*}
   Y^{(b)}_n(x) &= \sqrt{n}(F^{(b)}_n(x) - \mathbb{E}^{(b)}[F^{(b)}_n(x)]) - 
-             \sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; \mathbb{E}^{(b)}[\hat\theta^{(b)}_n)]) \\
+             \sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; \hat{\theta}_0) \\
            &= \sqrt{n}(F^{(b)}_n(x) - F(x; \hat\theta^{(b)}_n)) -
-             \sqrt{n}(\mathbb{E}^{(b)}[F^{(b)}_n(x)] - F(x; \mathbb{E}^{(b)}[\hat\theta^{(b)}_n])),
+             \sqrt{n}(\mathbb{E}^{(b)}[F^{(b)}_n(x)] - F(x; \hat{\theta}_0)),
 \end{align*}
 and $T^{(b)}_n = \sup_x|Y^{(b)}_n(x)|$. Each $T_n^{(b)}$,
 $b =1, \ldots, B$, is considered a draw from a distribution that approximates
@@ -386,7 +387,7 @@ summarized as follows. Repeat the following steps for $b \in \{1, ..., B\}$.
   \]
   where 
   $B_{n}(x) = \sqrt{n}(\mathbb{E}^{(b)}[F^{(b)}_n(x)] - 
-  F(x; \mathbb{E}^{(b)}[\hat\theta^{(b)}_n]))$ is the known
+  F(x; \hat{\theta}_0))$ is the known
   bias term.
 \end{enumerate}
 The p-value of the block bootstrap KS test can be approximated
