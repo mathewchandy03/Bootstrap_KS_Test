@@ -328,27 +328,42 @@ selected will be reduced in size so that the final size of the block bootstrap
 sample is $n$.
 
 
-Continuing using the notation in the independent case,
+As in the independent case,
 we use $F^{(b)}_n$ and $\hat\theta^{(b)}_n$ for the empirical distribution and
 the estimated parameters based on the $b$th bootstrap sample,
 $b = 1, \ldots, B$.
 We then use block bootstrap to approximate the asymptotic distribution of
-the KS statistic under $H_0$. Let $\hat{\theta}_0 = 
-\mathbb{E}^{(b)}[\hat\theta^{(b)}_n]$. In particular, we
+the KS statistic under $H_0$. Let
+$\hat{\theta}_0 = \mathbb{E}^{(b)}[\hat\theta^{(b)}_n]$, where
+$\mathbb{E}^{(b)}$ denotes the expectation with respect to the
+\jy{The superscript $(b)$ is unclear to me: we already used $b$ to
+  index $1,  \ldots, B$. Can we use a star for this superscript?}
+bootstrap distribution (i.e., the randomness due
+to the resampling using block bootstrap) conditional on the observations 
+$X_1, \dots, X_n$.
+\jy{Specifically, how about using
+  $\mathbb{E}^*$ denote the expectation in the bootstrap world?
+  Then we can use
+  $\mathbb{E}^*_B (F^{(b)}_n (x))= \frac{1}{B} \sum_{b = 1}^B
+  F^{(b)}_n(x)$ to denote an approximator
+  of $\mathbb{E}^* (F^{(b)}_n (x))$, and use
+  $\mathbb{E}^*_B(\hat\theta_n^{(b)}) =
+  \frac{1}{B}\sum_{b = 1}^B\hat\theta^{(b)}_n$ to
+  denote an approximator of  
+  $\hat{\theta}_0 = \mathbb{E}^*[\hat\theta^{(b)}_n]$?
+}
+In particular, we
 use the distribution of $\sqrt{n}(F^{(b)}_n(x) - \mathbb{E}^{(b)}[F^{(b)}_n(x)])$
 as an approximation of the distribution of
 $\sqrt{n}(F_n(x) - F(x; \theta_0))$, and the distribution of 
-$\sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; \hat{\theta}_0))$ as
+$\sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; \hat\theta_0))$ as
 an approximation of the distribution of 
 $\sqrt{n}(F(x; \hat\theta_n) - F(x; \theta_0))$.
-Here $\mathbb{E}^{(b)}$ denotes the expectation with respect to the bootstrap 
-distribution 
-(i.e., the randomness due
-to the resampling using block bootstrap) conditional on the observations 
-$X_1, \dots, X_n$.
+Here 
 The expected values $\mathbb{E}^{(b)}[F^{(b)}_n(x)]$ and
-$\hat{\theta}_0 = \mathbb{E}^{(b)}[\hat\theta^{(b)}_n]$ can be approximated by, respectively,
-$\mathbb{E}^{(b)}[F^{(b)}_n(x)] = \frac{1}{B}\sum_{b = 1}^BF^{(b)}_n(x)$ and
+$\hat{\theta}_0 = \mathbb{E}^{(b)}[\hat\theta^{(b)}_n]$ can be
+approximated by, respectively,
+$\mathbb{E}^{(b)}[F^{(b)}_n(x)] = \frac{1}{B}\sum_{b = 1}^B F^{(b)}_n(x)$ and
 $\mathbb{E}^{(b)}[\hat\theta^{(b)}_n]  =  \frac{1}{B}\sum_{b = 1}^B\hat\theta^{(b)}_n$.
 
 
