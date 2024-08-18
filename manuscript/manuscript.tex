@@ -334,47 +334,30 @@ the estimated parameters based on the $b$th bootstrap sample,
 $b = 1, \ldots, B$.
 We then use block bootstrap to approximate the asymptotic distribution of
 the KS statistic under $H_0$. Let
-$\hat{\theta}_0 = \mathbb{E}^{(b)}[\hat\theta^{(b)}_n]$, where
-$\mathbb{E}^{(b)}$ denotes the expectation with respect to the
-\jy{The superscript $(b)$ is unclear to me: we already used $b$ to
-  index $1,  \ldots, B$. Can we use a star for this superscript?}
+$\theta_0^* = \mathbb{E}^{*}[\hat\theta^{(b)}_n]$, where
+$\mathbb{E}^{*}$ denotes the expectation with respect to the
 bootstrap distribution (i.e., the randomness due
 to the resampling using block bootstrap) conditional on the observations 
-$X_1, \dots, X_n$.
-\jy{Specifically, how about using
-  $\mathbb{E}^*$ denote the expectation in the bootstrap world?
-  Then we can use
-  $\mathbb{E}^*_B (F^{(b)}_n (x))= \frac{1}{B} \sum_{b = 1}^B
-  F^{(b)}_n(x)$ to denote an approximator
-  of $\mathbb{E}^* (F^{(b)}_n (x))$, and use
-  $\mathbb{E}^*_B(\hat\theta_n^{(b)}) =
-  \frac{1}{B}\sum_{b = 1}^B\hat\theta^{(b)}_n$ to
-  denote an approximator of  
-  $\hat{\theta}_0 = \mathbb{E}^*[\hat\theta^{(b)}_n]$?
-  We could also use $\theta_0^*$ instead of $\hat\theta_0$ because hat
-  usually is used to denote estimated quantity.
-}
-In particular, we
-use the distribution of $\sqrt{n}(F^{(b)}_n(x) - \mathbb{E}^{(b)}[F^{(b)}_n(x)])$
+$X_1, \dots, X_n$. In particular, we
+use the distribution of $\sqrt{n}(F^{(b)}_n(x) - \mathbb{E}^{*}[F^{(b)}_n(x)])$
 as an approximation of the distribution of
 $\sqrt{n}(F_n(x) - F(x; \theta_0))$, and the distribution of 
-$\sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; \hat\theta_0))$ as
+$\sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; \theta_0^*))$ as
 an approximation of the distribution of 
 $\sqrt{n}(F(x; \hat\theta_n) - F(x; \theta_0))$.
-Here 
-The expected values $\mathbb{E}^{(b)}[F^{(b)}_n(x)]$ and
-$\hat{\theta}_0 = \mathbb{E}^{(b)}[\hat\theta^{(b)}_n]$ can be
+Here, the expected values $\mathbb{E}^{*}[F^{(b)}_n(x)]$ and
+$\theta_0^* = \mathbb{E}^{*}[\hat\theta^{(b)}_n]$ can be
 approximated by, respectively,
-$\mathbb{E}^{(b)}[F^{(b)}_n(x)] = \frac{1}{B}\sum_{b = 1}^B F^{(b)}_n(x)$ and
-$\mathbb{E}^{(b)}[\hat\theta^{(b)}_n]  =  \frac{1}{B}\sum_{b = 1}^B\hat\theta^{(b)}_n$.
+$\mathbb{E}_B^{*}[F^{(b)}_n(x)] = \frac{1}{B}\sum_{b = 1}^B F^{(b)}_n(x)$ and
+$\mathbb{E}_B{*}[\hat\theta^{(b)}_n]  =  \frac{1}{B}\sum_{b = 1}^B\hat\theta^{(b)}_n$.
 
 
-Then, we can define
+Then, for each $b \in \{1, \dots, B\}$, we can define
 \begin{align*}
-  Y^{(b)}_n(x) &= \sqrt{n}(F^{(b)}_n(x) - \mathbb{E}^{(b)}[F^{(b)}_n(x)]) - 
-             \sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; \hat{\theta}_0) \\
+  Y^{(b)}_n(x) &= \sqrt{n}(F^{(b)}_n(x) - \mathbb{E}^{*}[F^{(b)}_n(x)]) - 
+             \sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; \theta_0^*) \\
            &= \sqrt{n}(F^{(b)}_n(x) - F(x; \hat\theta^{(b)}_n)) -
-             \sqrt{n}(\mathbb{E}^{(b)}[F^{(b)}_n(x)] - F(x; \hat{\theta}_0)),
+             \sqrt{n}(\mathbb{E}^{*}[F^{(b)}_n(x)] - F(x; \theta_0^*)),
 \end{align*}
 and $T^{(b)}_n = \sup_x|Y^{(b)}_n(x)|$. Each $T_n^{(b)}$,
 $b =1, \ldots, B$, is considered a draw from a distribution that approximates
@@ -403,43 +386,34 @@ summarized as follows. Repeat the following steps for $b \in \{1, ..., B\}$.
     - F(x; \hat\theta^{(b)}_n)\right) - B_n(x) \Big\vert.
   \]
   where 
-  $B_{n}(x) = \sqrt{n}(\mathbb{E}^{(b)}[F^{(b)}_n(x)] - 
-  F(x; \hat{\theta}_0))$ is the known
-  bias term.
+  $B_{n}(x) = \sqrt{n}(\mathbb{E}^{*}[F^{(b)}_n(x)] - 
+  F(x; \theta_0^*))$ is the approximated bias term.
 \end{enumerate}
 The p-value of the block bootstrap KS test can be approximated
 as $p = \sum_{b=1}^B I\{T^{(b)}_n > T_n\} / B$.
 
 
 Assume that the time series $\{X_i\}$ is stationary and
-strongly mixing. The following results provide theoretical validity
-of the NPBB procedure of the KS test. Sketches of their proofs are
-in the Supporting Information, with most arguments similar to those
-in \citet{kunsch1989jackknife}.
-
-\begin{proposition}\label{prop:Tn}
-  As $1/l+l/n\rightarrow 0$,
-  \[
-    T_n \overset{d}{\rightarrow}
-    \sup_x \big\vert G_{\infty}(x)+f(x;\theta_0)U \big\vert
-  \]
-  for some appropriately defined Gaussian process $G_{\infty}(\cdot)$
-  and Gaussian random variable  $U$.
-\end{proposition}
-
-\begin{proposition}\label{prop:Tnboot}
-  As $1/l+l/n\rightarrow 0$,
-  \[
-    \big\vert \mathbb{P}(T_n^{(b)}\leq x \mid \{X_i: i = 1, \ldots, n\}) -
-    \mathbb{P}(T_n\leq x) \big\vert
-    \overset{a.s.}{\rightarrow} 0
-  \]
-  for any fixed $x$, where $T_n^{(b)}$ is the statistic computed 
-  based on the bootstrap sample $\{X_i^{(b)}: i = 1, \ldots, n\}$.
-\end{proposition}
-  
+strongly mixing. Using arguments similar to those
+in \citet{kunsch1989jackknife}, we conjecture the following results
+justifying the validity of the NPBB procedure of the KS test.
+As $1/l+l/n\rightarrow 0$,
+\[
+  T_n \overset{d}{\rightarrow}
+  \sup_x \big\vert G_{\infty}(x)+f(x;\theta_0)U \big\vert
+\]
+for some appropriately defined Gaussian process $G_{\infty}(\cdot)$
+and Gaussian random variable  $U$.
+Further,  as $1/l+l/n\rightarrow 0$,
+\[
+  \big\vert \mathbb{P}(T_n^{(b)}\leq x \mid \{X_i: i = 1, \ldots, n\}) -
+  \mathbb{P}(T_n\leq x) \big\vert
+  \overset{a.s.}{\rightarrow} 0
+\]
+for any fixed $x$, where $T_n^{(b)}$ is the statistic computed 
+based on the bootstrap sample $\{X_i^{(b)}: i = 1, \ldots, n\}$.
 Following the arguments in the proof of the Glivenko--Cantelli
-Theorem, the result in Proposition~\ref{prop:Tnboot} can be further
+Theorem, the bootstrap consistency result could be further
 strengthened to allow uniform convergence over $x$. That is,
 as $1/l+l/n\rightarrow 0$,
 \[
@@ -447,6 +421,7 @@ as $1/l+l/n\rightarrow 0$,
   \mathbb{P}(T_n^{(b)}\leq x \mid \{X_i: i = 1, \ldots, n\}) - \mathbb{P}(T_n\leq x) \big\vert
   \overset{a.s.}{\rightarrow} 0.
 \]
+
 
 \section{Simulation Studies}\label{sec:simu}
 
@@ -781,8 +756,8 @@ Overall, the test provides an analog of the bias-corrected NPB KS test of
 \citet{babu2004goodness} in the context of stationaly time
 series with unspecified serial dependence. Compared to the SPB method
 of \citet{zeimbekakis2022misuses}, which requires a working dependence model, it
-is reliable regardless of whether the working dependence model approximates the
-true dependence model.
+is reliable with no need to worry about whether the working dependence
+model approximates the true dependence model.
 
 
 Several promising directions for further research emerge from the findings of
@@ -797,6 +772,13 @@ one-sample KS test to a two-sample setting would be
 intriguing. This adaptation would test whether two samples originate from the
 same distribution without requiring specification of serial dependencies in
 either sample, maintaining the advantageous feature of the original method.
+Finally, a rigorous theoretical justification of the NPBB method for
+stationary series is of significant academic interest. Establishing
+precise conditions for the asymptotic behavior of the KS statistic and
+the consistency of the bootstrap procedure would offer valuable
+practical insights into the scenarios where the NPBB approach is
+expected to perform optimally.
+
 
 %\backmatter
 
@@ -819,15 +801,5 @@ The authors declare no potential conflict of interests.
 
 
 \bibliography{citations}
-
-
-
-% \nocite{*}% Show all bib entries - both cited and uncited; comment this line to view only cited bib entries;
-
-\section*{Supporting Information}
-
-The proofs of the two propositions in \ref{sub:npbb} are sketched in
-the supplement.
-
 
 \end{document}
