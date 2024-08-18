@@ -378,6 +378,42 @@ $s^2$.
 
 \paragraph{Tightness in Bootstrap World}
 
+To establish tightness, we need to demonstrate that for any \(\epsilon > 0\),
+\[
+\lim_{\delta \to 0} \limsup_{n \to \infty} \mathbb{P}^*\left( \sup_{|x - y| < \delta} |G_n^{(b)}(x) - G_n^{(b)}(y)| \geq \epsilon \right) = 0.
+\]
+
+Consider the difference
+\[
+G_n^{(b)}(x) - G_n^{(b)}(y) = \sqrt{n} \left( F_n^{(b)}(x) - F_n^{(b)}(y) - (F_n(x) - F_n(y)) \right).
+\]
+This difference can be further decomposed as
+\[
+G_n^{(b)}(x) - G_n^{(b)}(y) = \sqrt{n} \left( \frac{1}{n} \sum_{i=1}^n \left[ 1\{X_i^{(b)} \leq x\} - 1\{X_i^{(b)} \leq y\} \right] - (F(x) - F(y)) \right).
+\]
+
+Given that \(F(x)\) is continuous, and using the fact that bootstrap
+samples maintain the mixing properties of the original data (Politis,
+Romano, and Wolf, 1999), we can apply a concentration inequality such
+as Hoeffding's inequality to the bootstrap samples. This yields that
+for any small \(\delta > 0\),
+\[
+\mathbb{P}^*\left( \sup_{|x - y| < \delta} |G_n^{(b)}(x) - G_n^{(b)}(y)| \geq \epsilon \right) \leq 2 \exp\left( -2n \epsilon^2 \right).
+\]
+Taking the limit as \(\delta \to 0\) and \(n \to \infty\), we conclude that
+\[
+\lim_{\delta \to 0} \limsup_{n \to \infty} \mathbb{P}^*\left( \sup_{|x - y| < \delta} |G_n^{(b)}(x) - G_n^{(b)}(y)| \geq \epsilon \right) = 0,
+\]
+which establishes tightness for \(G_n^{(b)}(x)\).
+
+\bigskip
+
+Given the finite-dimensional convergence and tightness established
+above, by the continuous mapping theorem, we have
+\[
+T_n^{(b)} = \sup_x \left| G_n^{(b)}(x) + f(x; \theta_0) U \right| \Rightarrow^* \sup_x \left| G_\infty(x) + f(x; \theta_0) U \right|,
+\]
+completing the proof.
 
 \end{proof}
 
