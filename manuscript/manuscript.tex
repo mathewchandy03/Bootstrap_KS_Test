@@ -345,11 +345,6 @@ $\sqrt{n}(F_n(x) - F(x; \theta_0))$, and the distribution of
 $\sqrt{n}(F(x; \hat\theta^{(b)}_n) - F(x; \theta_0^*))$ as
 an approximation of the distribution of 
 $\sqrt{n}(F(x; \hat\theta_n) - F(x; \theta_0))$.
-Here, the expected values $\mathbb{E}^{*}[F^{(b)}_n(x)]$ and
-$\theta_0^* = \mathbb{E}^{*}[\hat\theta^{(b)}_n]$ can be
-approximated by, respectively,
-$\mathbb{E}_B^{*}[F^{(b)}_n(x)] = \frac{1}{B}\sum_{b = 1}^B F^{(b)}_n(x)$ and
-$\mathbb{E}_B^{*}[\hat\theta^{(b)}_n]  =  \frac{1}{B}\sum_{b = 1}^B\hat\theta^{(b)}_n$.
 
 
 Then, for each $b \in \{1, \dots, B\}$, we can define
@@ -387,7 +382,12 @@ summarized as follows. Repeat the following steps for $b \in \{1, ..., B\}$.
   \]
   where 
   $B_{n}(x) = \sqrt{n}(\mathbb{E}^{*}[F^{(b)}_n(x)] - 
-  F(x; \theta_0^*))$ is the approximated bias term.
+  F(x; \theta_0^*))$ is the bias term, and
+  the expected values $\mathbb{E}^{*}[F^{(b)}_n(x)]$ and
+$\theta_0^* = \mathbb{E}^{*}[\hat\theta^{(b)}_n]$ can be
+approximated by, respectively,
+$\mathbb{E}_B^{*}[F^{(b)}_n(x)] = \frac{1}{B}\sum_{b = 1}^B F^{(b)}_n(x)$ and
+$\mathbb{E}_B^{*}[\hat\theta^{(b)}_n]  =  \frac{1}{B}\sum_{b = 1}^B\hat\theta^{(b)}_n$.
 \end{enumerate}
 The p-value of the block bootstrap KS test can be approximated
 as $p = \sum_{b=1}^B I\{T^{(b)}_n > T_n\} / B$.
