@@ -289,10 +289,10 @@ summarized as follows. Repeat the following steps for $b \in \{1, ..., B\}$.
   Calculate bootstrap KS statistic
   \[
     T^{(b)}_n = \sup_x \Big\vert \sqrt{n}\left(F^{(b)}_n(x) 
-    - F(x; \hat\theta^{(b)}_n)\right) - B_n(x) \Big\vert.
+    - F(x; \hat\theta^{(b)}_n)\right) - C_n(x) \Big\vert.
   \]
   where 
-  $B_{n}(x) = \sqrt{n}(F_n(x) - F(x; \hat\theta_n))$ is the estimated
+  $C_{n}(x) = \sqrt{n}(F_n(x) - F(x; \hat\theta_n))$ is the estimated
   bias term.
 \end{enumerate}
 
@@ -378,10 +378,10 @@ summarized as follows. Repeat the following steps for $b \in \{1, ..., B\}$.
   Calculate bootstrap KS statistic
   \[
     T^{(b)}_n = \sup_x \Big\vert \sqrt{n}\left(F^{(b)}_n(x) 
-    - F(x; \hat\theta^{(b)}_n)\right) - B_n(x) \Big\vert.
+    - F(x; \hat\theta^{(b)}_n)\right) - C_n(x) \Big\vert.
   \]
   where 
-  $B_{n}(x) = \sqrt{n}(\mathbb{E}^{*}[F^{(b)}_n(x)] - 
+  $C_{n}(x) = \sqrt{n}(\mathbb{E}^{*}[F^{(b)}_n(x)] - 
   F(x; \theta_0^*))$ is the bias term, and
   the expected values $\mathbb{E}^{*}[F^{(b)}_n(x)]$ and
 $\theta_0^* = \mathbb{E}^{*}[\hat\theta^{(b)}_n]$ can be
@@ -395,8 +395,9 @@ as $p = \sum_{b=1}^B I\{T^{(b)}_n > T_n\} / B$.
 
 Assume that the time series $\{X_i\}$ is stationary and
 strongly mixing. Using arguments similar to those
-in \citet{kunsch1989jackknife}, we conjecture the following results
-justifying the validity of the NPBB procedure of the KS test.
+in \citet{kunsch1989jackknife}, under certain conditions, the 
+following results can be shown to
+justify the validity of the NPBB procedure of the KS test.
 As $1/l+l/n\rightarrow 0$,
 \[
   T_n \overset{d}{\rightarrow}
