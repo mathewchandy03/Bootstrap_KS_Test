@@ -1,0 +1,152 @@
+\documentclass{article}
+\usepackage{charter}
+\usepackage[margin=1in]{geometry}
+\usepackage{fancyhdr,graphicx}
+\usepackage{xspace}
+
+\fancypagestyle{firstpage}{%
+  \fancyhf{} % Clear header/footer
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{1pt}%
+  % Add more detail here if needed
+}
+\fancypagestyle{otherpages}{%
+  \fancyhf{}% Clear header/footer
+  \renewcommand{\headrulewidth}{1pt}%
+  \renewcommand{\footrulewidth}{1pt}%
+  % Add more detail here if needed
+}
+
+\AtBeginDocument{\thispagestyle{firstpage}}
+\pagestyle{otherpages}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1ex}
+
+\begin{document}
+
+\vspace*{\dimexpr-\headsep-\headheight-1pt}
+
+% \includegraphics[width=1in]{logo.jpg}
+
+\rule{\linewidth}{1pt}
+
+\bigskip
+
+
+%----------------------------------------------------------------------------------------
+%	YOU ONLY NEED TO FILL IN THE FOLLOWING LATEX MACROS
+%----------------------------------------------------------------------------------------
+
+% Title of the paper
+\newcommand{\PaperTitle}{Nonparametric Block Bootstrap Kolmogorov-Smirnov Goodness-of-Fit Test\xspace}
+
+% Full name of the authors
+\newcommand{\AuthorOne}{Mathew Chandy\xspace}
+\newcommand{\AuthorTwo}{Elizabeth D. Schifano\xspace}
+\newcommand{\AuthorThree}{Jun Yan\xspace}
+\newcommand{\AuthorFour}{Xianyang Zhang\xspace}
+
+
+% Full name of the Journal's Editor in Chief
+\newcommand{\EditorInChief}{Min-ge Xie\xspace}
+
+% Journal
+\newcommand{\Journal}{The American Statistician\xspace}
+
+% Body
+\newcommand{\Contribution}{X\xspace}
+\newcommand{\Problem}{Y\xspace}
+\newcommand{\Solution}{Z\xspace}
+\newcommand{\Evaluation}{D\xspace}
+\newcommand{\NoveltyClaim}{E\xspace}
+
+% List of contributions
+\newcommand{\ContributionOne}{Contribution A.\xspace}
+\newcommand{\ContributionTwo}{Contribution B.\xspace}
+\newcommand{\ContributionThree}{Contribution C.\xspace}
+\newcommand{\ContributionFour}{Contribution D.\xspace}
+
+% Suggested editors
+\newcommand{\EditorOne}{Editor \#1\xspace}
+\newcommand{\EditorOneExpertise}{A\xspace}
+
+\newcommand{\EditorTwo}{Editor \#2\xspace}
+\newcommand{\EditorTwoExpertise}{B\xspace}
+
+\newcommand{\EditorThree}{Editor \#3\xspace}
+\newcommand{\EditorThreeExpertise}{C\xspace}
+
+%----------------------------------------------------------------------------------------
+%	YOUR NAME AND CONTACT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\hfill
+\begin{tabular}{ l @{} }
+  \today \\[12pt] % Date
+  Department of Statistics,\\
+  University of Connecticut\\
+  Room 323, Philip E. Austin Building\\
+  215 Glenbrook Road, Unit 4120\\
+  Storrs, CT 06269-4120\\
+  \\
+  Department of Statistics and Data Science,\\
+  University of California, Los Angeles\\
+  8125 Math Sciences Bldg. Box 951554\\
+  Los Angeles, CA 90095-1554\\
+  \\
+  Department of Statistics,\\
+  Texas A\&M University\\
+  447 Blocker Building (BLOC)\\
+  3143 TAMU | 155 Ireland St\\
+  College Station, TX 77843-3143
+\end{tabular}
+
+
+%----------------------------------------------------------------------------------------
+%	LETTER CONTENT
+%----------------------------------------------------------------------------------------
+
+\bigskip
+
+Dear Dr. Xie,
+
+\bigskip
+
+We are pleased to submit the manuscript entitled ``Nonparametric Block Bootstrap 
+Kolmogorov-Smirnov Goodness-of-Fit Test" for 
+consideration in the Statistical Practice section of 
+\textit{American Statistician}. We certify that this 
+manuscript has neither been published nor is under consideration by another 
+journal.
+
+Our paper introduces a novel approach
+which can widen the applications of the Kolmogorov--Smirnov (KS) test, a 
+goodness-of-fit test which relies on the data
+being serially dependent and the parameters for the hypothesized distribution
+being specified. 
+
+This paper introduces a bias correction for the test based on the non-parametric 
+block bootstrap that accounts for serial dependence and does not require
+specification of parameters.
+The main contribution is a new methodological development which is useful
+for addressing a broad array of
+practical problems in financial analysis, environmental science, as 
+well as other situations that require goodness-of-fit tests on serially
+dependent data. An application of our method to test the distribution
+of S\&P 500 index stock returns is shown in the manuscript.
+
+This article will prove to be a valuable expansion to statistical practice.
+Please feel free to reach out to us if you need any other information concerning 
+this manuscript.
+
+\bigskip
+
+Sincerely yours,
+
+\vspace{50pt}
+
+Mathew Chandy\\ \\On behalf of Elizabeth D. Schifano, Jun Yan, and 
+Xianyang Zhang
+
+\end{document}
