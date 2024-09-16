@@ -1,5 +1,6 @@
 %&latex
 \documentclass[12pt]{article}
+\usepackage{authblk}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{booktabs}
@@ -35,17 +36,14 @@
 \if0\blind
 {
   \title{\bf Nonparametric Block Bootstrap Kolmogorov-Smirnov Goodness-of-Fit Test}
-  \author{Mathew Chandy\\
-    Department of Statistics, University of Connecticut\\
-    Department of Statistics and Data Science, University of California, Los Angeles,\\
-    Elizabeth D. Schifano\\
-    Department of Statistics, University of Connecticut,\\
-    Jun Yan\thanks{
-    The authors gratefully acknowledge the National Science Foundation (NSF).}\hspace{.2cm}\\
-    Department of Statistics, University of Connecticut,\\
-    and\\
-    Xianyang Zhang\\
-    Department of Statistics, Texas A\&M University}
+  \author[1,2]{Mathew Chandy}
+  \author[1]{Elizabeth D. Schifano}
+  \author[1]{Jun Yan\thanks{
+    The authors gratefully acknowledge the National Science Foundation (NSF).}\hspace{.2cm}}
+  \author[3]{Xianyang Zhang$^{\ast}$ }
+  \affil[1]{Department of Statistics, University of Connecticut}
+  \affil[2]{Department of Statistics and Data Science, University of California, Los Angeles}
+  \affil[3]{Department of Statistics, Texas A\&M University}
   \maketitle
 } \fi
 
