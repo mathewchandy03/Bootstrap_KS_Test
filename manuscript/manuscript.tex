@@ -497,13 +497,16 @@ $r \in \{1, \dots, 10000\}$
 for the test when applied to samples from the same data generating process.
 
 \begin{figure}[tbp]
-  \centering
   \includegraphics[width = .9\textwidth]{figures/normal}
-  \includegraphics[width = .9\textwidth]{figures/gamma}
+  \centering
   \caption{Q-Q plots of the p-values testing that a time series
     have marginal normal distribution with true data generating distribution
-    being $N(8,8)$ (upper) and marginal gamma distribution with true data
-    generating distribution $\Gamma(8,1)$ (lower).}
+    being $N(8,8)$.}
+    \hspace{5cm}
+  \includegraphics[width = .9\textwidth]{figures/gamma}
+  \caption{Q-Q plots of the p-values testing that a time series
+    have marginal gamma distribution with true data
+    generating distribution $\Gamma(8,1)$.}
   \label{fig:qq}
 \end{figure}
 
