@@ -1,0 +1,166 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{natbib}
+\usepackage{hyperref}
+
+\usepackage{listings}
+\usepackage{rotating, graphicx}
+\graphicspath{{./}, {./image/}}
+\usepackage{booktabs, natbib}
+% \usepackage{breakurl}
+% \usepackage [english]{babel}
+\usepackage{amsmath, amsbsy, amsthm, epsfig, epsf, psfrag, graphicx, 
+amssymb, enumerate}
+\usepackage{bm}
+\usepackage{multirow, multicol}
+
+\usepackage[dvipsnames]{color}
+\definecolor{darkblue}{rgb}{0.1, 0.2, 0.6}
+
+\newcommand{\jy}[1]{\textcolor{red}{JY: #1}}
+\newcommand{\eds}[1]{\textcolor{blue}{(EDS: #1)}}
+\newcommand{\mc}[1]{\textcolor{green}{(MC: #1)}}
+\newcommand{\xz}[1]{\textcolor{cyan}{(XZ: #1)}}
+
+\sloppy
+
+% \usepackage{csquotes}
+% \usepackage [autostyle, english = american]{csquotes}
+% \MakeOuterQuote{"}
+
+% \usepackage{bibentry}
+\newenvironment{comment}%
+{\begin{quotation}\noindent\small\it\color{darkblue}\ignorespaces%
+}{\end{quotation}}
+
+
+\begin{document}
+
+\begin{center}
+  {\Large\bf Response to the Comments}
+\end{center}
+
+We extend our gratitude to the editor and the Associate Editor for
+granting us the opportunity to revise this manuscript. We also want to
+express our appreciation to the two referees for their valuable and
+constructive comments. The reviewers have highlighted crucial
+discussion areas that have not only enhanced the quality of this paper
+but have also set a clear direction for our future research
+endeavors.
+
+
+The manuscript has been
+revised accordingly with the following notable changes:
+\begin{enumerate}
+\item 
+\item 
+\item 
+\item 
+\end{enumerate}
+
+
+Point-by-point responses to the comments are as follows, with the
+comments quoted in \emph{\color{darkblue} italic and blue}.
+
+\subsection*{To Referee 1}
+
+\begin{comment}
+1. The main contribution is presented as an extension of the bias-corrected 
+nonparametric
+bootstrap (NPB) KS test, which was already established by Babu and Rao (2004) 
+for independent data, to serially dependent time series. However, the 
+methodological advancements
+here are minimal; the approach essentially adapts existing block bootstrap 
+methods and applies them without significant theoretical innovation or novel 
+insights into the performance
+of the KS statistic under these conditions. Notably, the numerical results 
+suggest that the
+proposed method struggles to control the size, which most likely stems from the 
+uniform
+choice of block size across different dependence structures. Intuitively, the 
+block size should
+vary with the level of dependence in the data; however, the manuscript lacks 
+consideration
+for this crucial aspect. I highly suggest the authors to include some 
+discussions on this, see
+some existing literature below.
+
+\citep{hall1995blocking}
+
+\citep{lahiri1999theoretical}
+
+\citep{buhlmann2002bootstraps}
+
+\citep{politis2004automatic}
+
+\citep{lahiri2013resampling}
+
+\end{comment}
+
+Thank you for your suggestion. The primary methodological 
+advancement in this study is a new bias correction - which is different than 
+that introduced by \citet{babu2004goodness} - for cases where the data are
+serially dependent...
+
+
+
+\begin{comment}
+2. I understand that the paper’s intended scope may not require high 
+technicality. However,
+since the core methodology is based on bootstrap techniques, a more detailed 
+heuristic
+explanation of the procedure is essential, especially regarding the bias 
+correction term.
+\end{comment}
+
+Thank you for your comment...
+
+
+
+\begin{comment}
+3. For time series data, there are many variants of bootstrap, such as circular 
+block bootstrap,
+stationary bootstrap, dependent wild bootstrap. I wonder how other methods 
+perform in
+your setting.
+\end{comment} 
+
+This is an interesting direction to investigate...
+
+
+
+\subsection*{To Referee 2}
+
+\begin{comment}
+1. In Section 3.1, it seems that Kendall's tau is being used as a measure
+dependence between $X_t$ and $X_{t+1}$. It may be useful to make that explicit 
+in the
+second pararaph of Section 3.1.
+\end{comment}
+
+Thank you for pointing this out, we have added that the
+serial dependence is specifically between $X_i$ and $X_{i+1}$.
+
+
+
+
+\begin{comment}
+2. The work presented here is useful, however I have believe the explanations
+for the correction term may need modification. Here the entire justification is
+based on the null case which does not cover the case when the null is not true.
+Justification for the correction term in Babu and Rao is not based on just the
+null case. The same seems to be true here, and in that case, Section 2 needs
+rewriting.
+\end{comment}
+
+Thank you for drawing this to our attention...
+
+
+
+
+
+\bibliographystyle{chicago}
+\bibliography{citations}
+
+
+\end{document}
