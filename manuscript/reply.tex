@@ -67,7 +67,8 @@ comments quoted in \emph{\color{darkblue} italic and blue}.
 \begin{comment}
 1. The main contribution is presented as an extension of the bias-corrected 
 nonparametric
-bootstrap (NPB) KS test, which was already established by Babu and Rao (2004) 
+bootstrap (NPB) KS test, which was already established by 
+\citet{babu2004goodness}
 for independent data, to serially dependent time series. However, the 
 methodological advancements
 here are minimal; the approach essentially adapts existing block bootstrap 
@@ -97,10 +98,15 @@ some existing literature below.
 
 \end{comment}
 
-Thank you for your suggestion. The primary methodological 
+Thank you for your comment and the suggested literature. The primary 
+methodological 
 advancement in this study is a new bias correction - which is different than 
-that introduced by \citet{babu2004goodness} - for cases where the data are
-serially dependent...
+that introduced by \citet{babu2004goodness} - for cases where the dependence
+structure of the data is not known. Therefore, in practical application,
+the level of dependence may not be available to inform our choice of block
+size. We have added a discussion of this limitation in the first paragraph of 
+the NPBB for stationary
+series subsection.
 
 
 
@@ -125,7 +131,10 @@ perform in
 your setting.
 \end{comment} 
 
-This is an interesting direction to investigate...
+Thank you. This is an interesting direction to investigate. We have added few
+sentences concerning potential future investigation into evaluating a bias 
+correction for these variants in the second paragraph of the Discussion 
+section.
 
 
 
@@ -135,10 +144,11 @@ This is an interesting direction to investigate...
 1. In Section 3.1, it seems that Kendall's tau is being used as a measure
 dependence between $X_t$ and $X_{t+1}$. It may be useful to make that explicit 
 in the
-second pararaph of Section 3.1.
+second pararaph of the Size subsection.
 \end{comment}
 
-Thank you for pointing this out, we have added that the
+Thank you for pointing this out. In the second paragraph of Section 3.1, 
+we have added that the
 serial dependence is specifically between $X_i$ and $X_{i+1}$.
 
 
@@ -148,7 +158,8 @@ serial dependence is specifically between $X_i$ and $X_{i+1}$.
 2. The work presented here is useful, however I have believe the explanations
 for the correction term may need modification. Here the entire justification is
 based on the null case which does not cover the case when the null is not true.
-Justification for the correction term in Babu and Rao is not based on just the
+Justification for the correction term in \citet{babu2004goodness} is not based 
+on just the
 null case. The same seems to be true here, and in that case, Section 2 needs
 rewriting.
 \end{comment}
