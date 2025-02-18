@@ -43,7 +43,8 @@ for (phi in phis) {
           theta <- c(8, sqrt(8))
           rgen <- rgamma
         }
-        blksize <- ceiling(n^(1/3))
+        # blksize <- ceiling(n^(1/3))
+        blksize <- politis2004blksize()
         p <- replicate(nrep, mysim(n, blksize, B, h0_dist, true_dist, f0, f, 
                                    theta, phi, rgen))
         saveRDS(p, paste("../data/", truth, "_", n, "_", true_dist, "_",

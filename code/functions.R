@@ -382,3 +382,71 @@ app_scheme <- function(start, end, years, stock) {
   return(pval)
 }
 
+
+R <- function(x, k) {
+  N <- length(x)
+  a <- x[-(1:abs(k))]
+  b <- x[-((N - abs(k) + 1):N)]
+  sum = 0
+  for (i in 1:length(a)) {
+    sum = sum + (a[i] - mean(x)) * (b[i] - mean(x))
+  }
+  return(sum / N)
+}
+
+rho <- function(x, k) {
+  R(x, k) / R(x, 0)
+}
+
+politis_test <- function(x, C = 2, K = NULL) {
+  N <- length(x)
+  if (is.null(K)) {
+    K = max(c(5, sqrt(log10(N))))
+  } 
+  
+  condition = TRUE
+  m = 1
+  while (condition == TRUE) {
+    condition = FALSE
+    for (k in 1:K) {
+      if (abs(rho(x, m + k)) >= C * sqrt(log(N) / N)) {
+        condition = TRUE
+        break
+      }
+    }
+    m = m + 1
+  }
+  return(m)
+}
+
+lambda <- function(t) {
+  if (abs(t) >= 0 & abs(t) <= 1/2) {
+    return(1)
+  } else if (abs(t) >= 1/2 & abs(t) <= 1) {
+    return(2 * (1 - abs(t)))
+  } else return(0)
+}
+
+g <- function(x, w, M) {
+  sum = 0
+  for (k in (-M):M) {
+    sum = sum + lambda(k / M) * R(x, k) * cos(w * k)
+  }
+  return(sum)
+}
+
+G <- function(x, M) {
+  sum = 0
+  for (k in (-M):M) {
+    sum = sum + lambda(k / M) * abs(k) * R(x, k)
+  }
+  return(sum)
+}
+politis2004blksize <- function(x) {
+  N <- length(x)
+  m <- politis_test(x)
+  M <- 2*m
+  D <- 4 / 3 * g(x, 0, M) ^ 2
+  G <- G(x, M)
+  return( (2 * G ^ 2 / D) ^ (1 / 3) * N ^ (1 / 3) )
+}
