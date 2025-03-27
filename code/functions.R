@@ -450,3 +450,22 @@ politis2004blksize <- function(x) {
   G <- G(x, M)
   return( (2 * G ^ 2 / D) ^ (1 / 3) * N ^ (1 / 3) )
 }
+
+# stochastic_approximation <- function(x, b, B) {
+#   n <- length(x)
+#   N_n <- chooose(n, b)
+#   I <- sample.int(N_n, B)
+#   sum = 0
+#   for (t in 1:N) {
+#     sum = sum + ((tau * (theta1 - theta2)) <= x)
+#   }
+#   return((1 / B) * sum)
+# }
+# 
+# minimum_volatility_blksize <- function(x, b_small = 1, b_big = 30) {
+#   
+#   for (b in b_small:b_big) {
+#     subsampling(x, b)
+#   }
+#   
+# }
