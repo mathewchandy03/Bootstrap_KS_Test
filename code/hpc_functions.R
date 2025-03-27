@@ -217,7 +217,8 @@ subsampling_interval <- function(b, x, B) {
   Y <- replicate(B, sample(x, b))
   if (is.null(dim(Y))) Y <- t(as.matrix(Y))
   theta_b <- as.vector(apply(Y, 2, mean))
-  C <- sort(abs(theta_b - theta_n))
+  C <- sort(abs(theta_b - theta_n)) # I just took the absolute value for the
+  # normalizing sequence but I am not sure if this is correct
   c(C[.05 * B], C[.95 * B])
 }
 
@@ -230,8 +231,13 @@ politis1999subsampling <- function(x, B = 100) {
   num_bs <- ncol(intervals)
   smooth_intervals <- matrix(NA, nrow(intervals), num_bs)
   volatility <- rep(NA, num_bs)
+  # The book recommends to skip some b's, but I am not sure if that also
+  # means to skip them in the following smoothing step. I am also not
+  # sure how to smooth for b_small and b_big, because the algorithm says to 
+  # take the averages of {I_{b-m, low}, ..., I_{b+m, low}} and
+  # {I_{b-m, up}, ..., I_{b+m, up}} 
   for (i in 1:num_bs) {
-    smooth_intervals[,i] <- rowMeans(intervals[,(pmax(1, i-1):pmin(num_bs, i+1))])
+    smooth_intervals[,i] <- rowMeans(intervals[,(pmax(1, i-1):pmin(num_bs, i+1))]) 
   }
   for (i in 1:num_bs) {
     volatility[i] <- sum(as.vector(apply(intervals[,(pmax(1, i-1):pmin(num_bs, i+1))], 1, sd, 
