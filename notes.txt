@@ -1,3 +1,9 @@
+4/25/25 Notes
+- Record frequency that block size is larger than quarter/sqrt
+- Cite politis book in discussion
+- Selection of block size is worth more investigation could be a future direction
+- Refer to books in discussion
+
 6/18 Notes
 - Two affiliations on paper
 - Write about HPC

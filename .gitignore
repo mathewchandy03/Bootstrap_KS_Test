@@ -1,4 +1,6 @@
 # about manuscript
+*/*/*.eps
+*/*.ps
 */*.dvi
 */*.pag
 */*.aux

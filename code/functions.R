@@ -4,7 +4,9 @@ library(truncdist)
 library(qqplotr)
 library(copula)
 library(tseries)
+library(latex2exp)
 source("ksfitted.R")
+
 
 mystat <- function(x, dist, df = NULL) {
   # Bootstrap will return actual pseudo-sample, mean, and standard deviation

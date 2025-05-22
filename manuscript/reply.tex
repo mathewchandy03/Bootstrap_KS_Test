@@ -52,10 +52,10 @@ endeavors.
 The manuscript has been
 revised accordingly with the following notable changes:
 \begin{enumerate}
-\item 
-\item 
-\item 
-\item 
+\item An appendix outlining trial and issues with automatic block size selection
+for circular block bootstrap.
+\item Stronger justification of the bias term
+
 \end{enumerate}
 
 
@@ -98,15 +98,12 @@ some existing literature below.
 
 \end{comment}
 
-Thank you for your comment and the suggested literature. The primary 
-methodological 
-advancement in this study is a new bias correction - which is different than 
-that introduced by \citet{babu2004goodness} - for cases where the dependence
-structure of the data is not known. Therefore, in practical application,
-the level of dependence may not be available to inform our choice of block
-size. We have added a discussion of this limitation in the first paragraph of 
-the NPBB for stationary
-series subsection.
+Thank you for your comment and the suggested literature. We 
+tried selecting block sizes using the plug-in approach 
+from \citet{politis2004automatic}, which is outlined in the Appendix. 
+Unfortunately, the procedure can result
+in quite large block sizes that would result in the failure of the block
+bootstrap step.
 
 
 
@@ -131,7 +128,11 @@ perform in
 your setting.
 \end{comment} 
 
-Thank you. This is an interesting direction to investigate. We have added a few
+Thank you. Our investigation actually used circular block bootstrap which
+is a variant of moving block bootstrap, and we have appropriately changed
+the terminology. Performance of other variants of 
+bootstrap in our setting is an interesting direction to explore. We have added a 
+few
 sentences concerning potential future investigation into evaluating a bias 
 correction for these variants in the second paragraph of the Discussion 
 section.

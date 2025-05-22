@@ -224,7 +224,7 @@ subsampling_interval <- function(b, x, B) {
 
 politis1999subsampling <- function(x, B = 100) {
   b_small <- 1
-  b_big <- length(x)
+  b_big <- sqrt(length(x))
   bs <- seq(b_small, b_big, 3)
   intervals <- lapply(bs, subsampling_interval, x, B)
   intervals <- t(do.call(rbind, intervals))
