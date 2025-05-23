@@ -228,7 +228,6 @@ of $\sup_t | J(F(t; \theta_0)) |$, where $J(\cdot)$ is the standard Brownian bri
 second term leads to a bias in the Brownian bridge, which was addressed by
 \citet{babu2004goodness}.
 
-
 When $\{X_i: i = 1, \ldots, n\}$ are further serially dependent, the statistic
 $T_n$ still provides a reasonable metric for deviation from the null
 hypothesis. Nonetheless, the asymptotic distribution of $T_n$ cannot be fixed
@@ -373,10 +372,10 @@ summarized as follows. Repeat the following steps for $b \in \{1, ..., B\}$.
   Calculate bootstrap KS statistic
   \[
     T^{(b)}_n = \sup_x \Big\vert \sqrt{n}\left(F^{(b)}_n(x)
-    - F(x; \hat\theta^{(b)}_n)\right) - C_n(x) \Big\vert.
+    - F(x; \hat\theta^{(b)}_n)\right) - \kappa_n(x) \Big\vert.
   \]
   where
-  $C_{n}(x) = \sqrt{n}(\mathbb{E}^{*}[F^{(b)}_n(x)] -
+  $\kappa_{n}(x) = \sqrt{n}(\mathbb{E}^{*}[F^{(b)}_n(x)] -
   F(x; \theta_0^*))$ is the bias term, and
   the expected values $\mathbb{E}^{*}[F^{(b)}_n(x)]$ and
 $\theta_0^* = \mathbb{E}^{*}[\hat\theta^{(b)}_n]$ can be
@@ -418,6 +417,32 @@ as $1/l+l/n\rightarrow 0$,
   \overset{a.s.}{\rightarrow} 0.
 \]
 
+When parameters of a hypothesized distribution $F(x;\theta)$ are estimated from 
+the data (yielding $\hat\theta_n$), the null distribution of the KS statistic 
+$T_n = \sup_x |\sqrt{n}(F_n(x) - F(x;\hat\theta_n))|$ is altered from its 
+standard form. The NPBB procedure aims to replicate this complex null 
+distribution.
+
+In the ``bootstrap world,'' each resample yields an empirical distribution 
+$F_n^{(b)}$ and a parameter estimate $\hat\theta^{(b)}_n$. The term 
+$\sqrt{n}(F_n^{(b)}(x) - F(x;\hat\theta^{(b)}_n))$ is the bootstrap analog of 
+the KS process. However, this bootstrap process inherently possesses its own 
+mean or systematic deviation. The bias correction $\kappa_n(x)$ estimates this mean. 
+Specifically, $E^*[F_n^{(b)}(x)]$ is the average empirical CDF over all 
+bootstrap samples, and $\theta^*_0 = E^*[\hat\theta^{(b)}_n]$ is the average of 
+the parameter estimates from these bootstrap samples. Thus, $\kappa_n(x)$ 
+quantifies 
+the expected difference, in the bootstrap world, between the empirical CDF and 
+the hypothesized CDF (evaluated at the average bootstrap parameter estimate). 
+Subtracting $\kappa_n(x)$ from 
+$\sqrt{n}(F_n^{(b)}(x) - F(x;\hat\theta^{(b)}_n))$ centers 
+the 
+bootstrap KS process. This ensures that the variability of the resulting 
+bootstrap statistics $T_n^{(b)}$ more faithfully reflects the variability of 
+the original $T_n$ statistic around its true but complex null distribution. 
+This approach extends the logic of \citet{babu2004goodness}, who introduced a 
+similar correction for independent data to the context of serially dependent 
+time series via block bootstrapping.
 
 \section{Simulation Studies}\label{sec:simu}
 

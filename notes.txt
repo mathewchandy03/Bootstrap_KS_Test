@@ -1,3 +1,11 @@
+5/22 Notes
+- Ask Dr. Zhang to write a paragraph addressing two comments
+- Relative frequency, facet by sample size, horizontal axis is tau
+- Pick one setting where block sizes are not too big, sample size 800, tau = 0.5
+- Compare performance show whether it holds its size and is powerful
+- Compare distribution of block sizes for this one setting, include line
+representing our cubic root of sample size to compare
+
 4/25/25 Notes
 - Record frequency that block size is larger than quarter/sqrt
 - Cite politis book in discussion
