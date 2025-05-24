@@ -40,27 +40,45 @@ amssymb, enumerate}
   {\Large\bf Response to the Comments}
 \end{center}
 
-We extend our gratitude to the editor and the Associate Editor for
-granting us the opportunity to revise this manuscript. We also want to
-express our appreciation to the two referees for their valuable and
-constructive comments. The reviewers have highlighted crucial
-discussion areas that have not only enhanced the quality of this paper
-but have also set a clear direction for our future research
-endeavors.
+
+We thank the Editor and Associate Editor for the encouraging decision
+and the opportunity to revise our manuscript. We are also grateful to
+the two referees for their thoughtful and constructive comments. Their
+suggestions have clarified important aspects of our work and have
+helped sharpen the presentation. We appreciate the confidence shown in
+our manuscript and have taken the revision process seriously in order
+to meet the expectations for final acceptance.
 
 
-The manuscript has been
-revised accordingly with the following notable changes:
+The revised manuscript incorporates the following notable changes:
 \begin{enumerate}
-\item An appendix outlining trial and issues with automatic block size selection
-for circular block bootstrap.
-\item Stronger justification of the bias term
-
+\item An appendix has been added documenting our exploration of
+  automatic block size selection for circular block bootstrap,
+  including observed limitations in practice.
+\item  A paragraph has been added to the Discussion section to
+  discuss the impact of block size on test performance and to
+  contextualize our findings in light of existing literature on
+  optimal block length
+\item A stronger and more detailed justification of the bias
+  correction term is now provided in a newly added Section~2.4.
 \end{enumerate}
 
 
 Point-by-point responses to the comments are as follows, with the
 comments quoted in \emph{\color{darkblue} italic and blue}.
+
+\jy{Make sure you've included all the comments from the reviewers,
+  including their openning summaries.}
+
+\subsection*{To AE}
+
+\begin{comment}
+  
+Two reviewers have carefully read the paper and have provided detailed feedback.  Both reviewers would like to see some additional discussion and justifications for the bias correction term, where one could closely follow the Babu and Rao (2004) paper, and one reviewer mentioned the importance of considering different block sizes (I recommend possibly trying some data-based block size selection method and checking how it performs).  A successful revision will require that the authors give serious consideration to these points.
+
+I also noticed that on Page 3 it says “Employing a nonparametric method would necessitate defining a specific model for this dependence”, but I think here “nonparametric” should be “parametric”.
+\end{comment}
+
 
 \subsection*{To Referee 1}
 
@@ -86,25 +104,51 @@ for this crucial aspect. I highly suggest the authors to include some
 discussions on this, see
 some existing literature below.
 
-\citep{hall1995blocking}
+\citet{hall1995blocking}
 
-\citep{lahiri1999theoretical}
+\citet{lahiri1999theoretical}
 
-\citep{buhlmann2002bootstraps}
+\citet{buhlmann2002bootstraps}
 
-\citep{politis2004automatic}
+\citet{politis2004automatic}
 
-\citep{lahiri2013resampling}
+\citet{lahiri2013resampling}
 
 \end{comment}
 
-Thank you for your comment and the suggested literature. We 
-tried selecting block sizes using the plug-in approach 
-from \citet{politis2004automatic}, which is outlined in the Appendix. 
-Unfortunately, the procedure can result
-in quite large block sizes that would result in the failure of the block
-bootstrap step.
+We thank the reviewer for this thoughtful and constructive comment. 
+We agree that block size selection is a critical component in the 
+performance of block bootstrap procedures, particularly under varying 
+levels of serial dependence. In response to this suggestion, we have 
+made the following revisions:
 
+\begin{itemize}
+\item We have added a discussion to the conclusion section (Section~5) 
+that explicitly addresses the role of block size and its effect on the 
+performance of the NPBB test. This includes a review of relevant literature, 
+as suggested by the reviewer, including works by 
+\citet{hall1995blocking}, \citet{lahiri1999theoretical}, 
+\citet{buhlmann2002bootstraps}, \citet{politis2004automatic}, and 
+\citet{lahiri2013resampling}.
+
+\item Motivated by these references, we implemented the automatic block 
+length selection method proposed by \citet{politis2004automatic} for 
+circular block bootstrap and reported our findings in a new appendix. 
+While this method is attractive in principle, our empirical results show 
+that it often selects overly large block sizes---especially under strong 
+dependence---resulting in limited variability among bootstrap replicates 
+and diminished test performance. These observations echo the theoretical 
+concerns raised in the literature and underscore the practical limitations 
+of fully automatic block length selection in the context of 
+goodness-of-fit testing.
+\end{itemize}
+
+We hope these additions clarify our awareness of the issue and reflect 
+our effort to better contextualize the finite-sample limitations of the 
+NPBB method.
+
+
+\jy{Make sure all references here are cited at appropriate places in the paper.}
 
 
 \begin{comment}
@@ -116,8 +160,15 @@ explanation of the procedure is essential, especially regarding the bias
 correction term.
 \end{comment}
 
-Thank you for your comment...
 
+We appreciate the reviewer’s suggestion and agree that a more accessible, 
+heuristic explanation enhances the clarity of the methodology. In response, 
+we have added a new subsection (Section~2.4). It gives an intuitive
+discussion of the role of the bias correction term $ K_n(x)$, explains
+how it arises in the bootstrap world, and clarifies how it relates to
+its counterpart $C_n(x)$ in the independent case. We hope this
+addition helps readers gain a better understanding of the underlying
+structure and motivation of the proposed method.
 
 
 \begin{comment}
@@ -128,15 +179,17 @@ perform in
 your setting.
 \end{comment} 
 
-Thank you. Our investigation actually used circular block bootstrap which
-is a variant of moving block bootstrap, and we have appropriately changed
-the terminology. Performance of other variants of 
-bootstrap in our setting is an interesting direction to explore. We have added a 
-few
-sentences concerning potential future investigation into evaluating a bias 
-correction for these variants in the second paragraph of the Discussion 
-section.
-
+Our method is indeed based on the circular block bootstrap, a variant
+of the moving block bootstrap originally proposed by
+\citet{romano1992circular}, and this is now clearly stated throughout
+the manuscript. We agree that investigating how other bootstrap
+variants, such as the stationary bootstrap
+\citep{politis1994stationary} and the dependent wild
+bootstrap \citep{shao2010dependent}, perform in conjunction with our
+bias correction scheme is a valuable direction for future work. In
+response to this comment, we have added a discussion in the third
+paragraph of the \emph{Discussion} Section, highlighting this
+extension as a promising avenue for further investigation.
 
 
 \subsection*{To Referee 2}
@@ -165,7 +218,23 @@ null case. The same seems to be true here, and in that case, Section 2 needs
 rewriting.
 \end{comment}
 
-Thank you for drawing this to our attention...
+Thank you for drawing this to our attention. As is standard in hypothesis 
+testing, our development of the bootstrap procedure is focused on accurately 
+approximating the distribution of the test statistic under the null hypothesis. 
+This is consistent with the goal of using the bootstrap to construct valid
+ p-values and rejection regions. While the same bias correction is applied 
+regardless of whether the null is true, its purpose is to replicate the 
+behavior of the statistic under the null, which is the basis for valid inference.
+
+
+To better explain the rationale for the correction term, and in response to both 
+this comment and Reviewer 1’s request for clearer heuristic explanation, we have 
+added a dedicated subsection (Section~2.4) titled \emph{Heuristic justification 
+of the bias correction in NPBB}. This subsection provides an intuitive discussion 
+of the role of the bias correction term, its construction, and its relation to 
+the version used in the independent case. The revised text aims to clarify that 
+the correction is justified by its ability to improve bootstrap calibration under 
+the null hypothesis, which is the relevant distribution for hypothesis testing.
 
 
 
