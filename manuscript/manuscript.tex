@@ -11,7 +11,7 @@
 \usepackage{url} % not crucial - just used below for the URL
 \usepackage{comment}
 \RequirePackage[colorlinks,citecolor=blue,urlcolor=blue]{hyperref}
-
+\usepackage{setspace}
 
 \allowdisplaybreaks
 
@@ -113,7 +113,9 @@ applications.
 \vfill
 
 \newpage
-\spacingset{1.45} % DON'T change the spacing!
+
+\doublespacing
+
 \section{Introduction}\label{sec:intro}
 
 The standard one-sample Kolmogorov--Smirnov (KS) test is widely
@@ -624,10 +626,11 @@ for the test that sample follows its true distribution family for
 different values of AR(1) coefficient and for different
 significance levels.}
 \label{table:size}
-\begin{tabular}{lllrrrrrrr}
+\begin{tabular}{ccc ccc c ccc}
   \toprule
-$F(\cdot; \theta)$ & $n$ & $\alpha$ & $\tau = -0.75$ & $\tau = -0.5$ & $\tau = -0.25$
-& $\tau = 0$ & $\tau = 0.25$ & $\tau = 0.5$ & $\tau = 0.75$ \\
+$F(\cdot; \theta)$ & $n$ & $\alpha$ & \multicolumn{7}{c}{Kendall's $\tau$}\\
+\cmidrule(lr){4-10}
+   &  &  & $-0.75$ & $ -0.50$ & $-0.25$ & $0.00$ & $0.25$ & $0.50$ & $ 0.75$ \\
   \midrule
 {$N(8,8)$} & {100} & 0.01 & 0.0521 & 0.0124 & 0.0112 & 0.0106 & 0.0114 & 0.0158 & 0.0563 \\
 & & 0.05 & 0.1470 & 0.0628 & 0.0545 & 0.0548 & 0.0575 & 0.0725 & 0.1705 \\
