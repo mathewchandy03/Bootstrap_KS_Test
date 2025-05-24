@@ -10,6 +10,33 @@
 \usepackage{natbib}
 \usepackage{url} % not crucial - just used below for the URL
 \usepackage{comment}
+\RequirePackage[colorlinks,citecolor=blue,urlcolor=blue]{hyperref}
+
+
+\allowdisplaybreaks
+
+\usepackage[pagewise]{lineno}
+\linenumbers*[1]
+% patches to make lineno work better with amsmath
+\newcommand*\patchAmsMathEnvironmentForLineno[1]{%
+        \expandafter\let\csname old#1\expandafter\endcsname\csname 
+        #1\endcsname
+        \expandafter\let\csname oldend#1\expandafter\endcsname\csname 
+        end#1\endcsname
+        \renewenvironment{#1}%
+        {\linenomath\csname old#1\endcsname}%
+        {\csname oldend#1\endcsname\endlinenomath}}%
+\newcommand*\patchBothAmsMathEnvironmentsForLineno[1]{%
+        \patchAmsMathEnvironmentForLineno{#1}%
+        \patchAmsMathEnvironmentForLineno{#1*}}%
+\AtBeginDocument{%
+        \patchBothAmsMathEnvironmentsForLineno{equation}%
+        \patchBothAmsMathEnvironmentsForLineno{align}%
+        \patchBothAmsMathEnvironmentsForLineno{flalign}%
+        \patchBothAmsMathEnvironmentsForLineno{alignat}%
+        \patchBothAmsMathEnvironmentsForLineno{gather}%
+        \patchBothAmsMathEnvironmentsForLineno{multline}%
+}
 
 \pdfminorversion=4
 % NOTE: To produce blinded version, replace "0" with "1" below.
@@ -280,8 +307,10 @@ summarized as follows. Repeat the following steps for $b \in \{1, ..., B\}$.
     - F(x; \hat\theta^{(b)}_n)\right) - C_n(x) \Big\vert.
   \]
   where
-  $C_{n}(x) = \sqrt{n}(F_n(x) - F(x; \hat\theta_n))$ is the estimated
-  bias term.
+  \[
+    C_{n}(x) = \sqrt{n}(F_n(x) - F(x; \hat\theta_n))
+  \]
+  is the estimated bias term.
 \end{enumerate}
 
 \citet{babu2004goodness} proves that $T^{(b)}_n$ and $T_n$ have the same
@@ -372,11 +401,14 @@ summarized as follows. Repeat the following steps for $b \in \{1, ..., B\}$.
   Calculate bootstrap KS statistic
   \[
     T^{(b)}_n = \sup_x \Big\vert \sqrt{n}\left(F^{(b)}_n(x)
-    - F(x; \hat\theta^{(b)}_n)\right) - \kappa_n(x) \Big\vert.
+    - F(x; \hat\theta^{(b)}_n)\right) - K_n(x) \Big\vert.
   \]
   where
-  $\kappa_{n}(x) = \sqrt{n}(\mathbb{E}^{*}[F^{(b)}_n(x)] -
-  F(x; \theta_0^*))$ is the bias term, and
+  \[
+    K_{n}(x) = \sqrt{n}(\mathbb{E}^{*}[F^{(b)}_n(x)] -
+    F(x; \theta_0^*))
+  \]
+  is the bias term, and
   the expected values $\mathbb{E}^{*}[F^{(b)}_n(x)]$ and
 $\theta_0^* = \mathbb{E}^{*}[\hat\theta^{(b)}_n]$ can be
 approximated by, respectively,
@@ -417,32 +449,54 @@ as $1/l+l/n\rightarrow 0$,
   \overset{a.s.}{\rightarrow} 0.
 \]
 
-When parameters of a hypothesized distribution $F(x;\theta)$ are estimated from 
-the data (yielding $\hat\theta_n$), the null distribution of the KS statistic 
+\subsection{Heuristic justification for the bias correction term in NPBB}
+
+A clear understanding of the bias correction term $K_n(x)$ is 
+essential for appreciating how the NPBB procedure effectively replicates 
+the null distribution of the KS statistic in the presence of serial 
+dependence and estimated parameters. When the parameters~$\theta$ of a
+hypothesized distribution $F(x;\theta)$ are estimated from
+the data with $\hat\theta_n$, the null distribution of the KS statistic 
 $T_n = \sup_x |\sqrt{n}(F_n(x) - F(x;\hat\theta_n))|$ is altered from its 
 standard form. The NPBB procedure aims to replicate this complex null 
 distribution.
+
 
 In the ``bootstrap world,'' each resample yields an empirical distribution 
 $F_n^{(b)}$ and a parameter estimate $\hat\theta^{(b)}_n$. The term 
 $\sqrt{n}(F_n^{(b)}(x) - F(x;\hat\theta^{(b)}_n))$ is the bootstrap analog of 
 the KS process. However, this bootstrap process inherently possesses its own 
-mean or systematic deviation. The bias correction $\kappa_n(x)$ estimates this mean. 
-Specifically, $E^*[F_n^{(b)}(x)]$ is the average empirical CDF over all 
-bootstrap samples, and $\theta^*_0 = E^*[\hat\theta^{(b)}_n]$ is the average of 
-the parameter estimates from these bootstrap samples. Thus, $\kappa_n(x)$ 
-quantifies 
-the expected difference, in the bootstrap world, between the empirical CDF and 
-the hypothesized CDF (evaluated at the average bootstrap parameter estimate). 
-Subtracting $\kappa_n(x)$ from 
-$\sqrt{n}(F_n^{(b)}(x) - F(x;\hat\theta^{(b)}_n))$ centers 
-the 
+mean or systematic deviation. The bias correction $K_n(x)$
+estimates this mean.
+Specifically, $\mathbb{E}^*[F_n^{(b)}(x)]$ is the average empirical
+GXSdistribution function over all bootstrap samples, and
+$\theta^*_0 = \mathbb{E}^*[\hat\theta^{(b)}_n]$ is the average of 
+the parameter estimates from these bootstrap samples. Thus,
+$K_n(x)$ quantifies 
+the expected difference, in the bootstrap world, between the empirical
+distribution function and the hypothesized distribution function
+(evaluated at the average bootstrap parameter estimate).
+Subtracting $K_n(x)$ from
+$\sqrt{n}(F_n^{(b)}(x) - F(x;\hat\theta^{(b)}_n))$ centers the 
 bootstrap KS process. This ensures that the variability of the resulting 
 bootstrap statistics $T_n^{(b)}$ more faithfully reflects the variability of 
-the original $T_n$ statistic around its true but complex null distribution. 
-This approach extends the logic of \citet{babu2004goodness}, who introduced a 
-similar correction for independent data to the context of serially dependent 
-time series via block bootstrapping.
+the original $T_n$ statistic around its true but complex null
+distribution.
+
+
+This approach extends the logic of \citet{babu2004goodness}, who
+introduced a similar correction for independent data, to the context
+of serially dependent time series via block bootstrapping.
+The bias correction term $C_n(x)$ used in the NPB method for
+independent data could, in principle, also be approximated by a
+bootstrap expectation in the same way as $K_n(x)$.
+Nonetheless, under independence, the empirical distribution $F_n(x)$
+and the parameter estimate $\hat{\theta}_n$ are already reliable, so
+direct calculation of $C_n(x)$ is both simpler and sufficient. The use
+of bootstrap expectations as in $K_n(x)$ becomes necessary only when
+serial dependence distorts the properties of $F_n(x)$, making
+block-bootstrapping-based bias estimation essential.
+
 
 \section{Simulation Studies}\label{sec:simu}
 
@@ -811,7 +865,7 @@ However, the optimal block size may vary according to the dependence structure.
 To address this, we considered  using the automatic block-length selection
 scheme
 for
-circular block boostrap as described in Section 3.3 of
+circular block bootstrap as described in Section 3.3 of
 \citet{politis2004automatic}. Unfortunately, using this setting results in
 the selection of
 block
@@ -865,7 +919,6 @@ studies are publicly available in a GitHub repo:
 
 \end{description}
 
-\bibliographystyle{agsm}
-
+\bibliographystyle{asa}
 \bibliography{citations}
 \end{document}
