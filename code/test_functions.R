@@ -96,8 +96,12 @@ bs_ks <- function(y, B, h0_dist, f0, blk, method, rgen = NULL) {
 
 mysim <- function(n, blksize, B, h0_dist, true_dist, f0, f, theta, phi,  
                   rgen) {
-  y <- arima.sim(list(ar = phi), n = n) * 
-    sqrt(1 - sum(phi^2))
+  if (phi == 0) {
+    y <- rnorm(n)
+  }
+  else {
+    y <- arima.sim(list(ar = phi), n = n) * sqrt(1 - phi^2)
+  }
   if (h0_dist == 'gamma' & true_dist == 'normal') {
     y <- qtrunc(pnorm(y), "norm", a = 0, mean = theta[1], sd = theta[2])
   } else {
@@ -116,7 +120,7 @@ mysim <- function(n, blksize, B, h0_dist, true_dist, f0, f, theta, phi,
 }
 
 R <- function(x, k) {
-  x <- do.call(c, lapply(x, pmin, 10e6))
+  # x <- do.call(c, lapply(x, pmin, 10e6))
   N <- length(x)
   a <- x[1:pmax(N - abs(k), 1)]
   b <- x[pmin(1+abs(k), N):N]
@@ -197,11 +201,11 @@ my_job <- function(i, nrep = 1, blksize = 'a') {
   phis <- 
     c(-0.9238795, -0.7071068, -0.3826834, 0, 0.3826834, 0.7071068, 0.9238795)
   # 1-2500, to run it locally select one seed
+  doRNGseed(i)
   my_data <- foreach(rep = 1:nrep, .packages=c('rpm'), .combine = 'rbind') %dorng% {
     # if (rep %% 4 == 0) print(rep)
     foreach(phi = phis, .packages=c('rpm'), .combine = 'rbind') %dorng% {
       foreach(n = c(100, 200, 400, 800), .packages=c('rpm'), .combine = 'rbind') %dorng% {
-        set.seed(as.integer(i))
         foreach(true_dist = c("normal", "gamma"), .packages=c('rpm'), .combine = 'rbind') %dorng% {
           foreach(truth = c("null", "alt"), .packages=c('rpm'), .combine = 'rbind') %dorng% {
             if (true_dist == "normal" & truth == "null") {
@@ -308,13 +312,14 @@ my_data <- data.frame(
   rep = integer(),
   stringsAsFactors = FALSE
 )
-for(i in 1:10) {
-  print(i)
-  my_data <- rbind(my_data, my_job(i, 1000))
-}
+# for(i in 1:10) {
+#   print(i)
+# 
+# }
+my_data <- rbind(my_data, my_job(1, 1))
 # close(pb)
 # stopCluster(cl) 
 end.time <- Sys.time()
 time.taken <- end.time - start.time
 time.taken
-saveRDS(my_data, '../data/blk2004_results_10000.RDS')
+# saveRDS(my_data, '../data/blk2004_results_10000.RDS')

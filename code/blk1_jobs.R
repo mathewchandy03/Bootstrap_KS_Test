@@ -7,7 +7,8 @@ phis <- c()
 
 phis <- 
   c(-0.9238795, -0.7071068, -0.3826834, 0, 0.3826834, 0.7071068, 0.9238795)
-i <- Sys.getenv("SLURM_ARRAY_TASK_ID") 
+# i <- Sys.getenv("SLURM_ARRAY_TASK_ID") 
+i <- 1
 # 1-2500, to run it locally select one seed
 
 for (phi in phis) {
@@ -44,11 +45,19 @@ for (phi in phis) {
           rgen <- rgamma
         }
         blksize <- ceiling(n^(1/3))
-        p <- replicate(nrep, mysim(n, blksize, B, h0_dist, true_dist, f0, f, 
-                                   theta, phi, rgen))
-        saveRDS(p, paste("../data/", truth, "_", n, "_", true_dist, "_",
-                          phi, "_", 
-                          "0", "_",  i, ".RDS", sep = ""))
+        # p <- replicate(nrep, mysim(n, blksize, B, h0_dist, true_dist, f0, f, 
+        #                            theta, phi, rgen))
+        # saveRDS(p, paste("../data/", truth, "_", n, "_", true_dist, "_",
+        #                   phi, "_", 
+        #                   "0", "_",  i, ".RDS", sep = ""))
+        y <- arima.sim(list(ar = phi), n = n) * 
+          sqrt(1 - sum(phi^2))
+        if (h0_dist == 'gamma' & true_dist == 'normal') {
+          y <- qtrunc(pnorm(y), "norm", a = 0, mean = theta[1], sd = theta[2])
+        } else {
+          y <- do.call(f, c(list(pnorm(y)), as.list(theta)))
+        }
+        if(any(is.infinite(x))) print(paste(phi, n, true_dist, truth))
       }
     }
   }
