@@ -30,26 +30,12 @@ gg.f <- ggplot(my_freq, aes(x = tau, y = freq)) +
 ggsave(filename = 'large_block.pdf', plot = gg.f, 
        path = "../manuscript/figures", height = 3, width = 6)
 
+my_setting1 <- my_data %>% filter(n == 800, true_dist == 'normal', 
+                                 tau == 0.5)
 
-my_data$large_block <- ifelse(my_data$blk > sqrt(my_data$n), 'T', 'F')
-table(my_data$large_block)
+my_setting2 <- my_setting1 %>% filter(truth == 'null')
 
-
-
-
-)
-
-
-
-
-  
-
-
-
-
-normal_null <- normal %>% filter(truth == 'null')
-
-ggplot(data = normal_null, mapping = aes(sample = p)) +
+gg.f <- ggplot(data = my_setting2, mapping = aes(sample = p)) +
   scale_x_continuous(breaks=c(0, 1)) +
   scale_y_continuous(breaks=c(0, 1)) + 
   stat_pp_band(distribution = "unif") +
@@ -61,4 +47,13 @@ ggplot(data = normal_null, mapping = aes(sample = p)) +
        y = "Empirical Cumulative Distribution") +
   coord_fixed() +
   theme(strip.text.x = element_text(size = 8))
+ggsave(filename = 'my_setting.pdf', plot = gg.f, 
+       path = "../manuscript/figures", height = 3, width = 6)
 
+
+gg.f <- ggplot(data = my_setting1, mapping = aes(x = blk)) +
+  geom_histogram() +
+  geom_vline(xintercept = ceiling(800^(1/3)),linetype="dashed") +
+  labs(x = "Block Size")
+ggsave(filename = 'block_dist.pdf', plot = gg.f, 
+       path = "../manuscript/figures", height = 3, width = 6)

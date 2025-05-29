@@ -893,33 +893,49 @@ the selection of
 block
 sizes that can be quite large (sometimes as large or larger than $n$), leading
 to less variation between the bootstrapped
-samples. Figures~\ref{fig:large_block_normal} and \ref{fig:large_block_gamma}
+samples. Figures~\ref{fig:large_block} and \ref{fig:large_block}
 demonstrate that for highly temporally
 dependent samples (especially when the autocorrelation is negative),
 the block size is frequently larger than $\sqrt{n}$.
 
 \begin{figure}[tbp]
   \centering
-  \includegraphics[scale=1]{figures/large_block_normal}
+  \includegraphics[scale=1]{figures/large_block}
   \caption{Proportion of selected block sizes using
   \citet{politis2004automatic}'s procedure that are larger than the sample size
     $n$ for $n \in \{100, 200, 400, 800\}$,
     $\tau \in \{-0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75\}$, and true marginal distribution
-    $N(8,8)$.
+    $N(8,8)$ and $\Gamma(8,1)$.
   }
-  \label{fig:large_block_normal}
+  \label{fig:large_block}
+\end{figure}
+
+Even for the settings with block sizes that are typically less than
+$\sqrt{n}$ such as for $n = 800, X_i \sim N(8, 8)$, and $\tau = 0.5$, our 
+algorithm still does not hold its size as demonstrated in 
+Figure~\ref{fig:my_setting}, and the block
+sizes are still much larger than $l = \lceil n^{1/3} \rceil$, which is often
+considered optimal in general.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[scale=1]{figures/my_setting}
+  \caption{Q-Q plot of the p-values testing that a length-800 time series with
+    Kendall's $\tau = 0.5$
+    have marginal normal distribution with true data generating distribution
+    being $N(8,8)$.
+  }
+  \label{fig:my_setting}
 \end{figure}
 
 \begin{figure}[tbp]
   \centering
-  \includegraphics[scale=1]{figures/large_block_gamma}
-  \caption{Proportion of selected block sizes using
-  \citet{politis2004automatic}'s procedure that are larger than the sample size
-    $n$ for $n \in \{100, 200, 400, 800\}$,
-    $\tau \in \{-0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75\}$, and true marginal distribution
-    $\Gamma(8,1)$.
+  \includegraphics[scale=1]{figures/block_dist}
+  \caption{Distribution of the selected block sizes using
+  \citet{politis2004automatic}'s procedure applied to a length-800 time series with
+    Kendall's $\tau = 0.5$ data generating distribution $N(8,8)$.
   }
-  \label{fig:large_block_gamma}
+  \label{fig:block_dist}
 \end{figure}
 
 \bigskip
