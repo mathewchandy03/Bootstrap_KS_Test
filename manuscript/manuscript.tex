@@ -880,8 +880,21 @@ behavior of the test statistic and the consistency of the bootstrap
 approximation, would offer valuable practical insights into the
 scenarios where the NPBB approach is expected to perform optimally.
 
+\appendix
 
-\section{Appendix}\label{sec:appendix}
+\section{Block Size Investigation}\label{sec:appendix}
+ 
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[scale=1]{figures/large_block}
+  \caption{Proportion of selected block sizes using the method of
+  \citet{politis2004automatic} that are larger than the sample size
+    $n$ for $n \in \{100, 200, 400, 800\}$,
+    $\tau \in \{-0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75\}$, and true marginal distribution
+    $N(8,8)$ and $\Gamma(8,1)$.
+  }
+  \label{fig:large_block}
+\end{figure}
 In our original setting, we used a block size of $l = \lceil n^{1/3} \rceil$.
 However, the optimal block size may vary according to the dependence structure.
 To address this, we considered  using the automatic block-length selection
@@ -889,33 +902,14 @@ scheme
 for
 circular block bootstrap as described in Section 3.3 of
 \citet{politis2004automatic}. Unfortunately, using this setting results in
-the selection of
-block
+the selection of block
 sizes that can be quite large (sometimes as large or larger than $n$), leading
 to less variation between the bootstrapped
-samples. Figures~\ref{fig:large_block} and \ref{fig:large_block}
+samples. Figures~\ref{fig:large_block}
 demonstrate that for highly temporally
 dependent samples (especially when the autocorrelation is negative),
 the block size is frequently larger than $\sqrt{n}$.
-
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[scale=1]{figures/large_block}
-  \caption{Proportion of selected block sizes using
-  \citet{politis2004automatic}'s procedure that are larger than the sample size
-    $n$ for $n \in \{100, 200, 400, 800\}$,
-    $\tau \in \{-0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75\}$, and true marginal distribution
-    $N(8,8)$ and $\Gamma(8,1)$.
-  }
-  \label{fig:large_block}
-\end{figure}
-
-Even for the settings with block sizes that are typically less than
-$\sqrt{n}$ such as for $n = 800, X_i \sim N(8, 8)$, and $\tau = 0.5$, our 
-algorithm still does not hold its size as demonstrated in 
-Figure~\ref{fig:my_setting}, and the block
-sizes are still much larger than $l = \lceil n^{1/3} \rceil$, which is often
-considered optimal in general.
+\jy{add discussions about the figure}
 
 \begin{figure}[tbp]
   \centering
@@ -928,6 +922,19 @@ considered optimal in general.
   \label{fig:my_setting}
 \end{figure}
 
+
+Even for the settings with block sizes that are typically less than
+$\sqrt{n}$ such as for $n = 800, X_i \sim N(8, 8)$, and $\tau = 0.5$, our 
+algorithm still does not hold its size as demonstrated in 
+Figure~\ref{fig:my_setting}, and the block
+sizes are still much larger than $l = \lceil n^{1/3} \rceil$, which is often
+considered optimal in general.
+\jy{How do you interpret the flat lines in the plot? Why are the
+  empirical cdf step functions? That means your empirical p-values are
+  discrete with point masses at a few points. Check the p-values from
+  the simulations.}
+
+
 \begin{figure}[tbp]
   \centering
   \includegraphics[scale=1]{figures/block_dist}
@@ -937,6 +944,8 @@ considered optimal in general.
   }
   \label{fig:block_dist}
 \end{figure}
+
+\jy{Discuss the figure}
 
 \bigskip
 \begin{center}
@@ -952,7 +961,7 @@ DMS2210735.
 of interests.
 
 \item[Data availability statement:] The data and code used in the real data analysis and simulation
-studies are publicly available in a GitHub repo:
+studies are publicly available in a GitHub repo:\\
 \url{https://github.com/mathewchandy03/Bootstrap_KS_Test}.
 
 \end{description}
