@@ -13,6 +13,11 @@
 \RequirePackage[colorlinks,citecolor=blue,urlcolor=blue]{hyperref}
 \usepackage{setspace}
 
+\newcommand{\jy}[1]{\textcolor{red}{JY: #1}}
+\newcommand{\eds}[1]{\textcolor{blue}{(EDS: #1)}}
+\newcommand{\mc}[1]{\textcolor{green}{(MC: #1)}}
+\newcommand{\xz}[1]{\textcolor{cyan}{(XZ: #1)}}
+
 \allowdisplaybreaks
 
 \usepackage[pagewise]{lineno}
@@ -880,8 +885,10 @@ behavior of the test statistic and the consistency of the bootstrap
 approximation, would offer valuable practical insights into the
 scenarios where the NPBB approach is expected to perform optimally.
 
+\appendix
 
-\section{Appendix}\label{sec:appendix}
+\section{Block Size Investigation}\label{sec:appendix}
+
 In our original setting, we used a block size of $l = \lceil n^{1/3} \rceil$.
 However, the optimal block size may vary according to the dependence structure.
 To address this, we considered  using the automatic block-length selection
@@ -889,11 +896,10 @@ scheme
 for
 circular block bootstrap as described in Section 3.3 of
 \citet{politis2004automatic}. Unfortunately, using this setting results in
-the selection of
-block
+the selection of block
 sizes that can be quite large (sometimes as large or larger than $n$), leading
 to less variation between the bootstrapped
-samples. Figures~\ref{fig:large_block} and \ref{fig:large_block}
+samples. Figures~\ref{fig:large_block}
 demonstrate that for highly temporally
 dependent samples (especially when the autocorrelation is negative),
 the block size is frequently larger than $\sqrt{n}$.
@@ -902,8 +908,8 @@ the block size is frequently larger than $\sqrt{n}$.
 \begin{figure}[tbp]
   \centering
   \includegraphics[scale=1]{figures/large_block}
-  \caption{Proportion of selected block sizes using
-  \citet{politis2004automatic}'s procedure that are larger than the sample size
+  \caption{Proportion of selected block sizes using the method of
+  \citet{politis2004automatic} that are larger than the sample size
     $n$ for $n \in \{100, 200, 400, 800\}$,
     $\tau \in \{-0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75\}$, and true marginal distribution
     $N(8,8)$ and $\Gamma(8,1)$.
@@ -915,6 +921,13 @@ Even for settings where the block sizes are usually less than $\sqrt{n}$ -
 such as for $n = 800$, $\tau = 0.5$, and $X_i \sim N(8, 8)$ - the 
 block
 sizes are almost always larger than $l = \lceil n^{1/3} \rceil$.
+
+\jy{How do you interpret the flat lines in the plot? Why are the
+  empirical cdf step functions? That means your empirical p-values are
+  discrete with point masses at a few points. Check the p-values from
+  the simulations.}
+\mc{this was a result of erroneous data, it is fixed now}
+
 
 \begin{figure}[tbp]
   \centering
@@ -933,7 +946,7 @@ series as demonstrated in
 Figures~\ref{fig:alt_normal} and \ref{fig:alt_gamma}. Both 
 \citet{politis2004automatic}'s setting and the cubic root setting result
 in the method not holding its size for $|\tau| > 0.5$. 
-Figure~\ref{fig:alt_rr} also shows that the two setting are comparably
+Figure~\ref{fig:alt_rr} also shows that the two settings are comparably
 powerful for $|\tau| <= 0.5$. However, we still
 recommend the cubic root setting over that introduced by 
 \citet{politis2004automatic} because the latter fails to hold its size
@@ -990,8 +1003,8 @@ DMS2210735.
 \item[Conflict of interest disclosure:]The authors declare no potential conflict
 of interests.
 
-\item[Data availability statement:] The data and code used in the real data analysis and simulation studies are publicly available in a GitHub repo:
-
+\item[Data availability statement:] The data and code used in the real data analysis and simulation
+studies are publicly available in a GitHub repo:\\
 \url{https://github.com/mathewchandy03/Bootstrap_KS_Test}.
 
 \end{description}
