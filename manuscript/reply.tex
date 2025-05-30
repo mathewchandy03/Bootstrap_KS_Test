@@ -75,20 +75,22 @@ comments quoted in \emph{\color{darkblue} italic and blue}.
 \begin{comment}
   
 Two reviewers have carefully read the paper and have provided detailed feedback.  Both reviewers would like to see some additional discussion and justifications for the bias correction term, where one could closely follow the Babu and Rao (2004) paper, and one reviewer mentioned the importance of considering different block sizes (I recommend possibly trying some data-based block size selection method and checking how it performs).  A successful revision will require that the authors give serious consideration to these points.
-
-I also noticed that on Page 3 it says “Employing a nonparametric method would necessitate defining a specific model for this dependence”, but I think here “nonparametric” should be “parametric”.
 \end{comment}
+
+
+\begin{comment}
+1. I also noticed that on Page 3 it says “Employing a nonparametric method would necessitate defining a specific model for this dependence”, but I think here “nonparametric” should be “parametric”.
+\end{comment}
+
+Thank you for pointing out this error in our manuscript. We have corrected
+it from "nonparametric" to "parametric" accordingly.
 
 
 \subsection*{To Referee 1}
 
 \begin{comment}
 This manuscript proposes a nonparametric block bootstrap (NPBB) method for applying the
-
-Kolmogorov-Smirnov (KS) test to stationary time series data with unknown parameters and un-
-specified serial dependence. The authors claim that the method offers a robust nonparametric
-
-solution for evaluating the fit of marginal distributions when data are serially dependent, without
+Kolmogorov-Smirnov (KS) test to stationary time series data with unknown parameters and unspecified serial dependence. The authors claim that the method offers a robust nonparametric solution for evaluating the fit of marginal distributions when data are serially dependent, without
 requiring assumptions about the form of this dependence. The paper is well-written and smooth
 to read. However, upon review, I find that it lacks methodological and theoretical innovation.
 \end{comment}
@@ -207,21 +209,16 @@ extension as a promising avenue for further investigation.
 
 \begin{comment}
 This paper focuses on approximating the distribution of the Kolmogorov-
-Smirnov (KS) statistic for stationary time series. SpeciÖcally, it deals with the
-
+Smirnov (KS) statistic for stationary time series. Specifically, it deals with the
 distribution of KS statistic for testing if the marginal distribution belongs to
-a speciÖed parametric family. Parametric bootstrap requires knowledge of the
-
-nature of serial dependence, and for this reason, nonparametric bootstrap is em-
-plyed here. For the iid case, \citet{babu2004goodness} obtained a correction term
-
-so that the corrected bootstraped statistic can be used to approximate distribu-
-tion of the KS statistic. This paper does the same except it uses nonparametric
-
-bootstrap developed by Kunsch and others. Finally the author(s) present some
-empirical work in support of their proposed procedure. Simulations indicate
-
-that the proposed procedure may work for large samples and moderate depen-
+a specified parametric family. Parametric bootstrap requires knowledge of the
+nature of serial dependence, and for this reason, nonparametric bootstrap is 
+employed here. For the iid case, \citet{babu2004goodness} obtained a correction 
+term so that the corrected bootstraped statistic can be used to approximate 
+distribution of the KS statistic. This paper does the same except it uses 
+nonparametric bootstrap developed by Kunsch and others. Finally the author(s) 
+present some empirical work in support of their proposed procedure. Simulations 
+indicate that the proposed procedure may work for large samples and moderate depen-
 dence.
 \end{comment}
 
@@ -248,6 +245,12 @@ Justification for the correction term in \citet{babu2004goodness} is not based
 on just the
 null case. The same seems to be true here, and in that case, Section 2 needs
 rewriting.
+
+Here is what I am able to understand after reading this paper, the papers
+by Babu and Rao, and Kunsch and others.
+
+Following the notations in this paper (the same notations have been used in
+Babu and Rao), let
 
 \mc{I will insert the rest of the comment here}
 \end{comment}
