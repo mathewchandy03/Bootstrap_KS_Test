@@ -898,6 +898,7 @@ demonstrate that for highly temporally
 dependent samples (especially when the autocorrelation is negative),
 the block size is frequently larger than $\sqrt{n}$.
 
+
 \begin{figure}[tbp]
   \centering
   \includegraphics[scale=1]{figures/large_block}
@@ -910,32 +911,70 @@ the block size is frequently larger than $\sqrt{n}$.
   \label{fig:large_block}
 \end{figure}
 
-Even for the settings with block sizes that are typically less than
-$\sqrt{n}$ such as for $n = 800, X_i \sim N(8, 8)$, and $\tau = 0.5$, our 
-algorithm still does not hold its size as demonstrated in 
-Figure~\ref{fig:my_setting}, and the block
-sizes are still much larger than $l = \lceil n^{1/3} \rceil$, which is often
-considered optimal in general.
-
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[scale=1]{figures/my_setting}
-  \caption{Q-Q plot of the p-values testing that a length-800 time series with
-    Kendall's $\tau = 0.5$
-    have marginal normal distribution with true data generating distribution
-    being $N(8,8)$.
-  }
-  \label{fig:my_setting}
-\end{figure}
+Even for settings where the block sizes are usually less than $\sqrt{n}$ -
+such as for $n = 800$, $\tau = 0.5$, and $X_i \sim N(8, 8)$ - the 
+block
+sizes are almost always larger than $l = \lceil n^{1/3} \rceil$.
 
 \begin{figure}[tbp]
   \centering
   \includegraphics[scale=1]{figures/block_dist}
   \caption{Distribution of the selected block sizes using
-  \citet{politis2004automatic}'s procedure applied to a length-800 time series with
+  \citet{politis2004automatic}'s procedure applied to 20000 length-800 time 
+  series with
     Kendall's $\tau = 0.5$ data generating distribution $N(8,8)$.
   }
   \label{fig:block_dist}
+\end{figure}
+
+Despite this, our 
+algorithm holds its size somewhat well for moderately dependent
+series as demonstrated in 
+Figures~\ref{fig:alt_normal} and \ref{fig:alt_gamma}. Both 
+\citet{politis2004automatic}'s setting and the cubic root setting result
+in the method not holding its size for $|\tau| > 0.5$. 
+Figure~\ref{fig:alt_rr} also shows that the two setting are comparably
+powerful for $|\tau| <= 0.5$. However, we still
+recommend the cubic root setting over that introduced by 
+\citet{politis2004automatic} because the latter fails to hold its size
+for negative $\tau$, particularly for smaller sample sizes. It is important to 
+note that another block size selection rationale could yield better results.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[scale=1]{figures/alt_normal}
+  \caption{Q-Q plots of the p-values testing that a time series
+    have marginal normal distribution with true data generating distribution
+    being $N(8,8)$, when using \citet{politis2004automatic}'s procedure
+    to select block sizes.
+  }
+  \label{fig:alt_normal}
+\end{figure}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[scale=1]{figures/alt_gamma}
+  \caption{Q-Q plots of the p-values testing that a time series
+    have marginal gamma distribution with true data generating distribution
+    being $\Gamma(8,1)$, when using \citet{politis2004automatic}'s procedure
+    to select block sizes.
+  }
+  \label{fig:alt_gamma}
+\end{figure}
+
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[scale=1]{figures/alt_rr}
+  \caption{Empirical power curve as a function of $\tau$ for
+    $n \in \{100, 200, 400, 800\}$ and true marginal distribution
+    $\in \{N(8,8), \Gamma(8,1)\}$, when using \citet{politis2004automatic}'s 
+    procedure
+    to select block sizes. When the data was generated from $N(8,8)$,
+    we tested for the gamma family. When the data was generated from
+    $\Gamma(8,1)$, we tested for the normal family.
+  }
+  \label{fig:alt_rr}
 \end{figure}
 
 \bigskip
@@ -951,8 +990,8 @@ DMS2210735.
 \item[Conflict of interest disclosure:]The authors declare no potential conflict
 of interests.
 
-\item[Data availability statement:] The data and code used in the real data analysis and simulation
-studies are publicly available in a GitHub repo:
+\item[Data availability statement:] The data and code used in the real data analysis and simulation studies are publicly available in a GitHub repo:
+
 \url{https://github.com/mathewchandy03/Bootstrap_KS_Test}.
 
 \end{description}

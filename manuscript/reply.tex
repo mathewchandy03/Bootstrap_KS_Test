@@ -83,6 +83,17 @@ I also noticed that on Page 3 it says “Employing a nonparametric method would 
 \subsection*{To Referee 1}
 
 \begin{comment}
+This manuscript proposes a nonparametric block bootstrap (NPBB) method for applying the
+
+Kolmogorov-Smirnov (KS) test to stationary time series data with unknown parameters and un-
+specified serial dependence. The authors claim that the method offers a robust nonparametric
+
+solution for evaluating the fit of marginal distributions when data are serially dependent, without
+requiring assumptions about the form of this dependence. The paper is well-written and smooth
+to read. However, upon review, I find that it lacks methodological and theoretical innovation.
+\end{comment}
+
+\begin{comment}
 1. The main contribution is presented as an extension of the bias-corrected 
 nonparametric
 bootstrap (NPB) KS test, which was already established by 
@@ -195,6 +206,27 @@ extension as a promising avenue for further investigation.
 \subsection*{To Referee 2}
 
 \begin{comment}
+This paper focuses on approximating the distribution of the Kolmogorov-
+Smirnov (KS) statistic for stationary time series. SpeciÖcally, it deals with the
+
+distribution of KS statistic for testing if the marginal distribution belongs to
+a speciÖed parametric family. Parametric bootstrap requires knowledge of the
+
+nature of serial dependence, and for this reason, nonparametric bootstrap is em-
+plyed here. For the iid case, \citet{babu2004goodness} obtained a correction term
+
+so that the corrected bootstraped statistic can be used to approximate distribu-
+tion of the KS statistic. This paper does the same except it uses nonparametric
+
+bootstrap developed by Kunsch and others. Finally the author(s) present some
+empirical work in support of their proposed procedure. Simulations indicate
+
+that the proposed procedure may work for large samples and moderate depen-
+dence.
+\end{comment}
+
+
+\begin{comment}
 1. In Section 3.1, it seems that Kendall's tau is being used as a measure
 dependence between $X_t$ and $X_{t+1}$. It may be useful to make that explicit 
 in the
@@ -216,6 +248,8 @@ Justification for the correction term in \citet{babu2004goodness} is not based
 on just the
 null case. The same seems to be true here, and in that case, Section 2 needs
 rewriting.
+
+\mc{I will insert the rest of the comment here}
 \end{comment}
 
 Thank you for drawing this to our attention. As is standard in hypothesis 
