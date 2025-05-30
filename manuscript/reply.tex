@@ -73,18 +73,29 @@ comments quoted in \emph{\color{darkblue} italic and blue}.
 \subsection*{To AE}
 
 \begin{comment}
-  
 Two reviewers have carefully read the paper and have provided detailed feedback.  Both reviewers would like to see some additional discussion and justifications for the bias correction term, where one could closely follow the Babu and Rao (2004) paper, and one reviewer mentioned the importance of considering different block sizes (I recommend possibly trying some data-based block size selection method and checking how it performs).  A successful revision will require that the authors give serious consideration to these points.
 \end{comment}
 
+
+We thank the AE for the careful reading and encouraging feedback. The
+reviewers’ comments have been addressed to the best of our ability in
+the revised manuscript. We have added a heuristic justification for
+the bias correction term in Section~2.4, following the logic of
+\citet{babu2004goodness}, and clarified its extension to the block
+bootstrap setting. As suggested, we also implemented a data-driven
+block size selection method based on \citet{politis2004automatic} and
+evaluated its performance. The results are included in the Appendix,
+along with a discussion of the challenges posed by automatic block
+length selection under strong serial dependence. Please find our
+detailed point-by-point responses below.
 
 \begin{comment}
 1. I also noticed that on Page 3 it says “Employing a nonparametric method would necessitate defining a specific model for this dependence”, but I think here “nonparametric” should be “parametric”.
 \end{comment}
 
-Thank you for pointing out this error in our manuscript. We have corrected
-it from "nonparametric" to "parametric" accordingly.
+Fixed.
 
+\jy{Is there a second point from the AE?}
 
 \subsection*{To Referee 1}
 
@@ -95,10 +106,23 @@ requiring assumptions about the form of this dependence. The paper is well-writt
 to read. However, upon review, I find that it lacks methodological and theoretical innovation.
 \end{comment}
 
+
+We thank the reviewer for the thoughtful comments and for recognizing
+the clarity of the manuscript. While the methodological foundation
+builds on existing work, the extension of the bias-corrected
+nonparametric bootstrap of \citet{babu2004goodness} to stationary time
+series with unspecified serial dependence is, to our knowledge, new
+and practically valuable. As the reviewer noted, the paper targets a
+general audience; accordingly, we added for a heuristic justification
+of the bias correction term in Section~2.4 and clarified how the
+approach adapts and differs from the i.i.d. setting in the presence of
+serial dependence. We have revised the Introduction and Discussion
+sections to better emphasize the scope and contribution.
+
+
 \begin{comment}
 1. The main contribution is presented as an extension of the bias-corrected 
-nonparametric
-bootstrap (NPB) KS test, which was already established by 
+nonparametric bootstrap (NPB) KS test, which was already established by 
 \citet{babu2004goodness}
 for independent data, to serially dependent time series. However, the 
 methodological advancements
@@ -222,20 +246,18 @@ indicate that the proposed procedure may work for large samples and moderate dep
 dence.
 \end{comment}
 
+We thank the reviewer for their accurate and concise summary of our
+contribution.
 
 \begin{comment}
 1. In Section 3.1, it seems that Kendall's tau is being used as a measure
 dependence between $X_t$ and $X_{t+1}$. It may be useful to make that explicit 
-in the
-second pararaph of the Size subsection.
+in the second pararaph of the Size subsection.
 \end{comment}
 
-Thank you for pointing this out. In the second paragraph of Section 3.1, 
-we have added that the
-serial dependence is specifically between $X_i$ and $X_{i+1}$.
-
-
-
+Thank you for pointing this out. In the second paragraph of
+Section~3.1, we have added that the serial dependence is specifically
+between $X_t$ and $X_{t+1}$.
 
 \begin{comment}
 2. The work presented here is useful, however I have believe the explanations
@@ -272,9 +294,6 @@ of the role of the bias correction term, its construction, and its relation to
 the version used in the independent case. The revised text aims to clarify that 
 the correction is justified by its ability to improve bootstrap calibration under 
 the null hypothesis, which is the relevant distribution for hypothesis testing.
-
-
-
 
 
 \bibliographystyle{chicago}
