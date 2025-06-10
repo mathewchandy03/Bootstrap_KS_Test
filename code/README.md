@@ -43,4 +43,8 @@ sp500.R: applied data analysis of S\&P 500 data
 
 blk1_jobs.R: jobs which are submitted with jobs.sh, can also be run locally
 
+blk2004_analysis.R: analysis of Politis 2004 automatic procedure results
+
+test_functions.R: functions to be used on R Compute server to run Politis 2004
+
 

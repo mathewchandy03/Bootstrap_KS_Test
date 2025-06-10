@@ -30,11 +30,6 @@ gg.f <- ggplot(my_freq, aes(x = tau, y = freq)) +
 ggsave(filename = 'large_block.pdf', plot = gg.f, 
        path = "../manuscript/figures", height = 4, width = 6)
 
-# my_setting1 <- my_data %>% filter(n == 800, true_dist == 'normal', 
-#                                  tau == 0.5)
-# 
-# my_setting2 <- my_setting1 %>% filter(truth == 'null')
-
 gg.f <- ggplot(data = my_data %>% 
                  filter(truth == 'null', true_dist == 'normal'), 
                mapping = aes(sample = p)) +

@@ -202,12 +202,12 @@ my_job <- function(i, nrep = 1, blksize = 'a') {
     c(-0.9238795, -0.7071068, -0.3826834, 0, 0.3826834, 0.7071068, 0.9238795)
   # 1-2500, to run it locally select one seed
   doRNGseed(i)
-  my_data <- foreach(rep = 1:nrep, .packages=c('rpm'), .combine = 'rbind') %dorng% {
+  my_data <- foreach(rep = 1:nrep, .combine = 'rbind') %dorng% {
     # if (rep %% 4 == 0) print(rep)
-    foreach(phi = phis, .packages=c('rpm'), .combine = 'rbind') %dorng% {
-      foreach(n = c(100, 200, 400, 800), .packages=c('rpm'), .combine = 'rbind') %dorng% {
-        foreach(true_dist = c("normal", "gamma"), .packages=c('rpm'), .combine = 'rbind') %dorng% {
-          foreach(truth = c("null", "alt"), .packages=c('rpm'), .combine = 'rbind') %dorng% {
+    foreach(phi = phis, .combine = 'rbind') %dorng% {
+      foreach(n = c(100, 200, 400, 800), .combine = 'rbind') %dorng% {
+        foreach(true_dist = c("normal", "gamma"), .combine = 'rbind') %dorng% {
+          foreach(truth = c("null", "alt"), .combine = 'rbind') %dorng% {
             if (true_dist == "normal" & truth == "null") {
               h0_dist <- "normal"
               f0 <- pnorm
@@ -312,14 +312,12 @@ my_data <- data.frame(
   rep = integer(),
   stringsAsFactors = FALSE
 )
-# for(i in 1:10) {
-#   print(i)
-# 
-# }
-my_data <- rbind(my_data, my_job(1, 1))
-# close(pb)
-# stopCluster(cl) 
+for(i in 1:10) {
+  print(i)
+  my_data <- rbind(my_data, my_job(i, 1000))
+}
+
 end.time <- Sys.time()
 time.taken <- end.time - start.time
 time.taken
-# saveRDS(my_data, '../data/blk2004_results_10000.RDS')
+saveRDS(my_data, '../data/blk2004_results_10000.RDS')

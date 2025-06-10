@@ -67,13 +67,11 @@ The revised manuscript incorporates the following notable changes:
 Point-by-point responses to the comments are as follows, with the
 comments quoted in \emph{\color{darkblue} italic and blue}.
 
-\jy{Make sure you've included all the comments from the reviewers,
-  including their openning summaries.}
 
 \subsection*{To AE}
 
 \begin{comment}
-Two reviewers have carefully read the paper and have provided detailed feedback.  Both reviewers would like to see some additional discussion and justifications for the bias correction term, where one could closely follow the Babu and Rao (2004) paper, and one reviewer mentioned the importance of considering different block sizes (I recommend possibly trying some data-based block size selection method and checking how it performs).  A successful revision will require that the authors give serious consideration to these points.
+Two reviewers have carefully read the paper and have provided detailed feedback.  Both reviewers would like to see some additional discussion and justifications for the bias correction term, where one could closely follow the \citet{babu2004goodness} paper, and one reviewer mentioned the importance of considering different block sizes (I recommend possibly trying some data-based block size selection method and checking how it performs).  A successful revision will require that the authors give serious consideration to these points.
 \end{comment}
 
 
@@ -95,7 +93,6 @@ detailed point-by-point responses below.
 
 Fixed.
 
-\jy{Is there a second point from the AE?}
 
 \subsection*{To Referee 1}
 
@@ -185,8 +182,6 @@ our effort to better contextualize the finite-sample limitations of the
 NPBB method.
 
 
-\jy{Make sure all references here are cited at appropriate places in the paper.}
-
 
 \begin{comment}
 2. I understand that the paper’s intended scope may not require high 
@@ -252,7 +247,7 @@ contribution.
 \begin{comment}
 1. In Section 3.1, it seems that Kendall's tau is being used as a measure
 dependence between $X_t$ and $X_{t+1}$. It may be useful to make that explicit 
-in the second pararaph of the Size subsection.
+in the second paragraph of Section 3.1.
 \end{comment}
 
 Thank you for pointing this out. In the second paragraph of
@@ -269,12 +264,42 @@ null case. The same seems to be true here, and in that case, Section 2 needs
 rewriting.
 
 Here is what I am able to understand after reading this paper, the papers
-by Babu and Rao, and Kunsch and others.
+by \citet{babu2004goodness}, and \citet{kunsch1989jackknife} and others.
 
 Following the notations in this paper (the same notations have been used in
-Babu and Rao), let
+\citet{babu2004goodness}), let
 
-\mc{I will insert the rest of the comment here}
+\begin{align*}
+Y_n(x, \hat \theta_n) &= \sqrt{n}[F_n(x) - F(x; \hat \theta_n)],\\
+Y_n^{(b)}(x, \hat \theta_n^{(b)}) &= \sqrt{n}[F_n^{(b)}(x) - F(x; \hat \theta_n^{(b)})],
+\end{align*}
+
+where the second quantity is based on the $b$th bootstrap sample. In the iid 
+case, \citet{babu2004goodness} introduced a correction term for the nonparametric bootstrap
+$$B_n(x) = \sqrt{n}[F_n(x) - F(x; \hat \theta_n)],$$
+so that
+\begin{align*}
+Y_{n,corr}^{(b)}(x) &= Y_n^{(b)}(x; \hat\theta_n^{(b)}) - B_n(x)\\
+                    &= \sqrt{n}[F_n^{(b)}(x) - F_n(x)] -
+                    \sqrt{n}[F(x; \hat \theta_n^{(b)}) -  F(x; \hat\theta_n)].
+\end{align*}
+It was proved in \citet{babu2004goodness} that the distribution of the KS
+statistic is approximated by that of the corrected bootstrap under the null as
+well as for contiguous alternatives.
+
+The work under consideration uses nonparametric block bootstrap. Let 
+$\theta^*_n = E^*[\hat \theta_n ^{(b)}]$ and $F^*_n(x) = E^*[F_n^{(b)}(x)]$,
+where $E^*$ represents average over bootstrap samples. In this paper the 
+correction term is
+$$C_n(x) = \sqrt{n}[F^*_n(x)-F(x;\theta^*_n)],$$
+so that
+\begin{align*}
+Y^{(b)}_{n,corr}(x) &= Y^{(b)}_n(x;\hat \theta_n^{(b)})-C_n(x)\\
+                    &= \sqrt{n}[F_n^{(b)}(x) - F^*_n(x)] 
+                    - \sqrt{n}[F(x; \hat\theta_n^{(b)}) - F(x; \theta^*_n)].
+\end{align*}
+So the corrected bootstrap proposed here has the same form as in Babu and Rao,
+and the justifications for the procedure proposed here should also be similar.
 \end{comment}
 
 Thank you for drawing this to our attention. As is standard in hypothesis 
