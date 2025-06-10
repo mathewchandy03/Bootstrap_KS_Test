@@ -188,7 +188,8 @@ Developing a fully nonparametric solution for the KS
 tests in the presence of serial dependence presents a significant
 challenge. The null distribution's characteristics are intricately linked to
 the structure of the serial dependence, which can vary widely in practical
-situations. Employing a parametric method would necessitate defining a
+situations. Employing a semiparametric method
+\citep{zeimbakakis2024misuses} would necessitate defining a
 specific model for this dependence, despite the primary focus being on
 evaluating the marginal distribution of a stationary series. To date, a bias
 correction method for block bootstrap, akin to the NPB
@@ -436,6 +437,7 @@ As $1/l+l/n\rightarrow 0$,
   T_n \overset{d}{\rightarrow}
   \sup_x \big\vert G_{\infty}(x)+f(x;\theta_0)U \big\vert
 \]
+\jy{What is $f$? Be careful with the dimension of $U$ and $f$.}
 for some appropriately defined Gaussian process $G_{\infty}(\cdot)$
 and Gaussian random variable  $U$.
 Further,  as $1/l+l/n\rightarrow 0$,
@@ -758,11 +760,11 @@ distributed and Student's $t$ distributed
 with degrees of freedom $\nu \in \{30, 20, 10, 5, 4, 3, 2, 1\}$
 with the proposed NPBB method.
 For comparison, we tested the same hypotheses using 1) the
-SPB method of \citet{zeimbekakis2022misuses},
+SPB method of \citet{zeimbekakis2024misuses},
 which accounts for both serial dependence and unspecified parameters;
 2) NPB bias correction method of
 \citet{babu2004goodness}; and 3) the parametric bootstrap (PB) method shown
-by \citet{zeimbekakis2022misuses}. The latter of the two methods discard the
+by \citet{zeimbekakis2024misuses}. The latter of the two methods discard the
 serial dependence. In all methods, we used $B = 10,000$ bootstrap replicates.
 The p-values for these tests are summarized in
 Table~\ref{table:SP5004}.
@@ -797,7 +799,7 @@ $\infty$ & 0.0001 & 0.0000 & 0.0000 & 0.0000 \\
 While differences in p-values among different methods are expected, our analysis
 reveals some instances where conclusions at the 0.05 significance level
 using our method differ from those obtained using the methods proposed by
-\citet{babu2004goodness} and \citet{zeimbekakis2022misuses}.
+\citet{babu2004goodness} and \citet{zeimbekakis2024misuses}.
 For example, our NPBB method fails to reject the
 hypothesis that the series follows a Student's $t$ distribution with degrees of
 freedom $v = 5$ with a p-value of 0.061. In contrast,
@@ -808,7 +810,7 @@ instance highlights a disagreement in conclusions among methods for the S\&P 500
 index. Because NPB and PB both discard serial dependence, it is expected that
 their conclusions could be different from our method. It is worth noting that
 the SPB result is also not reliable here because the working dependence model is
-in the class of ARMA dependence as specified in \citet{zeimbekakis2022misuses},
+in the class of ARMA dependence as specified in \citet{zeimbekakis2024misuses},
 which does not cover nonlinear dependence usually captured by autoregressive
 conditional heteroskedasticity \citep{engle1995arch}. The proposed method has
 no need to specify the serial dependence and, hence, produces results under
@@ -843,7 +845,7 @@ the test can be recommended for sample size~$n = 400$ or higher.
 Overall, the test provides an analog of the bias-corrected NPB KS test of
 \citet{babu2004goodness} in the context of stationary time
 series with unspecified serial dependence. Compared to the SPB method
-of \citet{zeimbekakis2022misuses}, which requires a working dependence model, it
+of \citet{zeimbekakis2024misuses}, which requires a working dependence model, it
 is reliable with no need to worry about whether the working dependence
 model approximates the true dependence model.
 
@@ -893,7 +895,7 @@ scenarios where the NPBB approach is expected to perform optimally.
 
 \appendix
 
-\section{Block Size Investigation}\label{sec:appendix}
+\section{Block Size Investigation}\label{sec:blocksize}
 
 In our original setting, we used a block size of $l = \lceil n^{1/3} \rceil$.
 However, the optimal block size may vary according to the dependence structure.
@@ -925,14 +927,15 @@ as frequently.
   \label{fig:large_block}
 \end{figure}
 
+\jy{Watch proper usage of dashes.}
 Still, even for settings where the block sizes are usually less than $\sqrt{n}$ -
 such as for $n = 800$, $\tau = 0.5$, and $X_i \sim N(8, 8)$ - the 
 block sizes are almost always larger than $l = \lceil n^{1/3} \rceil$, a setting
 which was considered optimal by \citep{buhlmann1999block}. This
 is demonstrated in Figure~\ref{fig:block_dist} with a histogram
 of the selected block sizes for this setting.
-
-
+\jy{What's the logical connection of this paragraph with the
+  surrounding paragraphs?}
 
 
 \begin{figure}[tbp]
@@ -959,8 +962,8 @@ in the method not holding its size for $|\tau| > 0.5$.
 Figure~\ref{fig:alt_rr} also shows that the two settings are comparably
 powerful for $|\tau| <= 0.5$, with \citet{politis2004automatic}'s
 setting perhaps even having higher rejection rates for smaller negatively
-dependent sample sizes. 
-However, we still
+dependent sample sizes. However, we still
+\jy{too strong. soften it.}
 recommend the original cubic root setting over that introduced by 
 \citet{politis2004automatic} because the latter fails to hold its size
 for negative $\tau$, particularly for smaller sample sizes. 

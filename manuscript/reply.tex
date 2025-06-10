@@ -58,9 +58,9 @@ The revised manuscript incorporates the following notable changes:
 \item  A paragraph has been added to the Discussion section to
   discuss the impact of block size on test performance and to
   contextualize our findings in light of existing literature on
-  optimal block length
+  optimal block size.
 \item A stronger and more detailed justification of the bias
-  correction term is now provided in a newly added Section~2.4.
+  correction term is provided in a newly added Section~2.4.
 \end{enumerate}
 
 
@@ -88,10 +88,13 @@ length selection under strong serial dependence. Please find our
 detailed point-by-point responses below.
 
 \begin{comment}
-1. I also noticed that on Page 3 it says “Employing a nonparametric method would necessitate defining a specific model for this dependence”, but I think here “nonparametric” should be “parametric”.
+I also noticed that on Page 3 it says “Employing a nonparametric method would necessitate defining a specific model for this dependence”, but I think here “nonparametric” should be “parametric”.
 \end{comment}
 
-Fixed.
+We intended to refer to the semiparametric bootstrap method as
+discussed in \citep{zeimbekakis2024misuses}. The sentence has been
+revised to clarify this point and to correctly distinguish it from a
+fully nonparametric approach.
 
 
 \subsection*{To Referee 1}
@@ -157,17 +160,16 @@ levels of serial dependence. In response to this suggestion, we have
 made the following revisions:
 
 \begin{itemize}
-\item We have added a discussion to the conclusion section (Section~5) 
-that explicitly addresses the role of block size and its effect on the 
-performance of the NPBB test. This includes a review of relevant literature, 
-as suggested by the reviewer, including works by 
-\citet{hall1995blocking}, \citet{lahiri1999theoretical}, 
-\citet{buhlmann2002bootstraps}, \citet{politis2004automatic}, and 
-\citet{lahiri2013resampling}.
+\item We have added a discussion to the \emph{Discussion} section
+  (paragraph~2, Section~5) to explicitly discuss
+  the role of block size and its effect on the 
+  performance of the NPBB test, citing the literature suggested by the
+  reviewer.
 
 \item Motivated by these references, we implemented the automatic block 
 length selection method proposed by \citet{politis2004automatic} for 
-circular block bootstrap and reported our findings in a new appendix. 
+circular block bootstrap and reported our findings in a newly added
+section in the Appendix. 
 While this method is attractive in principle, our empirical results show 
 that it often selects overly large block sizes---especially under strong 
 dependence---resulting in limited variability among bootstrap replicates 
@@ -180,7 +182,6 @@ goodness-of-fit testing.
 We hope these additions clarify our awareness of the issue and reflect 
 our effort to better contextualize the finite-sample limitations of the 
 NPBB method.
-
 
 
 \begin{comment}
@@ -260,7 +261,7 @@ for the correction term may need modification. Here the entire justification is
 based on the null case which does not cover the case when the null is not true.
 Justification for the correction term in \citet{babu2004goodness} is not based 
 on just the
-null case. The same seems to be true here, and in that case, Section 2 needs
+null case. The same seems to be true here, and in that case, Section~2 needs
 rewriting.
 
 Here is what I am able to understand after reading this paper, the papers
@@ -273,7 +274,6 @@ Following the notations in this paper (the same notations have been used in
 Y_n(x, \hat \theta_n) &= \sqrt{n}[F_n(x) - F(x; \hat \theta_n)],\\
 Y_n^{(b)}(x, \hat \theta_n^{(b)}) &= \sqrt{n}[F_n^{(b)}(x) - F(x; \hat \theta_n^{(b)})],
 \end{align*}
-
 where the second quantity is based on the $b$th bootstrap sample. In the iid 
 case, \citet{babu2004goodness} introduced a correction term for the nonparametric bootstrap
 $$B_n(x) = \sqrt{n}[F_n(x) - F(x; \hat \theta_n)],$$
@@ -302,11 +302,11 @@ So the corrected bootstrap proposed here has the same form as in Babu and Rao,
 and the justifications for the procedure proposed here should also be similar.
 \end{comment}
 
-Thank you for drawing this to our attention. As is standard in hypothesis 
+Thank you for the detailed demonstration. As is standard in hypothesis 
 testing, our development of the bootstrap procedure is focused on accurately 
 approximating the distribution of the test statistic under the null hypothesis. 
 This is consistent with the goal of using the bootstrap to construct valid
- p-values and rejection regions. While the same bias correction is applied 
+p-values and rejection regions. While the same bias correction is applied 
 regardless of whether the null is true, its purpose is to replicate the 
 behavior of the statistic under the null, which is the basis for valid inference.
 
