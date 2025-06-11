@@ -91,8 +91,7 @@
 
 \bigskip
 \begin{abstract}
-The Kolmogorov--Smirnov (KS) test is a widely used
-statistical test that
+The Kolmogorov--Smirnov (KS) test is a widely used statistical test that
 assesses the conformity of a sample to a specified distribution. Its efficacy,
 however, diminishes with serially dependent data and when parameters
 within the hypothesized distribution are unknown. For independent data,
@@ -347,9 +346,7 @@ Z_j =
 A common
 function for block size that is often considered optimal is
 $l = \lceil n^{1/3} \rceil$ \citep{buhlmann1999block},
-although
-\citet{hall1995blocking} and
-\citet{politis2004automatic} note that
+although \citet{hall1995blocking} and \citet{politis2004automatic} note that
 the selection of block size should ideally take into account the strength
 and direction of serial dependence. 
 Now we draw $k$ blocks from the $(n - l + 1)$ blocks
@@ -432,17 +429,14 @@ strongly mixing. Using arguments similar to those
 in \citet{kunsch1989jackknife}, under certain conditions, the
 following results can be shown to
 justify the validity of the NPBB procedure of the KS test.
-Let $f(x; \theta) = \frac{\partial F(x; \theta)}{\partial \theta}$,
-for some hypothesized distribution $F(x; \theta)$, and let $f(x; \theta_0)$
-be its evaluation at $\theta = \theta_0$, and we define $d$ as the 
-dimension of $\theta$.
+Let $f(x; \theta) = {\partial F(x; \theta)} / {\partial \theta}$
+and $f(x, \theta_0)$ be its evaluation at $\theta = \theta_0$.
+Let $d$ be the  dimension of~$\theta$.
 As $1/l+l/n\rightarrow 0$,
 \[
   T_n \overset{d}{\rightarrow}
-  \sup_x \big\vert G_{\infty}(x)+f(x;\theta_0)U \big\vert
+  \sup_x \big\vert G_{\infty}(x)+f^\top (x;\theta_0)U \big\vert
 \]
-\jy{What is $f$? Be careful with the dimension of $U$ and $f$.}
-\mc{addressed}
 for some appropriately defined Gaussian process $G_{\infty}(\cdot)$
 and $d$-dimensional Gaussian random vector $U$.
 Further,  as $1/l+l/n\rightarrow 0$,
@@ -566,8 +560,7 @@ distribution and $\Phi$ is the distribution function of the standard normal
 distribution.
 Then we generated a marginal gamma series by the same procedure, but
 replacing $F^{-1}(p)$ with the quantile function for the $\Gamma(8, 1)$
-distribution.
-After the transformation
+distribution. After the transformation
 to the marginal gamma distribution, the lag-1 autocorrelations are approximately
 \[
   \{-0.876, -0.674, -0.368, 0, 0.377, 0.701, 0.922\}.
@@ -577,9 +570,7 @@ to the marginal gamma distribution, the lag-1 autocorrelations are approximately
 These distributions
 were chosen to compare results on normal and non-normal
 error structures. The specific parameters were chosen because the distributions
-are very similar and their
-first two moments are the same.
-For the purposes of
+are very similar and their first two moments are the same. For the purposes of
 evaluating if the test holds it size, when $X_i \sim N(8, 8)$, we tested that the
 marginal distribution is from the
 Normal family, or
@@ -607,16 +598,17 @@ for the test when applied to samples from the same data generating process.
   \caption{Q-Q plots of the p-values testing that a time series
     have marginal normal distribution with true data generating distribution
     being $N(8,8)$.}
+  \label{fig:qq_n}
     \hspace{5cm}
   \includegraphics[width = .9\textwidth]{figures/gamma}
   \caption{Q-Q plots of the p-values testing that a time series
     have marginal gamma distribution with true data
     generating distribution $\Gamma(8,1)$.}
-  \label{fig:qq}
+  \label{fig:qq_g}
 \end{figure}
 
 
-Figure~\ref{fig:qq} shows the Quantile-Quantile (Q-Q)
+Figures~\ref{fig:qq_n}--\ref{fig:qq_g} show the Quantile-Quantile (Q-Q)
 plots of the p-values testing the marginal distribution of the stationary time
 series generated from the null hypothesis, created with R packages
 \textsl{qqplotr} and \textsl{ggplot2} \citep{qqplotr, ggplot2}. If the
@@ -629,10 +621,8 @@ $\tau$ is lower than 0.25. For Kendall's $\tau \geq 0.5$, a sample larger than
 $n = 200$ seems necessary for the p-values to be uniformly distributed. For
 Kendall's $\tau \geq 0.75$, a sample larger than $n = 800$ appears to be
 necessary, as the p-values are not aligned with the line in any of the Q-Q
-plots. This
-is not necessarily a cause for concern, as (for normal margins)
-a Kendall's $\tau$ corresponds to
-a $\phi$ of 0.924, which is very high.
+plots. This is not necessarily a cause for concern, as (for normal margins)
+a Kendall's $\tau$ corresponds to a $\phi$ of 0.924, which is very high.
 Additionally, positive serial dependence appears to misalign the distribution
 of the p-values more so than negative serial dependences of the same strength.
 Results are very similar for normal and gamma margins.
@@ -691,8 +681,7 @@ summarize, for weaker dependence, our method works without need for a
 particularly large sample size, whereas for moderate dependence, a larger sample
 size is required. When the agreement is not met, the empirical size is
 usually larger than the nominal size, which indicates that the test is too liberal.
-In
-other words, the test rejects the null hypothesis more often than it should.
+In other words, the test rejects the null hypothesis more often than it should.
 For practical situations with a $\tau$ of magnitude 0.5 or
 lower, it is still reasonable to recommend our method with $n \ge 400$.
 This recommendation echoes the high sample size requirement for
@@ -902,45 +891,35 @@ scenarios where the NPBB approach is expected to perform optimally.
 
 \section{Block Size Investigation}\label{sec:blocksize}
 
-In our original setting, we used a block size of $l = \lceil n^{1/3} \rceil$.
-However, the optimal block size may vary according to the dependence structure.
-To address this, we considered  using the automatic block-length selection
-scheme
-for
-circular block bootstrap as described in Section 3.3 of
-\citet{politis2004automatic}. Unfortunately, using this setting results in
-the selection of block
-sizes that can be quite large (sometimes as large or larger than $n$), leading
-to less variation between the bootstrapped
-samples. Figures~\ref{fig:large_block}
-demonstrate that for highly temporally
-dependent samples (especially when the autocorrelation is negative),
-the block size is frequently larger than $\sqrt{n}$. For more moderate 
-positive temporal dependence, the block size may not be overly large
-as frequently. \jy{Watch proper usage of dashes.}\mc{addressed}
-Still, even for these moderately dependent samples, the 
-block sizes are almost always larger than $l = \lceil n^{1/3} \rceil$, a setting
-which was considered optimal by \citep{buhlmann1999block}. This
-is demonstrated in Figure~\ref{fig:block_dist} with a histogram
-of the selected block sizes for the 20000 samples with $n = 800$, $\tau = 0.5$, 
-and $X_i \sim N(8, 8)$.
-\jy{What's the logical connection of this paragraph with the
-  surrounding paragraphs?}
-\mc{highlighting that even samples with moderate positive temporal dependence
-have block sizes larger than expected}
+The choice of block size is a key factor influencing the performance
+of block bootstrap methods, particularly in settings with serial
+dependence. While our main simulations used a fixed block size
+$l = \lceil n^{1/3} \rceil$, the optimal block size depends on the
+stength and structure of dependence \citep{hall1995blocking,
+  buhlmann1999block,  politis2004automatic}. Motivated by this, we
+further examined the use of an automatic block-length selection scheme
+as proposed by \citet{politis2004automatic}, which aims to adaptively
+choose the block size based on the data. The simulation settings
+remain the same as in the study reported earlier.
 
 
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[scale=1]{figures/large_block}
-  \caption{Proportion of selected block sizes using the method of
-  \citet{politis2004automatic} that are larger than the sample size
-    $n$ for $n \in \{100, 200, 400, 800\}$,
-    $\tau \in \{-0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75\}$, and true marginal distribution
-    $N(8,8)$ and $\Gamma(8,1)$.
-  }
-  \label{fig:large_block}
-\end{figure}
+% To address this, we considered  using the automatic block-length selection
+% scheme for circular block bootstrap as described in Section~3.3 of
+% \citet{politis2004automatic}. Unfortunately, using this setting results in
+% the selection of block
+% sizes that can be quite large (sometimes as large or larger than $n$), leading
+% to less variation between the bootstrapped
+% samples. Figures~\ref{fig:large_block}
+% demonstrate that for highly temporally
+% dependent samples (especially when the autocorrelation is negative),
+% the block size is frequently larger than $\sqrt{n}$. For more moderate 
+% positive temporal dependence, the block size may not be overly large
+% as frequently. Still, even for these moderately dependent samples, the 
+% block sizes are almost always larger than $l = \lceil n^{1/3} \rceil$, a setting
+% which was considered optimal by \citep{buhlmann1999block}. This
+% is demonstrated in Figure~\ref{fig:block_dist} with a histogram
+% of the selected block sizes for the 20000 samples with $n = 800$, $\tau = 0.5$, 
+% and $X_i \sim N(8, 8)$.
 
 \begin{figure}[tbp]
   \centering
@@ -953,24 +932,35 @@ have block sizes larger than expected}
     to 10.
   }
   \label{fig:block_dist}
+% \end{figure}
+
+
+% \begin{figure}[tbp]
+  \centering
+  \includegraphics[scale=1]{figures/large_block}
+  \caption{Proportion of selected block sizes using the method of
+  \citet{politis2004automatic} that are larger than the sample size
+    $n$ for $n \in \{100, 200, 400, 800\}$,
+    $\tau \in \{-0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75\}$, and true marginal distribution
+    $N(8,8)$ and $\Gamma(8,1)$.
+  }
+  \label{fig:large_block}
 \end{figure}
 
-Despite the unexpected large block sizes, the
-algorithm with \citet{politis2004automatic}'s setting holds its size somewhat 
-well for moderately 
-positively dependent
-series as demonstrated in 
-Figure~\ref{fig:alt_qq}. Both 
-\citet{politis2004automatic}'s setting and the cubic root setting result
-in the method not holding its size for $|\tau| > 0.5$. 
-Figure~\ref{fig:alt_rr} also shows that the two settings are comparably
-powerful for $|\tau| <= 0.5$, with \citet{politis2004automatic}'s
-setting perhaps even having higher rejection rates for smaller negatively
-dependent sample sizes. However, we still
-\jy{too strong. soften it.}\mc{addressed}
-caution using
-\citet{politis2004automatic}'s setting because it fails to hold its size
-for negative $\tau$, particularly for smaller sample sizes. 
+Automatic block size selection tends to yield larger block sizes than our
+fixed choice $l = \lceil n^{1/3} \rceil$, as expected, but under strong
+negative or very strong positive dependence it systematically produces
+block sizes that are excessively large, sometimes as large as or larger
+than $n$. Figure~\ref{fig:block_dist} illustrates the typical behavior by
+showing the distribution of block sizes selected by \citet{politis2004automatic}
+for $n = 800$, $\tau = 0.5$, and $X_i \sim N(8,8)$. The majority of selected
+block sizes exceed $\lceil n^{1/3} \rceil$, and many approach or exceed
+$\sqrt{n}$. Figure~\ref{fig:large_block} presents the proportion of selected
+block sizes exceeding $n$ across varying levels of dependence and sample sizes.
+The selection of block sizes larger than $n$ occurs systematically under strong
+negative dependence, and is also frequent under very strong positive dependence.
+
+
 
 \begin{figure}[tbp]
   \includegraphics[width = .9\textwidth]{figures/alt_normal}
@@ -980,6 +970,7 @@ for negative $\tau$, particularly for smaller sample sizes.
     have marginal normal distribution with true data generating distribution
     being $N(8,8)$, when using \citet{politis2004automatic}'s procedure
     to select block sizes.}
+  \label{fig:alt_qq_n}
     \hspace{3cm}
   \includegraphics[width = .9\textwidth]{figures/alt_gamma}
   \vspace{-5pt}
@@ -987,9 +978,9 @@ for negative $\tau$, particularly for smaller sample sizes.
     have marginal gamma distribution with true data generating distribution
     being $\Gamma(8,1)$, when using \citet{politis2004automatic}'s procedure
     to select block sizes.}
-  \label{fig:alt_qq}
+  \label{fig:alt_qq_g}
 \end{figure}
-
+\jy{Watch for missing figure labels}
 
 
 \begin{figure}[tbp]
@@ -1005,6 +996,29 @@ for negative $\tau$, particularly for smaller sample sizes.
   }
   \label{fig:alt_rr}
 \end{figure}
+
+
+We evaluated the size and power performance of the NPBB test under automatic
+\jy{How was the block size set when the chosen one is as big as $n$?
+  Excluded? Or settting it as the minimum of the auto-selected and $\sqrt{n}$?}
+block length selection by restricting attention to those replicates where
+the selected block size was $\sqrt{n}$ or lower. The size performane is shown
+in Figures~\ref{fig:alt_qq_n} and \ref{fig:alt_qq_g}, which display Q-Q plots
+of the $p$-values under the null for Normal and Gamma margins, respectively.
+Under this restriction, the method with block size selected by
+\citet{politis2004automatic} maintains reasonable size for moderately positively
+dependent series. However, for $|\tau| > 0.5$, neither the automatic selection
+\jy{refer to Figures 1-2}
+nor the cubic root setting holds its size. The power results are shown in
+Figure~\ref{fig:alt_rr}. For $|\tau| \leq 0.5$, the two settings exhibit
+\jy{comparing with the power figure in the simulation section. Right? Clarify.}
+comparable power, with the automatic selection sometimes yielding higher
+rejection rates, particularly for smaller negatively dependent samples.
+Overall, while the automatic selection from \citet{politis2004automatic}
+performs reasonably well in some settings, we recommend caution when using
+it under negative~$\tau$ and smaller sample sizes, where maintaining nominal
+size may be more challenging.
+
 
 \bigskip
 \begin{center}
