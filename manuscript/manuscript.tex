@@ -153,7 +153,7 @@ Despite its widespread use, the KS test can be
 misapplied when its foundational assumptions are overlooked. The KS test
 assumes that the data are independently and identically distributed and
 that the hypothesized distribution is continuous and fully specified without
-the need for parameter estimation. \citet{zeimbekakis2022misuses} examines
+the need for parameter estimation. \citet{zeimbekakis2024misuses} examines
 common misapplications of the one-sample KS test. One notable inappropriate
 use is when the hypothesized distribution contains unspecified parameters.
 In this case, the tests are generally constructed by substituting the unknown
@@ -176,7 +176,7 @@ A particularly complex scenario arises when the distribution has unspecified
 parameters, and the data are serially dependent.
 The distribution of the test statistic under the null hypothesis depends on both
 the unknown parameters and unknown serial dependence.
-\citet{zeimbekakis2022misuses} recommend a semiparametric bootstrap (SPB)
+\citet{zeimbekakis2024misuses} recommend a semiparametric bootstrap (SPB)
 approach, where the parameters of the hypothesized distribution and the serial
 dependence both need to be estimated and their uncertainty accounted for.
 Nonetheless, if the working dependence model is too far from the truth, the
@@ -189,7 +189,7 @@ tests in the presence of serial dependence presents a significant
 challenge. The null distribution's characteristics are intricately linked to
 the structure of the serial dependence, which can vary widely in practical
 situations. Employing a semiparametric method
-\citep{zeimbakakis2024misuses} would necessitate defining a
+\citep{zeimbekakis2024misuses} would necessitate defining a
 specific model for this dependence, despite the primary focus being on
 evaluating the marginal distribution of a stationary series. To date, a bias
 correction method for block bootstrap, akin to the NPB
@@ -432,14 +432,19 @@ strongly mixing. Using arguments similar to those
 in \citet{kunsch1989jackknife}, under certain conditions, the
 following results can be shown to
 justify the validity of the NPBB procedure of the KS test.
+Let $f(x; \theta) = \frac{\partial F(x; \theta)}{\partial \theta}$,
+for some hypothesized distribution $F(x; \theta)$, and let $f(x; \theta_0)$
+be its evaluation at $\theta = \theta_0$, and we define $d$ as the 
+dimension of $\theta$.
 As $1/l+l/n\rightarrow 0$,
 \[
   T_n \overset{d}{\rightarrow}
   \sup_x \big\vert G_{\infty}(x)+f(x;\theta_0)U \big\vert
 \]
 \jy{What is $f$? Be careful with the dimension of $U$ and $f$.}
+\mc{addressed}
 for some appropriately defined Gaussian process $G_{\infty}(\cdot)$
-and Gaussian random variable  $U$.
+and $d$-dimensional Gaussian random vector $U$.
 Further,  as $1/l+l/n\rightarrow 0$,
 \[
   \big\vert \mathbb{P}(T_n^{(b)}\leq x \mid \{X_i: i = 1, \ldots, n\}) -
@@ -912,7 +917,17 @@ demonstrate that for highly temporally
 dependent samples (especially when the autocorrelation is negative),
 the block size is frequently larger than $\sqrt{n}$. For more moderate 
 positive temporal dependence, the block size may not be overly large
-as frequently.
+as frequently. \jy{Watch proper usage of dashes.}\mc{addressed}
+Still, even for these moderately dependent samples, the 
+block sizes are almost always larger than $l = \lceil n^{1/3} \rceil$, a setting
+which was considered optimal by \citep{buhlmann1999block}. This
+is demonstrated in Figure~\ref{fig:block_dist} with a histogram
+of the selected block sizes for the 20000 samples with $n = 800$, $\tau = 0.5$, 
+and $X_i \sim N(8, 8)$.
+\jy{What's the logical connection of this paragraph with the
+  surrounding paragraphs?}
+\mc{highlighting that even samples with moderate positive temporal dependence
+have block sizes larger than expected}
 
 
 \begin{figure}[tbp]
@@ -927,17 +942,6 @@ as frequently.
   \label{fig:large_block}
 \end{figure}
 
-\jy{Watch proper usage of dashes.}
-Still, even for settings where the block sizes are usually less than $\sqrt{n}$ -
-such as for $n = 800$, $\tau = 0.5$, and $X_i \sim N(8, 8)$ - the 
-block sizes are almost always larger than $l = \lceil n^{1/3} \rceil$, a setting
-which was considered optimal by \citep{buhlmann1999block}. This
-is demonstrated in Figure~\ref{fig:block_dist} with a histogram
-of the selected block sizes for this setting.
-\jy{What's the logical connection of this paragraph with the
-  surrounding paragraphs?}
-
-
 \begin{figure}[tbp]
   \centering
   \includegraphics[scale=1]{figures/block_dist}
@@ -951,7 +955,7 @@ of the selected block sizes for this setting.
   \label{fig:block_dist}
 \end{figure}
 
-Despite this, the
+Despite the unexpected large block sizes, the
 algorithm with \citet{politis2004automatic}'s setting holds its size somewhat 
 well for moderately 
 positively dependent
@@ -963,9 +967,9 @@ Figure~\ref{fig:alt_rr} also shows that the two settings are comparably
 powerful for $|\tau| <= 0.5$, with \citet{politis2004automatic}'s
 setting perhaps even having higher rejection rates for smaller negatively
 dependent sample sizes. However, we still
-\jy{too strong. soften it.}
-recommend the original cubic root setting over that introduced by 
-\citet{politis2004automatic} because the latter fails to hold its size
+\jy{too strong. soften it.}\mc{addressed}
+caution using
+\citet{politis2004automatic}'s setting because it fails to hold its size
 for negative $\tau$, particularly for smaller sample sizes. 
 
 \begin{figure}[tbp]
