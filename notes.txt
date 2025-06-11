@@ -1,3 +1,9 @@
+6/11 Notes
+- Clarify that all replicates and all settings are used
+- Highlight more deviation from the line
+- Perhaps try min{hat l, sqrt{n}}
+- Poor size is because of overly large block size
+
 5/22 Notes
 - Ask Dr. Zhang to write a paragraph addressing two comments
 - Relative frequency, facet by sample size, horizontal axis is tau
