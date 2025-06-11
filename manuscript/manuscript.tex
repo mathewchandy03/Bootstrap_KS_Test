@@ -956,7 +956,10 @@ Automatic block size selection tends to yield larger block sizes than our
 fixed choice $l = \lceil n^{1/3} \rceil$, as expected, but under strong
 negative or very strong positive dependence it systematically produces
 block sizes that are excessively large, sometimes as large as or larger
-than $n$. Figure~\ref{fig:block_dist} illustrates the typical behavior by
+than $n$. Note that in our simulations, we set the block size to 
+$\min \{n, \hat l\}$, where
+$\hat l$ is the block size selected by \citet{politis2004automatic}'s
+procedure. Figure~\ref{fig:block_dist} illustrates the typical behavior by
 showing the distribution of block sizes selected by \citet{politis2004automatic}
 for $n = 800$, $\tau = 0.5$, and $X_i \sim N(8,8)$. The majority of selected
 block sizes exceed $\lceil n^{1/3} \rceil$, and many approach or exceed
@@ -985,7 +988,6 @@ negative dependence, and is also frequent under very strong positive dependence.
     to select block sizes.}
   \label{fig:alt_qq_g}
 \end{figure}
-\jy{Watch for missing figure labels}
 
 
 \begin{figure}[tbp]
@@ -1006,18 +1008,23 @@ negative dependence, and is also frequent under very strong positive dependence.
 We evaluated the size and power performance of the NPBB test under automatic
 \jy{How was the block size set when the chosen one is as big as $n$?
   Excluded? Or settting it as the minimum of the auto-selected and $\sqrt{n}$?}
+\mc{the block size was set to $n$, I added a sentence in the previous paragraph}
 block length selection by restricting attention to those replicates where
-the selected block size was $\sqrt{n}$ or lower. The size performane is shown
+the selected block size was $\sqrt{n}$ or lower. The size performance is shown
 in Figures~\ref{fig:alt_qq_n} and \ref{fig:alt_qq_g}, which display Q-Q plots
 of the $p$-values under the null for Normal and Gamma margins, respectively.
 Under this restriction, the method with block size selected by
 \citet{politis2004automatic} maintains reasonable size for moderately positively
 dependent series. However, for $|\tau| > 0.5$, neither the automatic selection
 \jy{refer to Figures 1-2}
-nor the cubic root setting holds its size. The power results are shown in
-Figure~\ref{fig:alt_rr}. For $|\tau| \leq 0.5$, the two settings exhibit
+\mc{addressed}
+nor the cubic root setting (as shown in Figures~\ref{fig:qq_n} and 
+\ref{fig:qq_g}) holds its size. The power results are shown in
+Figure~\ref{fig:alt_rr}. For $|\tau| \leq 0.5$, when comparing 
+with Figure~\ref{fig:rr}, the two settings exhibit
 \jy{comparing with the power figure in the simulation section. Right? Clarify.}
-comparable power, with the automatic selection sometimes yielding higher
+\mc{addressed}
+similar power, with the automatic selection sometimes yielding higher
 rejection rates, particularly for smaller negatively dependent samples.
 Overall, while the automatic selection from \citet{politis2004automatic}
 performs reasonably well in some settings, we recommend caution when using
