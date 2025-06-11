@@ -302,13 +302,23 @@ So the corrected bootstrap proposed here has the same form as in Babu and Rao,
 and the justifications for the procedure proposed here should also be similar.
 \end{comment}
 
-Thank you for the detailed demonstration. As is standard in hypothesis 
-testing, our development of the bootstrap procedure is focused on accurately 
-approximating the distribution of the test statistic under the null hypothesis. 
-This is consistent with the goal of using the bootstrap to construct valid
-p-values and rejection regions. While the same bias correction is applied 
-regardless of whether the null is true, its purpose is to replicate the 
-behavior of the statistic under the null, which is the basis for valid inference.
+We thank the reviewer for the detailed demonstration. We would like
+clarify that the correction term has the same form as that in
+\citet{babu2004goodness}, which is needed in the distribution of the
+testing statistic under the null hypothesis. The validity of the test
+relies on controlling the Type I error, and thus the justification of
+the correction term pertains to the behavior of the statistic
+under~$H_0$. The bootstrapping method in \citet{babu2004goodness},
+however, cannot be used approximatae the distribution of the null
+distribution of the statistic under serial dependence. The
+distribution under~$H_1$, particularly under contiguous alternatives,
+governs the power of the test but does not affect the correctness of
+the null calibration. Our current focus is on ensuring valid inference
+under $H_0$, for which the proposed correction is justified. To
+address this point, we have added a remark in the \emph{Discussion}
+Section, last paragraph, noting that investigation of the test’s
+behavior under contiguous alternatives remains of interest but is
+distinct from the justification of the correction term.
 
 
 To better explain the rationale for the correction term, and in response to both 
