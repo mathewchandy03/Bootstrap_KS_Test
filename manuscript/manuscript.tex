@@ -607,15 +607,19 @@ for the test when applied to samples from the same data generating process.
   \label{fig:qq_g}
 \end{figure}
 
-
-Figures~\ref{fig:qq_n}--\ref{fig:qq_g} show the Quantile-Quantile (Q-Q)
-plots of the p-values testing the marginal distribution of the stationary time
-series generated from the null hypothesis, created with R packages
+Figures~\ref{fig:qq_n}--\ref{fig:qq_g} show Quantile-Quantile (Q--Q) plots
+of the $p$-values testing the marginal distribution of the stationary time
+series generated under the null hypothesis. Figure~\ref{fig:qq_n} corresponds
+to the case where the true data generating distribution is $N(8,8)$, and
+Figure~\ref{fig:qq_g} corresponds to the case where the true data generating
+distribution is $\Gamma(8,1)$. The plots were created using the R packages
 \textsl{qqplotr} and \textsl{ggplot2} \citep{qqplotr, ggplot2}. If the
 distribution of the p-values is uniform, the points will be aligned with the
-diagonal line. The plots suggest that the extent to which the p-values are
-uniformly distributed is dependent on the sample size and the level of serial
-dependence.
+diagonal line.
+
+
+The plots suggest that the extent to which the p-values are uniformly
+distributed is dependent on the sample size and the level of serial dependence.
 A small sample size like $n = 100$ or $200$ seems adequate when Kendall's
 $\tau$ has an absolute value $|\tau| \leq 0.25$. For $|\tau| \geq 0.5$, 
 a sample larger than
@@ -1013,31 +1017,30 @@ block length selection. The size performance is shown
 in Figures~\ref{fig:alt_qq_n} and \ref{fig:alt_qq_g}, which display Q-Q plots
 of the $p$-values under the null for Normal and Gamma margins, respectively.
 Recall from Figures~\ref{fig:qq_n} and \ref{fig:qq_g} that the cubic root 
-setting held its size quite well with small $n$ for $|\tau| \leq 0.25$, whereas
-$|\tau| \geq 0.5$ may require $n > 200$, and $|\tau| \geq 0.75$ may 
-require $n > 800$.
-Similarly, for $|\tau| > 0.5$, the automatic selection
-does not hold its size. In addition, the automatic selection actually seems
-to have larger deviations from the line for negative $\tau$, which
-may be a result of the overly large block sizes. Notably, while the
-cubic root setting held its size for $\tau = -0.25$ for small $n$, the automatic
-selection does not.
-Still, under $\tau = 0$ and $\tau = 0.25$, the method with block size 
-selected by
-\citet{politis2004automatic} maintains reasonable size for moderately positively
-dependent series. 
+setting holds its size quite well with small $n$ for $|\tau| \leq 0.25$,
+whereas achieving nominal size for $|\tau| \geq 0.5$ require
+$n > 200$, and for $|\tau| \geq 0.75$ require $n > 800$. The automatic
+selection shows similar limitations for $|\tau| > 0.5$, where it does
+not hold its size. Moreover, deviations from the diagonal line appear
+larger for negative $\tau$, likely due to the high proportion of
+occurrence of overly large block sizes. For example, while the cubic
+root setting held its size well at $\tau = -0.25$ with small~$n$, the
+automatic selection does not. At the same time, under $\tau = 0$ or
+$\tau = 0.25$, the method with block size selected by
+\citep{politis2004automatic} maintains reasonable size for moderately
+positively dependent series.
 
-The power results are shown in
-Figure~\ref{fig:alt_rr}. For $|\tau| \leq 0.5$, when comparing 
-with Figure~\ref{fig:rr}, the two settings exhibit
-similar power, with the automatic selection sometimes yielding higher
+
+Figure~\ref{fig:alt_rr} shows the power results under automatic selection.
+When compared to Figure~\ref{fig:rr}, the two settings exhibit similar power
+for $|\tau| \leq 0.5$, with the automatic selection sometimes yielding higher
 rejection rates, particularly for smaller negatively dependent samples.
-Overall, while the automatic selection from \citet{politis2004automatic}
-performs reasonably well in some settings, we recommend caution when using
+Overall, while the automatic selection from \citep{politis2004automatic}
+performs reasonably well in certain settings, we recommend caution when using
 it under negative~$\tau$ and smaller sample sizes, where maintaining nominal
-size may be more challenging. In such cases, it may be sensible to be more
-restrictive when setting the final block size --- for example, using
-$\min \{\sqrt{n}, \hat l\}$.
+size may be more difficult. In such cases, it may be sensible to apply a more
+restrictive rule when setting the final block size---for example, using
+$\min \{\sqrt{n}, \hat{l}\}$.
 
 
 \bigskip
