@@ -37,7 +37,7 @@ hpc_functions.R: functions used in SLURM jobs
 
 functions.R: functions used to produce figures locally
 
-plots.R: produce figures after processign data
+plots.R: produce figures after processing data
 
 sp500.R: applied data analysis of S\&P 500 data
 

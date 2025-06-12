@@ -13,11 +13,6 @@
 \RequirePackage[colorlinks,citecolor=blue,urlcolor=blue]{hyperref}
 \usepackage{setspace}
 
-\newcommand{\jy}[1]{\textcolor{red}{JY: #1}}
-\newcommand{\eds}[1]{\textcolor{blue}{(EDS: #1)}}
-\newcommand{\mc}[1]{\textcolor{green}{(MC: #1)}}
-\newcommand{\xz}[1]{\textcolor{cyan}{(XZ: #1)}}
-
 \allowdisplaybreaks
 
 \usepackage[pagewise]{lineno}
@@ -65,17 +60,10 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{\bf Nonparametric Block Bootstrap Kolmogorov-Smirnov Goodness-of-Fit Test}
 \if0\blind
 {
-  \author[1,2]{Mathew Chandy}
-  \author[1]{Elizabeth D. Schifano}
-  \author[1]{Jun Yan\thanks{
-    The authors gratefully acknowledge the National Science Foundation (NSF).}\hspace{.2cm}}
-  \author[3]{Xianyang Zhang$^{\ast}$ }
-  \affil[1]{Department of Statistics, University of Connecticut}
-  \affil[2]{Department of Statistics and Data Science, University of California, Los Angeles}
-  \affil[3]{Department of Statistics, Texas A\&M University}
+  \title{\bf Nonparametric Block Bootstrap Kolmogorov-Smirnov Goodness-of-Fit Test}
+  \author{}
   \maketitle
 } \fi
 
@@ -84,10 +72,11 @@
   \bigskip
   \bigskip
   \bigskip
-  \author{Anonymous Author}
+  \begin{center}
+    {\LARGE\bf Title}
+\end{center}
+  \medskip
 } \fi
-
-\maketitle
 
 \bigskip
 \begin{abstract}
@@ -815,6 +804,7 @@ conditional heteroskedasticity \citep{engle1995arch}. The proposed method has
 no need to specify the serial dependence and, hence, produces results under
 weakest assumptions.
 
+
 \section{Discussion}\label{sec:conclusion}
 
 The KS test remains a crucial tool for researchers across diverse fields,
@@ -1038,15 +1028,8 @@ $\min \{\sqrt{n}, \hat{l}\}$.
 
 \begin{description}
 
-\item[Funding statement:]JY and XZ's research was partially supported by NSF grant
-DMS2210735.
-
 \item[Conflict of interest disclosure:]The authors declare no potential conflict
 of interests.
-
-\item[Data availability statement:] The data and code used in the real data analysis and simulation
-studies are publicly available in a GitHub repo:\\
-\url{https://github.com/mathewchandy03/Bootstrap_KS_Test}.
 
 \end{description}
 
