@@ -313,7 +313,9 @@ my_data <- data.frame(
   stringsAsFactors = FALSE
 )
 
-my_data <- rbind(my_data, my_job(1, 1))
+for (i in 1:10) {
+  my_data <- rbind(my_data, my_job(i, 1000))
+}
 
 # close(pb)
 # stopCluster(cl) 
