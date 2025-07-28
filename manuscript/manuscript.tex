@@ -490,19 +490,21 @@ bootstrap statistics $T_n^{(b)}$ more faithfully reflects the variability of
 the original $T_n$ statistic around its true but complex null
 distribution.
 
+To show that better performance is achieved when using the $K_n(x)$ correction
+instead of the $C_n(x)$, we have ad
 
-This approach extends the logic of \citet{babu2004goodness}, who
-introduced a similar correction for independent data, to the context
-of serially dependent time series via block bootstrapping.
-The bias correction term $C_n(x)$ used in the NPB method for
-independent data could, in principle, also be approximated by a
-bootstrap expectation in the same way as $K_n(x)$.
-Nonetheless, under independence, the empirical distribution $F_n(x)$
-and the parameter estimate $\hat{\theta}_n$ are already reliable, so
-direct calculation of $C_n(x)$ is both simpler and sufficient. The use
-of bootstrap expectations as in $K_n(x)$ becomes necessary only when
-serial dependence distorts the properties of $F_n(x)$, making
-block-bootstrapping-based bias estimation essential.
+% This approach extends the logic of \citet{babu2004goodness}, who
+% introduced a similar correction for independent data, to the context
+% of serially dependent time series via block bootstrapping.
+% The bias correction term $C_n(x)$ used in the NPB method for
+% independent data could, in principle, also be approximated by a
+% bootstrap expectation in the same way as $K_n(x)$.
+% Nonetheless, under independence, the empirical distribution $F_n(x)$
+% and the parameter estimate $\hat{\theta}_n$ are already reliable, so
+% direct calculation of $C_n(x)$ is both simpler and sufficient. The use
+% of bootstrap expectations as in $K_n(x)$ becomes necessary only when
+% serial dependence distorts the properties of $F_n(x)$, making
+% block-bootstrapping-based bias estimation essential.
 
 
 \section{Simulation Studies}\label{sec:simu}
