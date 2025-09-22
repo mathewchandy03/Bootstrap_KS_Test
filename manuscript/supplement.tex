@@ -65,8 +65,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{\bf Supplement: Performance of Nonparametric
-Block Bootstrap Kolmogorov-Smirnov Test with Block Size Calibration}
+\title{\bf Supplementary Material}
 \if0\blind
 {
   \author[1,2]{Mathew Chandy}
@@ -90,6 +89,8 @@ Block Bootstrap Kolmogorov-Smirnov Test with Block Size Calibration}
 
 \maketitle
 
+\section{Performance of Nonparametric
+Block Bootstrap Kolmogorov-Smirnov Test with Block Size Calibration}
 
 The choice of block size is a key factor influencing the performance
 of block bootstrap methods, particularly in settings with serial
@@ -233,7 +234,47 @@ restrictive rule when setting the final block size---for example, using
 $\min \{\sqrt{n}, \hat{l}\}$.
 
 
+\section{Performance of Nonparametric
+Block Bootstrap Kolmogorov-Smirnov Test with \citet{babu2004goodness} Bias Correction}
 
+A heuristic justification for the $K_n(x)$ bias correction term was provided in the main manuscript. It may also help to demonstrate
+empirically that this the block bootstrap KS test with the $K_n$ bias correction holds its size at least as
+well as the block boostrap KS test with the \citet{babu2004goodness} bias correction and is at
+least as powerful. For this reason, we conducted a simulation study
+with parameter settings identical to the main study in the paper except
+for the choice of bias correction.
+
+\begin{figure}[tbp]
+  \includegraphics[width = .9\textwidth]{figures/normal_C_n}
+  \centering
+  \vspace{-10pt}
+  \caption{Q-Q plots of the p-values testing that a time series
+    have marginal normal distribution with true data generating distribution
+    being $N(8,8)$ when using \citet{babu2004goodness}'s bias correction term.}
+  \label{fig:qq_n_C_n}
+    \hspace{3cm}
+  \includegraphics[width = .9\textwidth]{figures/gamma_C_n}
+  \vspace{-5pt}
+  \caption{Q-Q plots of the p-values testing that a time series
+    have marginal gamma distribution with true data generating distribution
+    being $\Gamma(8,1)$ when using \citet{babu2004goodness}'s bias correction term.}
+  \label{fig:qq_g_C_n}
+\end{figure}
+
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[scale=1]{figures/rr_C_n}
+  \caption{Empirical power curve as a function of $\tau$ for
+    $n \in \{100, 200, 400, 800\}$ and true marginal distribution
+    $\in \{N(8,8), \Gamma(8,1)\}$, when using \citet{babu2004goodness}'s bias correction term. When the data was generated from $N(8,8)$,
+    we tested for the gamma family. When the data was generated from
+    $\Gamma(8,1)$, we tested for the normal family.
+  }
+  \label{fig:rr_C_n}
+\end{figure}
+
+Based on Figures~\ref{fig:qq_n_C_n, fig:qq_g_C_n, fig:rr_C_n}, the empirical performance is very similar under either choice of bias correction term.
 
 \bibliographystyle{asa}
 \bibliography{citations}

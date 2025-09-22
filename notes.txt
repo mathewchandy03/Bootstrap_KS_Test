@@ -1,3 +1,6 @@
+8/19 Notes
+- Try with 50
+
 6/11 Notes
 - Clarify that all replicates and all settings are used
 - Highlight more deviation from the line

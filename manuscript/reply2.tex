@@ -1,0 +1,95 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{natbib}
+\usepackage{hyperref}
+
+\usepackage{listings}
+\usepackage{rotating, graphicx}
+\graphicspath{{./}, {./image/}}
+\usepackage{booktabs, natbib}
+% \usepackage{breakurl}
+% \usepackage [english]{babel}
+\usepackage{amsmath, amsbsy, amsthm, epsfig, epsf, psfrag, graphicx, 
+amssymb, enumerate}
+\usepackage{bm}
+\usepackage{multirow, multicol}
+
+\usepackage[dvipsnames]{color}
+\definecolor{darkblue}{rgb}{0.1, 0.2, 0.6}
+
+\newcommand{\jy}[1]{\textcolor{red}{JY: #1}}
+\newcommand{\eds}[1]{\textcolor{blue}{(EDS: #1)}}
+\newcommand{\mc}[1]{\textcolor{green}{(MC: #1)}}
+\newcommand{\xz}[1]{\textcolor{cyan}{(XZ: #1)}}
+
+\sloppy
+
+% \usepackage{csquotes}
+% \usepackage [autostyle, english = american]{csquotes}
+% \MakeOuterQuote{"}
+
+% \usepackage{bibentry}
+\newenvironment{comment}%
+{\begin{quotation}\noindent\small\it\color{darkblue}\ignorespaces%
+}{\end{quotation}}
+
+
+\begin{document}
+
+\begin{center}
+  {\Large\bf Response to the Comments}
+\end{center}
+
+
+We thank the Editor and Associate Editor for the opportunity to add further detail to our manuscript.
+We have taken the revision process seriously in order
+to meet the expectations for final acceptance.
+
+
+The revised manuscript incorporates the following notable change:
+\begin{enumerate}
+\item A supplement has been added, which includes both
+our previous exploration of automatic block size selection as
+well as our new simulations for block bootstrap under
+\citet{babu2004goodness}'s bias correction.
+\end{enumerate}
+
+
+Point-by-point responses to the comments are as follows, with the
+comments quoted in \emph{\color{darkblue} italic and blue}.
+
+
+\subsection*{To AE}
+
+\begin{comment}
+The paper is improved from the first submission.
+
+I would still like a little bit of clarification about the bias correction $K_n(x)$ versus the bias correction $C_n(x)$. I understand that $K_n(x)$, which the authors prescribe under the circular blocks bootstrap, is based on bootstrap expectations $E_*$ of the bootstrap parameter estimate as well as of the bootstrap empirical cdf. In contract, the bias term $C_n(x)$ is constructed using the empirical cdf and by plugging in the sample estimator of the parameter (so it does not involve bootstrap expectations).  This is explained in the added section, Section 2.4.  This much is clear. However, what is still not clear to me is WHY one should use the correction $K_n(x)$ instead of $C_n(x)$. The explanation in Section 2.4 is that the bootstrap expectations become "necessary only when serial dependence distorts the properties of $F_n(x)$".  But this statement is quite vague.  Also vague is the statement in the preceding sentence which says that the empirical cdf and the parameter estimate are "reliable" under independence -- suggesting that they are not "reliable" when there is serial dependence in the data.  But what does "reliable" mean? These estimators should be consistent (under mild conditions) in both settings.
+
+So I am wondering: Does the performance of the NPBB method suffer when the correction $C_n(x)$ is used instead of the correction $K_n(x)$?  Perhaps it is quite difficult to rigorously prove that it is necessary or advantageous to use $K_n(x)$ instead of $C_n(x)$, but can you show a difference in performance via simulation?  It may be that there is a good reason to use $K_n(x)$ instead of $C_n(x)$, but the statements given in the paper are not fully convincing.   It would suffice, in my opinion, to run a simulation in which it is shown that using $C_n(x)$ instead of $K_n(x)$ results in worse performance.  Then one could simply say that better performance is demonstrated when the correction $K_n(x)$ is used (this would back up the heuristics given in added section 2.4). Might it be that using $C_n(x)$ works out just as well as using $K_n(x)$?  I think it is important to look into this, and I don't believe it will take too much time. A simulation investigating this could be placed in supplementary material.
+\end{comment}
+
+
+
+
+\begin{comment}
+The investigations into the performance of the NPBB under a data-driven selection of the block size are appreciated.  If the paper needs to be shortened, this part could be placed into a supplement, and the results simply alluded to in the manuscript.
+\end{comment}
+
+Thank you for the suggestion, these investigations have now been placed in a supplement, and they are still referred to in
+the main manuscript.
+
+\begin{comment}
+There is an odd typo on the bottom of page 9. It says "average empirical GXSdistribution function".
+\end{comment}
+
+Thank you for pointing this out. It has been
+corrected to "average empirical distribution function" in the manuscript.
+
+
+
+\bibliographystyle{chicago}
+\bibliography{citations}
+
+
+\end{document}

@@ -490,8 +490,7 @@ bootstrap statistics $T_n^{(b)}$ more faithfully reflects the variability of
 the original $T_n$ statistic around its true but complex null
 distribution.
 
-To show that better performance is achieved when using the $K_n(x)$ correction
-instead of the $C_n(x)$, we have ad
+
 
 % This approach extends the logic of \citet{babu2004goodness}, who
 % introduced a similar correction for independent data, to the context
@@ -588,6 +587,10 @@ For this reason,
 we also tried implementing our algorithm using the plug-in approach for circular
 bootstrap block size introduced in \citet{politis2004automatic}. Results and
 a discussion of this additional simulation are provided in a supplement.
+We also compared empirical performance for the block bootstrap KS test when using the $K_n(x)$ correction
+versus the $C_n(x)$. The $K_n(x)$ correction was used
+in the main manuscript whereas results and a discussion for the
+$C_n(x)$ correction is included in the supplement.
 For each setting for $F$, $\tau$, and $n$, we replicate the method 10000 times
 to get the distribution of the p-values $p_r$ for
 $r \in \{1, \dots, 10000\}$
