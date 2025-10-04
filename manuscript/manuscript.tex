@@ -457,7 +457,7 @@ as $1/l+l/n\rightarrow 0$,
   \overset{a.s.}{\rightarrow} 0.
 \]
 
-\subsection{Heuristic justification for the bias correction term in NPBB}
+\subsection{Heuristic justification for the NPBB bias correction}
 
 A clear understanding of the bias correction term $K_n(x)$ is 
 essential for appreciating how the NPBB procedure effectively replicates 
@@ -472,11 +472,12 @@ distribution.
 
 In the ``bootstrap world,'' each resample yields an empirical distribution 
 $F_n^{(b)}$ and a parameter estimate $\hat\theta^{(b)}_n$. The term 
-$\sqrt{n}(F_n^{(b)}(x) - F(x;\hat\theta^{(b)}_n))$ is the bootstrap analog of 
-the KS process. However, this bootstrap process inherently possesses its own 
-mean or systematic deviation. The bias correction $K_n(x)$
+$\sqrt{n}(F_n^{(b)}(x) - F(x;\hat\theta^{(b)}_n))$ is the bootstrap analog of
+the KS process. However, this bootstrap process inherently possesses
+its own mean or systematic deviation. The bias correction $K_n(x)$
 estimates this mean.
-Specifically, $\mathbb{E}^*[F_n^{(b)}(x)]$ is the average empirical distribution function over all bootstrap samples, and
+Specifically, $\mathbb{E}^*[F_n^{(b)}(x)]$ is the average empirical
+distribution function over all bootstrap samples, and
 $\theta^*_0 = \mathbb{E}^*[\hat\theta^{(b)}_n]$ is the average of 
 the parameter estimates from these bootstrap samples. Thus,
 $K_n(x)$ quantifies 
@@ -491,19 +492,33 @@ the original $T_n$ statistic around its true but complex null
 distribution.
 
 
+Theoretically, $K_n(x)$ and the simpler plug--in correction
+$C_n(x)=\sqrt{n}\{F_n(x)-F(x;\hat\theta_n)\}$ are asymptotically
+equivalent when the series is independent or exhibits only
+short--memory dependence.  The joint process of $(F_n,\hat\theta_n)$
+converges to a mean--zero Gaussian limit whose long--run covariance
+aggregates auto--covariances across lags.  When the circular block
+bootstrap reproduces this long--run covariance, the conditional bias of
+the plug--in statistic is of smaller order $O_p(l/n)$, where $l$ is the
+block length.  The expectation centering in $K_n(x)$ removes this minor
+bias exactly but does not alter the first--order limit.  Consequently,
+both corrections yield the same asymptotic distribution, and differences
+appear only through higher--order terms that vanish as the sample size
+increases.
 
-% This approach extends the logic of \citet{babu2004goodness}, who
-% introduced a similar correction for independent data, to the context
-% of serially dependent time series via block bootstrapping.
-% The bias correction term $C_n(x)$ used in the NPB method for
-% independent data could, in principle, also be approximated by a
-% bootstrap expectation in the same way as $K_n(x)$.
-% Nonetheless, under independence, the empirical distribution $F_n(x)$
-% and the parameter estimate $\hat{\theta}_n$ are already reliable, so
-% direct calculation of $C_n(x)$ is both simpler and sufficient. The use
-% of bootstrap expectations as in $K_n(x)$ becomes necessary only when
-% serial dependence distorts the properties of $F_n(x)$, making
-% block-bootstrapping-based bias estimation essential.
+
+To evaluate the finite--sample impact, we compared the two corrections
+through additional simulations; see results in Section~2 in the
+Supplement.  Across all sample sizes and dependence
+levels considered, the empirical sizes and powers were nearly identical.
+This finding supports the theoretical argument that the circular block
+bootstrap already captures the leading effects of serial correlation,
+leaving little residual bias for the expectation centering to remove.
+The comparable results of $K_n(x)$ and $C_n(x)$ suggest that the choice
+between them is largely immaterial in practice.  We therefore retain
+$K_n(x)$ for theoretical completeness and consistency of presentation,
+while acknowledging that either correction performs similarly in finite
+samples.
 
 
 \section{Simulation Studies}\label{sec:simu}
@@ -529,7 +544,7 @@ In order for the method to work, a large number of replicates is necessary.
 
 We generated time series with marginal distributions $N(8, 8)$ and
 $\Gamma(8, 1)$ with seven levels of Kendall's
-$\tau \in \{-.75, -.5, -.25, 0, .25, .5, 75\}$, and
+$\tau \in \{-.75, -.50, -.25, 0, .25, .50, .75\}$, and
 sample size $n \in \{100, 200, 400, 800\}$. Kendall's $\tau$ was chosen as a
 measure of serial dependence between $X_i$ and
 $X_{i+1}$ as it is invariant to monotone marginal
@@ -583,18 +598,23 @@ for some unspecified $\alpha$ and $\beta$. For the block bootstrap step,
 we used $B = 1000$ and $l = \lceil n^{1/3} \rceil$.
 As noted in Subsection~\ref{sub:npbb}, previous literature
 suggests varying block size based on the dependence structure of the series.
-For this reason,
-we also tried implementing our algorithm using the plug-in approach for circular
-bootstrap block size introduced in \citet{politis2004automatic}. Results and
-a discussion of this additional simulation are provided in a supplement.
-We also compared empirical performance for the block bootstrap KS test when using the $K_n(x)$ correction
+
+
+For this reason, we also tried implementing our algorithm using the
+plug-in approach for circular bootstrap block size introduced in
+\citet{politis2004automatic}. Results and a discussion of this
+additional simulation are provided in Section~2
+in the Supplement. We also compared empirical performance for the
+block bootstrap KS test when using the $K_n(x)$ correction
 versus the $C_n(x)$. The $K_n(x)$ correction was used
 in the main manuscript whereas results and a discussion for the
 $C_n(x)$ correction is included in the supplement.
-For each setting for $F$, $\tau$, and $n$, we replicate the method 10000 times
-to get the distribution of the p-values $p_r$ for
+For each setting for $F$, $\tau$, and $n$, we replicate the method
+10000 times to get the distribution of the p-values $p_r$ for
 $r \in \{1, \dots, 10000\}$
-for the test when applied to samples from the same data generating process.
+for the test when applied to samples from the same data generating
+process.
+
 
 \begin{figure}[tbp]
   \includegraphics[width = .9\textwidth]{figures/normal}
@@ -728,7 +748,7 @@ The empirical rejection rates were obtained at a nominal significance level 0.05
 
 Figure~\ref{fig:rr} displays the empirical power curve of the test at
 significance level 0.05 as the lag-1 Kendall's~$\tau$ increases from
-$-0.5$ to $0.5$. We omitted -0.75 and 0.75 from this study because we already
+$-0.5$ to $0.5$. We omitted $-0.75$ and 0.75 from this study because we already
 found that our method doesn't work under the null hypothesis for such high
 dependence levels under the sample sizes considered. It appears that the
 rejection rate seems to decline as $\tau$
@@ -737,7 +757,8 @@ dependence, but they do not seem to be affected by negative serial dependencies
 of the same strength.
 Using $n \geq 400$ seems to be good enough
 if $\tau < 0.5$, but using a $n \geq 800$ will result in
-rejection rates close to 1 for $0.5 < \tau < 0.5$.
+\jy{This inequality does not make sense.}
+rejection rates close to 1 for $0.5 < \tau < 0.5$. 
 Results for $n \geq 400$
 do not appear to be to different when comparing gamma and normal
 margins, indicating that the method is robust to the marginal distribution.

@@ -103,15 +103,38 @@ don't believe it will take too much time. A simulation investigating
 this could be placed in supplementary material.
 \end{comment}
 
-We thank the AE for this helpful comment. We have added a supplement
-which includes a section on ``Performance of Nonparametric
-Block Bootstrap Kolmogorov-Smirnov Test with \citet{babu2004goodness}
-Bias Correction''. We re-ran the simulation study from the main
-manuscript, but we replaced the $K_n(x)$ bias correction with $C_n(x)$.
-The results are discussed in the supplement, and are alluded to in the
-main paper. Overall, we find that there is no noticeable improvement
-in either size or power when using the $K_n(x)$ bias correction, even
-for small sample sizes. With these results, we recommend ........
+
+\textbf{Response to Comment on the Bias Correction Term.}
+
+We thank the reviewer for raising this insightful question and for the
+helpful suggestion to clarify the motivation for using $K_n(x)$ rather
+than $C_n(x)$.  The previously confusing paragraph about the
+``reliability'' of $F_n(x)$ and $\hat\theta_n$ has already been removed.
+Section~2.4 now presents a streamlined discussion that first explains how
+$K_n(x)$ centers the bootstrap KS process, then outlines the theoretical
+justification for its use, and finally summarizes new simulation results.
+
+
+A newly added paragraph clarifies that two bias corrections$C_n$ and
+$K_n$ are asymptotically equivalent under independence and
+short--memory dependence.  The preference for $K_n(x)$ arises from
+theoretical considerations: under serial dependence, the bootstrap
+analogue of $C_n(x)$ can exhibit a small $O_p(l/n)$ conditional bias
+due to cross--lag covariances between $F_n(x)$ and $\hat\theta_n$,
+where $l$ is the block length.  The expectation centering in $K_n(x)$
+removes this bias without changing the first--order limit, yielding a
+cleaner asymptotic argument.
+
+
+To examine whether this refinement provides tangible benefits, we added
+simulations comparing the two corrections.  Across all dependence levels
+and sample sizes considered, the empirical sizes and powers were nearly
+identical.  This outcome supports the theoretical result that both
+methods converge to the same limit distribution and that the additional
+expectation centering in $K_n(x)$ mainly improves conceptual symmetry
+rather than finite--sample performance.  We have revised
+Section~2.4 accordingly and added a brief reference in the Supplement to
+document these findings.
 
 
 \begin{comment}
@@ -122,8 +145,7 @@ and the results simply alluded to in the manuscript.
 \end{comment}
 
 Thank you for the suggestion, these investigations have now been
-placed in the ``Performance of Nonparametric Block Bootstrap
-Kolmogorov-Smirnov Test with Block Size Calibration'' of the new
+placed in the ``Selection of Block Size'' of the newly added
 supplement, and they are still referred to in the main manuscript.
 
 \begin{comment}
