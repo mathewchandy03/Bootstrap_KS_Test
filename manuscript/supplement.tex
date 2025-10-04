@@ -103,7 +103,7 @@ with parameter settings identical to the main study in the paper
 except for the choice of bias correction.
 
 \begin{figure}[tbp]
-  %\includegraphics[width = .9\textwidth]{figures/normal_C_n}
+  \includegraphics[width = .9\textwidth]{figures/normal_C_n}
   \centering
   \vspace{-10pt}
   \caption{Q-Q plots of the p-values testing that a time series
@@ -111,7 +111,7 @@ except for the choice of bias correction.
     being $N(8,8)$ when using \citet{babu2004goodness}'s bias correction term.}
   \label{fig:qq_n_C_n}
     \hspace{3cm}
-  %\includegraphics[width = .9\textwidth]{figures/gamma_C_n}
+  \includegraphics[width = .9\textwidth]{figures/gamma_C_n}
   \vspace{-5pt}
   \caption{Q-Q plots of the p-values testing that a time series
     have marginal gamma distribution with true data generating distribution
@@ -122,7 +122,7 @@ except for the choice of bias correction.
 
 \begin{figure}[tbp]
   \centering
-  %\includegraphics[scale=1]{figures/rr_C_n}
+  \includegraphics[scale=1]{figures/rr_C_n}
   \caption{Empirical power curve as a function of $\tau$ for
     $n \in \{100, 200, 400, 800\}$ and true marginal distribution
     $\in \{N(8,8), \Gamma(8,1)\}$, when using \citet{babu2004goodness}'s bias correction term. When the data was generated from $N(8,8)$,
@@ -187,8 +187,8 @@ remain the same as in the study reported earlier.
   \caption{Proportion of selected block sizes using the method of
   \citet{politis2004automatic} that are larger than
     $\sqrt{n}$ for $n \in \{100, 200, 400, 800\}$,
-    $\tau \in \{-0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75\}$, and true marginal distribution
-    $N(8,8)$ and $\Gamma(8,1)$.
+    $\tau \in \{-0.75, -0.50, -0.25, 0, 0.25, 0.50, 0.75\}$, and true
+    marginal distribution $N(8,8)$ and $\Gamma(8,1)$.
   }
   \label{fig:large_block}
 \end{figure}
@@ -276,6 +276,9 @@ performs reasonably well in certain settings, we recommend caution when using
 it under negative~$\tau$ and smaller sample sizes, where maintaining nominal
 size may be more difficult. In such cases, it may be sensible to apply a more
 restrictive rule when setting the final block size---for example, using
-$\min \{\sqrt{n}, \hat{l}\}$.\bibliographystyle{asa}
+$\min \{\sqrt{n}, \hat{l}\}$.
+
+
+\bibliographystyle{asa}
 \bibliography{citations}
 \end{document}
