@@ -64,36 +64,75 @@ comments quoted in \emph{\color{darkblue} italic and blue}.
 \begin{comment}
 The paper is improved from the first submission.
 
-I would still like a little bit of clarification about the bias correction $K_n(x)$ versus the bias correction $C_n(x)$. I understand that $K_n(x)$, which the authors prescribe under the circular blocks bootstrap, is based on bootstrap expectations $E_*$ of the bootstrap parameter estimate as well as of the bootstrap empirical cdf. In contract, the bias term $C_n(x)$ is constructed using the empirical cdf and by plugging in the sample estimator of the parameter (so it does not involve bootstrap expectations).  This is explained in the added section, Section 2.4.  This much is clear. However, what is still not clear to me is WHY one should use the correction $K_n(x)$ instead of $C_n(x)$. The explanation in Section 2.4 is that the bootstrap expectations become "necessary only when serial dependence distorts the properties of $F_n(x)$".  But this statement is quite vague.  Also vague is the statement in the preceding sentence which says that the empirical cdf and the parameter estimate are "reliable" under independence -- suggesting that they are not "reliable" when there is serial dependence in the data.  But what does "reliable" mean? These estimators should be consistent (under mild conditions) in both settings.
 
-So I am wondering: Does the performance of the NPBB method suffer when the correction $C_n(x)$ is used instead of the correction $K_n(x)$?  Perhaps it is quite difficult to rigorously prove that it is necessary or advantageous to use $K_n(x)$ instead of $C_n(x)$, but can you show a difference in performance via simulation?  It may be that there is a good reason to use $K_n(x)$ instead of $C_n(x)$, but the statements given in the paper are not fully convincing.   It would suffice, in my opinion, to run a simulation in which it is shown that using $C_n(x)$ instead of $K_n(x)$ results in worse performance.  Then one could simply say that better performance is demonstrated when the correction $K_n(x)$ is used (this would back up the heuristics given in added section 2.4). Might it be that using $C_n(x)$ works out just as well as using $K_n(x)$?  I think it is important to look into this, and I don't believe it will take too much time. A simulation investigating this could be placed in supplementary material.
+I would still like a little bit of clarification about the bias
+correction $K_n(x)$ versus the bias correction $C_n(x)$. I understand
+that $K_n(x)$, which the authors prescribe under the circular blocks
+bootstrap, is based on bootstrap expectations $E_*$ of the bootstrap
+parameter estimate as well as of the bootstrap empirical cdf. In
+contract, the bias term $C_n(x)$ is constructed using the empirical
+cdf and by plugging in the sample estimator of the parameter (so it
+does not involve bootstrap expectations).  This is explained in the
+added section, Section 2.4.  This much is clear. However, what is
+still not clear to me is WHY one should use the correction $K_n(x)$
+instead of $C_n(x)$. The explanation in Section 2.4 is that the
+bootstrap expectations become ``necessary only when serial dependence
+distorts the properties of $F_n(x)$''.  But this statement is quite
+vague.  Also vague is the statement in the preceding sentence which
+says that the empirical cdf and the parameter estimate are ``reliable''
+under independence -- suggesting that they are not ``reliable'' when
+there is serial dependence in the data.  But what does ``reliable''
+mean? These estimators should be consistent (under mild conditions) in
+both settings.
+
+
+So I am wondering: Does the performance of the NPBB method suffer when
+the correction $C_n(x)$ is used instead of the correction $K_n(x)$?
+Perhaps it is quite difficult to rigorously prove that it is necessary
+or advantageous to use $K_n(x)$ instead of $C_n(x)$, but can you show
+a difference in performance via simulation?  It may be that there is a
+good reason to use $K_n(x)$ instead of $C_n(x)$, but the statements
+given in the paper are not fully convincing.   It would suffice, in my
+opinion, to run a simulation in which it is shown that using $C_n(x)$
+instead of $K_n(x)$ results in worse performance.  Then one could
+simply say that better performance is demonstrated when the correction
+$K_n(x)$ is used (this would back up the heuristics given in added
+section 2.4). Might it be that using $C_n(x)$ works out just as well
+as using $K_n(x)$?  I think it is important to look into this, and I
+don't believe it will take too much time. A simulation investigating
+this could be placed in supplementary material.
 \end{comment}
 
 We thank the AE for this helpful comment. We have added a supplement
-which includes a section on "Performance of Nonparametric
-Block Bootstrap Kolmogorov-Smirnov Test with \citet{babu2004goodness} Bias Correction". We re-ran the simulation study from the main
+which includes a section on ``Performance of Nonparametric
+Block Bootstrap Kolmogorov-Smirnov Test with \citet{babu2004goodness}
+Bias Correction''. We re-ran the simulation study from the main
 manuscript, but we replaced the $K_n(x)$ bias correction with $C_n(x)$.
-The results are discussed in the supplement, and are alluded to in the main paper. Overall,
-we find that there is no noticeable improvement in either size
-or power when using the $K_n(x)$ bias correction, even for small sample
-sizes. With these results, we recommend ........
+The results are discussed in the supplement, and are alluded to in the
+main paper. Overall, we find that there is no noticeable improvement
+in either size or power when using the $K_n(x)$ bias correction, even
+for small sample sizes. With these results, we recommend ........
 
 
 \begin{comment}
-The investigations into the performance of the NPBB under a data-driven selection of the block size are appreciated.  If the paper needs to be shortened, this part could be placed into a supplement, and the results simply alluded to in the manuscript.
+The investigations into the performance of the NPBB under a
+data-driven selection of the block size are appreciated.  If the paper
+needs to be shortened, this part could be placed into a supplement,
+and the results simply alluded to in the manuscript.
 \end{comment}
 
-Thank you for the suggestion, these investigations have now been placed in the "Performance of Nonparametric
-Block Bootstrap Kolmogorov-Smirnov Test with Block Size Calibration" of
-the new supplement, and they are still referred to in
-the main manuscript.
+Thank you for the suggestion, these investigations have now been
+placed in the ``Performance of Nonparametric Block Bootstrap
+Kolmogorov-Smirnov Test with Block Size Calibration'' of the new
+supplement, and they are still referred to in the main manuscript.
 
 \begin{comment}
-There is an odd typo on the bottom of page 9. It says "average empirical GXSdistribution function".
+There is an odd typo on the bottom of page 9. It says ``average
+empirical GXSdistribution function''
 \end{comment}
 
 Thank you for pointing this out. This typo has been
-corrected to "average empirical distribution function" in the manuscript.
+corrected to ``average empirical distribution function'' in the manuscript.
 
 
 
