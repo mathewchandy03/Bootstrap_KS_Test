@@ -508,7 +508,7 @@ increases.
 
 
 To evaluate the finite--sample impact, we compared the two corrections
-through additional simulations; see results in Section~2 in the
+through additional simulations; see results in Section~1 in the
 Supplement.  Across all sample sizes and dependence
 levels considered, the empirical sizes and powers were nearly identical.
 This finding supports the theoretical argument that the circular block
@@ -757,8 +757,7 @@ dependence, but they do not seem to be affected by negative serial dependencies
 of the same strength.
 Using $n \geq 400$ seems to be good enough
 if $\tau < 0.5$, but using a $n \geq 800$ will result in
-\jy{This inequality does not make sense.}
-rejection rates close to 1 for $0.5 < \tau < 0.5$. 
+rejection rates close to 1 for $-0.5 < \tau < 0.5$. 
 Results for $n \geq 400$
 do not appear to be to different when comparing gamma and normal
 margins, indicating that the method is robust to the marginal distribution.
@@ -859,7 +858,11 @@ Overall, the test provides an analog of the bias-corrected NPB KS test of
 series with unspecified serial dependence. Compared to the SPB method
 of \citet{zeimbekakis2024misuses}, which requires a working dependence model, it
 is reliable with no need to worry about whether the working dependence
-model approximates the true dependence model.
+model approximates the true dependence model. We note that while the
+expectation centering in our paper removes a minor bias term, it is identical
+in asymptotic performance to \citet{babu2004goodness}'s correction under 
+short--range dependence. 
+
 
 
 The choice of block size is well known to influence the performance of
@@ -884,8 +887,7 @@ are attractive in principle, their performance in small to moderate
 samples and in goodness-of-fit settings like ours may be limited.
 
 
-***Section here describing practical conclusions/recommendations for
-bias correction***
+
 
 
 Several promising directions for further research emerge from

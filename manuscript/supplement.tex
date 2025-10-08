@@ -132,7 +132,16 @@ except for the choice of bias correction.
   \label{fig:rr_C_n}
 \end{figure}
 
-Based on Figures~\ref{fig:qq_n_C_n, fig:qq_g_C_n, fig:rr_C_n}, the empirical performance is very similar under either choice of bias correction term. For practical applications, we recommend.....
+Based on Figures~\ref{fig:qq_n_C_n, fig:qq_g_C_n, fig:rr_C_n}, 
+the empirical performance in both size and power analysis is very similar under 
+either choice of bias correction 
+term. This suggests that the circular block bootstrap already corrects for
+much of the temporal dependence, and that the choice of centering
+has a very small effect on residual bias. Using $C_n(x)$ has the advantage
+of requiring slightly less computation, but we 
+still recommend $K_n(x)$ for its theoretical qualities, but acknowledge that
+performance may be indistinguishable in practical application, especially
+with large sample size and dependence that decays rapidly.
 
 
 \section{Block Size Selection}
@@ -252,7 +261,7 @@ We evaluated the size and power performance of the NPBB test under automatic
 block length selection. The size performance is shown
 in Figures~\ref{fig:alt_qq_n} and \ref{fig:alt_qq_g}, which display Q-Q plots
 of the $p$-values under the null for Normal and Gamma margins, respectively.
-Recall from Figures~\ref{fig:qq_n} and \ref{fig:qq_g} that the cubic root 
+Recall from the Q-Q plots in the main paper that the cubic root 
 setting holds its size quite well with small $n$ for $|\tau| \leq 0.25$,
 whereas achieving nominal size for $|\tau| \geq 0.5$ require
 $n > 200$, and for $|\tau| \geq 0.75$ require $n > 800$. The automatic
@@ -268,7 +277,8 @@ positively dependent series.
 
 
 Figure~\ref{fig:alt_rr} shows the power results under automatic selection.
-When compared to Figure~\ref{fig:rr}, the two settings exhibit similar power
+When compared to the power curve in the main paper, the two settings exhibit 
+similar power
 for $|\tau| \leq 0.5$, with the automatic selection sometimes yielding higher
 rejection rates, particularly for smaller negatively dependent samples.
 Overall, while the automatic selection from \citep{politis2004automatic}

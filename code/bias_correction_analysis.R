@@ -2,7 +2,7 @@ source('functions.R')
 my_data <- readRDS('../data/results_10000_C_n.RDS')
 my_data_50 <- readRDS('../data/results_10000_C_n_50.RDS')
 
-my_data <- rbind(my_data, my_data_50)
+# my_data <- rbind(my_data, my_data_50)
 
 
 my_data$tau <- case_when(my_data$phi == -0.9238795 ~ -0.75,
