@@ -96,9 +96,9 @@
 A heuristic justification for the $K_n(x)$ bias correction term was
 provided in the main manuscript. It may also help to demonstrate
 empirically that this the block bootstrap KS test with the $K_n$ bias
-correction holds its size at least as well as the block boostrap KS
-test with the \citet{babu2004goodness} bias correction and is at
-least as powerful. For this reason, we conducted a simulation study
+correction holds its size at least as well as the block bootstrap KS
+test with the bias correction $C_n$ in \citet{babu2004goodness} and is
+at least as powerful. For this reason, we conducted a simulation study
 with parameter settings identical to the main study in the paper
 except for the choice of bias correction.
 
@@ -132,7 +132,7 @@ except for the choice of bias correction.
   \label{fig:rr_C_n}
 \end{figure}
 
-Based on Figures~\ref{fig:qq_n_C_n, fig:qq_g_C_n, fig:rr_C_n}, 
+Based on Figures~\ref{fig:qq_n_C_n}--\ref{fig:rr_C_n}, 
 the empirical performance in both size and power analysis is very similar under 
 either choice of bias correction 
 term. This suggests that the circular block bootstrap already corrects for
@@ -272,7 +272,7 @@ occurrence of overly large block sizes. For example, while the cubic
 root setting held its size well at $\tau = -0.25$ with small~$n$, the
 automatic selection does not. At the same time, under $\tau = 0$ or
 $\tau = 0.25$, the method with block size selected by
-\citep{politis2004automatic} maintains reasonable size for moderately
+\citet{politis2004automatic} maintains reasonable size for moderately
 positively dependent series.
 
 
@@ -281,7 +281,7 @@ When compared to the power curve in the main paper, the two settings exhibit
 similar power
 for $|\tau| \leq 0.5$, with the automatic selection sometimes yielding higher
 rejection rates, particularly for smaller negatively dependent samples.
-Overall, while the automatic selection from \citep{politis2004automatic}
+Overall, while the automatic selection from \citet{politis2004automatic}
 performs reasonably well in certain settings, we recommend caution when using
 it under negative~$\tau$ and smaller sample sizes, where maintaining nominal
 size may be more difficult. In such cases, it may be sensible to apply a more
