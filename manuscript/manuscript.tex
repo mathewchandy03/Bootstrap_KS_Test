@@ -495,12 +495,14 @@ distribution.
 Theoretically, $K_n(x)$ and the simpler correction $C_n(x)$ are
 asymptotically equivalent when the series is independent or exhibits
 only short-memory dependence.  The joint process of
-$(F_n,\hat\theta_n)$
-converges to a mean-zero Gaussian limit whose long-run covariance
+$\sqrt{n}(F_n, \hat\theta_n)$ converges to an $O_p(1)$
+mean-zero Gaussian limit whose long-run covariance
 aggregates autocovariances across lags.  When the circular block
 bootstrap reproduces this long-run covariance, the conditional bias of
-$C_n$ is of smaller order $O_p(l/n)$, where $l$ is the
-block length.  The expectation centering in $K_n(x)$ removes this minor
+the $\sqrt{n}$-scaled process associated with
+$C_n$ is of smaller order $O_p(l/\sqrt{n})$ as long as $l$ is
+$o(\sqrt{n})$ \citep{buhlmann1994blockwise, lahiri1999theoretical}.
+The expectation centering in $K_n(x)$ removes this minor
 bias exactly but does not alter the first-order limit.  Consequently,
 both corrections yield the same asymptotic distribution, and differences
 appear only through higher-order terms that vanish as the sample size
@@ -514,11 +516,13 @@ levels considered, the empirical sizes and powers were nearly identical.
 This finding supports the theoretical argument that the circular block
 bootstrap already captures the leading effects of serial correlation,
 leaving little residual bias for the expectation centering to remove.
-The comparable results of $K_n(x)$ and $C_n(x)$ suggest that the choice
-between them is largely immaterial in practice.  We therefore retain
-$K_n(x)$ for theoretical completeness and consistency of presentation,
-while acknowledging that either correction performs similarly in finite
-samples.
+The comparable results of $K_n(x)$ and $C_n(x)$ incidate that, under
+the examined settings, the difference between the corrections is
+small. However, this may not hold under stronger dependence, longer
+block lengths, or more complex statistics, where expectation centering
+could have a more noticeable effect. We retain $K_n(x)$ for theoretical
+completeness and consistency of presentation, while noting that either
+correction performs similarly in our simulation settings.
 
 
 \section{Simulation Studies}\label{sec:simu}
@@ -603,7 +607,7 @@ suggests varying block size based on the dependence structure of the series.
 For this reason, we also tried implementing our algorithm using the
 plug-in approach for circular bootstrap block size introduced in
 \citet{politis2004automatic}. Results and a discussion of this
-additional simulation are provided in Section~2
+additional simulation study are provided in Section~2
 in the Supplement. We also compared empirical performance for the
 block bootstrap KS test when using the $K_n(x)$ correction
 versus the $C_n(x)$. The $K_n(x)$ correction was used

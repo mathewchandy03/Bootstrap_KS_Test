@@ -41,7 +41,8 @@ amssymb, enumerate}
 \end{center}
 
 
-We thank the Editor and Associate Editor for the opportunity to add further detail to our manuscript.
+We thank the Editor and Associate Editor for the opportunity to add
+further detail to our manuscript.
 We have taken the revision process seriously in order
 to meet the expectations for final acceptance.
 
@@ -113,26 +114,29 @@ $K_n(x)$ centers the bootstrap KS process, then outlines the theoretical
 justification for its use, and finally summarizes new simulation results.
 
 
-A newly added paragraph clarifies that two bias corrections $C_n$ and
+A newly added paragraph~3 in Section~2.4
+clarifies that two bias corrections $C_n$ and
 $K_n$ are asymptotically equivalent under independence and
-short--memory dependence.  The preference for $K_n(x)$ arises from
+short-memory dependence.  The preference for $K_n(x)$ arises from
 theoretical considerations: under serial dependence, the bootstrap
-analogue of $C_n(x)$ can exhibit a small $O_p(l/n)$ conditional bias
-due to cross--lag covariances between $F_n(x)$ and $\hat\theta_n$,
-where $l$ is the block length.  The expectation centering in $K_n(x)$
-removes this bias without changing the first--order limit, yielding a
-cleaner asymptotic argument.
+analogue of $C_n(x)$ can exhibit a small $O_p(l/\sqrt{n})$ conditional bias
+due to cross-lag covariances between $F_n(x)$ and $\hat\theta_n$,
+where $l = o(\sqrt{n})$ \citep{buhlmann1994blockwise,
+  lahiri1999theoretical}.  The expectation centering in $K_n(x)$
+removes this bias without changing the first-order limit, yielding a
+cleaner asymptotic formulation.
 
 
 To examine whether this refinement provides tangible benefits, we added
-simulations comparing the two corrections.  Across all dependence levels
+simulations comparing the two corrections; see Section~1 of the
+Supplement. Across all dependence levels
 and sample sizes considered, the empirical sizes and powers were nearly
 identical.  This outcome supports the theoretical result that both
-methods converge to the same limit distribution and that the additional
-expectation centering in $K_n(x)$ mainly improves conceptual symmetry
-rather than finite--sample performance.  We have revised
-Section~2.4 accordingly and added a brief reference in the Supplement to
-document these findings.
+methods converge to the same limit distribution under the examined
+conditions. However, we note that differences could become more
+pronounced under stronger dependence, longer block lengths, or more
+complex statistics. The last paragraph of Section~2.4 summarizes the
+results, with a brief reference to the Supplement.
 
 
 \begin{comment}
@@ -156,7 +160,7 @@ corrected to ``average empirical distribution function'' in the manuscript.
 
 
 
-\bibliographystyle{chicago}
+\bibliographystyle{asa}
 \bibliography{citations}
 
 
