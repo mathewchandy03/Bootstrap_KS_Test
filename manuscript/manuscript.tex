@@ -262,17 +262,19 @@ of $\sup_t | J(F(t; \theta_0)) |$, where $J(\cdot)$ is the standard Brownian bri
 second term leads to a bias in the Brownian bridge, which was addressed by
 \citet{babu2004goodness}.
 
-When $\{X_i: i = 1, \ldots, n\}$ are further serially dependent, the statistic
-$T_n$ still provides a reasonable metric for deviation from the null
-hypothesis. Nonetheless, the asymptotic distribution of $T_n$ cannot be fixed
-even with the bias correction of \citet{babu2004goodness}, because the
-correction requires an independent sample.
+
+When $\{X_i: i = 1, \ldots, n\}$ are stationary with serial
+dependence, the statistic
+$T_n$ still provides a reasonable measure for deviation from the null
+hypothesis. In the next subsection, we review the NPB approach of
+\citet{babu2004goodness} for independent data, which serves as the
+basis for our extension to dependent series.
+
 
 \subsection{NPB for independent data}
 
 Continue with the case where $X_i$'s are independent but the parameters
-are unspecified. Denote by
-$F^{(b)}_n$ the empirical distribution of the $b$th bootstrap sample and let
+are unspecified. Denote by$F^{(b)}_n$ the empirical distribution of the $b$th bootstrap sample and let
 $\hat\theta^{(b)}_n$ be the parameter estimate based on the $b$th bootstrap
 sample.
 Using the bootstrap (asymptotic) theory, we can approximate the distribution of
@@ -315,7 +317,7 @@ summarized as follows. Repeat the following steps for $b \in \{1,  \cdots , B\}$
   \]
   where
   \[
-    C_{n}(x) = \sqrt{n}(F_n(x) - F(x; \hat\theta_n))
+    C_{n}(x) = \sqrt{n}\bigl(F_n(x) - F(x; \hat\theta_n)bigr)
   \]
   is the estimated bias term.
 \end{enumerate}
@@ -410,8 +412,8 @@ summarized as follows. Repeat the following steps for $b \in \{1,  \cdots , B\}$
   \]
   where
   \[
-    K_{n}(x) = \sqrt{n}(\mathbb{E}^{*}[F^{(b)}_n(x)] -
-    F(x; \theta_0^*))
+    K_{n}(x) = \sqrt{n}\bigl(\mathbb{E}^{*}[F^{(b)}_n(x)] -
+    F(x; \theta_0^*)\bigr)
   \]
   is the bias term, and
   the expected values $\mathbb{E}^{*}[F^{(b)}_n(x)]$ and
@@ -465,64 +467,43 @@ the null distribution of the KS statistic in the presence of serial
 dependence and estimated parameters. When the parameters~$\theta$ of a
 hypothesized distribution $F(x;\theta)$ are estimated from
 the data with $\hat\theta_n$, the null distribution of the KS statistic 
-$T_n = \sup_x |\sqrt{n}(F_n(x) - F(x;\hat\theta_n))|$ is altered from its 
-standard form. The NPBB procedure aims to replicate this complex null 
-distribution.
+$T_n = \sup_x |\sqrt{n}(F_n(x) - F(x;\hat\theta_n))|$ is altered from
+the Kolmogorov distribution under independence and known parameters.
+The NPBB procedure aims to replicate this complex null distribution.
 
 
 In the ``bootstrap world,'' each resample yields an empirical distribution 
 $F_n^{(b)}$ and a parameter estimate $\hat\theta^{(b)}_n$. The term 
 $\sqrt{n}(F_n^{(b)}(x) - F(x;\hat\theta^{(b)}_n))$ is the bootstrap analog of
-the KS process. However, this bootstrap process inherently possesses
-its own mean or systematic deviation. The bias correction $K_n(x)$
-estimates this mean.
+the goodness-of-fit process. However, this bootstrap process
+inherently possesses its own mean or systematic deviation. The bias
+correction $K_n(x)$ estimates this mean.
 Specifically, $\mathbb{E}^*[F_n^{(b)}(x)]$ is the average empirical
 distribution function over all bootstrap samples, and
 $\theta^*_0 = \mathbb{E}^*[\hat\theta^{(b)}_n]$ is the average of 
-the parameter estimates from these bootstrap samples. Thus,
-$K_n(x)$ quantifies 
-the expected difference, in the bootstrap world, between the empirical
-distribution function and the hypothesized distribution function
-(evaluated at the average bootstrap parameter estimate).
+the parameter estimates from these bootstrap samples. Thus, $K_n(x)$
+quantifies the expected difference, in the bootstrap world, between
+the empirical distribution function and the hypothesized distribution
+function (evaluated at the average bootstrap parameter estimate).
 Subtracting $K_n(x)$ from
 $\sqrt{n}(F_n^{(b)}(x) - F(x;\hat\theta^{(b)}_n))$ centers the 
-bootstrap KS process. This ensures that the variability of the resulting 
+bootstrap goodness-of-fit process. This ensures that the variability of the resulting 
 bootstrap statistics $T_n^{(b)}$ more faithfully reflects the variability of 
 the original $T_n$ statistic around its true but complex null
 distribution.
 
 
-Theoretically, $K_n(x)$ and the simpler correction $C_n(x)$ are
-asymptotically equivalent when the series is independent or exhibits
-only short-memory dependence.  The joint process of
-$\sqrt{n}(F_n, \hat\theta_n)$ converges to an $O_p(1)$
-mean-zero Gaussian limit whose long-run covariance
-aggregates autocovariances across lags.  When the circular block
-bootstrap reproduces this long-run covariance, the conditional bias of
-the $\sqrt{n}$-scaled process associated with
-$C_n$ is of smaller order $O_p(l/\sqrt{n})$ as long as $l$ is
-$o(\sqrt{n})$ \citep{buhlmann1994blockwise, lahiri1999theoretical}.
-The expectation centering in $K_n(x)$ removes this minor
-bias exactly but does not alter the first-order limit.  Consequently,
-both corrections yield the same asymptotic distribution, and differences
-appear only through higher-order terms that vanish as the sample size
-increases.
 
-
-To evaluate the finite sample impact, we compared the two corrections
-through additional simulations; see results in Section~1 in the
-Supplement.  Across all sample sizes and dependence
-levels considered, the empirical sizes and powers were nearly identical.
-This finding supports the theoretical argument that the circular block
-bootstrap already captures the leading effects of serial correlation,
-leaving little residual bias for the expectation centering to remove.
-The comparable results of $K_n(x)$ and $C_n(x)$ incidate that, under
-the examined settings, the difference between the corrections is
-small. However, this may not hold under stronger dependence, longer
-block lengths, or more complex statistics, where expectation centering
-could have a more noticeable effect. We retain $K_n(x)$ for theoretical
-completeness and consistency of presentation, while noting that either
-correction performs similarly in our simulation settings.
+In theory, both $K_n(x)$ and $C_n(x)$ serve the same purpose of
+centering the bootstrap goodness-of-fit process, and the circular
+block bootstrap reproduces the temporal dependence structure of the
+data. The two corrections aims the same centering, differing only in
+whether the centering uses bootstrap expectations or sample-based
+estimates. Additional simulations (see Section~1 of the Supplement)
+show that, across all dependence levels and sample sizes considered,
+the empirical sizes and powers were nearly identical. For the settings
+studied, the two corrections performed nearly identically; we retain
+$K_n(x)$ for conceptual clarity and consistency of presentation.
 
 
 \section{Simulation Studies}\label{sec:simu}
@@ -562,7 +543,7 @@ W_i = \phi W_{i-1} + \epsilon_i,
 where $\phi$ is an autoregressive coefficient, and $\epsilon_i$ is a series of
 independent errors from a normal distribution with mean zero and variance
 $\sigma_{\epsilon}^2$. The strength of the serial dependence is controlled by
-$\phi$, which was set to five levels:
+$\phi$, which was set to seven levels:
 $\{-0.924, -0.707, -0.383, 0, 0.383, 0.707, 0.924\}$, as these
 correspond to the desired values for $\tau$. The
 series $W_i$ has mean zero and variance
@@ -717,10 +698,8 @@ usually larger than the nominal size, which indicates that the test is too liber
 In other words, the test rejects the null hypothesis more often than it should.
 For practical situations with a $\tau$ of magnitude 0.5 or
 lower, it is still reasonable to recommend our method with $n \ge 400$.
-This recommendation echoes the high sample size requirement for
-confidence intervals constructed with block bootstrapping in
-estimating location, scale, and autocorrelation parameters of
-stationary series~\citep{chandy2024sample}.
+This aligns with the high sample size requirement obverved for block
+bootstrapping confidence intervals~\citep{chandy2024sample}.
 
 
 \subsection{Power}
@@ -829,7 +808,7 @@ using our method differ from those obtained using the methods proposed by
 \citet{babu2004goodness} and \citet{zeimbekakis2024misuses}.
 For example, our NPBB method fails to reject the
 hypothesis that the series follows a Student's $t$ distribution with degrees of
-freedom $v = 5$ with a p-value of 0.061. In contrast,
+freedom $\nu = 5$ with a p-value of 0.061. In contrast,
 the SPB method yields a p-value of 0.0192,
 the NPB method yields a p-value of 0.0222, and the PB yields a p-value of
 0.0141. Although such differences are not guaranteed, this
@@ -848,7 +827,7 @@ weakest assumptions.
 The KS test remains a crucial tool for researchers across diverse fields,
 enabling critical assessments of population distributions. We introduced a
 NPBB variant of the KS test tailored for data with
-serial dependencies, which eliminates the need for explicit modeling serial
+serial dependencies, which eliminates the need for explicit modeling of serial
 dependence in addition to parameter specification within the hypothesized
 distribution. Our simulations have demonstrated that, given
 sufficiently large samples of time series data and moderate serial dependencies,
@@ -869,10 +848,10 @@ short-range dependence.
 
 
 
-The choice of block size is well known to influence the performance of
-block bootstrap methods, particularly for inference on dependent
-data. As pointed out by \citet{hall1995blocking} and
-\citet{lahiri1999theoretical}, the optimal block length depends on the
+The choice of block size strongly influences the performance of
+block-bootstrap methods for dependent data.
+As pointed out by \citet{hall1995blocking} and
+\citet{lahiri1999theoretical}, the optimal block size depends on the
 strength of serial dependence, and using a uniform choice across
 different dependence settings can lead to size distortion. Several
 data-driven procedures for selecting block size have been proposed,
@@ -880,7 +859,7 @@ including plug-in and cross-validation methods
 \citep{buhlmann2002bootstraps, politis2004automatic}. A more
 comprehensive treatment is given in
 \citet{lahiri2013resampling}. Following these suggestions, we applied
-the automatic block length selection method of
+the automatic block size selection method of
 \citet{politis2004automatic} for circular block bootstrap in our
 context. As reported in the supplement, the method frequently selected
 block sizes that were overly large—sometimes exceeding the sample
@@ -889,9 +868,6 @@ variability of the bootstrap replicates and affected the reliability
 of the test. These observations highlight that while automatic methods
 are attractive in principle, their performance in small to moderate
 samples and in goodness-of-fit settings like ours may be limited.
-
-
-
 
 
 Several promising directions for further research emerge from
