@@ -1,4 +1,3 @@
-%&latex
 \documentclass[12pt]{article}
 \usepackage{authblk}
 \usepackage{amsmath}
@@ -17,6 +16,11 @@
 \newcommand{\eds}[1]{\textcolor{blue}{(EDS: #1)}}
 \newcommand{\mc}[1]{\textcolor{green}{(MC: #1)}}
 \newcommand{\xz}[1]{\textcolor{cyan}{(XZ: #1)}}
+
+
+\renewcommand{\thefigure}{S-\arabic{figure}}
+\renewcommand{\thetable}{S-\arabic{table}}
+\renewcommand{\thesection}{S-\arabic{section}}
 
 \allowdisplaybreaks
 
@@ -93,29 +97,20 @@
 
 \section{Comparison of Two Bias Corrections}
 
-A heuristic justification for the $K_n(x)$ bias correction term was
-provided in the main manuscript. It may also help to demonstrate
-empirically that this the block bootstrap KS test with the $K_n$ bias
-correction holds its size at least as well as the block bootstrap KS
-test with the bias correction $C_n$ in \citet{babu2004goodness} and is
-at least as powerful. For this reason, we conducted a simulation study
-with parameter settings identical to the main study in the paper
-except for the choice of bias correction.
-
 \begin{figure}[tbp]
   \includegraphics[width = .9\textwidth]{figures/normal_C_n}
   \centering
   \vspace{-10pt}
   \caption{Q-Q plots of the p-values testing that a time series
-    have marginal normal distribution with true data generating distribution
-    being $N(8,8)$ when using \citet{babu2004goodness}'s bias correction term.}
+    has a marginal Normal distribution with true data generating distribution
+    being $N(8,8)$ when using  bias correction term $C_n$.}
   \label{fig:qq_n_C_n}
     \hspace{3cm}
   \includegraphics[width = .9\textwidth]{figures/gamma_C_n}
   \vspace{-5pt}
   \caption{Q-Q plots of the p-values testing that a time series
-    have marginal gamma distribution with true data generating distribution
-    being $\Gamma(8,1)$ when using \citet{babu2004goodness}'s bias correction term.}
+    has a marginal Gamma distribution with true data generating distribution
+    being $\Gamma(8,1)$ when using  bias correction term $C_n$.}
   \label{fig:qq_g_C_n}
 \end{figure}
 
@@ -125,66 +120,56 @@ except for the choice of bias correction.
   \includegraphics[scale=1]{figures/rr_C_n}
   \caption{Empirical power curve as a function of $\tau$ for
     $n \in \{100, 200, 400, 800\}$ and true marginal distribution
-    $\in \{N(8,8), \Gamma(8,1)\}$, when using \citet{babu2004goodness}'s bias correction term. When the data was generated from $N(8,8)$,
-    we tested for the gamma family. When the data was generated from
-    $\Gamma(8,1)$, we tested for the normal family.
+    $\in \{N(8,8), \Gamma(8,1)\}$, when using bias correction term
+    $C_n$. When the data was generated from $N(8,8)$,
+    we tested for the Gamma family. When the data was generated from
+    $\Gamma(8,1)$, we tested for the Normal family.
   }
   \label{fig:rr_C_n}
 \end{figure}
 
-Based on Figures~\ref{fig:qq_n_C_n}--\ref{fig:rr_C_n}, 
-the empirical performance in both size and power analysis is very similar under 
-either choice of bias correction 
-term. This suggests that the circular block bootstrap already corrects for
-much of the temporal dependence, and that the choice of centering
-has a very small effect on residual bias. Using $C_n(x)$ has the advantage
-of requiring slightly less computation, but we 
-still recommend $K_n(x)$ for its theoretical qualities, but acknowledge that
-performance may be indistinguishable in practical application, especially
-with large sample size and dependence that decays rapidly.
+
+To evaluate the practical difference between the two bias correction
+terms, this section presents a direct comparison between the
+nonparametric block bootstrap KS tests based on $K_n(x)$ and on
+$C_n(x)$. The $K_n(x)$ correction, which was heuristically justified in
+the main manuscript, is designed to center the empirical process in a
+manner consistent with the dependence structure of the series. In
+contrast, $C_n(x)$ is the bias correction proposed by
+\citet{babu2004goodness} for independent observations.
+
+
+A simulation study was conducted using the same settings as in the main
+paper, varying sample size, block length, and dependence strength, with
+the only difference being the choice of bias correction term.
+Figures~\ref{fig:qq_n_C_n}--\ref{fig:rr_C_n} present the results for
+$C_n(x)$, which are the counterparts of the figures in the main
+manuscript obtained
+using $K_n(x)$. Across the same parameter configurations, both versions
+of the test maintain comparable size and power, and their performance
+differences appear negligible for the cases examined.
+
+
+These findings suggest that, within the range of settings studied, the
+circular block bootstrap already removes most dependence-induced bias,
+so that the additional centering adjustment has limited practical
+impact. Although $C_n(x)$ requires slightly less computation, we
+continue to recommend $K_n(x)$ for its theoretical motivation, while
+recognizing that in the present experiments their empirical behavior is
+essentially indistinguishable.
 
 
 \section{Block Size Selection}
 
-The choice of block size is a key factor influencing the performance
-of block bootstrap methods, particularly in settings with serial
-dependence. While our main simulations used a fixed block size
-$l = \lceil n^{1/3} \rceil$, the optimal block size depends on the
-stength and structure of dependence \citep{hall1995blocking,
-  buhlmann1999block,  politis2004automatic}. Motivated by this, we
-further examined the use of an automatic block-length selection scheme
-as proposed by \citet{politis2004automatic}, which aims to adaptively
-choose the block size based on the data. The simulation settings
-remain the same as in the study reported earlier.
-
-
-% To address this, we considered  using the automatic block-length selection
-% scheme for circular block bootstrap as described in Section~3.3 of
-% \citet{politis2004automatic}. Unfortunately, using this setting results in
-% the selection of block
-% sizes that can be quite large (sometimes as large or larger than $n$), leading
-% to less variation between the bootstrapped
-% samples. Figures~\ref{fig:large_block}
-% demonstrate that for highly temporally
-% dependent samples (especially when the autocorrelation is negative),
-% the block size is frequently larger than $\sqrt{n}$. For more moderate 
-% positive temporal dependence, the block size may not be overly large
-% as frequently. Still, even for these moderately dependent samples, the 
-% block sizes are almost always larger than $l = \lceil n^{1/3} \rceil$, a setting
-% which was considered optimal by \citep{buhlmann1999block}. This
-% is demonstrated in Figure~\ref{fig:block_dist} with a histogram
-% of the selected block sizes for the 20000 samples with $n = 800$, $\tau = 0.5$, 
-% and $X_i \sim N(8, 8)$.
 
 \begin{figure}[tbp]
   \centering
   \includegraphics[scale=1]{figures/block_dist}
   \caption{Distribution of the selected block sizes using
-  \citet{politis2004automatic}'s procedure applied to 20000 length-800 time 
-  series with
+    \citet{politis2004automatic}'s procedure applied to 20,000
+    time series of length-800 with
     Kendall's $\tau = 0.5$ data generating distribution $N(8,8)$. The vertical
-    dashed line is $l = \lceil n^{1/3} \rceil$ for $n = 800$, which is equivalent 
-    to 10.
+    dashed line marks $l = \lceil n^{1/3} \rceil \approx 10$.
   }
   \label{fig:block_dist}
 % \end{figure}
@@ -202,24 +187,36 @@ remain the same as in the study reported earlier.
   \label{fig:large_block}
 \end{figure}
 
-Automatic block size selection tends to yield larger block sizes than our
-fixed choice $l = \lceil n^{1/3} \rceil$, as expected, but under strong
-negative or very strong positive dependence it systematically produces
-block sizes that are excessively large, sometimes as large as or larger
-than $n$. Note that in our simulations, we set the final block size to 
-$\min \{n, \hat l\}$, where
-$\hat l$ is the block size selected by \citet{politis2004automatic}'s
-procedure. Figure~\ref{fig:block_dist} illustrates the typical behavior by
-showing the distribution of block sizes selected by \citet{politis2004automatic}
-for $n = 800$, $\tau = 0.5$, and $X_i \sim N(8,8)$. The majority of selected
-block sizes exceed $\lceil n^{1/3} \rceil$, and many approach or exceed
-$\sqrt{n}$. Figure~\ref{fig:large_block} presents the proportion of selected
-block sizes exceeding $\sqrt{n}$ across varying levels of dependence and sample 
-sizes.
-The selection of block sizes larger than $\sqrt{n}$ occurs systematically under 
-strong
-negative dependence, and is also frequent under very strong positive dependence.
+The choice of block size plays a central role in determining the
+finite-sample behavior of block bootstrap methods when serial
+dependence is present. Although our main simulations used the fixed rule
+$l = \lceil n^{1/3} \rceil$, the effective block size can vary with the
+strength and pattern of dependence
+\citep{hall1995blocking, buhlmann1999block, politis2004automatic}.
+To evaluate the impact of data-driven selection, we examined the
+automatic block-length procedure proposed by
+\citet{politis2004automatic}, which selects the block size adaptively
+from the observed series. All other simulation settings were kept
+identical to those in the main paper.
 
+
+The automatically selected block sizes were generally larger than the
+fixed choice $l = \lceil n^{1/3} \rceil$, as anticipated, but the
+procedure sometimes produced unrealistically large values under certain
+dependence structures. In particular, when the series exhibited strong
+negative or very strong positive dependence, the selected block sizes
+were often excessively large---occasionally comparable to or exceeding
+the sample size $n$. In our implementation, we set the final block
+length to $\min\{n, \hat{l}\}$, where $\hat{l}$ denotes the value
+returned by the automatic procedure. Figure~\ref{fig:block_dist}
+illustrates the typical distribution of selected block sizes for $n =
+800$, $\tau = 0.5$, and $X_i \sim N(8,8)$, showing that most values
+exceed $\lceil n^{1/3} \rceil$ and many approach or surpass
+$\sqrt{n}$. Figure~\ref{fig:large_block} further summarizes the
+proportion of selected block sizes greater than $\sqrt{n}$ across
+different dependence levels and sample sizes, indicating that such
+oversizing occurs systematically under strong negative and very strong
+positive dependence.
 
 
 \begin{figure}[tbp]
@@ -227,7 +224,7 @@ negative dependence, and is also frequent under very strong positive dependence.
   \centering
   \vspace{-10pt}
   \caption{Q-Q plots of the p-values testing that a time series
-    have marginal normal distribution with true data generating distribution
+    has a marginal Normal distribution with true data generating distribution
     being $N(8,8)$, when using \citet{politis2004automatic}'s procedure
     to select block sizes.}
   \label{fig:alt_qq_n}
@@ -235,7 +232,7 @@ negative dependence, and is also frequent under very strong positive dependence.
   \includegraphics[width = .9\textwidth]{figures/alt_gamma}
   \vspace{-5pt}
   \caption{Q-Q plots of the p-values testing that a time series
-    have marginal gamma distribution with true data generating distribution
+    has a marginal Gamma distribution with true data generating distribution
     being $\Gamma(8,1)$, when using \citet{politis2004automatic}'s procedure
     to select block sizes.}
   \label{fig:alt_qq_g}
@@ -250,43 +247,45 @@ negative dependence, and is also frequent under very strong positive dependence.
     $\in \{N(8,8), \Gamma(8,1)\}$, when using \citet{politis2004automatic}'s 
     procedure
     to select block sizes. When the data was generated from $N(8,8)$,
-    we tested for the gamma family. When the data was generated from
-    $\Gamma(8,1)$, we tested for the normal family.
+    we tested for the Gamma family. When the data was generated from
+    $\Gamma(8,1)$, we tested for the Normal family.
   }
   \label{fig:alt_rr}
 \end{figure}
 
 
-We evaluated the size and power performance of the NPBB test under automatic
-block length selection. The size performance is shown
-in Figures~\ref{fig:alt_qq_n} and \ref{fig:alt_qq_g}, which display Q-Q plots
-of the $p$-values under the null for Normal and Gamma margins, respectively.
-Recall from the Q-Q plots in the main paper that the cubic root 
-setting holds its size quite well with small $n$ for $|\tau| \leq 0.25$,
-whereas achieving nominal size for $|\tau| \geq 0.5$ require
-$n > 200$, and for $|\tau| \geq 0.75$ require $n > 800$. The automatic
-selection shows similar limitations for $|\tau| > 0.5$, where it does
-not hold its size. Moreover, deviations from the diagonal line appear
-larger for negative $\tau$, likely due to the high proportion of
-occurrence of overly large block sizes. For example, while the cubic
-root setting held its size well at $\tau = -0.25$ with small~$n$, the
-automatic selection does not. At the same time, under $\tau = 0$ or
-$\tau = 0.25$, the method with block size selected by
-\citet{politis2004automatic} maintains reasonable size for moderately
-positively dependent series.
+We next evaluated the size and power performance of the NPBB test when
+the block length was chosen automatically.
+Figures~\ref{fig:alt_qq_n} and~\ref{fig:alt_qq_g} display the empirical
+size through Q--Q plots of the $p$-values under the null for Normal and
+Gamma margins, respectively. For reference, the main paper showed that
+the fixed cubic root rule $l = \lceil n^{1/3} \rceil$ maintained size
+reasonably well for small~$n$ when $|\tau| \le 0.25$, whereas achieving
+nominal size required $n > 200$ for $|\tau| \ge 0.5$ and $n > 800$ for
+$|\tau| \ge 0.75$. The automatic selection exhibits a similar pattern
+of limitations: for $|\tau| > 0.5$, the empirical size again departs
+from nominal levels. Deviations from the diagonal line are more
+pronounced for negative~$\tau$, consistent with the high frequency of
+excessively large block sizes in those cases. For instance, while the
+cubic root rule held size adequately at $\tau = -0.25$ with small~$n$,
+the automatic procedure no longer does. In contrast, for
+$\tau \in \{0, 0.25\}$, the automatically selected block sizes yield
+size control comparable to the fixed rule, indicating satisfactory
+performance for weak or moderate positive dependence.
 
 
-Figure~\ref{fig:alt_rr} shows the power results under automatic selection.
-When compared to the power curve in the main paper, the two settings exhibit 
-similar power
-for $|\tau| \leq 0.5$, with the automatic selection sometimes yielding higher
-rejection rates, particularly for smaller negatively dependent samples.
-Overall, while the automatic selection from \citet{politis2004automatic}
-performs reasonably well in certain settings, we recommend caution when using
-it under negative~$\tau$ and smaller sample sizes, where maintaining nominal
-size may be more difficult. In such cases, it may be sensible to apply a more
-restrictive rule when setting the final block size---for example, using
-$\min \{\sqrt{n}, \hat{l}\}$.
+Figure~\ref{fig:alt_rr} summarizes the power analysis under automatic
+selection. Relative to the main paper’s results based on the cubic root
+rule, the two approaches show broadly similar power for
+$|\tau| \le 0.5$, with the automatic method occasionally achieving
+slightly higher rejection rates for small samples with mild negative
+dependence. Overall, these findings indicate that the automatic
+procedure of \citet{politis2004automatic} performs reasonably well under
+most conditions studied but may yield unstable results when dependence
+is negative and sample sizes are small. In such cases, it is advisable
+to adopt a more restrictive cap on the final block size---for example,
+setting it to $\min\{\sqrt{n}, \hat{l}\}$---to avoid excessive block
+lengths that can distort the bootstrap resampling.
 
 
 \bibliographystyle{asa}

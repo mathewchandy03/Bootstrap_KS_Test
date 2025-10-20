@@ -499,7 +499,7 @@ centering the bootstrap goodness-of-fit process, and the circular
 block bootstrap reproduces the temporal dependence structure of the
 data. The two corrections aims the same centering, differing only in
 whether the centering uses bootstrap expectations or sample-based
-estimates. Additional simulations (see Section~1 of the Supplement)
+estimates. Additional simulations (see Section~S-1 of the Supplement)
 show that, across all dependence levels and sample sizes considered,
 the empirical sizes and powers were nearly identical. For the settings
 studied, the two corrections performed nearly identically; we retain
@@ -541,7 +541,7 @@ order autoregressive or AR(1) process:
 W_i = \phi W_{i-1} + \epsilon_i,
 \end{equation*}
 where $\phi$ is an autoregressive coefficient, and $\epsilon_i$ is a series of
-independent errors from a normal distribution with mean zero and variance
+independent errors from a Normal distribution with mean zero and variance
 $\sigma_{\epsilon}^2$. The strength of the serial dependence is controlled by
 $\phi$, which was set to seven levels:
 $\{-0.924, -0.707, -0.383, 0, 0.383, 0.707, 0.924\}$, as these
@@ -556,19 +556,19 @@ marginal $N(8, 8)$ by marginally transforming $W_i$ by
 X_i = F^{-1}[\Phi(W_i)],
 \end{equation*}
 where $F^{-1}(p)$ is the quantile function for the $N(8, 8)$
-distribution and $\Phi$ is the distribution function of the standard normal
+distribution and $\Phi$ is the distribution function of the standard Normal
 distribution.
-Then we generated a marginal gamma series by the same procedure, but
+Then we generated a marginal Gamma series by the same procedure, but
 replacing $F^{-1}(p)$ with the quantile function for the $\Gamma(8, 1)$
 distribution. After the transformation
-to the marginal gamma distribution, the lag-1 autocorrelations are approximately
+to the marginal Gamma distribution, the lag-1 autocorrelations are approximately
 \[
   \{-0.876, -0.674, -0.368, 0, 0.377, 0.701, 0.922\}.
 \]
 
 
 These distributions
-were chosen to compare results on normal and non-normal
+were chosen to compare results on Normal and non-Normal
 error structures. The specific parameters were chosen because the distributions
 are very similar and their first two moments are the same. For the purposes of
 evaluating if the test holds it size, when $X_i \sim N(8, 8)$, we tested that the
@@ -588,7 +588,7 @@ suggests varying block size based on the dependence structure of the series.
 For this reason, we also tried implementing our algorithm using the
 plug-in approach for circular bootstrap block size introduced in
 \citet{politis2004automatic}. Results and a discussion of this
-additional simulation study are provided in Section~2
+additional simulation study are provided in Section~S-2
 in the Supplement. We also compared empirical performance for the
 block bootstrap KS test when using the $K_n(x)$ correction
 versus the $C_n(x)$. The $K_n(x)$ correction was used
@@ -605,13 +605,13 @@ process.
   \includegraphics[width = .9\textwidth]{figures/normal}
   \centering
   \caption{Q-Q plots of the p-values testing that a time series
-    have marginal normal distribution with true data generating distribution
+    have marginal Normal distribution with true data generating distribution
     being $N(8,8)$.}
   \label{fig:qq_n}
     \hspace{5cm}
   \includegraphics[width = .9\textwidth]{figures/gamma}
   \caption{Q-Q plots of the p-values testing that a time series
-    have marginal gamma distribution with true data
+    have marginal Gamma distribution with true data
     generating distribution $\Gamma(8,1)$.}
   \label{fig:qq_g}
 \end{figure}
@@ -635,11 +635,11 @@ a sample larger than
 $n = 200$ seems necessary for the p-values to be uniformly distributed. For
 $|\tau| \geq 0.75$, a sample larger than $n = 800$ appears to be
 necessary, as the p-values are not aligned with the line in any of the Q-Q
-plots. This is not necessarily a cause for concern, as (for normal margins)
+plots. This is not necessarily a cause for concern, as (for Normal margins)
 a Kendall's $\tau$ of 0.75 corresponds to a $\phi$ of 0.924, which is very high.
 Additionally, positive serial dependence appears to misalign the distribution
 of the p-values more so than negative serial dependences of the same strength.
-Results are very similar for normal and gamma margins.
+Results are very similar for Normal and Gamma margins.
 
 \begin{table}[tbp]
 \centering
@@ -722,8 +722,8 @@ The empirical rejection rates were obtained at a nominal significance level 0.05
   \caption{Empirical power curve as a function of $\tau$ for
     $n \in \{100, 200, 400, 800\}$ and true marginal distribution
     $\in \{N(8,8), \Gamma(8,1)\}$. When the data was generated from $N(8,8)$,
-    we tested for the gamma family. When the data was generated from
-    $\Gamma(8,1)$, we tested for the normal family.
+    we tested for the Gamma family. When the data was generated from
+    $\Gamma(8,1)$, we tested for the Normal family.
   }
   \label{fig:rr}
 \end{figure}
@@ -742,7 +742,7 @@ Using $n \geq 400$ seems to be good enough
 if $\tau < 0.5$, but using a $n \geq 800$ will result in
 rejection rates close to 1 for $-0.5 < \tau < 0.5$. 
 Results for $n \geq 400$
-do not appear to be to different when comparing gamma and normal
+do not appear to be to different when comparing Gamma and Normal
 margins, indicating that the method is robust to the marginal distribution.
 The rejection rates for $n = 800$ are very
 high (almost 1), indicating that under $H_A$, the test is very powerful
